@@ -3,80 +3,176 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Sunumlar ve animasyonlardan oluşan kişisel portföy." />
-    <title>Portföy | Sunumlar & Animasyonlar</title>
+    <meta name="description" content="Uğurcan'ın nöroloji eğitimine yönelik etkileşimli sunum ve medikal animasyon arşivi." />
+    <meta name="theme-color" content="#071018" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Uğurcan | Nöroloji Eğitim Materyalleri" />
+    <meta property="og:description" content="Klinik nörofizyoloji ve nöromüsküler hastalıklar için etkileşimli sunumlar ve medikal animasyonlar." />
+    <meta property="og:image" content="https://canathustra.github.io/clinical-neurology-portfolio/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Uğurcan | Nöroloji Eğitim Materyalleri" />
+    <meta name="twitter:description" content="Klinik nörofizyoloji ve nöromüsküler hastalıklar için etkileşimli sunumlar ve medikal animasyonlar." />
+    <meta name="twitter:image" content="https://canathustra.github.io/clinical-neurology-portfolio/og.png" />
+    <title>Uğurcan | Nöroloji Eğitim Materyalleri</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
+
     <header class="site-header">
-      <a class="logo" href="#top" aria-label="Ana sayfa">U.</a>
-      <button class="menu-button" aria-expanded="false" aria-controls="navigation">Menü</button>
-      <nav id="navigation" aria-label="Ana menü">
-        <a href="#projeler">Projeler</a>
-        <a href="#hakkimda">Hakkımda</a>
-        <a href="#iletisim">İletişim</a>
-      </nav>
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="Ana sayfa">
+          <span class="brand-mark" aria-hidden="true">UC</span>
+          <span class="brand-text"><strong>Uğurcan</strong><small>Nöroloji Eğitim Materyalleri</small></span>
+        </a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="navigation">Menü</button>
+        <nav id="navigation" aria-label="Ana menü">
+          <a href="#icerikler">İçerikler</a>
+          <a href="#hakkinda">Hakkında</a>
+          <a href="#egitim-notu">Eğitim notu</a>
+        </nav>
+      </div>
     </header>
 
-    <main id="top">
-      <section class="hero">
-        <p class="eyebrow">SUNUMLAR · ANİMASYONLAR · HİKÂYE ANLATIMI</p>
-        <h1>Fikirleri <em>harekete</em><br />geçiriyorum.</h1>
-        <p class="intro">Hazırladığım sunumları ve animasyonları burada bir araya getiriyorum.</p>
-        <a class="button" href="#projeler">Projeleri keşfet <span aria-hidden="true">↓</span></a>
-        <div class="hero-orb" aria-hidden="true"></div>
-      </section>
+    <main id="main-content">
+      <section id="top" class="hero">
+        <div class="container hero-layout">
+          <div class="hero-copy">
+            <p class="section-label">NÖROLOJİ EĞİTİM ARŞİVİ</p>
+            <h1>Klinik nörofizyoloji için görsel eğitim materyalleri</h1>
+            <p class="hero-summary">Sinir ileti çalışmaları, nöromüsküler hastalıklar ve refleks mekanizmalarına yönelik etkileşimli sunumlar ile medikal animasyonlar.</p>
+            <div class="hero-actions">
+              <a class="primary-link" href="#icerikler">İçerikleri görüntüle</a>
+              <a class="secondary-link" href="#hakkinda">Arşiv hakkında</a>
+            </div>
+          </div>
 
-      <section id="projeler" class="projects section">
-        <div class="section-heading">
-          <p class="eyebrow">SEÇİLMİŞ ÇALIŞMALAR</p>
-          <h2>Projeler</h2>
-          <p>Nöroloji eğitiminde kullandığım etkileşimli sunumlar ve animasyonlar.</p>
-        </div>
-        <div class="filters" aria-label="Proje filtreleri">
-          <button class="filter active" data-filter="all">Tümü</button>
-          <button class="filter" data-filter="sunum">Sunumlar</button>
-          <button class="filter" data-filter="animasyon">Animasyonlar</button>
-        </div>
-        <div class="project-grid">
-          <article class="project-card large" data-type="sunum">
-            <div class="cover cover-one"><span>01</span><strong>Strateji<br />Sunumu</strong></div>
-            <div class="project-info"><div><p>Etkileşimli sunum</p><h3>EMG/NCS artefaktları</h3></div><a href="projects/ncs-emg/animations/index.html" aria-label="EMG/NCS artefaktları sunumunu aç">↗</a></div>
-          </article>
-          <article class="project-card" data-type="animasyon">
-            <div class="cover cover-two"><span class="play">▶</span></div>
-            <div class="project-info"><div><p>Animasyon</p><h3>Kuantal deplesyon</h3></div><a href="projects/ach-animation/nmj-deplesyon.html" aria-label="Kuantal deplesyon animasyonunu aç">↗</a></div>
-          </article>
-          <article class="project-card" data-type="sunum">
-            <div class="cover cover-three"><span>FİKİRDEN<br />ETKİYE</span></div>
-            <div class="project-info"><div><p>Etkileşimli sunum</p><h3>GBS ve AIDP</h3></div><a href="projects/gbs-aidp/index.html" aria-label="GBS ve AIDP sunumunu aç">↗</a></div>
-          </article>
-          <article class="project-card wide" data-type="animasyon">
-            <div class="cover cover-four"><span class="play">▶</span><strong>Motion<br />Study</strong></div>
-            <div class="project-info"><div><p>Animasyon</p><h3>Nöromüsküler bileşke deplesyonu</h3></div><a href="projects/ach-animation/nmj-deplesyon.html" aria-label="Nöromüsküler bileşke deplesyonu animasyonunu aç">↗</a></div>
-          </article>
-          <article class="project-card" data-type="animasyon">
-            <div class="cover cover-five video-cover"><video muted loop playsinline preload="metadata" aria-label="Yeni animasyon önizlemesi"><source src="projects/yeni-video/ugurcan-animasyon.mp4" type="video/mp4" /></video><span class="play">▶</span></div>
-            <div class="project-info"><div><p>Animasyon · Yeni</p><h3>Blink refleksi mekanizması</h3></div><a href="projects/yeni-video/ugurcan-animasyon.mp4" target="_blank" rel="noopener" aria-label="Blink refleksi mekanizması videosunu aç">↗</a></div>
-          </article>
+          <aside class="archive-panel" aria-label="Arşiv özeti">
+            <div class="panel-heading">
+              <span>Arşiv özeti</span>
+              <span class="status"><i aria-hidden="true"></i>Eğitim amaçlı</span>
+            </div>
+            <dl>
+              <div><dt>4</dt><dd>yayınlanmış içerik</dd></div>
+              <div><dt>2</dt><dd>etkileşimli sunum</dd></div>
+              <div><dt>2</dt><dd>medikal animasyon</dd></div>
+            </dl>
+            <div class="signal" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p>İçerikler konu anlatımı ve tıp eğitimi için hazırlanmıştır.</p>
+          </aside>
         </div>
       </section>
 
-      <section id="hakkimda" class="about section">
-        <p class="eyebrow">HAKKIMDA</p>
-        <div><h2>Merhaba, ben <em>Uğurcan</em>.</h2><p>Nöroloji eğitimi için karmaşık konuları daha anlaşılır ve akılda kalıcı etkileşimli sunumlar ile animasyonlara dönüştürüyorum.</p></div>
+      <section id="icerikler" class="catalog section">
+        <div class="container">
+          <div class="section-intro">
+            <div>
+              <p class="section-label">İÇERİK KATALOĞU</p>
+              <h2>Sunumlar ve animasyonlar</h2>
+            </div>
+            <p>Her içerik, belirli bir nöroloji veya klinik nörofizyoloji konusunu görsel ve etkileşimli biçimde açıklamak üzere hazırlanmıştır.</p>
+          </div>
+
+          <div class="filters" aria-label="İçerik filtreleri">
+            <button class="filter active" type="button" data-filter="all">Tümü</button>
+            <button class="filter" type="button" data-filter="sunum">Etkileşimli sunumlar</button>
+            <button class="filter" type="button" data-filter="animasyon">Animasyonlar</button>
+          </div>
+
+          <div class="resource-grid">
+            <article class="resource-card" data-type="sunum">
+              <div class="resource-visual visual-ncs" aria-hidden="true">
+                <span class="visual-index">01</span>
+                <div class="wave-line"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <span class="visual-code">NCS / EMG</span>
+              </div>
+              <div class="resource-content">
+                <div class="resource-meta"><span>Etkileşimli sunum</span><span>Klinik nörofizyoloji</span></div>
+                <h3>Sinir İleti Çalışmalarında Teknik Artefaktlar</h3>
+                <p>Elektrot yerleşimi, uyarım, sıcaklık, filtre ayarları ve teknik hata kaynaklarını açıklayan etkileşimli modüller.</p>
+                <a href="projects/ncs-emg/animations/index.html">Sunumu aç <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+
+            <article class="resource-card" data-type="sunum">
+              <div class="resource-visual visual-gbs" aria-hidden="true">
+                <span class="visual-index">02</span>
+                <div class="nerve-path"><i></i><i></i><i></i><i></i></div>
+                <span class="visual-code">GBS / AIDP</span>
+              </div>
+              <div class="resource-content">
+                <div class="resource-meta"><span>Etkileşimli sunum</span><span>Nöromüsküler hastalıklar</span></div>
+                <h3>Guillain–Barré Sendromu ve AIDP</h3>
+                <p>Klinik seyir, varyantlar, BOS bulguları ve elektrodiagnostik değerlendirmeyi bir araya getiren eğitim sunumu.</p>
+                <a href="projects/gbs-aidp/index.html">Sunumu aç <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+
+            <article class="resource-card" data-type="animasyon">
+              <div class="resource-visual visual-nmj" aria-hidden="true">
+                <span class="visual-index">03</span>
+                <div class="synapse"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <span class="visual-code">NMJ</span>
+              </div>
+              <div class="resource-content">
+                <div class="resource-meta"><span>Medikal animasyon</span><span>Nöromüsküler bileşke</span></div>
+                <h3>Nöromüsküler Bileşkede Kuantal Deplesyon</h3>
+                <p>Tekrarlayan uyarım sırasında asetilkolin vezikül havuzundaki değişimi ve yanıt azalmasını gösteren animasyon.</p>
+                <a href="projects/ach-animation/nmj-deplesyon.html">Animasyonu aç <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+
+            <article class="resource-card" data-type="animasyon">
+              <div class="resource-visual video-visual">
+                <video muted playsinline preload="metadata" aria-label="Blink refleksi mekanizması video önizlemesi">
+                  <source src="projects/yeni-video/ugurcan-animasyon.mp4" type="video/mp4" />
+                </video>
+                <span class="visual-index">04</span>
+                <span class="video-play" aria-hidden="true">▶</span>
+                <span class="visual-code">BLINK REFLEKSİ</span>
+              </div>
+              <div class="resource-content">
+                <div class="resource-meta"><span>Medikal animasyon</span><span>Kranial refleksler</span></div>
+                <h3>Blink Refleksi Mekanizması</h3>
+                <p>Trigeminal afferent yol, beyin sapı ara bağlantıları ve fasiyal efferent yanıtın temel mekanizmasını gösteren video.</p>
+                <a href="projects/yeni-video/ugurcan-animasyon.mp4" target="_blank" rel="noopener">Videoyu aç <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+          </div>
+        </div>
       </section>
 
-      <section id="iletisim" class="contact section">
-        <p class="eyebrow">BİRLİKTE ÇALIŞALIM</p>
-        <h2>Bir fikrin mi var?<br /><a href="mailto:hello@example.com">Konuşalım. ↗</a></h2>
+      <section id="hakkinda" class="about section">
+        <div class="container about-layout">
+          <p class="section-label">HAKKINDA</p>
+          <div>
+            <h2>Kişisel nöroloji eğitim arşivi</h2>
+            <p>Ben Uğurcan. Bu sitede nöroloji eğitimine yönelik hazırladığım etkileşimli sunumları ve medikal animasyonları bir araya getiriyorum.</p>
+            <p>Materyaller; karmaşık fizyolojik mekanizmaları, klinik bulguları ve elektrodiagnostik ilkeleri daha anlaşılır biçimde aktarmayı amaçlar.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="egitim-notu" class="education-note">
+        <div class="container note-layout">
+          <strong>Eğitim notu</strong>
+          <p>Bu sitedeki içerikler yalnızca eğitim amaçlıdır. Klinik değerlendirme, tanı veya tedavi kararının yerine geçmez.</p>
+        </div>
       </section>
     </main>
 
-    <footer><span>© 2026 Uğurcan</span><span>İstanbul, Türkiye</span></footer>
+    <footer>
+      <div class="container footer-inner">
+        <div><strong>Uğurcan</strong><span>Nöroloji Eğitim Materyalleri</span></div>
+        <span>© 2026</span>
+      </div>
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
