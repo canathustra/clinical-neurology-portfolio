@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H refleksi ve A yanıtı mekanizması</title>
+<link rel="stylesheet" href="assets/ncs-lab.css">
+<style>
+.workspace{grid-template-columns:minmax(0,1fr) 355px}.scope-wrap{background:#f6f9fb!important}.scope-wrap:after{display:none}.controls{gap:10px}.control-label{white-space:nowrap}.side-body{gap:7px}.measure{padding:8px 10px}.measure span{font-size:13px}.measure b{font-size:13.5px}.note{font-size:13.5px}.micro{font-size:11.5px}.mode-h{border-left:5px solid #0f7a95}.mode-a{border-left:5px solid #c97a2a}
+</style>
+</head>
+<body>
+<main class="app">
+<div class="titlebar"><div class="tb-left"><span class="dot"></span>GBS / AIDP · Geç Yanıtların Fizyolojisi</div><div class="tb-right"><b>CLINICAL NCS</b>MECHANISM LAB</div></div>
+<div class="toolbar"><strong>H refleksi ve A yanıtı: iki farklı geç yanıtın fizyolojisi</strong><span class="badge" id="stateBadge">H REFLEKSİ</span></div>
+<div class="controls">
+ <div class="control"><span class="control-label">Mekanizma</span><div class="seg" id="modeSeg"><button class="active" data-mode="h">H refleksi</button><button data-mode="a">Akson refleksi (A)</button></div></div>
+ <div class="control"><span class="control-label">Uyarım durumu</span><div class="seg" id="stageSeg"><button class="active" data-stage="0">Düşük</button><button data-stage="1">Orta</button><button data-stage="2">Supramaksimal</button></div></div>
+ <button class="utility" id="playBtn" type="button">BAŞLAT</button><button class="utility" id="restartBtn" type="button">BAŞTAN</button>
+</div>
+<section class="workspace">
+ <div class="scope-panel"><div class="panel-head"><span id="sceneTitle">Ia afferent → spinal kord → alfa motor nöron</span><span id="phaseLabel">Ia afferent seçici uyarılıyor</span></div><div class="scope-wrap" id="scopeWrap"><canvas id="scope" aria-label="H refleksi ile A yanıtının sinir yollarını, çarpışmayı ve eşzamanlı dalga biçimlerini gösteren animasyon"></canvas></div></div>
+ <aside class="side"><div class="panel-head"><span>Mekanizmayı oku</span></div><div class="side-body">
+  <div class="measure"><span>Gerçek refleks?</span><b id="reflexOut">Evet</b></div>
+  <div class="measure"><span>Afferent yol</span><b id="afferentOut">Ia duyu lifi</b></div>
+  <div class="measure"><span>Santral geçiş</span><b id="synapseOut">1 spinal sinaps</b></div>
+  <div class="measure hot"><span>Geç yanıt</span><b id="lateOut">H yanıtı</b></div>
+  <div class="measure"><span>F mekanizması</span><b id="fOut">H devresinden farklı</b></div>
+  <div class="note mode-h" id="note"><b>Düşük uyarı:</b> Ia impulsu spinal korda gider; H impulsu ayrı motor aksondan kasa döner. Antidromik motor impuls yoktur; çarpışma olmaz.</div>
+  <div class="micro" id="signature"><b>Düşük uyarı:</b> Ia afferent ile H'nin motor dönüşü farklı aksonlardadır. Birbirlerini söndürmezler.</div>
+  <div class="micro"><b>Kaynak:</b> Preston &amp; Shapiro, 2020, Bölüm 4; Şekil 4.8, 4.11, 4.14 ve 4.15.</div>
+ </div></aside>
+</section>
+<nav class="bottom-bar"><a class="fkey" href="sinir-ileti-calismalari.html">F1<b>Önceki: İlk NCS Bulguları</b></a><a class="fkey" href="../index.html">F2<b>İçindekiler</b></a><a class="fkey" href="animasyon-erken-gec-yanitlar.html">F3<b>Sıradaki: H Refleksi Kayıtları</b></a></nav>
+</main>
+<script src="assets/h-a-mechanism-engine.js"></script>
+<script src="assets/deck-nav.js"></script>
+</body>
+</html>

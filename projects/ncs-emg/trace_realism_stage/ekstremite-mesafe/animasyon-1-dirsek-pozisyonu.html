@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ulnar Sinir — Dirsek Pozisyonu ve Mesafe</title>
+<style>
+:root{
+  --bg:#eef2f5;--paper:#fff;--ink:#14232d;--muted:#5e6d78;--line:#d5dde4;
+  --teal:#087f8c;--blue:#2f6fbd;--green:#2f8758;--amber:#d98a26;--red:#be3f4b;
+  --screen:#091821;--grid:#173341;--trace:#56d9df;--nerve:#f2bd42;
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0}
+body{display:grid;place-items:center;padding:12px;background:#cfd7dd;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+.app{width:min(calc(100vw - 24px),1536px);max-height:calc(100vh - 24px);aspect-ratio:16/9;display:grid;grid-template-rows:44px 54px 1fr 78px 56px;overflow:hidden;background:var(--paper);border:1px solid #c8d1d8;border-radius:7px;box-shadow:0 22px 60px #22323c38}
+.titlebar,.topicbar,.controls,.bottom-bar{display:flex;align-items:center}
+.titlebar{justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);background:#fff;font-size:15px;font-weight:650}
+.titlebar .left{display:flex;align-items:center;gap:10px}.status-dot{width:10px;height:10px;border-radius:50%;background:#2e9462;box-shadow:0 0 7px #2e946277}
+.brand{font-weight:900;letter-spacing:.16em;color:#76838d}.brand b{color:var(--teal)}
+.topicbar{justify-content:space-between;gap:18px;padding:0 18px;background:#edf2f6;border-bottom:1px solid var(--line)}
+.topic{display:flex;align-items:baseline;gap:12px;min-width:0}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.08em;color:#687681;text-transform:uppercase}.topic h1{margin:0;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chips{display:flex;gap:8px}.chip{padding:6px 10px;border:1px solid #cbd7df;border-radius:999px;background:#fff;color:#49616f;font-size:12px;font-weight:800}.chip.key{border-color:#b7dfe3;color:#08737e;background:#f2fbfc}
+.workspace{min-height:0;display:grid;grid-template-columns:1.03fr 1.02fr .95fr;gap:10px;padding:10px;background:var(--bg)}
+.card{min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line)}
+.card-head{height:43px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 13px;background:#f4f7f9;border-bottom:1px solid var(--line);font-size:12px;font-weight:900;letter-spacing:.065em;text-transform:uppercase;color:#50616d}
+.card-head .step{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;color:#fff;background:var(--teal);font-size:12px}
+.figure-body{position:relative;flex:1;min-height:0;padding:10px;background:#fafcfd;display:grid;place-items:center}
+.figure-stage{position:relative;width:100%;max-height:100%;aspect-ratio:940/350}
+.figure-image{width:100%;height:100%;object-fit:contain;display:block}
+.figure-focus{position:absolute;top:0;bottom:0;width:50%;border:4px solid var(--green);box-shadow:inset 0 0 0 999px #ffffff08,0 0 0 2px #fff8;pointer-events:none;transition:left .25s,opacity .25s}
+.figure-focus.left{left:0}.figure-focus.right{left:50%}
+.photo-labels{position:absolute;left:10px;right:10px;bottom:7px;display:flex;justify-content:space-between;pointer-events:none}
+.photo-label{padding:5px 9px;border-radius:4px;background:#0e1f28e8;color:#fff;font-size:12px;font-weight:900}.photo-label.active{background:var(--green)}
+.caption{min-height:46px;padding:8px 12px;border-top:1px solid var(--line);font-size:12px;line-height:1.35;color:#52616c}.caption b{color:var(--ink)}
+
+.mechanism{position:relative;flex:1;min-height:0;background:linear-gradient(#fff,#f8fafb)}
+#anatomy{width:100%;height:100%;display:block}
+.bone{stroke:#e9c5a7;stroke-width:34;stroke-linecap:round}.bone-inner{stroke:#f7dcc5;stroke-width:22;stroke-linecap:round}.joint{fill:#d99d76;stroke:#b87552;stroke-width:2}
+.skin-mark{fill:#bf3d49;stroke:#fff;stroke-width:3}.surface{fill:none;stroke:var(--green);stroke-width:4;stroke-linecap:round}.true-nerve{fill:none;stroke:var(--nerve);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 1px #6c4a0b88)}
+.leader{stroke:#7f8f99;stroke-width:1.4;stroke-dasharray:4 4}.svg-label{fill:#43535e;font-size:13px;font-weight:800}.svg-value{font-size:15px;font-weight:900}.flow-dot{fill:#fff;stroke:var(--nerve);stroke-width:4}
+.mini-legend{position:absolute;left:10px;right:10px;bottom:8px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding:6px 8px;border:1px solid #dbe2e7;background:#ffffffec;font-size:11px;font-weight:800;color:#566670}
+.legend-line{width:18px;height:3px;display:inline-block;vertical-align:middle;margin-right:5px}
+
+.right-body{flex:1;min-height:0;display:grid;grid-template-rows:1fr auto auto;background:#fff}
+.screen{position:relative;margin:10px 10px 7px;min-height:0;background:var(--screen);border:1px solid #253c48;border-radius:4px;overflow:hidden;box-shadow:inset 0 0 22px #0008}
+.screen:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 22px;opacity:.72}
+.screen-title{position:absolute;z-index:2;left:11px;right:11px;top:8px;display:flex;justify-content:space-between;color:#a9c5ce;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.screen svg{position:absolute;inset:25px 7px 7px;width:calc(100% - 14px);height:calc(100% - 32px)}
+.trace{fill:none;stroke:var(--trace);stroke-width:2.3;vector-effect:non-scaling-stroke}.cursor{stroke:#f3ce56;stroke-width:1.5;stroke-dasharray:4 3}.trace-label{fill:#b8d0d7;font-size:11px;font-weight:800}.lat-label{fill:#f3ce56;font-size:11px;font-weight:900}
+.formula{margin:0 10px 7px;padding:9px 10px;border:1px solid #cbd5dc;background:#f4f7f9;text-align:center;font-family:Consolas,"Courier New",monospace;font-size:15px;font-weight:800;color:#263b48}
+.formula .measured{color:var(--green)}.formula .fixed{color:#8a5b13}.formula .result{color:var(--red)}
+.readout{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 10px 10px}
+.metric{padding:7px 9px;background:#f4f7f9;border:1px solid #d8e0e6}.metric span{display:block;margin-bottom:2px;color:#6b7983;font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}.metric b{font-size:16px;font-variant-numeric:tabular-nums}.metric.wide{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px}.metric.wide span{margin:0}.verdict{font-size:13px!important;color:var(--red)}.verdict.mid{color:var(--amber)}.verdict.ok{color:var(--green)}
+
+.controls{gap:13px;padding:0 18px;border-top:1px solid var(--line);background:#f7f9fa}
+.control-label{min-width:125px}.control-label small{display:block;color:#687681;font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}.control-label b{font-size:16px}
+input[type=range]{flex:1;min-width:120px;accent-color:var(--teal)}
+.preset{height:36px;min-width:48px;padding:0 10px;border:1px solid #bfcbd3;background:#fff;color:#304550;font:800 12px "Segoe UI";cursor:pointer}.preset:hover,.preset.active{border-color:var(--teal);background:#e9f7f8;color:#066c76}
+.play{min-width:92px}.angle-read{min-width:58px;text-align:right;font-size:20px;font-weight:900;color:var(--teal);font-variant-numeric:tabular-nums}
+.bottom-bar{align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line)}
+.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:#e7edf3;color:var(--ink);text-decoration:none;font-size:13px;font-weight:800}.fkey span{color:var(--teal);font-size:15px}.fkey:hover,.fkey:focus-visible{background:#dce8f0;outline:none}
+@media(max-width:1050px){body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:auto auto auto auto 56px}.workspace{grid-template-columns:1fr}.card{min-height:420px}.chips{display:none}.controls{min-height:92px;flex-wrap:wrap}.preset{display:none}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="titlebar">
+    <div class="left"><span class="status-dot"></span><span>EDX Öğrenim İstasyonu — Bölüm 8</span></div>
+    <div class="brand"><b>EDX</b>&nbsp; SİM</div>
+  </header>
+  <section class="topicbar">
+    <div class="topic"><span class="eyebrow">Ekstremite pozisyonu</span><h1>Ulnar sinir: dirsekte ölçülen mesafe</h1></div>
+    <div class="chips"><span class="chip key">Tek değişken: fleksiyon açısı</span><span class="chip">Şekil 8.32 · 9 → 10 cm</span></div>
+  </section>
+
+  <section class="workspace">
+    <article class="card">
+      <div class="card-head"><span><span class="step">1</span></span><span>Kitaptaki anatomik gözlem</span><span>Şekil 8.32</span></div>
+      <div class="figure-body">
+        <div class="figure-stage">
+          <img class="figure-image" src="../figures/source-v3/fig_8_32_elbow_distance_clean.png" alt="Dirsek ekstansiyonunda 9 cm, fleksiyonda 10 cm ölçülen ulnar sinir segmenti">
+          <div id="figureFocus" class="figure-focus left"></div>
+          <div class="photo-labels"><span id="extPhoto" class="photo-label active">EKSTANSİYON · 9 cm</span><span id="flexPhoto" class="photo-label">FLEKSİYON · 10 cm</span></div>
+        </div>
+      </div>
+      <div id="figureCaption" class="caption"><b>Aynı cilt işaretleri.</b> Ekstansiyonda ulnar sinir gevşek ve fazladır; yüzeyden ölçülen 9 cm, gerçek sinir yolunu eksik temsil eder.</div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span><span class="step">2</span></span><span>Neden mesafe kısa ölçülür?</span><span id="positionBadge">0°</span></div>
+      <div class="mechanism">
+        <svg id="anatomy" viewBox="0 0 430 360" role="img" aria-label="Dirsek pozisyonu, yüzey mesafesi ve ulnar sinir yolu şeması">
+          <line class="bone" x1="210" y1="35" x2="210" y2="175"></line>
+          <line class="bone-inner" x1="210" y1="35" x2="210" y2="175"></line>
+          <line id="forearmBone" class="bone" x1="210" y1="175" x2="210" y2="325"></line>
+          <line id="forearmInner" class="bone-inner" x1="210" y1="175" x2="210" y2="325"></line>
+          <circle class="joint" cx="210" cy="175" r="23"></circle>
+          <path id="surfacePath" class="surface"></path>
+          <path id="nervePath" class="true-nerve"></path>
+          <circle id="proxMark" class="skin-mark" r="7"></circle>
+          <circle id="distMark" class="skin-mark" r="7"></circle>
+          <circle id="flowDot" class="flow-dot" r="5"></circle>
+          <line id="proxLead" class="leader"></line><line id="distLead" class="leader"></line>
+          <text id="proxText" class="svg-label">Dirsek üstü uyarım</text>
+          <text id="distText" class="svg-label">Dirsek altı uyarım</text>
+          <text id="surfaceText" class="svg-label svg-value" fill="#2f8758"></text>
+          <text id="nerveText" class="svg-label svg-value" fill="#9a6905">Gerçek sinir yolu: 10.0 cm</text>
+        </svg>
+        <div class="mini-legend">
+          <span><i class="legend-line" style="background:var(--green)"></i>yüzeyden ölçülen</span>
+          <span><i class="legend-line" style="background:var(--nerve)"></i>gerçek ulnar sinir yolu</span>
+          <span>kırmızı noktalar: aynı uyarım yerleri</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span><span class="step">3</span></span><span>Aynı latans farkı, farklı hesap</span><span>Δt sabit</span></div>
+      <div class="right-body">
+        <div class="screen">
+          <div class="screen-title"><span>CMAP · ADM</span><span>5 ms/div · 5 mV/div</span></div>
+          <svg viewBox="0 0 360 220" preserveAspectRatio="none" aria-label="Sabit latans farkını gösteren iki CMAP izi">
+            <text class="trace-label" x="8" y="36">Dirsek altı</text>
+            <path class="trace" d="M70 39 L115 39 C120 39 121 27 125 15 C130 3 136 66 143 72 C150 76 155 27 162 32 C170 38 178 39 202 39 L348 39"></path>
+            <text class="trace-label" x="8" y="132">Dirsek üstü</text>
+            <path class="trace" d="M70 135 L151 135 C156 135 157 123 161 111 C166 99 172 162 179 168 C186 172 191 123 198 128 C206 134 214 135 238 135 L348 135"></path>
+            <line class="cursor" x1="116" y1="10" x2="116" y2="194"></line>
+            <line class="cursor" x1="152" y1="10" x2="152" y2="194"></line>
+            <path class="cursor" d="M116 202 H152"></path>
+            <text class="lat-label" x="125" y="217">2.00 ms</text>
+          </svg>
+        </div>
+        <div class="formula"><span class="measured" id="formulaDistance">0.090 m</span> ÷ <span class="fixed">0.00200 s</span> = <span class="result" id="formulaCv">45.0 m/s</span></div>
+        <div class="readout">
+          <div class="metric"><span>Yüzey mesafesi</span><b id="distanceOut">9.0 cm</b></div>
+          <div class="metric"><span>Δ latans — sabit</span><b>2.00 ms</b></div>
+          <div class="metric"><span>Hesaplanan İH</span><b id="cvOut">45.0 m/s</b></div>
+          <div class="metric"><span>Gerçek İH — sabit</span><b>50.0 m/s</b></div>
+          <div class="metric wide"><span>Teknik sonuç</span><b id="verdict" class="verdict">YAPAY YAVAŞLAMA · −10%</b></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="controls" aria-label="Dirsek fleksiyon kontrolü">
+    <div class="control-label"><small>Dirsek fleksiyonu</small><b id="positionText">Tam ekstansiyon</b></div>
+    <input id="angleSlider" type="range" min="0" max="90" step="1" value="0" aria-label="Dirsek fleksiyon açısı">
+    <div id="angleRead" class="angle-read">0°</div>
+    <button class="preset active" data-angle="0">0°</button>
+    <button class="preset" data-angle="70">70°</button>
+    <button class="preset" data-angle="90">90°</button>
+    <button id="playButton" class="preset play">▶ Karşılaştır</button>
+  </section>
+
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="index.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="diger-sinirler-caliper.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const TRUE_DISTANCE_CM=10;
+const DELTA_LATENCY_MS=2.00;
+const TRUE_CV=50;
+const slider=document.getElementById("angleSlider");
+const angleRead=document.getElementById("angleRead");
+const positionText=document.getElementById("positionText");
+const positionBadge=document.getElementById("positionBadge");
+const distanceOut=document.getElementById("distanceOut");
+const cvOut=document.getElementById("cvOut");
+const formulaDistance=document.getElementById("formulaDistance");
+const formulaCv=document.getElementById("formulaCv");
+const verdict=document.getElementById("verdict");
+const figureFocus=document.getElementById("figureFocus");
+const extPhoto=document.getElementById("extPhoto");
+const flexPhoto=document.getElementById("flexPhoto");
+const figureCaption=document.getElementById("figureCaption");
+const forearmBone=document.getElementById("forearmBone");
+const forearmInner=document.getElementById("forearmInner");
+const surfacePath=document.getElementById("surfacePath");
+const nervePath=document.getElementById("nervePath");
+const proxMark=document.getElementById("proxMark");
+const distMark=document.getElementById("distMark");
+const proxLead=document.getElementById("proxLead");
+const distLead=document.getElementById("distLead");
+const proxText=document.getElementById("proxText");
+const distText=document.getElementById("distText");
+const surfaceText=document.getElementById("surfaceText");
+const nerveText=document.getElementById("nerveText");
+const flowDot=document.getElementById("flowDot");
+const playButton=document.getElementById("playButton");
+let angle=0,playing=false,raf=0,flowPhase=0;
+
+function measuredDistance(a){return 9+a/90}
+function pointOnPolyline(points,t){
+  if(points.length<2)return points[0]||{x:0,y:0};
+  const lengths=[];let total=0;
+  for(let i=1;i<points.length;i++){const d=Math.hypot(points[i].x-points[i-1].x,points[i].y-points[i-1].y);lengths.push(d);total+=d}
+  let target=t*total;
+  for(let i=0;i<lengths.length;i++){if(target<=lengths[i]){const q=target/lengths[i];return{x:points[i].x+(points[i+1].x-points[i].x)*q,y:points[i].y+(points[i+1].y-points[i].y)*q}}target-=lengths[i]}
+  return points[points.length-1];
+}
+function setLine(el,x1,y1,x2,y2){el.setAttribute("x1",x1);el.setAttribute("y1",y1);el.setAttribute("x2",x2);el.setAttribute("y2",y2)}
+function setCircle(el,p){el.setAttribute("cx",p.x);el.setAttribute("cy",p.y)}
+function drawAnatomy(){
+  const rad=angle*Math.PI/180,elbow={x:210,y:175},L=150;
+  const end={x:elbow.x+Math.sin(rad)*L,y:elbow.y+Math.cos(rad)*L};
+  setLine(forearmBone,elbow.x,elbow.y,end.x,end.y);setLine(forearmInner,elbow.x,elbow.y,end.x,end.y);
+  const prox={x:210,y:101};
+  const dist={x:elbow.x+Math.sin(rad)*78,y:elbow.y+Math.cos(rad)*78};
+  setCircle(proxMark,prox);setCircle(distMark,dist);
+  const side={x:Math.cos(rad),y:-Math.sin(rad)};
+  const surfaceCtrl={x:elbow.x+31+side.x*8,y:elbow.y-side.y*8};
+  surfacePath.setAttribute("d",`M ${prox.x} ${prox.y} Q ${surfaceCtrl.x} ${surfaceCtrl.y} ${dist.x} ${dist.y}`);
+  const slack=1-angle/90;
+  const points=[];const N=34;
+  for(let i=0;i<=N;i++){
+    const t=i/N;
+    const qx=(1-t)*(1-t)*prox.x+2*(1-t)*t*(elbow.x-10)+t*t*dist.x;
+    const qy=(1-t)*(1-t)*prox.y+2*(1-t)*t*(elbow.y+3)+t*t*dist.y;
+    const envelope=Math.sin(Math.PI*t);
+    const wiggle=Math.sin(t*Math.PI*3)*4.5*slack*envelope;
+    points.push({x:qx-wiggle,y:qy+wiggle*.18});
+  }
+  nervePath.setAttribute("d","M "+points.map(p=>`${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(" L "));
+  const fp=pointOnPolyline(points,flowPhase);setCircle(flowDot,fp);
+  setLine(proxLead,prox.x-6,prox.y,112,80);proxText.setAttribute("x",20);proxText.setAttribute("y",77);
+  setLine(distLead,dist.x+6,dist.y,330,305);distText.setAttribute("x",278);distText.setAttribute("y",326);
+  surfaceText.setAttribute("x",270);surfaceText.setAttribute("y",82);surfaceText.textContent=`Yüzey ölçümü: ${measuredDistance(angle).toFixed(1)} cm`;
+  nerveText.setAttribute("x",18);nerveText.setAttribute("y",344);
+}
+function update(a){
+  angle=Math.max(0,Math.min(90,Number(a)));
+  slider.value=angle;angleRead.textContent=`${Math.round(angle)}°`;positionBadge.textContent=`${Math.round(angle)}°`;
+  const d=measuredDistance(angle),cv=d*10/DELTA_LATENCY_MS,error=(cv/TRUE_CV-1)*100;
+  distanceOut.textContent=`${d.toFixed(1)} cm`;cvOut.textContent=`${cv.toFixed(1)} m/s`;
+  formulaDistance.textContent=`${(d/100).toFixed(3)} m`;formulaCv.textContent=`${cv.toFixed(1)} m/s`;
+  const accurate=angle>=85,intermediate=angle>=10&&angle<85;
+  verdict.textContent=accurate?"GEÇERLİ ÖLÇÜM · ≈ 0%":intermediate?`ÖLÇÜM HATASI AZALIYOR · ${Math.round(error)}%`:`YAPAY YAVAŞLAMA · ${Math.round(error)}%`;
+  verdict.className=accurate?"verdict ok":intermediate?"verdict mid":"verdict";
+  formulaCv.style.color=accurate?"var(--green)":"var(--red)";
+  positionText.textContent=angle<10?"Tam ekstansiyon":angle>84?"Tam fleksiyon":`${Math.round(angle)}° fleksiyon`;
+  const flexSide=angle>=45;figureFocus.className=`figure-focus ${flexSide?"right":"left"}`;
+  extPhoto.classList.toggle("active",!flexSide);flexPhoto.classList.toggle("active",flexSide);
+  figureCaption.innerHTML=flexSide
+    ?`<b>Aynı cilt işaretleri.</b> Fleksiyon arttıkça yüzey mesafesi ${d.toFixed(1)} cm olur; 10 cm'lik gerçek sinir yoluna yaklaşır.`
+    :"<b>Aynı cilt işaretleri.</b> Ekstansiyonda ulnar sinir gevşek ve fazladır; yüzeyden ölçülen 9 cm, gerçek sinir yolunu eksik temsil eder.";
+  document.querySelectorAll(".preset[data-angle]").forEach(b=>b.classList.toggle("active",Math.abs(Number(b.dataset.angle)-angle)<2));
+  drawAnatomy();
+  window.__ulnarElbowDistanceState={angleDeg:angle,measuredDistanceCm:d,trueDistanceCm:TRUE_DISTANCE_CM,deltaLatencyMs:DELTA_LATENCY_MS,calculatedCvMps:cv,trueCvMps:TRUE_CV,percentError:error,playing};
+}
+slider.addEventListener("input",e=>{playing=false;cancelAnimationFrame(raf);playButton.textContent="▶ Karşılaştır";update(e.target.value)});
+document.querySelectorAll(".preset[data-angle]").forEach(b=>b.addEventListener("click",()=>{playing=false;cancelAnimationFrame(raf);playButton.textContent="▶ Karşılaştır";update(b.dataset.angle)}));
+playButton.addEventListener("click",()=>{
+  if(playing){playing=false;cancelAnimationFrame(raf);playButton.textContent="▶ Karşılaştır";update(angle);return}
+  playing=true;playButton.textContent="■ Durdur";const start=performance.now();const from=angle>=85?0:angle;
+  function tick(now){if(!playing)return;const p=Math.min(1,(now-start)/2100);update(from+(90-from)*(p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2));if(p<1)raf=requestAnimationFrame(tick);else{playing=false;playButton.textContent="↺ Tekrar";update(90)}}
+  raf=requestAnimationFrame(tick);
+});
+function flow(){flowPhase=(flowPhase+.0025)%1;drawAnatomy();requestAnimationFrame(flow)}
+const initial=Number(new URLSearchParams(location.search).get("angle")||0);update(initial);flow();
+document.addEventListener("keydown",e=>{
+  if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;
+  const k=e.key.toUpperCase();
+  const a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;
+  if(a){e.preventDefault();location.href=a.href}
+});
+</script>
+</body>
+</html>

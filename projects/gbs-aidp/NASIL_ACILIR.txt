@@ -1,0 +1,29 @@
+GBS / AIDP SUNUMU — İZLEYİCİ KILAVUZU
+========================================
+
+Sunumu açmak için:
+
+1. ZIP dosyasını bilgisayarınızda bir klasöre çıkarın.
+2. Çıkarılan klasördeki index.html dosyasına çift tıklayın.
+3. Sunum Chrome, Edge, Firefox veya Safari tarayıcısında açılır.
+
+İnternet bağlantısı, kurulum veya özel bir program gerekmez.
+
+GEZİNME
+-------
+
+- Ekranın altındaki Önceki / İçindekiler / Sıradaki düğmelerini kullanabilirsiniz.
+- Sol ok veya Page Up: önceki slayt
+- Sağ ok veya Page Down: sonraki slayt
+- Home: içindekiler
+- F veya F4: tam ekranı aç / kapat
+
+Mac bilgisayarlarda işlev tuşları için Fn tuşuna basmanız gerekebilir.
+Ok tuşları ve ekrandaki düğmeler her zaman kullanılabilir.
+
+ÖNEMLİ
+------
+
+- Sunumu ZIP dosyasının içinden doğrudan açmayın; önce klasöre çıkarın.
+- index.html dosyası ile gbs klasörünü birbirinden ayırmayın.
+- Sunum tamamen çevrimdışı çalışır.

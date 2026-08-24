@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yaş — Sural SNAP Genliği</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;font-variant-numeric:tabular-nums;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.badge{display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border-radius:999px;background:#e6f7ec;color:var(--green);border:1px solid #c8e8d3;font-size:13px;font-weight:700;text-transform:none;letter-spacing:0;}
+.badge.warn{background:#fbe6e7;color:var(--red);border-color:#f3ccce;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:14px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:15px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:17px;font-variant-numeric:tabular-nums;}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14.5px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;align-items:center;gap:18px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+.slider-row span{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+input[type="range"]{flex:1;max-width:520px;accent-color:var(--cyan);}
+.age-readout{font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:70px;text-align:right;}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Yaş</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">2 / 3 — Sural SNAP Genliği</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>Sural SNAP Genliği — Yaşa Göre Değişim</span><span class="badge" id="stateBadge">30 yaş</span></div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Okuma</span></div>
+<div class="side-body">
+<div class="stat-row"><span>Yaş</span><b id="ageOut">30</b></div>
+<div class="stat-row"><span>Sural SNAP genliği</span><b id="snapOut">100%</b></div>
+<div class="note-box" id="mechNote">Kaydırıcıyla yaşı değiştirin.</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="slider-row">
+<span>20 yaş</span>
+<input id="ageSlider" type="range" min="20" max="90" step="1" value="30" aria-label="Yaş">
+<span>90 yaş</span>
+</div>
+<div class="age-readout" id="ageReadout">30 yaş</div>
+</footer>
+
+<div class="bottom-bar">
+<a class="fkey" href="amplitud-yas-etkisi.html">F1<b>Önceki: Amplitüdlerde Yaş Etkisi</b></a>
+<a class="fkey" href="../index.html">F2<b>İçindekiler</b></a>
+<a class="fkey" href="muap-suresi-ve-gec-yanit.html">F3<b>Sıradaki: MUAP Süresi ve Geç Yanıtlar</b></a>
+</div>
+
+</div>
+
+<script>
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const stateBadge=document.getElementById("stateBadge");
+const ageOut=document.getElementById("ageOut");
+const snapOut=document.getElementById("snapOut");
+const mechNote=document.getElementById("mechNote");
+const ageSlider=document.getElementById("ageSlider");
+const ageReadout=document.getElementById("ageReadout");
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(220,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(()=>{resizeCanvas();draw();}).observe(stageWrap);
+resizeCanvas();
+
+// Illustrative composite model from the chapter text (not a single-study lookup table):
+// Sural SNAP amplitude stays near 100% through young/middle adulthood, then declines
+// substantially after ~40-50y, reaching roughly 50% by age 70, continuing to fall afterward.
+function snapPct(age){
+  if(age<=40) return 100;
+  if(age<=70) return 100-50*((age-40)/30);
+  return Math.max(20,50-30*((age-70)/20));
+}
+
+let curAge=30;
+
+function updateStatics(){
+  const snap=snapPct(curAge);
+  ageOut.textContent=`${curAge}`;
+  snapOut.textContent=`${snap.toFixed(0)}%`;
+  ageReadout.textContent=`${curAge} yaş`;
+  stateBadge.textContent=`${curAge} yaş`;
+  stateBadge.classList.toggle("warn", snap<40);
+
+  if(curAge>=70){
+    mechNote.innerHTML=`<b>İleri yaş:</b> Sural SNAP genliği bu modelde ~%${snap.toFixed(0)}'e düşer. Elde edilemeyen veya çok düşük yanıt, <b>destekleyici bulgu olmadan</b> tek başına anormal sayılmamalı.`;
+  } else if(curAge>=50){
+    mechNote.innerHTML=`<b>Yaşlanma süreci:</b> SNAP genliği belirgin şekilde azalmaya başlar.`;
+  } else {
+    mechNote.innerHTML=`Genç/orta yaş erişkinlik — genlik <b>referans düzeyinde</b>.`;
+  }
+}
+
+function draw(){
+  const W=cssW,H=cssH;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fcfdfe"; ctx.fillRect(0,0,W,H);
+
+  const left=W*0.08, right=W*0.97, top=H*0.1, bottom=H*0.82;
+  const ageToX=age=>left+(right-left)*((age-20)/70);
+  const valToY=v=>bottom-(bottom-top)*(v/100);
+
+  ctx.fillStyle="#fbe6e7"; ctx.fillRect(left,valToY(30),right-left,valToY(0)-valToY(30));
+
+  ctx.strokeStyle="#e7edf1"; ctx.lineWidth=1;
+  [20,30,40,50,60,70,80,90].forEach(age=>{ const x=ageToX(age); ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke(); });
+  [0,25,50,75,100].forEach(v=>{ const y=valToY(v); ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(right,y);ctx.stroke(); });
+
+  ctx.strokeStyle="#8a97a3"; ctx.lineWidth=1.4;
+  ctx.beginPath(); ctx.moveTo(left,bottom); ctx.lineTo(right,bottom); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(left,top); ctx.lineTo(left,bottom); ctx.stroke();
+
+  ctx.fillStyle="#45525c"; ctx.font="700 "+Math.max(9,W*0.013)+"px Inter, sans-serif";
+  ctx.textAlign="center";
+  [20,30,40,50,60,70,80,90].forEach(age=>{ ctx.fillText(`${age}`,ageToX(age),bottom+16); });
+  ctx.textAlign="right";
+  [0,25,50,75,100].forEach(v=>{ ctx.fillText(`${v}%`,left-6,valToY(v)+4); });
+  ctx.textAlign="left";
+  ctx.fillStyle="#5c6b78"; ctx.font="700 "+Math.max(10,W*0.0115)+"px Inter, sans-serif";
+  ctx.fillText("Yaş",right-24,bottom+34);
+  ctx.save(); ctx.translate(left-38,top+6); ctx.rotate(-Math.PI/2);
+  ctx.fillText("SNAP Genliği (%)",0,0); ctx.restore();
+
+  ctx.fillStyle="#8a5a2a"; ctx.font="700 "+Math.max(10,W*0.0115)+"px Inter, sans-serif";
+  ctx.fillText("~70 yaş: ~%50 düşüş",ageToX(45),valToY(78));
+  ctx.fillStyle="#b43b47";
+  ctx.fillText("Tek başına yorumlanamaz",ageToX(45),valToY(22));
+
+  ctx.strokeStyle="#2f7d52"; ctx.lineWidth=3;
+  ctx.beginPath(); let started=false;
+  for(let age=20;age<=90;age+=0.5){
+    const x=ageToX(age), y=valToY(snapPct(age));
+    if(!started){ctx.moveTo(x,y);started=true;} else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  const curX=ageToX(curAge), curY=valToY(snapPct(curAge));
+  ctx.strokeStyle="rgba(224,161,94,.85)"; ctx.lineWidth=2; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(curX,top); ctx.lineTo(curX,bottom); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle="#e0a15e";
+  ctx.beginPath(); ctx.arc(curX,curY,5.5,0,Math.PI*2); ctx.fill();
+  ctx.strokeStyle="#16232c"; ctx.lineWidth=1.2; ctx.stroke();
+}
+
+function setAge(v){
+  curAge=Math.max(20,Math.min(90,Math.round(Number(v))));
+  ageSlider.value=curAge;
+  updateStatics(); draw();
+}
+ageSlider.addEventListener("input",e=>{ setAge(e.target.value); });
+
+setAge(30);
+</script>
+</body>
+</html>

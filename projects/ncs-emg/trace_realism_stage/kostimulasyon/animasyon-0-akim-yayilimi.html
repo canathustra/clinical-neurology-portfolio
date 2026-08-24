@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Akım Komşu Sinire Taşınca BKAP Hedefe Özgü Olmaktan Çıkar</title>
+<style>
+:root{--paper:#f7f8f9;--panel:#fff;--head:#e7edf3;--line:#d5dde4;--ink:#15232d;--muted:#60707d;--teal:#0f7a95;--cyan:#36c9d7;--green:#5eea8d;--amber:#ffc857;--red:#eb5a65;--blue:#64a7ff;--scope:#06140f;--grid:#143326}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;background:#fff;color:var(--ink);font-family:"Segoe UI",Inter,Arial,sans-serif}body{display:grid;place-items:center;padding:12px}
+.app{width:min(calc(100vw - 24px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 24px);background:var(--paper);border:1px solid #c8d1d9;box-shadow:0 18px 48px #23313b24;display:grid;grid-template-rows:42px 48px 1fr 70px 56px;overflow:hidden}
+.titlebar,.toolbar{display:flex;align-items:center;padding:0 18px;border-bottom:1px solid var(--line)}.titlebar{justify-content:space-between;background:linear-gradient(#fff,#f0f3f5);font-size:14px;color:#43515c}.session{display:flex;align-items:center;gap:9px;font-weight:700}.dot{width:9px;height:9px;border-radius:50%;background:#2f7d52;box-shadow:0 0 7px #2f7d5270}.brand{font-weight:900;letter-spacing:.12em;color:#73808b}.brand b{color:var(--teal)}
+.toolbar{gap:20px;background:var(--head)}.label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:900}.toolbar strong{font-size:15px}.mode{margin-left:auto;color:var(--teal);font-weight:900}
+.workspace{min-height:0;padding:10px;display:grid;grid-template-columns:minmax(0,1fr) 326px;gap:10px}.panel{background:#fff;border:1px solid var(--line);min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column}.panel-head{height:39px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 13px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:#4a5964}
+.state{padding:4px 10px;border-radius:999px;background:#e6f7ec;color:#28744a;border:1px solid #c8e8d3;text-transform:none;letter-spacing:0}.state.risk{background:#fff4d9;color:#8b5c00;border-color:#ead39a}.state.costim{background:#fde8ea;color:#a6313d;border-color:#f0c3c8}
+.lab{flex:1;min-height:0;display:grid;grid-template-rows:34% 66%}.anatomy{position:relative;min-height:0;background:#101d24;border-bottom:4px solid #d5dde4}.scope{position:relative;min-height:0;background:var(--scope)}#anatomyCanvas,#scopeCanvas{position:absolute;inset:0;width:100%;height:100%}
+.scope-legend{position:absolute;right:12px;top:8px;display:flex;gap:12px;padding:5px 8px;background:#06140fdb;border:1px solid #2b493a;color:#b8c8bf;font-size:11px;font-weight:800}.key{display:inline-flex;align-items:center;gap:5px}.sw{width:18px;height:3px;background:var(--green)}.sw.neighbor{background:var(--cyan)}
+.model-tag{position:absolute;left:12px;bottom:8px;padding:5px 8px;background:#071118e8;border:1px solid #4c626f;color:#d9e7ec;font:800 10px Consolas,monospace}.model-tag b{color:var(--cyan)}
+.side-body{padding:9px;display:grid;gap:6px;align-content:start;overflow:auto}.invariant{display:grid;grid-template-columns:1fr auto;gap:4px 9px;padding:7px 9px;border:1px solid #d6e2ea;background:#f2f7fa}.invariant span{font-size:10px;color:var(--muted);font-weight:800}.invariant b{font-size:10px;color:#256744}
+.readout{display:grid;grid-template-columns:1fr auto;padding:6px 9px;border:1px solid var(--line);font-size:10.5px}.readout span{color:var(--muted);font-weight:800}.readout b{font-variant-numeric:tabular-nums}.readout.risk{background:#fff4d9;border-color:#ead39a}.readout.costim{background:#fde8ea;border-color:#f0c3c8}.readout.costim b{color:#a6313d}
+.lesson{padding:7px 9px;border-left:4px solid var(--teal);background:#edf6f8;font-size:10.5px;line-height:1.31;font-weight:650}.lesson b{color:var(--teal)}.source{height:138px;border:1px solid var(--line);background:#fff;display:grid;grid-template-columns:112px 1fr;overflow:hidden}.source img{width:100%;height:100%;object-fit:contain;border-right:1px solid var(--line)}.source div{padding:6px;font-size:9.5px;line-height:1.22;color:var(--muted)}.source b{display:block;color:var(--ink);margin-bottom:3px}.source a{color:var(--teal);text-decoration:none;font-weight:800}.caveat{font-size:9px;line-height:1.25;color:#6e4b23;padding:5px 7px;background:#fff7e7;border-left:3px solid var(--amber)}
+.controls{display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;background:#fff;border-top:1px solid var(--line)}button{appearance:none;border:1px solid #b8c5cf;background:#f2f5f7;color:var(--ink);font:800 12px "Segoe UI",sans-serif;padding:9px 13px;cursor:pointer;border-radius:3px}button:hover,button:focus-visible{background:#e2edf2;outline:2px solid #8ac4d1;outline-offset:1px}button.active{background:#dceef2;border-color:#62aaba;color:#0b6075}.stim{margin-left:18px;background:#172b24;color:#dfffea;border-color:#315a48}.stim:hover{background:#234436}.control-label{font-size:10px;color:var(--muted);font-weight:900;margin-right:4px;letter-spacing:.05em}
+.bottom-bar{height:56px;display:flex!important;align-items:stretch!important;gap:1px!important;background:#d5dde4!important;border-top:1px solid #d5dde4!important}.bottom-bar .fkey{flex:1!important;background:#e7edf3!important;color:#16232c!important;text-decoration:none!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;padding:0 12px!important;font:800 13px/1 "Segoe UI",Arial,sans-serif!important}.bottom-bar .fkey span{color:#0f7a95!important;font-size:15px!important}.bottom-bar .fkey b{color:#16232c!important;font-size:13px!important}.bottom-bar .fkey:hover,.bottom-bar .fkey:focus-visible{background:#dce8f0!important;outline:none!important}
+@media(max-width:980px){body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;grid-template-rows:42px auto minmax(760px,1fr) auto 56px}.toolbar{padding:8px 12px;flex-wrap:wrap}.workspace{grid-template-columns:1fr}.source{height:160px}.controls{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<main class="app">
+  <div class="titlebar"><div class="session"><span class="dot"></span>EDX Öğrenim İstasyonu — Bölüm 8</div><div class="brand"><b>EDX</b>SİM</div></div>
+  <div class="toolbar"><span class="label">Konu</span><strong>Komşu sinir ko-stimülasyonu</strong><span class="label">Tek değişken</span><strong>Uyarım akımı · 0,2 ms sabit</strong><span class="mode">SERBEST LABORATUVAR</span></div>
+  <section class="workspace">
+    <div class="panel">
+      <div class="panel-head"><span>Ulnar motor · FDI kaydı · bilek ve dirsek-altı uyarımı</span><span id="stateBadge" class="state">Bilek uyarımı seçici</span></div>
+      <div class="lab">
+        <div class="anatomy" id="anatomy"><canvas id="anatomyCanvas"></canvas><div class="model-tag"><b>MODEL:</b> aynı ulnar sinir · aynı FDI kaydı · iki uyarım yeri</div></div>
+        <div class="scope" id="scope"><canvas id="scopeCanvas"></canvas><div class="scope-legend"><span class="key"><i class="sw"></i>Bilek · FDI</span><span class="key"><i class="sw neighbor"></i>Dirsek altı · FDI</span></div></div>
+      </div>
+    </div>
+    <aside class="panel">
+      <div class="panel-head"><span>Ko-stimülasyon işaretleri</span></div>
+      <div class="side-body">
+        <div class="invariant"><span>Kayıt</span><b>FDI · G1 SABİT</b><span>Dirsek-altı uyarım</span><b>37 mA · SABİT</b><span>Dirsek-altı BKAP</span><b>7,5 mV · SABİT</b></div>
+        <div id="currentRow" class="readout"><span>Bilek uyarım akımı</span><b id="currentOut">37 mA</b></div>
+        <div id="medianRow" class="readout"><span>Distal median ko-stimülasyonu</span><b id="medianOut">%0</b></div>
+        <div id="fdiRow" class="readout"><span>Bilek FDI amplitüdü</span><b id="fdiOut">7,5 mV</b></div>
+        <div id="morphRow" class="readout"><span>Bilek–dirsek altı farkı</span><b id="morphOut">0,0 mV</b></div>
+        <div id="twitchRow" class="readout"><span>Gözlenen twitch</span><b id="twitchOut">YALNIZ ULNAR</b></div>
+        <div class="lesson" id="lesson"><b>37 mA:</b> Ulnar sinir supramaksimal; median komşu kanal sessiz ve FDI morfolojisi kararlı.</div>
+        <div class="source"><img src="../figures/source-v3/fig_8_19_costimulation_full.png" alt="Şekil 8.19 ulnar motor ko-stimülasyon"><div><b>Şekil 8.19 · gerçek kayıt</b>Bilekte 87 mA ile 10,4 mV; dirsek altında 37 mA ile 7,5 mV. Kitap, yüksek distal akımın ulnar ve median sinirleri birlikte uyardığını belirtir.<br><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11131082/" target="_blank" rel="noreferrer">Güncel CMAP incelemesi</a></div></div>
+        <div class="caveat"><b>Sınır:</b> “50 mA” evrensel eşik değildir; anatomi, stimülatör konumu, pulse süresi ve impedansa bağlıdır. Ani morfoloji değişimi + komşu twitch/kanal yanıtı daha değerlidir.</div>
+      </div>
+    </aside>
+  </section>
+  <div class="controls"><span class="control-label">BİLEK AKIM BASAMAĞI</span><button id="lowBtn" class="active">37 mA · seçici</button><button id="riskBtn">50 mA · ko-stimülasyon riski</button><button id="highBtn">87 mA · Şekil 8.19</button><button id="stimBtn" class="stim">Uyarıları göster</button></div>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi"><a class="fkey" href="index.html"><span>F1</span><b>Önceki</b></a><a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a><a class="fkey" href="hata-oruntuleri.html"><span>F3</span><b>Sonraki</b></a></nav>
+</main>
+<script>
+const DATA={
+ low:{key:"selective",current:37,field:46,medianActivation:0,fdiAmp:7.5,morphology:"stable",twitch:"ulnar_only"},
+ risk:{key:"risk_boundary",current:50,field:62,medianActivation:12,fdiAmp:7.7,morphology:"watch",twitch:"ulnar_only"},
+ high:{key:"costimulation",current:87,field:92,medianActivation:100,fdiAmp:10.4,morphology:"changed",twitch:"ulnar_plus_median"}
+};
+const anatomy=document.getElementById("anatomyCanvas"),ac=anatomy.getContext("2d"),anatomyWrap=document.getElementById("anatomy");
+const scope=document.getElementById("scopeCanvas"),sc=scope.getContext("2d"),scopeWrap=document.getElementById("scope");
+const lowBtn=document.getElementById("lowBtn"),riskBtn=document.getElementById("riskBtn"),highBtn=document.getElementById("highBtn"),buttons=[lowBtn,riskBtn,highBtn];
+const badge=document.getElementById("stateBadge"),currentOut=document.getElementById("currentOut"),medianOut=document.getElementById("medianOut"),fdiOut=document.getElementById("fdiOut"),morphOut=document.getElementById("morphOut"),twitchOut=document.getElementById("twitchOut"),lesson=document.getElementById("lesson");
+let level="low",stimStart=-1,raf=0,dpr=Math.max(1,window.devicePixelRatio||1),traceVisible=false;
+function fit(canvas,wrap){const r=wrap.getBoundingClientRect(),w=Math.max(320,Math.round(r.width)),h=Math.max(130,Math.round(r.height));canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);canvas.style.width=w+"px";canvas.style.height=h+"px";canvas.getContext("2d").setTransform(dpr,0,0,dpr,0,0);return{w,h}}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function line(c,pts,color,width=2,dash=[]){c.save();c.strokeStyle=color;c.lineWidth=width;c.setLineDash(dash);c.beginPath();pts.forEach((p,i)=>i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]));c.stroke();c.restore()}
+function label(c,text,x,y,color="#dce8ed",size=11,align="left"){c.fillStyle=color;c.font=`800 ${size}px Segoe UI`;c.textAlign=align;c.fillText(text,x,y);c.textAlign="left"}
+function dot(c,x,y,r,fill,stroke="#fff",width=2){c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fillStyle=fill;c.fill();c.strokeStyle=stroke;c.lineWidth=width;c.stroke()}
+function wave(t,on,amp,neighbor=0){const artifact=1.15*Math.exp(-Math.pow((t-.20)/.025,2))-.65*Math.exp(-Math.pow((t-.26)/.045,2));if(t<=on)return artifact;const gate=1-Math.exp(-Math.pow((t-on)/.10,2)),base=gate*(-1.04*Math.exp(-Math.pow((t-on-.48)/.34,2))+.76*Math.exp(-Math.pow((t-on-1.18)/.50,2))-.10*Math.exp(-Math.pow((t-on-2.15)/.82,2))),extra=gate*neighbor*(.34*Math.exp(-Math.pow((t-on-.12)/.24,2))-.22*Math.exp(-Math.pow((t-on-.55)/.30,2)));return artifact+amp*base+amp*extra}
+function drawAnatomy(now){
+  const {w,h}=fit(anatomy,anatomyWrap);ac.clearRect(0,0,w,h);ac.fillStyle="#101d24";ac.fillRect(0,0,w,h);
+  const d=DATA[level],wristX=w*.23,elbowX=w*.55,ulnarY=h*.48,medianY=h*.76,targetX=w*.88;
+  line(ac,[[w*.07,ulnarY],[w*.93,ulnarY]],"#b58b43",8);
+  line(ac,[[w*.07,medianY],[w*.42,medianY]],"#476979",6);
+  label(ac,"ULNAR SİNİR · AYNI FDI KAYDI",w*.07,ulnarY-19,"#e0bd78",11);
+  label(ac,"MEDİAN KOMŞU · yalnız distal alanda istenmeden uyarılabilir",w*.07,medianY-15,"#8bc6da",10);
+  ac.save();ac.beginPath();ac.arc(wristX,ulnarY,d.field,0,Math.PI*2);ac.fillStyle=level==="high"?"rgba(235,90,101,.20)":level==="risk"?"rgba(255,200,87,.16)":"rgba(94,234,141,.13)";ac.fill();ac.strokeStyle=level==="high"?"#eb5a65":level==="risk"?"#ffc857":"#5eea8d";ac.lineWidth=2;ac.stroke();ac.restore();
+  dot(ac,wristX,ulnarY,10,"#111820","#ffc857");label(ac,`BİLEK · ${d.current} mA`,wristX,ulnarY+28,"#ffc857",10,"center");
+  dot(ac,elbowX,ulnarY,9,"#111820","#64a7ff");label(ac,"DİRSEK ALTI · 37 mA",elbowX,ulnarY+28,"#8fc2ff",10,"center");
+  dot(ac,targetX,ulnarY,8,"#5eea8d");label(ac,"FDI · G1",targetX,ulnarY-17,"#5eea8d",10,"center");
+  line(ac,[[wristX+16,ulnarY-11],[targetX-20,ulnarY-11]],"#5eea8d",2,[6,4]);
+  ac.fillStyle="#5eea8d";ac.beginPath();ac.moveTo(targetX-20,ulnarY-16);ac.lineTo(targetX-10,ulnarY-11);ac.lineTo(targetX-20,ulnarY-6);ac.closePath();ac.fill();
+  label(ac,"motor iletim yalnız FDI yönünde →",w*.57,ulnarY-19,"#5eea8d",9,"center");
+  if(d.medianActivation>0){line(ac,[[wristX,ulnarY+12],[wristX+18,medianY-4]],"#ff9aa2",2,[4,4]);label(ac,`distal ko-stimülasyon %${d.medianActivation}`,wristX+24,medianY+4,"#ff9aa2",9)}
+  if(stimStart>=0){
+    const e=(now-stimStart)/1000;
+    if(e<.42){const a=1-e/.42;for(const sx of [wristX,elbowX]){ac.beginPath();ac.arc(sx,ulnarY,17+25*(1-a),0,Math.PI*2);ac.strokeStyle=`rgba(255,200,87,${a})`;ac.lineWidth=4;ac.stroke()}}
+    if(e>2.0)stimStart=-1;
+  }
+}
+function drawScope(now){
+  const {w,h}=fit(scope,scopeWrap);sc.clearRect(0,0,w,h);sc.fillStyle="#06140f";sc.fillRect(0,0,w,h);
+  const d=DATA[level],L=52,R=w-24,T=28,B=h-27,rowGap=(B-T)/2,windowMs=12,halfMv=11,x=t=>L+(R-L)*t/windowMs;
+  sc.strokeStyle="#143326";sc.lineWidth=1;for(let i=0;i<=12;i++){sc.beginPath();sc.moveTo(x(i),T);sc.lineTo(x(i),B);sc.stroke()}for(let i=0;i<=6;i++){const yy=T+(B-T)*i/6;sc.beginPath();sc.moveTo(L,yy);sc.lineTo(R,yy);sc.stroke()}
+  const elapsed=stimStart>=0?(now-stimStart)/1000:99,progress=traceVisible?(stimStart>=0?clamp(elapsed/1.45,0,1):1):0;
+  function trace(row,name,amp,on,color,neighbor=0){const mid=T+rowGap*(row+.5),y=v=>mid+(v/halfMv)*rowGap*.46;line(sc,[[L,mid],[R,mid]],"#27533e",1);label(sc,name,L+9,mid-rowGap*.31,color,11);if(!traceVisible)return;sc.strokeStyle=color;sc.lineWidth=2.6;sc.beginPath();const n=Math.floor(760*progress);for(let i=0;i<=n;i++){const t=windowMs*i/760,v=wave(t,on,amp,neighbor);i?sc.lineTo(x(t),y(v)):sc.moveTo(x(t),y(v))}sc.stroke()}
+  trace(0,`BİLEK UYARIMI · FDI · ${d.fdiAmp.toFixed(1).replace(".",",")} mV · ${d.current} mA`,d.fdiAmp,3.0,"#5eea8d",d.medianActivation/100);
+  trace(1,"DİRSEK-ALTI UYARIMI · FDI · 7,5 mV · 37 mA",7.5,6.0,"#36c9d7",0);
+  label(sc,"5 mV/div · 2 ms/div · iki iz de aynı ulnar FDI kanalından",L,T-9,"#789486",10);
+  if(!traceVisible)label(sc,"İzler gizli · uyarıları göstermek için düğmeye basın",(L+R)/2,(T+B)/2,"#a7c4b8",13,"center");
+}
+function updateUI(){
+  const d=DATA[level],idx=level==="low"?0:level==="risk"?1:2;buttons.forEach((b,i)=>b.classList.toggle("active",i===idx));
+  badge.textContent=level==="low"?"Bilek uyarımı seçici":level==="risk"?"Distal ko-stimülasyon riski":"Bilekte ulnar + median ko-stimülasyonu";badge.className=level==="low"?"state":level==="risk"?"state risk":"state costim";
+  currentOut.textContent=d.current+" mA";medianOut.textContent="%"+d.medianActivation;fdiOut.textContent=d.fdiAmp.toFixed(1).replace(".",",")+" mV";morphOut.textContent=`+${(d.fdiAmp-7.5).toFixed(1).replace(".",",")} mV`;twitchOut.textContent=d.twitch==="ulnar_only"?"YALNIZ ULNAR":"ULNAR + MEDİAN";
+  ["currentRow","medianRow","fdiRow","morphRow","twitchRow"].forEach(id=>document.getElementById(id).className=level==="low"?"readout":level==="risk"?"readout risk":"readout costim");
+  if(level==="low")lesson.innerHTML="<b>37 mA bilek:</b> Bilek ve dirsek-altı ulnar uyarımları aynı FDI kanalında 7,5 mV verir; distal uyarım seçicidir.";
+  else if(level==="risk")lesson.innerHTML="<b>50 mA bilek:</b> Distal akım alanı median sinire yaklaşır. Dirsek-altı izi değişmez; yalnız bilek izindeki ani artış ve morfoloji değişimi ko-stimülasyonu düşündürür.";
+  else lesson.innerHTML="<b>87 mA · Şekil 8.19:</b> Üst iz bilek uyarımıdır ve distal ko-stimülasyonla 10,4 mV olur. Alt iz dirsek-altı uyarımıdır ve 37 mA ile 7,5 mV kalır; bunlar ulnar ve median adlı iki kayıt kanalı değildir.";
+  window.__costimCurrentState={level:d.key,wristCurrent:d.current,belowElbowCurrent:37,pulseDuration:0.2,medianActivationAtWrist:d.medianActivation,targetRecording:"FDI",wristAmp:d.fdiAmp,belowElbowAmp:7.5,tracePair:["ulnar_wrist_FDI","ulnar_below_elbow_FDI"],propagationDirection:"distal_to_FDI_only",bookReference:{wristCurrent:87,wristAmp:10.4,belowElbowCurrent:37,belowElbowAmp:7.5},traceVisible};
+}
+function setLevel(v){level=v;traceVisible=false;stimStart=-1;updateUI();draw(performance.now())}
+lowBtn.addEventListener("click",()=>setLevel("low"));riskBtn.addEventListener("click",()=>setLevel("risk"));highBtn.addEventListener("click",()=>setLevel("high"));document.getElementById("stimBtn").addEventListener("click",()=>{traceVisible=true;stimStart=performance.now();updateUI();if(!raf)raf=requestAnimationFrame(loop)});
+function draw(now){drawAnatomy(now);drawScope(now)}function loop(now){draw(now);if(stimStart>=0)raf=requestAnimationFrame(loop);else raf=0}
+new ResizeObserver(()=>draw(performance.now())).observe(document.querySelector(".app"));setLevel("low");
+</script>
+<script data-standard-nav-v3>document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase();const a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});</script>
+</body>
+</html>

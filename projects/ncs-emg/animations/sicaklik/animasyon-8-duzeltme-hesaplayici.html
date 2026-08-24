@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sıcaklık — Düzeltme Faktörü Hesaplayıcı</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;font-variant-numeric:tabular-nums;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 320px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#4a5964;flex-wrap:wrap;}
+select{appearance:none;border:1px solid var(--line2);border-radius:6px;background:#fff;color:var(--ink);padding:6px 28px 6px 10px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;text-transform:none;letter-spacing:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%235c6b78'%3E%3Cpath d='M5.5 7l4.5 5 4.5-5z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 6px center;background-size:16px;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:12px;align-content:start;}
+.input-row{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:14px;}
+.input-row span{color:var(--muted);font-weight:700;}
+.input-row input{width:76px;text-align:right;border:1px solid var(--line2);border-radius:5px;padding:5px 8px;font:inherit;font-size:15px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:14.5px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:16px;font-variant-numeric:tabular-nums;}
+.verdict-row{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;border:1px solid var(--line);font-size:14px;}
+.verdict-row span{color:var(--muted);font-weight:700;}
+.vbadge{padding:3px 11px;border-radius:999px;font-size:13px;font-weight:800;}
+.vbadge.normal{background:#e6f7ec;color:var(--green);border:1px solid #c8e8d3;}
+.vbadge.abnormal{background:#fbe9ea;color:var(--red);border:1px solid #f2cdd0;}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;align-items:center;gap:18px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+.slider-row span{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+input[type="range"]{flex:1;max-width:420px;accent-color:var(--cyan);}
+.temp-readout{font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:64px;text-align:right;}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Sıcaklık</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">9 / 9 — Düzeltme Faktörü Hesaplayıcı</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head">
+<span>Düzeltme Faktörü Hesaplayıcı</span>
+<select id="nerveSelect">
+<option value="medianMotor">Median Motor</option>
+<option value="medianSensory">Median Duysal</option>
+<option value="ulnarMotor">Ulnar Motor</option>
+<option value="ulnarSensory">Ulnar Duysal</option>
+<option value="peronealMotor">Peroneal Motor</option>
+<option value="tibialMotor">Tibial Motor</option>
+<option value="suralSensory">Sural Duysal</option>
+<option value="radialSensory">Radyal Duysal</option>
+</select>
+</div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Girdi ve Sonuç</span></div>
+<div class="side-body">
+<div class="input-row"><span>Ölçülen İH</span><span><input id="cvInput" type="number" step="0.5"> m/s</span></div>
+<div class="input-row"><span>Ölçülen DL</span><span><input id="dlInput" type="number" step="0.1"> ms</span></div>
+<div class="stat-row"><span>Düzeltilmiş İH</span><b id="cvCorrOut">—</b></div>
+<div class="stat-row"><span>Düzeltilmiş DL</span><b id="dlCorrOut">—</b></div>
+<div class="verdict-row"><span>Ham yorum</span><b class="vbadge" id="rawVerdict">—</b></div>
+<div class="verdict-row"><span>Düzeltilmiş yorum</span><b class="vbadge" id="corrVerdict">—</b></div>
+<div class="note-box" id="mechNote">Ölçüm sıcaklığı düştükçe, düzeltme faktörü ham değeri normal sınıra doğru iter.</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="slider-row">
+<span>21°C soğuk</span>
+<input id="tempSlider" type="range" min="21" max="34" step="0.5" value="26">
+<span>34°C sıcak</span>
+</div>
+<div class="temp-readout" id="tempReadout">26°C</div>
+</footer>
+
+<div class="bottom-bar">
+<a class="fkey" href="animasyon-9-isinma-zaman.html">F1<b>Önceki: Isınma Süresi</b></a>
+<a class="fkey" href="../index.html">F2<b>İçindekiler</b></a>
+<a class="fkey" href="../yas/index.html">F3<b>Sıradaki: Yaş</b></a>
+</div>
+
+</div>
+
+<script>
+const nerveSelect=document.getElementById("nerveSelect");
+const cvInput=document.getElementById("cvInput");
+const dlInput=document.getElementById("dlInput");
+const cvCorrOut=document.getElementById("cvCorrOut");
+const dlCorrOut=document.getElementById("dlCorrOut");
+const rawVerdict=document.getElementById("rawVerdict");
+const corrVerdict=document.getElementById("corrVerdict");
+const mechNote=document.getElementById("mechNote");
+const tempSlider=document.getElementById("tempSlider");
+const tempReadout=document.getElementById("tempReadout");
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+
+// Lower limit of normal (CV) and upper limit of normal (DL) for routinely studied nerves.
+const NERVES={
+  medianMotor:  { label:"Median Motor",  cvNorm:49, dlNorm:4.4 },
+  medianSensory:{ label:"Median Duysal", cvNorm:50, dlNorm:3.5 },
+  ulnarMotor:   { label:"Ulnar Motor",   cvNorm:49, dlNorm:3.3 },
+  ulnarSensory: { label:"Ulnar Duysal",  cvNorm:50, dlNorm:3.1 },
+  peronealMotor:{ label:"Peroneal Motor",cvNorm:44, dlNorm:6.5 },
+  tibialMotor:  { label:"Tibial Motor",  cvNorm:41, dlNorm:5.8 },
+  suralSensory: { label:"Sural Duysal",  cvNorm:40, dlNorm:4.4 },
+  radialSensory:{ label:"Radyal Duysal", cvNorm:50, dlNorm:2.9 }
+};
+const CV_RATE_LOW=1.5, CV_RATE_HIGH=2.5, DL_RATE=0.2; // m/s/°C range and fixed ms/°C, per text
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(220,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(()=>{resizeCanvas();draw();}).observe(stageWrap);
+resizeCanvas();
+
+function drop(temp){ return 34-temp; }
+function nerve(){ return NERVES[nerveSelect.value]; }
+
+function defaultsFor(n){
+  return { cv:Math.max(5,Math.round((n.cvNorm-6)*2)/2), dl:Math.round((n.dlNorm+0.6)*10)/10 };
+}
+
+function compute(){
+  const n=nerve();
+  const temp=Number(tempSlider.value);
+  const d=drop(temp);
+  const measCV=Number(cvInput.value), measDL=Number(dlInput.value);
+  const corrCVlow=measCV+CV_RATE_LOW*d, corrCVhigh=measCV+CV_RATE_HIGH*d;
+  const corrDL=measDL-DL_RATE*d;
+  return {n,temp,d,measCV,measDL,corrCVlow,corrCVhigh,corrDL};
+}
+
+function setVerdict(el,ok){
+  el.textContent=ok?"Normal":"Anormal";
+  el.className="vbadge "+(ok?"normal":"abnormal");
+}
+
+function updateStatics(){
+  const {n,temp,d,measCV,measDL,corrCVlow,corrCVhigh,corrDL}=compute();
+  tempReadout.textContent=`${temp.toFixed(0)}°C`;
+  cvCorrOut.textContent=`${corrCVlow.toFixed(0)}–${corrCVhigh.toFixed(0)} m/s`;
+  dlCorrOut.textContent=`${corrDL.toFixed(1)} ms`;
+
+  const rawOk = measCV>=n.cvNorm && measDL<=n.dlNorm;
+  const corrOk = corrCVlow>=n.cvNorm && corrDL<=n.dlNorm;
+  setVerdict(rawVerdict,rawOk);
+  setVerdict(corrVerdict,corrOk);
+
+  if(d<1) mechNote.innerHTML=`<b>${n.label}:</b> Sıcaklık zaten hedefe yakın, düzeltme çok küçük olur.`;
+  else if(!rawOk && corrOk) mechNote.innerHTML=`<b>${n.label}:</b> Ham değer anormal görünüyor, ama ${d.toFixed(0)}°C'lik düşüş için düzeltilince normal sınıra döner — soğukluk kaynaklıdır.`;
+  else if(!rawOk && !corrOk) mechNote.innerHTML=`<b>${n.label}:</b> Düzeltmeden sonra bile anormal — sıcaklık tek başına açıklamıyor, gerçek patoloji olasılığı artar.`;
+  else mechNote.innerHTML=`<b>${n.label}:</b> Ham değer zaten normal sınırlar içinde.`;
+
+  draw();
+}
+
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+function drawGauge(y0,h,label,unit,lo,hi,cutoff,cutoffIsMin,rawVal,corrLow,corrHigh){
+  const W=cssW;
+  const left=W*0.1, right=W*0.92, mid=y0+h*0.55;
+  const xOf=v=>left+(right-left)*Math.max(0,Math.min(1,(v-lo)/(hi-lo)));
+
+  ctx.fillStyle="#16232c"; ctx.font="800 "+Math.max(12,W*0.014)+"px Inter, sans-serif";
+  ctx.textAlign="left";
+  ctx.fillText(label,left,y0+h*0.14);
+
+  const cutX=xOf(cutoff);
+  const barY=mid-9, barH=18;
+  ctx.fillStyle="#fbe9ea";
+  if(cutoffIsMin) ctx.fillRect(left,barY,cutX-left,barH); else ctx.fillRect(cutX,barY,right-cutX,barH);
+  ctx.fillStyle="#e6f7ec";
+  if(cutoffIsMin) ctx.fillRect(cutX,barY,right-cutX,barH); else ctx.fillRect(left,barY,cutX-left,barH);
+  ctx.strokeStyle="#c3ceda"; ctx.lineWidth=1;
+  ctx.strokeRect(left,barY,right-left,barH);
+
+  ctx.strokeStyle="#16232c"; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(cutX,barY-6); ctx.lineTo(cutX,barY+barH+6); ctx.stroke();
+  ctx.fillStyle="#45525c"; ctx.font="700 "+Math.max(10,W*0.0105)+"px Inter, sans-serif";
+  ctx.textAlign="center";
+  ctx.fillText(`sınır: ${cutoff}${unit}`,cutX,barY-12);
+
+  const x1=xOf(corrLow), x2=xOf(corrHigh);
+  ctx.fillStyle="rgba(94,167,234,.55)";
+  ctx.fillRect(Math.min(x1,x2),barY-4,Math.max(4,Math.abs(x2-x1)),barH+8);
+  ctx.strokeStyle="#2f6fbd"; ctx.lineWidth=1.5;
+  ctx.strokeRect(Math.min(x1,x2),barY-4,Math.max(4,Math.abs(x2-x1)),barH+8);
+
+  const xr=xOf(rawVal);
+  ctx.fillStyle="#c97a2a";
+  ctx.beginPath(); ctx.moveTo(xr,barY-14); ctx.lineTo(xr-7,barY-24); ctx.lineTo(xr+7,barY-24); ctx.closePath(); ctx.fill();
+  ctx.font="800 "+Math.max(10,W*0.0105)+"px Inter, sans-serif";
+  ctx.fillText(`ham: ${rawVal}${unit}`,xr,barY-28);
+
+  ctx.textAlign="left";
+  ctx.fillStyle="#8a97a3"; ctx.font="700 "+Math.max(9,W*0.0095)+"px Inter, sans-serif";
+  ctx.fillText(`${lo}${unit}`,left,mid+34);
+  ctx.textAlign="right";
+  ctx.fillText(`${hi}${unit}`,right,mid+34);
+  ctx.textAlign="left";
+}
+
+function draw(){
+  const {n,measCV,measDL,corrCVlow,corrCVhigh,corrDL}=compute();
+  const W=cssW,H=cssH;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fcfdfe"; ctx.fillRect(0,0,W,H);
+
+  const cvLo=Math.min(measCV,n.cvNorm)-12, cvHi=Math.max(measCV,corrCVhigh,n.cvNorm)+8;
+  const dlLo=Math.max(0,Math.min(measDL,n.dlNorm)-1.5), dlHi=Math.max(measDL,corrDL,n.dlNorm)+1;
+
+  drawGauge(H*0.08,H*0.4,"İLETİM HIZI (İH)"," m/s",Math.round(cvLo),Math.round(cvHi),n.cvNorm,true,measCV,corrCVlow,corrCVhigh);
+  drawGauge(H*0.52,H*0.4,"DİSTAL LATANS (DL)"," ms",Math.round(dlLo*10)/10,Math.round(dlHi*10)/10,n.dlNorm,false,measDL,corrDL,corrDL);
+
+  ctx.fillStyle="#8a97a3"; ctx.font="700 "+Math.max(9,W*0.0095)+"px Inter, sans-serif";
+  ctx.fillText("turuncu ok: ham ölçüm  ·  mavi kutu: düzeltilmiş aralık (1.5–2.5 m/s/°C, 0.2 ms/°C)",W*0.1,H*0.98);
+}
+
+nerveSelect.addEventListener("change",()=>{
+  const d=defaultsFor(nerve());
+  cvInput.value=d.cv; dlInput.value=d.dl;
+  updateStatics();
+});
+cvInput.addEventListener("input",updateStatics);
+dlInput.addEventListener("input",updateStatics);
+tempSlider.addEventListener("input",updateStatics);
+
+const initDefaults=defaultsFor(nerve());
+cvInput.value=initDefaults.cv; dlInput.value=initDefaults.dl;
+updateStatics();
+</script>
+</body>
+</html>

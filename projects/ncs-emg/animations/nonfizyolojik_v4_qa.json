@@ -1,0 +1,47 @@
+{
+  "pages": 69,
+  "restored_explanations": 34,
+  "restored_existing_labs": 20,
+  "new_research_labs": 27,
+  "missing_pages": [],
+  "guided_mode_residue": [],
+  "pages_without_white_shell": [],
+  "navigation_errors": [],
+  "broken_images": [],
+  "previous_text_mismatches": [],
+  "redesigned_older_labs": 12,
+  "distinct_animation_jobs": 35,
+  "overlap_solution": {
+    "filters": [
+      "frequency spectrum",
+      "recording-type preset selection",
+      "waveform distortion"
+    ],
+    "polarity": [
+      "activation mechanism",
+      "paired-site latency/CV error"
+    ],
+    "supramaximal": [
+      "graded recruitment waterfall",
+      "plateau proof protocol",
+      "false diagnostic amplitude pattern"
+    ],
+    "costimulation": [
+      "dual-channel detection",
+      "distal/proximal diagnostic error",
+      "minimum-threshold prevention"
+    ],
+    "motor_recording": [
+      "G1−G2 construction",
+      "G1 motor point",
+      "side-to-side G2 asymmetry"
+    ],
+    "electrode_geometry": [
+      "tissue filtering",
+      "onset-vs-peak metric choice",
+      "electrode search",
+      "false conduction velocity",
+      "G1–G2 temporal cancellation"
+    ]
+  }
+}

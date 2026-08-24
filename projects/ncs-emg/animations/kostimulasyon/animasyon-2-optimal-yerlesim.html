@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Optimal stimülatör yerleşimi: önce konumu bul, sonra supramaksimale çık</title>
+<style>
+:root{
+  --shell:#eef2f5;--paper:#fff;--line:#cfd8df;--ink:#17242d;--muted:#5b6973;
+  --blue:#176f8a;--cyan:#55d9e8;--green:#68e0a3;--amber:#ffc45c;--red:#ff6876;
+  --scope:#03110c;--grid:#17382b;--nav:#e8edf1
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#cbd4da;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+body{display:grid;place-items:center;padding:14px}
+button,input{font:inherit}
+.app{
+  width:min(calc(100vw - 28px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);
+  display:grid;grid-template-rows:50px 38px minmax(0,1fr) 112px 56px;overflow:hidden;
+  background:var(--shell);border:1px solid #bdc8d0;border-radius:7px;box-shadow:0 24px 64px rgba(19,33,42,.23)
+}
+.titlebar,.topicbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 18px}
+.titlebar{background:linear-gradient(#fff,#eef2f5);border-bottom:1px solid var(--line)}
+.title-left{min-width:0;display:flex;align-items:center;gap:10px}
+.status{width:9px;height:9px;border-radius:50%;background:#2e8055;box-shadow:0 0 6px rgba(46,128,85,.55);flex:none}
+h1{margin:0;font-size:20px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lab{border:1px solid #95b2bd;background:#e9f5f7;color:#15586a;padding:6px 10px;font-size:12px;font-weight:850;letter-spacing:.07em;white-space:nowrap}
+.topicbar{background:#e6ecf1;border-bottom:1px solid var(--line);font-size:13px;color:#3d4c56}
+.topicbar b{color:var(--blue)}.topicbar .model{color:var(--muted);white-space:nowrap}
+.workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:12px;padding:12px}
+.scope,.side{min-width:0;min-height:0;border:1px solid var(--line);overflow:hidden}
+.scope{position:relative;background:var(--scope)}
+#labCanvas{display:block;width:100%;height:100%}
+.scope-head{
+  position:absolute;z-index:2;left:14px;right:14px;top:9px;display:flex;justify-content:space-between;
+  color:#aac4ba;font:11px/1.2 Consolas,monospace;letter-spacing:.04em;pointer-events:none
+}
+.scope-head b{color:#eafff3}
+.mode-badge{
+  position:absolute;z-index:2;right:13px;bottom:10px;padding:5px 8px;border:1px solid rgba(255,196,92,.55);
+  color:#ffe3a4;background:rgba(3,17,12,.84);font:10px/1.2 Consolas,monospace;letter-spacing:.05em
+}
+.side{display:grid;grid-template-rows:34px 176px minmax(0,1fr);background:#fff}
+.side-head{display:flex;align-items:center;padding:0 12px;background:#e6ecf1;border-bottom:1px solid var(--line);font-size:12px;font-weight:850;letter-spacing:.06em;text-transform:uppercase;color:#4a5963}
+.book{display:grid;place-items:center;padding:7px 10px;border-bottom:1px solid var(--line);background:#fff}
+.book img{display:block;max-width:100%;max-height:160px;object-fit:contain}
+.protocol{min-height:0;padding:8px 12px;display:grid;align-content:start;gap:6px}
+.steps{display:grid;gap:5px}
+.step{display:grid;grid-template-columns:25px 1fr;gap:8px;align-items:start;padding:5px 7px;background:#f5f8fa;border-left:3px solid #bac7cf}
+.step.active{background:#eaf5f7;border-left-color:var(--blue)}
+.step.done{background:#eef8f3;border-left-color:#2e8055}
+.step .n{display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:#dbe4e9;color:#45545e;font-size:11px;font-weight:850}
+.step.active .n{background:var(--blue);color:#fff}.step.done .n{background:#2e8055;color:#fff}
+.step strong{display:block;font-size:11.5px}.step small{display:block;margin-top:1px;color:var(--muted);font-size:10px;line-height:1.25}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.metric{padding:6px 8px;border:1px solid var(--line);background:#fafcfd}
+.metric span{display:block;font-size:9.5px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.metric strong{display:block;margin-top:2px;font-size:16px}
+.verdict{padding:7px 9px;border-left:4px solid var(--blue);background:#eef6f8}
+.verdict.good{border-left-color:#2e8055;background:#edf8f2}.verdict.warn{border-left-color:#d18827;background:#fff7e7}.verdict.bad{border-left-color:#c33e4b;background:#fff0f2}
+.verdict span{display:block;font-size:9.5px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.verdict strong{display:block;margin-top:2px;font-size:14px}
+.warning{font-size:9.8px;line-height:1.25;color:#596771;border-top:1px solid var(--line);padding-top:5px}
+.controls{display:grid;grid-template-columns:minmax(0,1fr) 185px 185px;gap:10px;align-items:stretch;padding:10px 18px;background:#fff;border-top:1px solid var(--line)}
+.position{min-width:0;padding:7px 10px;border:1px solid var(--line);background:#f8fafb}
+.position label{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11.5px;font-weight:800;color:#45545e}
+.position output{font-size:13px;color:var(--blue)}
+.scale-labels{display:flex;justify-content:space-between;color:#75828b;font-size:9.5px;margin-top:2px}
+input[type=range]{display:block;width:100%;margin:9px 0 0;accent-color:var(--blue)}
+.action{border:1px solid #9baeb9;background:#f7fafb;color:#21323c;cursor:pointer;font-size:12px;font-weight:820;line-height:1.2;padding:8px}
+.action.primary{border-color:#153d4a;background:#153d4a;color:#fff}
+.action:hover,.action:focus-visible{border-color:var(--blue);background:#e7f3f6;color:#173642;outline:none}
+.action.primary:hover,.action.primary:focus-visible{background:#0d657c;color:#fff}
+.nav{display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line)}
+.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:var(--nav);color:var(--ink);text-decoration:none;font-size:13px;font-weight:800}
+.fkey span{font-size:15px;color:var(--blue)}
+.fkey:hover,.fkey:focus-visible{background:#dce8ee;outline:none}
+@media(max-width:1000px){
+  body{padding:0}.app{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:48px 34px minmax(0,1fr) 156px 52px}
+  .workspace{grid-template-columns:1fr}.side{display:none}.controls{grid-template-columns:1fr 130px 130px;gap:6px;padding:7px}
+  h1{font-size:16px}.topicbar .model{display:none}
+}
+</style>
+</head>
+<body>
+<main class="app" aria-labelledby="pageTitle">
+  <header class="titlebar">
+    <div class="title-left"><span class="status"></span><h1 id="pageTitle">Önce en yüksek submaksimal yanıtı bul; sonra supramaksimale çık</h1></div>
+    <div class="lab">SERBEST LABORATUVAR</div>
+  </header>
+  <div class="topicbar">
+    <div><b>Box 8.5</b> · Konum taranırken akım sabit kalır; maksimum amplitüd sinire en yakın noktayı gösterir.</div>
+    <div class="model">Eğitim modeli · eşikler evrensel değildir</div>
+  </div>
+  <section class="workspace">
+    <div class="scope">
+      <canvas id="labCanvas" aria-label="Sabit submaksimal akım altında optimal stimülatör konumu taraması"></canvas>
+      <div class="scope-head"><span>NCS/EMG KAYIT EKRANI</span><span><b>Hedef: median/APB</b> · Komşu kontrol: ulnar/ADM · 0,2 ms</span></div>
+      <div class="mode-badge" id="modeBadge">TARAMA · AKIM KİLİTLİ</div>
+    </div>
+    <aside class="side">
+      <div class="side-head">Kitap protokolü · Box 8.5</div>
+      <div class="book"><img src="../figures/source-v3/box_8_5_avoid_costimulation.png" alt="Preston ve Shapiro Box 8.5, komşu sinir ko-stimülasyonunu önleme yöntemleri"></div>
+      <div class="protocol">
+        <div class="steps">
+          <div class="step done" id="step1"><span class="n">1</span><div><strong>İlk küçük yanıtı bul</strong><small>Akımı yavaş artır; submaksimal APB yanıtında dur.</small></div></div>
+          <div class="step active" id="step2"><span class="n">2</span><div><strong>Akımı sabitle, konumu tara</strong><small>Sinire paralel lateral ve medial kaydır; amplitüdü izle.</small></div></div>
+          <div class="step" id="step3"><span class="n">3</span><div><strong>Maksimumu seç, sonra supramaksimal</strong><small>En iyi konumda akımı artır; ADM sessiz kalmalı.</small></div></div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><span>Tarama akımı</span><strong id="currentText"></strong></div>
+          <div class="metric"><span>APB yanıtı</span><strong id="apbText"></strong></div>
+          <div class="metric"><span>Gerekli supramaks.</span><strong id="requiredText"></strong></div>
+          <div class="metric"><span>ADM kontrolü</span><strong id="admText"></strong></div>
+        </div>
+        <div class="verdict" id="verdictBox"><span>Teknik karar</span><strong id="verdictText"></strong></div>
+        <div class="warning"><b>Model notu:</b> Akım değerleri mekanizmayı göstermek içindir. Gerçekte doku derinliği, empedans, anatomi ve patoloji eşiği değiştirir; morfoloji ve kas seğirmesi de izlenir.</div>
+      </div>
+    </aside>
+  </section>
+  <section class="controls">
+    <div class="position">
+      <label for="offset"><span>Katodun median sinire göre konumu</span><output id="positionText">0 mm · sinir üstü</output></label>
+      <input id="offset" type="range" min="-20" max="20" step="1" value="0">
+      <div class="scale-labels"><span>−20 mm · lateral</span><span>0 · median sinir</span><span>+20 mm · medial / ulnara doğru</span></div>
+    </div>
+    <button class="action" id="scanButton" type="button">↔ Otomatik medial–lateral tarama</button>
+    <button class="action primary" id="finalButton" type="button">Bu noktayı seç<br>ve supramaksimale çık</button>
+  </section>
+  <nav class="nav bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="onleme-yontemleri.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="../motor-elektrot-yerlesimi/konu-girisi.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const canvas=document.getElementById("labCanvas"),ctx=canvas.getContext("2d");
+const slider=document.getElementById("offset"),scanButton=document.getElementById("scanButton"),finalButton=document.getElementById("finalButton");
+const positionText=document.getElementById("positionText"),currentText=document.getElementById("currentText"),apbText=document.getElementById("apbText");
+const requiredText=document.getElementById("requiredText"),admText=document.getElementById("admText"),verdictText=document.getElementById("verdictText");
+const verdictBox=document.getElementById("verdictBox"),modeBadge=document.getElementById("modeBadge");
+const step2=document.getElementById("step2"),step3=document.getElementById("step3");
+let offset=0,mode="search",autoScan=false,scanStart=0,finalStart=0;
+const SEARCH_CURRENT=20,PULSE_DURATION=.2;
+
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function gauss(x,m,s){const z=(x-m)/s;return Math.exp(-.5*z*z)}
+function searchAmplitude(mm){return .45+3.65*Math.exp(-Math.pow(mm/9,2))}
+function requiredCurrent(mm){return Math.round(27+.082*mm*mm)}
+function adjacentThreshold(mm){return 54-.55*mm}
+function state(now=performance.now()){
+  const required=requiredCurrent(offset),adjacent=adjacentThreshold(offset);
+  let current=SEARCH_CURRENT,ramp=0;
+  if(mode==="final"){
+    ramp=clamp((now-finalStart)/1450,0,1);
+    current=SEARCH_CURRENT+(required-SEARCH_CURRENT)*ramp;
+  }
+  const finalTarget=9.2,targetAmp=mode==="search"?searchAmplitude(offset):searchAmplitude(offset)+(finalTarget-searchAmplitude(offset))*ramp;
+  const neighborAmp=mode==="final"?clamp((current-adjacent)/12,0,1)*5.8:0;
+  return{
+    mode,variable:"stimulator_position",offset,direction:offset===0?"nerve_center":offset<0?"lateral":"medial_toward_ulnar",
+    scanCurrent:SEARCH_CURRENT,current:Number(current.toFixed(1)),currentLockedDuringScan:mode==="search",
+    pulseDuration:PULSE_DURATION,targetSearchAmp:Number(searchAmplitude(offset).toFixed(2)),
+    requiredSupramax:required,adjacentThreshold:Number(adjacent.toFixed(1)),
+    targetAmp:Number(targetAmp.toFixed(2)),neighborAmp:Number(neighborAmp.toFixed(2)),
+    costim:neighborAmp>.25,optimal:Math.abs(offset)<=3,finalComplete:mode==="final"&&ramp>=1,
+    bottomTrace:"ulnar_ADM_monitor",stimulusArtifactVisible:true
+  };
+}
+function resize(){
+  const r=canvas.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);
+  canvas.width=Math.max(1,Math.round(r.width*d));canvas.height=Math.max(1,Math.round(r.height*d));ctx.setTransform(d,0,0,d,0,0);
+}
+addEventListener("resize",resize);resize();
+function text(s,x,y,color="#d8ebe3",size=12,align="left",weight=650){
+  ctx.fillStyle=color;ctx.font=`${weight} ${size}px Segoe UI`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.textAlign="left";
+}
+function line(points,color="#68e0a3",width=2,dash=[]){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();
+  points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.restore();
+}
+function grid(x,y,w,h,dx=10,dy=4){
+  ctx.fillStyle="#04150f";ctx.fillRect(x,y,w,h);ctx.strokeStyle="#16382a";ctx.lineWidth=1;
+  for(let i=0;i<=dx;i++){const xx=x+w*i/dx;ctx.beginPath();ctx.moveTo(xx,y);ctx.lineTo(xx,y+h);ctx.stroke()}
+  for(let i=0;i<=dy;i++){const yy=y+h*i/dy;ctx.beginPath();ctx.moveTo(x,yy);ctx.lineTo(x+w,yy);ctx.stroke()}
+  ctx.strokeStyle="#2b624c";ctx.beginPath();ctx.moveTo(x,y+h/2);ctx.lineTo(x+w,y+h/2);ctx.stroke();
+}
+function stimulusArtifact(t){return .18*(1.85*gauss(t,.05,.004)-1.1*gauss(t,.062,.011))}
+function cmap(t,on,width=1){
+  if(t<=on)return 0;
+  const gate=1-Math.exp(-Math.pow((t-on)/.010,2));
+  const main=gate*(1.08*gauss(t,on+.025,.032*width)-.86*gauss(t,on+.096*width,.050*width)+.28*gauss(t,on+.170*width,.070*width));
+  const late=.07*Math.sin((t-on)*112)*Math.exp(-(t-on)*13);
+  return main+late;
+}
+function trace(x,y,w,h,amp,on,color,label){
+  grid(x,y,w,h);text(label,x+9,y+17,"#a9c4b9",11,"left",750);
+  const pts=[];for(let i=0;i<=720;i++){const t=i/720,raw=stimulusArtifact(t)+(amp/10)*cmap(t,on,1);pts.push([x+w*t,clamp(y+h/2-raw*h*.42,y+2,y+h-2)])}
+  line(pts,color,2);
+}
+function drawAnatomy(W,H,s){
+  const left=54,right=W-54,trackY=70,skinY=106,medianX=left+(right-left)*.50,ulnarX=left+(right-left)*.78;
+  const px=medianX+(offset/20)*(right-left)*.25;
+  text("KATOT TARAMA HATTI · SİNİRE PARALEL",22,48,"#9fbbb0",10);
+  line([[left,trackY],[right,trackY]],"#45665a",2,[5,5]);
+  ctx.fillStyle="#e9f4f1";ctx.beginPath();ctx.arc(px,trackY,15,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle="#c54d59";ctx.fillRect(px-9,trackY-3,18,6);text("KATOT",px,trackY-24,"#f0faf6",10,"center",800);
+  ctx.fillStyle="#c69073";ctx.fillRect(left,skinY,right-left,70);
+  ctx.fillStyle="#efc29e";ctx.fillRect(left,skinY,right-left,14);
+  const fieldRx=38+s.current*3.6,fieldRy=32+s.current*1.1;
+  ctx.save();ctx.translate(px,skinY+5);ctx.scale(fieldRx,fieldRy);
+  const gradient=ctx.createRadialGradient(0,0,.04,0,0,1);
+  gradient.addColorStop(0,"rgba(255,196,92,.48)");gradient.addColorStop(.55,"rgba(255,196,92,.18)");gradient.addColorStop(1,"rgba(255,196,92,0)");
+  ctx.fillStyle=gradient;ctx.beginPath();ctx.arc(0,0,1,0,Math.PI*2);ctx.fill();ctx.restore();
+  line([[medianX,skinY+43],[medianX,skinY+67]],"#f6ce75",7);ctx.fillStyle="#f6ce75";ctx.beginPath();ctx.arc(medianX,skinY+43,15,0,Math.PI*2);ctx.fill();
+  line([[ulnarX,skinY+43],[ulnarX,skinY+67]],"#75b8ff",7);ctx.fillStyle="#75b8ff";ctx.beginPath();ctx.arc(ulnarX,skinY+43,15,0,Math.PI*2);ctx.fill();
+  if(s.targetAmp>.8){ctx.strokeStyle="#68e0a3";ctx.lineWidth=3;ctx.beginPath();ctx.arc(medianX,skinY+43,20,0,Math.PI*2);ctx.stroke()}
+  if(s.neighborAmp>.25){ctx.strokeStyle="#ff6876";ctx.lineWidth=3;ctx.beginPath();ctx.arc(ulnarX,skinY+43,21,0,Math.PI*2);ctx.stroke()}
+  text("MEDİAN",medianX,skinY+24,"#4e351c",10,"center",850);text("ULNAR",ulnarX,skinY+24,"#244d72",10,"center",850);
+  line([[px,trackY+16],[px,skinY-2]],"#ff6876",2,[4,3]);
+  const shownOffset=Math.round(offset);
+  text(`${shownOffset>0?"+":""}${shownOffset} mm`,px,skinY-9,"#fff",11,"center",850);
+  const axisY=194,axisX=left,axisW=right-left;
+  line([[axisX,axisY],[axisX+axisW,axisY]],"#527565",1);
+  const points=[];for(let i=-20;i<=20;i+=.5){const x=axisX+(i+20)/40*axisW,y=axisY-searchAmplitude(i)*12;points.push([x,y])}
+  line(points,"#68e0a3",2);
+  const dotX=axisX+(offset+20)/40*axisW,dotY=axisY-searchAmplitude(offset)*12;
+  ctx.fillStyle="#ffc45c";ctx.beginPath();ctx.arc(dotX,dotY,6,0,Math.PI*2);ctx.fill();
+  text("sabit 20 mA ile APB amplitüd–konum profili",axisX,axisY+18,"#9fbbb0",10);
+}
+function updatePanel(s){
+  const shownOffset=Math.round(offset);
+  const direction=shownOffset===0?"0 mm · sinir üstü":`${shownOffset>0?"+":""}${shownOffset} mm · ${shownOffset<0?"lateral":"medial / ulnara doğru"}`;
+  positionText.textContent=direction;
+  currentText.textContent=mode==="search"?`${SEARCH_CURRENT} mA · sabit`:`${s.current.toFixed(1)} mA`;
+  apbText.textContent=`${s.targetAmp.toFixed(1)} mV`;
+  requiredText.textContent=`${s.requiredSupramax} mA`;
+  admText.textContent=s.costim?`${s.neighborAmp.toFixed(1)} mV · +`:"Sessiz";
+  step2.className=`step ${mode==="search"?"active":"done"}`;step3.className=`step ${mode==="final"?"active":""}`;
+  if(mode==="search"){
+    verdictBox.className="verdict";verdictText.textContent=Math.abs(offset)<=3?"Maksimuma yakın · bu noktayı seç":"Aynı akımda yanıt küçüldü · taramaya devam";
+    modeBadge.textContent="TARAMA · AKIM 20 mA'YA KİLİTLİ";
+  }else if(s.costim){
+    verdictBox.className="verdict bad";verdictText.textContent="Ko-stimülasyon · ulnar katkı açıldı";
+    modeBadge.textContent="SUPRAMAKSİMAL DENEME · KOMŞU SİNİR AKTİF";
+  }else if(s.optimal){
+    verdictBox.className="verdict good";verdictText.textContent="Optimal · düşük akımla seçici supramaksimal";
+    modeBadge.textContent="OPTİMAL KONUMLA SEÇİCİ SUPRAMAKSİMAL";
+  }else{
+    verdictBox.className="verdict warn";verdictText.textContent="Yüksek akım gerekiyor · konumu düzelt";
+    modeBadge.textContent="KÖTÜ KONUMLA GEREKSİZ YÜKSEK AKIM";
+  }
+  window.__optimalStimState=s;
+}
+function draw(now){
+  if(autoScan){
+    const q=(now-scanStart)/3600;
+    if(q>=1){autoScan=false;offset=0;slider.value=0}
+    else{offset=-20+40*(.5-.5*Math.cos(q*Math.PI));slider.value=Math.round(offset)}
+  }
+  const s=state(now),r=canvas.getBoundingClientRect(),W=r.width,H=r.height;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle="#03110c";ctx.fillRect(0,0,W,H);
+  drawAnatomy(W,H,s);
+  const x=22,w=W-44,top=232,gap=8,h=(H-top-30-gap)/2;
+  trace(x,top,w,h,s.targetAmp,.27,"#68e0a3",`HEDEF APB · ${s.targetAmp.toFixed(1)} mV · ${s.current.toFixed(1)} mA`);
+  trace(x,top+h+gap,w,h,s.neighborAmp,.34,"#ffc45c",`ULNAR / ADM MONİTÖRÜ · STİMULUS VAR · ${s.neighborAmp>.1?s.neighborAmp.toFixed(1)+" mV YANIT":"YANIT YOK"}`);
+  updatePanel(s);requestAnimationFrame(draw);
+}
+slider.addEventListener("input",()=>{offset=Number(slider.value);mode="search";autoScan=false;finalButton.textContent="Bu noktayı seç ve supramaksimale çık"});
+scanButton.addEventListener("click",()=>{mode="search";autoScan=true;scanStart=performance.now();finalButton.textContent="Bu noktayı seç ve supramaksimale çık"});
+finalButton.addEventListener("click",()=>{autoScan=false;mode="final";finalStart=performance.now();finalButton.textContent="↻ Aynı noktada yeniden dene"});
+document.addEventListener("keydown",event=>{
+  if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;
+  const key=event.key.toUpperCase(),link=key==="F1"?document.querySelector(".fkey:nth-child(1)"):key==="F2"?document.querySelector(".fkey:nth-child(2)"):key==="F3"?document.querySelector(".fkey:nth-child(3)"):null;
+  if(link){event.preventDefault();location.href=link.href}
+});
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

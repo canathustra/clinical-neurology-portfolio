@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sıcaklık — İzlem, Isıtma ve Düzeltme Faktörü</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+  --mono:"Consolas","Courier New",monospace;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;}
+
+.workspace{min-height:0;padding:14px;display:grid;grid-template-rows:1fr auto;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.panel-head-sub{font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:none;color:var(--dim);}
+
+.cards{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);overflow-y:auto;}
+.card{padding:20px 22px;border-right:1px solid var(--line);display:grid;align-content:start;gap:14px;}
+.card:last-child{border-right:none;}
+.card h2{margin:0;font-size:20px;font-weight:800;letter-spacing:.02em;padding-bottom:12px;border-bottom:2px solid var(--accent);}
+.card.c1 h2{--accent:var(--blue);color:var(--blue);}
+.card.c2 h2{--accent:var(--amber);color:var(--amber);}
+.card.c3 h2{--accent:var(--red);color:var(--red);}
+.card ul{margin:0;padding:0;list-style:none;display:grid;gap:12px;}
+.card li{font-size:20px;font-weight:650;line-height:1.4;color:var(--ink);padding-left:16px;position:relative;}
+.card li::before{content:"";position:absolute;left:0;top:.5em;width:7px;height:7px;border-radius:2px;background:var(--dim);}
+.card.c1 li::before{background:var(--blue);}
+.card.c2 li::before{background:var(--amber);}
+.card.c3 li::before{background:var(--red);}
+.card li b{color:#000;}
+.card li .num{font-variant-numeric:tabular-nums;}
+
+.rule-bar{flex:none;padding:16px 22px;font-size:21px;font-weight:700;line-height:1.4;color:var(--ink);}
+.rule-bar b{color:var(--cyan);}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .cards{grid-template-columns:1fr;overflow-y:auto;}
+  .card{border-right:none;border-bottom:1px solid var(--line);}
+  .bottom-bar{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Sıcaklık</strong></div>
+<div class="tf"><label>Bölüm</label><strong style="font-size:15px;color:var(--ink);">İzlem, Isıtma ve Düzeltme Faktörü</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>İzlem, Isıtma ve Düzeltme Faktörü</span><span class="panel-head-sub">Soğuk etkisiyle nasıl başa çıkılır?</span></div>
+<div class="cards">
+
+<div class="card c1">
+<h2>Rutin İzlem</h2>
+<ul>
+<li>Sıcaklığın önemi <b>her çalışmada</b> akılda tutulmalı.</li>
+<li>Distal sıcaklık rutin ölçülmeli, <span class="num">32–34°C</span> hedeflenmeli.</li>
+<li>Başlangıçta normal olması, <b>öyle kalacağı anlamına gelmez</b>.</li>
+</ul>
+</div>
+
+<div class="card c2">
+<h2>Isıtma ve Gecikme</h2>
+<ul>
+<li>Isı lambası, paket veya hidrokollatör kullanılır.</li>
+<li>Deri, hedef sıcaklığa <b>sinirden önce</b> ulaşır.</li>
+<li>Çok soğuk ekstremitede sinirin dengelenmesi <span class="num">20–40 dakika</span> sürer.</li>
+</ul>
+</div>
+
+<div class="card c3">
+<h2>Düzeltme Faktörü</h2>
+<ul>
+<li>Isıtma mümkün değilse: İH için <span class="num">1.5–2.5 m/s/°C</span>, DL için <span class="num">0.2 ms/°C</span>.</li>
+<li>Bu faktörler normal sinirden elde edilmiştir, hastalıklıya <b>doğrudan uygulanmaz</b>.</li>
+<li>İğne EMG'de (MUAP için) düzeltme faktörü <b>yoktur</b>.</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<div class="rule-bar"><b>Kural:</b> Düzeltme faktörü kullanmaktansa ekstremiteyi ısıtmak her zaman tercih edilir — MUAP için zaten düzeltme faktörü yoktur.</div>
+</div>
+
+<div class="bottom-bar">
+<a class="fkey" href="animasyon-7-soguk-vs-aksonal.html">F1<b>Önceki: Soğuk mu, Demiyelinizan mı?</b></a>
+<a class="fkey" href="../index.html">F2<b>İçindekiler</b></a>
+<a class="fkey" href="animasyon-9-isinma-zaman.html">F3<b>Sıradaki: Isınma Süresi</b></a>
+</div>
+
+</div>
+</body>
+</html>

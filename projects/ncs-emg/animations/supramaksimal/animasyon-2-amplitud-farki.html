@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Normal Sinirde Submaksimal Uyarım — Yalancı Amplitüd Asimetrisi</title>
+<style>
+:root{--paper:#f7f8f9;--panel:#fff;--head:#e7edf3;--line:#d5dde4;--ink:#15232d;--muted:#60707d;--teal:#0f7a95;--cyan:#36c9d7;--green:#5eea8d;--amber:#ffc857;--red:#eb5a65;--blue:#64a7ff;--scope:#06140f;--grid:#143326}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;background:#fff;color:var(--ink);font-family:"Segoe UI",Inter,Arial,sans-serif}body{display:grid;place-items:center;padding:12px}
+.app{width:min(calc(100vw - 24px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 24px);background:var(--paper);border:1px solid #c8d1d9;box-shadow:0 18px 48px #23313b24;display:grid;grid-template-rows:42px 48px 1fr 70px 56px;overflow:hidden}
+.titlebar,.toolbar{display:flex;align-items:center;padding:0 18px;border-bottom:1px solid var(--line)}.titlebar{justify-content:space-between;background:linear-gradient(#fff,#f0f3f5);font-size:14px;color:#43515c}.session{display:flex;align-items:center;gap:9px;font-weight:700}.dot{width:9px;height:9px;border-radius:50%;background:#2f7d52;box-shadow:0 0 7px #2f7d5270}.brand{font-weight:900;letter-spacing:.12em;color:#73808b}.brand b{color:var(--teal)}
+.toolbar{gap:20px;background:var(--head)}.label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:900}.toolbar strong{font-size:15px}.mode{margin-left:auto;color:var(--teal);font-weight:900}
+.workspace{min-height:0;padding:10px;display:grid;grid-template-columns:minmax(0,1fr) 326px;gap:10px}.panel{background:#fff;border:1px solid var(--line);min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column}.panel-head{height:39px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 13px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;color:#4a5964}
+.state{padding:4px 10px;border-radius:999px;background:#e6f7ec;color:#28744a;border:1px solid #c8e8d3;text-transform:none;letter-spacing:0}.state.warning{background:#fde8ea;color:#a6313d;border-color:#f0c3c8}
+.lab{flex:1;min-height:0;display:grid;grid-template-rows:42% 58%}.nerve{position:relative;min-height:0;background:#101d24;border-bottom:4px solid #d5dde4}.scope{position:relative;min-height:0;background:var(--scope)}#nerveCanvas,#scopeCanvas{position:absolute;inset:0;width:100%;height:100%}
+.scope-legend{position:absolute;right:12px;top:8px;display:flex;gap:12px;padding:5px 8px;background:#06140fdb;border:1px solid #2b493a;color:#b8c8bf;font-size:11px;font-weight:800}.key{display:inline-flex;align-items:center;gap:5px}.sw{width:18px;height:3px;background:var(--green)}.sw.prox{background:var(--cyan)}
+.model-tag{position:absolute;left:12px;bottom:8px;padding:5px 8px;background:#071118e8;border:1px solid #4c626f;color:#d9e7ec;font:800 10px Consolas,monospace}.model-tag b{color:var(--cyan)}
+.side-body{padding:9px;display:grid;gap:6px;align-content:start;overflow:auto}.invariant{display:grid;grid-template-columns:1fr auto;gap:4px 9px;padding:7px 9px;border:1px solid #d6e2ea;background:#f2f7fa}.invariant span{font-size:10px;color:var(--muted);font-weight:800}.invariant b{font-size:10px;color:#256744}
+.readout{display:grid;grid-template-columns:1fr auto;padding:6px 9px;border:1px solid var(--line);font-size:10.5px}.readout span{color:var(--muted);font-weight:800}.readout b{font-variant-numeric:tabular-nums}.readout.warning{background:#fde8ea;border-color:#f0c3c8}.readout.warning b{color:#a6313d}.readout.ok{background:#e6f7ec;border-color:#c8e8d3}
+.lesson{padding:7px 9px;border-left:4px solid var(--teal);background:#edf6f8;font-size:10.5px;line-height:1.31;font-weight:650}.lesson b{color:var(--teal)}.source{height:138px;border:1px solid var(--line);background:#fff;display:grid;grid-template-columns:112px 1fr;overflow:hidden}.source img{width:100%;height:100%;object-fit:contain;border-right:1px solid var(--line)}.source div{padding:6px;font-size:9.5px;line-height:1.22;color:var(--muted)}.source b{display:block;color:var(--ink);margin-bottom:3px}.source a{color:var(--teal);text-decoration:none;font-weight:800}.caveat{font-size:9px;line-height:1.25;color:#6e4b23;padding:5px 7px;background:#fff7e7;border-left:3px solid var(--amber)}
+.controls{display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;background:#fff;border-top:1px solid var(--line)}button{appearance:none;border:1px solid #b8c5cf;background:#f2f5f7;color:var(--ink);font:800 12px "Segoe UI",sans-serif;padding:9px 13px;cursor:pointer;border-radius:3px}button:hover,button:focus-visible{background:#e2edf2;outline:2px solid #8ac4d1;outline-offset:1px}button.active{background:#dceef2;border-color:#62aaba;color:#0b6075}.stim{margin-left:18px;background:#172b24;color:#dfffea;border-color:#315a48}.stim:hover{background:#234436}.control-label{font-size:10px;color:var(--muted);font-weight:900;margin-right:4px;letter-spacing:.05em}
+.bottom-bar{height:56px;display:flex!important;align-items:stretch!important;gap:1px!important;background:#d5dde4!important;border-top:1px solid #d5dde4!important}.bottom-bar .fkey{flex:1!important;background:#e7edf3!important;color:#16232c!important;text-decoration:none!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;padding:0 12px!important;font:800 13px/1 "Segoe UI",Arial,sans-serif!important}.bottom-bar .fkey span{color:#0f7a95!important;font-size:15px!important}.bottom-bar .fkey b{color:#16232c!important;font-size:13px!important}.bottom-bar .fkey:hover,.bottom-bar .fkey:focus-visible{background:#dce8f0!important;outline:none!important}
+@media(max-width:980px){body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;grid-template-rows:42px auto minmax(760px,1fr) auto 56px}.toolbar{padding:8px 12px;flex-wrap:wrap}.workspace{grid-template-columns:1fr}.source{height:160px}.controls{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<main class="app">
+  <div class="titlebar"><div class="session"><span class="dot"></span>EDX Öğrenim İstasyonu — Bölüm 8</div><div class="brand"><b>EDX</b>SİM</div></div>
+  <div class="toolbar"><span class="label">Konu</span><strong>Submaksimal uyarımın yalancı bulguları</strong><span class="label">Tek değişken</span><strong>Yetersiz uyarım noktası</strong><span class="mode">SERBEST LABORATUVAR</span></div>
+  <section class="workspace">
+    <div class="panel">
+      <div class="panel-head"><span>Aynı normal ulnar sinir · farklı teknik yeterlilik</span><span id="stateBadge" class="state">Her iki nokta supramaksimal</span></div>
+      <div class="lab">
+        <div class="nerve" id="nerve"><canvas id="nerveCanvas"></canvas><div class="model-tag"><b>GERÇEK SİNİR:</b> normal · gerçek maksimal BKAP 10,7 mV</div></div>
+        <div class="scope" id="scope"><canvas id="scopeCanvas"></canvas><div class="scope-legend"><span class="key"><i class="sw"></i>Bilek</span><span class="key"><i class="sw prox"></i>Dirsek altı</span></div></div>
+      </div>
+    </div>
+    <aside class="panel">
+      <div class="panel-head"><span>Teknik okuma</span></div>
+      <div class="side-body">
+        <div class="invariant"><span>Sinir fizyolojisi</span><b>NORMAL · SABİT</b><span>Kayıt elektrotları</span><b>SABİT</b><span>Gerçek maksimal BKAP</span><b>10,7 mV</b></div>
+        <div id="distalRow" class="readout ok"><span>Bilekte rekrutman</span><b id="distalOut">24/24 · 10,7 mV</b></div>
+        <div id="proxRow" class="readout ok"><span>Dirsek altında rekrutman</span><b id="proxOut">24/24 · 10,7 mV</b></div>
+        <div id="ratioRow" class="readout"><span>Proksimal/distal amplitüd</span><b id="ratioOut">%100</b></div>
+        <div id="patternRow" class="readout"><span>Görünen örüntü</span><b id="patternOut">UYUMLU</b></div>
+        <div class="lesson" id="lesson"><b>Teknik karşılaştırma geçerlidir:</b> Her iki uyarım noktası da aynı maksimal BKAP'ı üretir.</div>
+        <div class="source"><img src="../figures/source-v3/fig_8_18_amplitude_difference.png" alt=" proksimal distal BKAP amplitüd farkları"><div><b>Kitap kaydı · ulnar motor</b>A: bilek 10,7; dirsek altı 6,1 mV. B: bilek 6,1; dirsek altı 10,7 mV. Kitap her iki örüntünün de birden çok teknik veya anatomik nedeni olduğunu vurgular.</div></div>
+        <div class="caveat"><b>Sınır:</b> Bu model yalnız submaksimal mekanizmayı izole eder.  örüntüsü tek başına tanı değildir; gerçek iletim bloğu, ko-stimülasyon ve innervasyon anomalileri ayrıca dışlanmalıdır.</div>
+      </div>
+    </aside>
+  </section>
+  <div class="controls"><span class="control-label">UYARIM YETERLİLİĞİ</span><button id="normalBtn" class="active">İki nokta supramaksimal</button><button id="distalBtn">Bilek submaksimal</button><button id="proxBtn">Dirsek altı submaksimal</button><button id="stimBtn" class="stim">İki uyarıyı göster</button></div>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi"><a class="fkey" href="yanlis-yorumlar.html"><span>F1</span><b>Önceki</b></a><a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a><a class="fkey" href="../kostimulasyon/konu-girisi.html"><span>F3</span><b>Sonraki</b></a></nav>
+</main>
+<script>
+const STATES={
+ normal:{key:"normal",distalFibers:24,proxFibers:24,distalAmp:10.7,proxAmp:10.7,pattern:"UYUMLU",apparent:"none"},
+ distal:{key:"distal_submax",distalFibers:14,proxFibers:24,distalAmp:6.1,proxAmp:10.7,pattern:"PROKSİMAL > DİSTAL",apparent:"false_axonal_loss_distally"},
+ proximal:{key:"proximal_submax",distalFibers:24,proxFibers:14,distalAmp:10.7,proxAmp:6.1,pattern:"PROKSİMAL DÜŞÜŞ",apparent:"false_conduction_block"}
+};
+const nerve=document.getElementById("nerveCanvas"),nc=nerve.getContext("2d"),nerveWrap=document.getElementById("nerve");
+const scope=document.getElementById("scopeCanvas"),sc=scope.getContext("2d"),scopeWrap=document.getElementById("scope");
+const normalBtn=document.getElementById("normalBtn"),distalBtn=document.getElementById("distalBtn"),proxBtn=document.getElementById("proxBtn"),buttons=[normalBtn,distalBtn,proxBtn];
+const badge=document.getElementById("stateBadge"),distalOut=document.getElementById("distalOut"),proxOut=document.getElementById("proxOut"),ratioOut=document.getElementById("ratioOut"),patternOut=document.getElementById("patternOut"),lesson=document.getElementById("lesson");
+let scenario="normal",stimStart=-1,raf=0,dpr=Math.max(1,window.devicePixelRatio||1);
+function fit(canvas,wrap){const r=wrap.getBoundingClientRect(),w=Math.max(320,Math.round(r.width)),h=Math.max(130,Math.round(r.height));canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);canvas.style.width=w+"px";canvas.style.height=h+"px";canvas.getContext("2d").setTransform(dpr,0,0,dpr,0,0);return{w,h}}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function line(c,pts,color,width=2,dash=[]){c.save();c.strokeStyle=color;c.lineWidth=width;c.setLineDash(dash);c.beginPath();pts.forEach((p,i)=>i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]));c.stroke();c.restore()}
+function label(c,text,x,y,color="#dce8ed",size=11,align="left"){c.fillStyle=color;c.font=`800 ${size}px Segoe UI`;c.textAlign=align;c.fillText(text,x,y);c.textAlign="left"}
+function dot(c,x,y,r,fill,stroke="#fff",width=2){c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fillStyle=fill;c.fill();c.strokeStyle=stroke;c.lineWidth=width;c.stroke()}
+function wave(t,on,amp){const artifact=1.15*Math.exp(-Math.pow((t-.22)/.025,2))-.65*Math.exp(-Math.pow((t-.28)/.045,2));const cm=-1.05*Math.exp(-Math.pow((t-on-.48)/.34,2))+.78*Math.exp(-Math.pow((t-on-1.18)/.50,2))-.10*Math.exp(-Math.pow((t-on-2.20)/.82,2));return artifact+amp*cm}
+function drawNerve(now){
+  const {w,h}=fit(nerve,nerveWrap);nc.clearRect(0,0,w,h);nc.fillStyle="#101d24";nc.fillRect(0,0,w,h);
+  const s=STATES[scenario],xProx=w*.19,xDist=w*.63,xG1=w*.88,y=h*.53;
+  line(nc,[[w*.07,y],[w*.94,y]],"#b58b43",7);label(nc,"ULNAR SİNİR",w*.49,y-18,"#e0bd78",11,"center");
+  function stimSite(x,name,fibers){line(nc,[[x,h*.18],[x,y-8]],fibers===24?"#5eea8d":"#eb5a65",3);dot(nc,x,h*.16,10,"#111820",fibers===24?"#5eea8d":"#eb5a65");label(nc,name,x,h*.09,"#dce8ed",11,"center");label(nc,fibers===24?"SUPRAMAKSİMAL · 24/24":"SUBMAKSİMAL · 14/24",x,h*.28,fibers===24?"#5eea8d":"#ff9aa2",10,"center")}
+  stimSite(xProx,"DİRSEK ALTI",s.proxFibers);stimSite(xDist,"BİLEK",s.distalFibers);dot(nc,xG1,h*.16,9,"#64a7ff");label(nc,"G1 · HİPOTENAR",xG1,h*.09,"#8fc2ff",11,"center");
+  if(stimStart>=0){
+    const e=(now-stimStart)/1000,proxStart=.12,distStart=1.02;
+    function volley(start,x0,count,color){const q=clamp((e-start)/.72,0,1);if(q>0&&q<1){for(let i=0;i<count;i++){const yy=y-8+(i%7)*2.5;dot(nc,x0+(xG1-x0)*q,yy,2.4,color,"rgba(255,255,255,.8)",.7)}}}
+    volley(proxStart,xProx,s.proxFibers,"#36c9d7");volley(distStart,xDist,s.distalFibers,"#5eea8d");
+    if(e>2.15)stimStart=-1;
+  }
+}
+function drawScope(now){
+  const {w,h}=fit(scope,scopeWrap);sc.clearRect(0,0,w,h);sc.fillStyle="#06140f";sc.fillRect(0,0,w,h);
+  const s=STATES[scenario],L=52,R=w-24,T=26,B=h-27,rowGap=(B-T)/2,windowMs=12,halfMv=13,x=t=>L+(R-L)*t/windowMs;
+  sc.strokeStyle="#143326";sc.lineWidth=1;for(let i=0;i<=12;i++){sc.beginPath();sc.moveTo(x(i),T);sc.lineTo(x(i),B);sc.stroke()}for(let i=0;i<=6;i++){const yy=T+(B-T)*i/6;sc.beginPath();sc.moveTo(L,yy);sc.lineTo(R,yy);sc.stroke()}
+  const elapsed=stimStart>=0?(now-stimStart)/1000:99;
+  function trace(row,name,amp,on,color,start){const mid=T+rowGap*(row+.5),y=v=>mid+(v/halfMv)*rowGap*.42,progress=clamp((elapsed-start)/.92,0,1);sc.strokeStyle=color;sc.lineWidth=2.2;sc.beginPath();const n=Math.floor(760*(stimStart>=0?progress:1));for(let i=0;i<=n;i++){const t=windowMs*i/760,v=wave(t,on,amp);i?sc.lineTo(x(t),y(v)):sc.moveTo(x(t),y(v))}sc.stroke();label(sc,`${name} · ${amp.toFixed(1).replace(".",",")} mV`,L+9,mid-rowGap*.31,color,11);line(sc,[[L,mid],[R,mid]],"#27533e",1)}
+  trace(0,"DİRSEK ALTI",s.proxAmp,6.3,"#36c9d7",.12);trace(1,"BİLEK",s.distalAmp,3.2,"#5eea8d",1.02);
+  label(sc,"5 mV/div · latanslar amplitüd karşılaştırması için ölçeklendirilmiş modeldir",L,T-8,"#789486",10);
+}
+function updateUI(){
+  const s=STATES[scenario],ratio=s.proxAmp/s.distalAmp*100,isWarn=scenario!=="normal";
+  buttons.forEach((b,i)=>b.classList.toggle("active",i===(scenario==="normal"?0:scenario==="distal"?1:2)));
+  badge.textContent=scenario==="normal"?"Her iki nokta supramaksimal":scenario==="distal"?"Bilek uyarımı yetersiz":"Dirsek altı uyarımı yetersiz";badge.className=isWarn?"state warning":"state";
+  distalOut.textContent=`${s.distalFibers}/24 · ${s.distalAmp.toFixed(1).replace(".",",")} mV`;proxOut.textContent=`${s.proxFibers}/24 · ${s.proxAmp.toFixed(1).replace(".",",")} mV`;ratioOut.textContent="%"+Math.round(ratio);patternOut.textContent=s.pattern;
+  document.getElementById("distalRow").className=s.distalFibers<24?"readout warning":"readout ok";document.getElementById("proxRow").className=s.proxFibers<24?"readout warning":"readout ok";document.getElementById("patternRow").className=isWarn?"readout warning":"readout";document.getElementById("ratioRow").className=isWarn?"readout warning":"readout";
+  if(scenario==="normal")lesson.innerHTML="<b>Teknik karşılaştırma geçerlidir:</b> Her iki uyarım noktası da aynı maksimal BKAP'ı üretir.";
+  else if(scenario==="distal")lesson.innerHTML="<b>Yalancı distal düşük amplitüd:</b> Bilekte yalnız 14/24 lif rekrüte edilir. Tek başına bakılırsa aksonal kayıp sanılır; proksimal yanıtın daha büyük olması teknik hata/ko-stimülasyon/anomali alarmıdır.";
+  else lesson.innerHTML="<b>Yalancı iletim bloğu:</b> Dirsek altında yalnız 14/24 lif rekrüte edilir. Normal sinirde proksimal BKAP %43 düşük görünür; iletim bloğu demeden önce proksimal supramaksimalite yeniden kanıtlanmalıdır.";
+  window.__submaxInterpretationState={scenario:s.key,trueNerve:"normal",trueMaxAmp:10.7,distalFibers:s.distalFibers,proximalFibers:s.proxFibers,distalAmp:s.distalAmp,proximalAmp:s.proxAmp,ratio:+ratio.toFixed(3),apparent:s.apparent,recording:"hypothenar",nerve:"ulnar"};
+}
+function setScenario(v){scenario=v;updateUI();draw(performance.now())}
+normalBtn.addEventListener("click",()=>setScenario("normal"));distalBtn.addEventListener("click",()=>setScenario("distal"));proxBtn.addEventListener("click",()=>setScenario("proximal"));document.getElementById("stimBtn").addEventListener("click",()=>{stimStart=performance.now();if(!raf)raf=requestAnimationFrame(loop)});
+function draw(now){drawNerve(now);drawScope(now)}function loop(now){draw(now);if(stimStart>=0)raf=requestAnimationFrame(loop);else raf=0}
+new ResizeObserver(()=>draw(performance.now())).observe(document.querySelector(".app"));setScenario("normal");
+</script>
+<script data-standard-nav-v3>document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase();const a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});</script>
+</body>
+</html>

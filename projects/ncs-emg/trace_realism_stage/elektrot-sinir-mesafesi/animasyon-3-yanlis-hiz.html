@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gerçek hız değişmez; erken onset hesabı yalancı hızlandırır</title>
+<style>
+:root{--bg:#eef1f4;--paper:#fff;--head:#e7edf3;--line:#d5dde4;--ink:#16232c;--muted:#596a75;--cyan:#0f7a95;--blue:#6bbcff;--green:#5de1a0;--amber:#ffd05b;--red:#ff7280;--scope:#03110c;--grid:#12392b}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{display:grid;place-items:center;padding:14px;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,Arial,sans-serif}
+button,input{font:inherit}.app{width:min(calc(100vw - 28px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);display:grid;grid-template-rows:50px 38px minmax(0,1fr) 106px 56px;overflow:hidden;background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25)}
+.titlebar,.topicbar{display:flex;align-items:center;justify-content:space-between;gap:14px}.titlebar{padding:0 18px;background:linear-gradient(180deg,#fff,#eef1f4);border-bottom:1px solid var(--line)}
+.title-left{min-width:0;display:flex;align-items:center;gap:10px}.dot{width:10px;height:10px;border-radius:50%;background:#2f7d52;box-shadow:0 0 6px rgba(47,125,82,.5)}h1{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:18px;font-weight:800}.lab-badge{flex:none;padding:7px 11px;border:1px solid #9bb9c6;background:#f7fbfc;color:#14576c;font:800 11px/1 Consolas,monospace;letter-spacing:.05em}
+.topicbar{padding:0 18px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px}.topicbar b{color:#0d6d87}.topicbar .fixed{color:var(--muted)}
+.workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:12px;padding:12px}.scope{position:relative;min-width:0;min-height:0;overflow:hidden;background:var(--scope);border:1px solid #19382e}.scope canvas{width:100%;height:100%;display:block}.mode-badge{position:absolute;right:12px;bottom:10px;padding:6px 9px;border:1px solid #bd9b25;background:rgba(36,30,0,.93);color:#ffe38a;font:800 10px/1 Consolas,monospace;letter-spacing:.03em}
+.side{min-width:0;min-height:0;display:grid;grid-template-rows:34px 258px minmax(0,1fr);overflow:hidden;background:#fff;border:1px solid var(--line)}.side-head{display:flex;align-items:center;padding:0 12px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px;font-weight:850;letter-spacing:.05em;text-transform:uppercase;color:#475762}
+.book{min-height:0;display:grid;place-items:center;overflow:hidden;padding:7px 9px;border-bottom:1px solid var(--line);background:#fff}.book img{display:block;width:auto;height:230px;max-width:100%;object-fit:contain}.readout{min-height:0;display:grid;align-content:start;gap:5px;padding:7px 10px;background:#fff}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:5px}.metric{min-height:42px;padding:5px 7px;border:1px solid #cbd6de;background:#f8fafb}.metric span{display:block;margin-bottom:2px;color:#53626d;font-size:8.5px;font-weight:850;text-transform:uppercase}.metric strong{font-size:13.5px;font-variant-numeric:tabular-nums}
+.verdict{padding:5px 7px;border-left:4px solid #2f7d52;background:#edf7f1}.verdict.warn{border-color:#c97a2a;background:#fff7e9}.verdict.bad{border-color:#b43b47;background:#fff0f2}.verdict span{display:block;margin-bottom:2px;color:#53626d;font-size:8.5px;font-weight:850;text-transform:uppercase}.verdict strong{font-size:11.2px;line-height:1.2}.logic,.source-note{margin:0;color:#43525e;font-size:9.15px;line-height:1.22}.logic b{color:#006b85}.source-note{padding-top:4px;border-top:1px solid var(--line)}.source-note a{color:#0f7a95;text-decoration:none}
+.controls{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:12px;align-items:stretch;padding:10px 18px;background:#fff;border-top:1px solid var(--line)}.control{display:grid;grid-template-rows:auto 1fr auto;gap:7px;padding:0 10px;border:1px solid #cbd6de;background:#f8fafb}.control label{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px;color:#34444f;font-size:12px;font-weight:800}.control output{color:#006b85;font-size:14px;font-variant-numeric:tabular-nums}.control input{width:100%;accent-color:#177b96}.marks{display:flex;justify-content:space-between;padding-bottom:7px;color:#5e6d78;font-size:9px}.scan{border:0;background:#174c5b;color:#fff;font:800 12px/1.25 "Segoe UI",Arial,sans-serif;cursor:pointer}.scan:hover,.scan:focus-visible{background:#0f6177;outline:2px solid #79b9cc;outline-offset:2px}
+.bottom-bar{height:56px;display:flex;align-items:stretch;gap:1px;background:#d5dde4;border-top:1px solid #d5dde4}.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:#e7edf3;color:#16232c;text-decoration:none;font:800 13px/1 "Segoe UI",Arial,sans-serif}.fkey span{color:#0f7a95;font-size:15px}.fkey:hover,.fkey:focus-visible{background:#dce8f0;outline:none}
+@media(max-width:1000px){body{padding:0}.app{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:48px 34px minmax(0,1fr) 130px 52px}.workspace{grid-template-columns:1fr;padding:8px}.side{display:none}.controls{grid-template-columns:minmax(0,1fr) 150px;padding:8px}.titlebar{padding:0 10px}h1{font-size:15px}.topicbar{padding:0 10px}.fixed{display:none}}
+</style>
+</head>
+<body>
+<main class="app" aria-labelledby="lab-title">
+  <div class="titlebar"><div class="title-left"><span class="dot"></span><h1 id="lab-title">Gerçek hız değişmez; erken onset hesabı yalancı hızlandırır</h1></div><div class="lab-badge">SERBEST LABORATUVAR</div></div>
+  <div class="topicbar"><div><b>Şekil 8.29</b> · Aynı median mikst sinir, aynı uyarı–kayıt mesafesi</div><div class="fixed">Sabit: gerçek akson hızı 52,6 m/s · mesafe 40 cm · peak 8,4 ms</div></div>
+  <section class="workspace">
+    <div class="scope"><canvas id="scopeCanvas" aria-label="Sinir üzerindeki ve lateral kayıttaki onset latanslarının aynı mesafeyle iletim hızı hesabına bağlandığı interaktif NCS laboratuvarı"></canvas><div class="mode-badge" id="modeBadge"></div></div>
+    <aside class="side">
+      <div class="side-head">Kitaptaki gerçek kayıt · Şekil 8.29</div>
+      <div class="book"><img id="bookFigure" src="../figures/source-v3/fig_8_29_latency_clean.png" alt="Şekil 8.29: sinir üzerinde ve 1, 2, 3 cm lateral kayıtlarda onsetin sola kayması"></div>
+      <div class="readout">
+        <div class="metrics">
+          <div class="metric"><span>Ölçüm mesafesi</span><strong>40,0 cm · sabit</strong></div>
+          <div class="metric"><span>Ölçülen onset</span><strong id="onsetText"></strong></div>
+          <div class="metric"><span>Hesaplanan İH</span><strong id="velocityText"></strong></div>
+          <div class="metric"><span>Yalancı artış</span><strong id="errorText"></strong></div>
+        </div>
+        <div class="verdict" id="verdictBox"><span>Teknik karar</span><strong id="verdictText"></strong></div>
+        <p class="logic" id="logicText"></p>
+        <p class="source-note"><b>Resident notu:</b> Sayılar normatif eşik değil, Şekil 8.29’un yönünü formüle bağlayan öğretim modelidir. Onset, en hızlı ileten liflerin hız hesabını temsil eder. <a href="https://pubmed.ncbi.nlm.nih.gov/9052817/" target="_blank" rel="noreferrer">Raynor ve ark., 1997</a></p>
+      </div>
+    </aside>
+  </section>
+  <section class="controls">
+    <div class="control"><label for="offset"><span>Kayıt elektrotlarının sinire lateral uzaklığı</span><output id="offsetOutput"></output></label><input id="offset" type="range" min="0" max="30" step="1" value="0"><div class="marks"><span>Sinir üzerinde</span><span>1 cm lateral</span><span>2 cm lateral</span><span>3 cm lateral</span></div></div>
+    <button class="scan" id="compareButton" type="button">0 ↔ 3 cm karşılaştır</button>
+  </section>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="latans-hatasi.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="../aktif-referans-mesafesi/index.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const canvas=document.getElementById("scopeCanvas"),ctx=canvas.getContext("2d");
+const slider=document.getElementById("offset"),offsetOutput=document.getElementById("offsetOutput"),compareButton=document.getElementById("compareButton");
+const onsetText=document.getElementById("onsetText"),velocityText=document.getElementById("velocityText"),errorText=document.getElementById("errorText");
+const verdictBox=document.getElementById("verdictBox"),verdictText=document.getElementById("verdictText"),logicText=document.getElementById("logicText"),modeBadge=document.getElementById("modeBadge");
+const distanceM=.40,baseOnsetMs=7.60,peakLatencyMs=8.40,trueVelocity=distanceM/(baseOnsetMs/1000);
+let offset=0,autoCompare=false,compareStart=0,phase=0;const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function gauss(x,m,s){return Math.exp(-.5*((x-m)/s)**2)}
+function fmt1(v){return v.toFixed(1).replace(".",",")}function fmt2(v){return v.toFixed(2).replace(".",",")}function fmt5(v){return v.toFixed(5).replace(".",",")}
+function round2(v){return Math.sign(v)*Math.round((Math.abs(v)+1e-9)*100)/100}
+function amplitudeAt(mm){if(mm===0)return 38;return Math.max(1.5,38*Math.exp(-1.15268*Math.pow(mm/10,.7)))}
+function onsetShiftAt(mm){return -.54*Math.pow(mm/30,.9)}
+function model(){
+  const amplitude=amplitudeAt(offset),onsetShift=onsetShiftAt(offset),onset=round2(baseOnsetMs+onsetShift),measuredVelocity=distanceM/(onset/1000),errorPct=(measuredVelocity/trueVelocity-1)*100;
+  const state={
+    variable:"recording_electrode_lateral_offset_mm",lateralOffsetMm:Number(offset.toFixed(1)),
+    recordingDistanceM:distanceM,recordingDistanceFixed:true,trueAxonVelocityMs:Number(trueVelocity.toFixed(2)),trueAxonVelocityFixed:true,
+    stimulusSiteFixed:true,stimulusCurrentFixed:true,g1g2DistanceFixed:true,displaySettingsFixed:true,
+    amplitudeUv:Number(amplitude.toFixed(1)),onsetLatencyMs:onset,onsetShiftMs:round2(onsetShift),peakLatencyMs:peakLatencyMs,
+    calculatedVelocityMs:Number(measuredVelocity.toFixed(2)),falseVelocityIncreasePct:Number(errorPct.toFixed(1)),
+    volumeConductionEffect:true,interpretation:offset<2?"valid_on_nerve_velocity":offset<15?"technical_onset_shift_emerging":"spuriously_fast_velocity_from_off_nerve_recording",
+    teachingModel:true,normativeThreshold:false,sourceFigure:"Preston_Shapiro_Figure_8_29"
+  };
+  window.__falseVelocityState=state;return state;
+}
+function resize(){const r=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);if(canvas.width!==Math.round(r.width*dpr)||canvas.height!==Math.round(r.height*dpr)){canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}return r}
+function text(s,x,y,color="#d9e9e3",size=11,align="left",weight=650){ctx.fillStyle=color;ctx.font=`${weight} ${size}px "Segoe UI",Arial,sans-serif`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.textAlign="left"}
+function line(x1,y1,x2,y2,color,width=1,dash=[]){ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore()}
+function grid(x,y,w,h){ctx.fillStyle="#03110c";ctx.fillRect(x,y,w,h);for(let i=0;i<=10;i++){const xx=x+w*i/10;line(xx,y,xx,y+h,"#12392b")}for(let i=0;i<=4;i++){const yy=y+h*i/4;line(x,yy,x+w,yy,"#12392b")}line(x,y+h/2,x+w,y+h/2,"#2b6450")}
+function noise(t){return .018*Math.sin(t*137+phase)+.011*Math.sin(t*277+1.2)+.007*Math.sin(t*451+.4)}
+function snap(t,amp,onsetNorm){
+  const width=.015+.025*(1-amp/38),peakNorm=.405;
+  const gate=t<=onsetNorm?0:1-Math.exp(-Math.pow((t-onsetNorm)/.008,2));
+  return .13*(1.6*gauss(t,.050,.003)-gauss(t,.061,.008))+amp/38*gate*(.18*gauss(t,onsetNorm+.012,width*.45)-1.08*gauss(t,peakNorm,width)+.52*gauss(t,peakNorm+.046,width*1.35)-.12*gauss(t,peakNorm+.11,width*1.8));
+}
+function drawTrace(x,y,w,h,label,mm,color){
+  const amp=amplitudeAt(mm),shift=onsetShiftAt(mm),onset=baseOnsetMs+shift,onsetNorm=.31+shift*.12,peakNorm=.405;
+  grid(x,y,w,h);text(label,x+9,y+16,"#a9c5ba",9,"left",800);
+  const pts=[];for(let i=0;i<=700;i++){const t=i/700,v=snap(t,amp,onsetNorm)+noise(t);pts.push([x+w*t,y+h/2-v*h*.34])}
+  ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();
+  const onsetX=x+w*onsetNorm,peakX=x+w*peakNorm;line(onsetX,y+18,onsetX,y+h-7,"#45d9df",1,[4,3]);line(peakX,y+18,peakX,y+h-7,"#ffd05b",1,[4,3]);
+  text(`onset ${fmt2(onset)} ms`,onsetX+4,y+h-8,"#5fe4e8",9,"left",800);text(`peak ${fmt2(peakLatencyMs)} ms`,peakX+4,y+28,"#ffd05b",9,"left",800);
+  const bx=x+w*.77,half=Math.max(4,amp/38*h*.34);line(bx,y+h/2-half,bx,y+h/2+half,color);line(bx-5,y+h/2-half,bx+5,y+h/2-half,color);line(bx-5,y+h/2+half,bx+5,y+h/2+half,color);text(`${fmt1(amp)} µV p-p`,bx+8,y+h/2+3,color,9,"left",800);
+}
+function drawConductionRuler(W,s){
+  const x=90,y=52,w=W-180;line(x,y,x+w,y,"#ffbf54",7);line(x,y,x+w,y,"#ffe59b",2);
+  ctx.fillStyle="#f4f8fa";ctx.fillRect(x-16,y-17,34,34);text("STİM",x+1,y+4,"#17332b",8,"center",800);
+  ctx.fillStyle="#f4f8fa";ctx.beginPath();ctx.arc(x+w,y,16,0,Math.PI*2);ctx.fill();ctx.fillStyle="#264451";ctx.beginPath();ctx.arc(x+w,y,6,0,Math.PI*2);ctx.fill();text("G1 KAYIT",x+w,y-24,"#fff",9,"center",800);
+  for(let i=0;i<5;i++){const px=x+((phase*70+i*w/4)%w);ctx.fillStyle="#65e2a4";ctx.beginPath();ctx.arc(px,y,4,0,Math.PI*2);ctx.fill()}
+  line(x,y+31,x+w,y+31,"#71dce3",1);line(x,y+26,x,y+36,"#71dce3");line(x+w,y+26,x+w,y+36,"#71dce3");text("ÖLÇÜLEN YÜZEY MESAFESİ = 40,0 cm · DEĞİŞMİYOR",x+w/2,y+47,"#72e5e9",9,"center",800);
+  text(`GERÇEK AKSON HIZI = ${fmt1(trueVelocity)} m/s · DEĞİŞMİYOR`,x+w/2,y-24,"#ffd975",10,"center",850);
+}
+function drawFormula(W,H,s){
+  const x=50,y=H-118,w=W-100,h=88;ctx.fillStyle="#0a2119";ctx.fillRect(x,y,w,h);ctx.strokeStyle="#315448";ctx.strokeRect(x,y,w,h);
+  text("İLETİM HIZI",x+14,y+22,"#9db8ad",9,"left",850);
+  text("mesafe",x+138,y+28,"#c7d8d1",13,"center",750);line(x+102,y+35,x+174,y+35,"#c7d8d1",2);text("onset",x+138,y+54,"#c7d8d1",13,"center",750);
+  text("=",x+202,y+42,"#8fa99f",20,"center",800);text("0,40 m",x+274,y+28,"#72e5e9",14,"center",800);line(x+233,y+35,x+315,y+35,"#72e5e9",2);text(`${fmt5(s.onsetLatencyMs/1000)} s`,x+274,y+56,"#72e5e9",13,"center",800);
+  text("=",x+345,y+42,"#8fa99f",20,"center",800);text(`${fmt1(s.calculatedVelocityMs)} m/s`,x+430,y+45,s.falseVelocityIncreasePct<.5?"#5de1a0":"#ffd05b",23,"center",900);
+  line(x+510,y+12,x+510,y+h-12,"#315448");text("Gerçek",x+548,y+25,"#9db8ad",9,"center",800);text(`${fmt1(trueVelocity)}`,x+548,y+49,"#6bbcff",19,"center",900);
+  text("Ölçülen",x+632,y+25,"#9db8ad",9,"center",800);text(`${fmt1(s.calculatedVelocityMs)}`,x+632,y+49,s.falseVelocityIncreasePct<.5?"#5de1a0":"#ffd05b",19,"center",900);
+  const gaugeX=x+700,gaugeW=w-722;line(gaugeX,y+48,gaugeX+gaugeW,y+48,"#315448",8);const frac=clamp(s.falseVelocityIncreasePct/8,0,1);line(gaugeX,y+48,gaugeX+gaugeW*frac,y+48,"#ffbf54",8);text(`+%${fmt1(s.falseVelocityIncreasePct)}`,gaugeX+gaugeW,y+27,s.falseVelocityIncreasePct<.5?"#5de1a0":"#ffd05b",15,"right",900);text("yalancı hız artışı",gaugeX,y+72,"#9db8ad",9);
+}
+function render(){
+  const r=resize(),W=r.width,H=r.height,s=model();ctx.clearRect(0,0,W,H);ctx.fillStyle="#03110c";ctx.fillRect(0,0,W,H);
+  text("NCS/EMG KAYIT EKRANI · ONSET → HIZ HESABI",16,18,"#9db8ad",9,"left",800);drawConductionRuler(W,s);
+  const traceY=118,gap=7,traceH=(H-traceY-148-gap)/2;
+  drawTrace(22,traceY,W-44,traceH,"REFERANS · ELEKTROT SİNİR ÜZERİNDE",0,"#6bbcff");
+  drawTrace(22,traceY+traceH+gap,W-44,traceH,`MEVCUT KAYIT · ${fmt1(offset)} mm LATERAL`,offset,"#5de1a0");
+  drawFormula(W,H,s);
+  offsetOutput.textContent=`${fmt1(offset)} mm · ${fmt1(s.calculatedVelocityMs)} m/s`;onsetText.textContent=`${fmt2(s.onsetLatencyMs)} ms`;velocityText.textContent=`${fmt1(s.calculatedVelocityMs)} m/s`;errorText.textContent=`+%${fmt1(s.falseVelocityIncreasePct)}`;
+  verdictBox.className="verdict"+(offset<2?"":offset<15?" warn":" bad");
+  if(offset<2){verdictText.textContent="Sinir üzerinde · onset ve hız hesabı güvenilir";logicText.innerHTML=`40 cm / 7,60 ms = <b>${fmt1(trueVelocity)} m/s</b>. Ölçülen hız gerçek akson hızıyla eşleşiyor.`}
+  else if(offset<15){verdictText.textContent="Onset erkene kayıyor · teknik hız artışı başlıyor";logicText.innerHTML=`Peak 8,40 ms’de kalırken onset ${fmt2(s.onsetLatencyMs)} ms’ye geldi. Aynı mesafe daha kısa süreye bölündü.`}
+  else{verdictText.textContent="Yalancı hızlı İH · amplitüd düşüklüğü teknik ipucu";logicText.innerHTML=`Gerçek hız ${fmt1(trueVelocity)} m/s sabit; hesap ${fmt1(s.calculatedVelocityMs)} m/s gösteriyor. <b>Düşük amplitüd + yüksek İH</b> elektrot–sinir geometrisini sorgulatır.`}
+  modeBadge.textContent=offset<2?"DOĞRU ONSET · DOĞRU HIZ":autoCompare?"KAYIT GEOMETRİSİ KARŞILAŞTIRILIYOR":"ERKEN ONSET · YALANCI HIZLI İH";
+  phase+=reduceMotion?0:.012;requestAnimationFrame(render);
+}
+slider.addEventListener("input",()=>{autoCompare=false;offset=Number(slider.value);compareButton.textContent="0 ↔ 3 cm karşılaştır"});
+compareButton.addEventListener("click",()=>{autoCompare=true;compareStart=performance.now();compareButton.textContent="Karşılaştırılıyor…"});
+function animate(now){
+  if(autoCompare){const q=(now-compareStart)/6200;if(q>=1){autoCompare=false;offset=0;slider.value="0";compareButton.textContent="0 ↔ 3 cm karşılaştır"}else{offset=15-15*Math.cos(q*2*Math.PI);slider.value=String(Math.round(offset))}}
+  requestAnimationFrame(animate);
+}
+render();requestAnimationFrame(animate);
+addEventListener("keydown",e=>{if(e.key==="F1"){e.preventDefault();location.href="latans-hatasi.html"}if(e.key==="F2"){e.preventDefault();location.href="../index.html"}if(e.key==="F3"){e.preventDefault();location.href="../aktif-referans-mesafesi/index.html"}});
+</script>
+</body>
+</html>

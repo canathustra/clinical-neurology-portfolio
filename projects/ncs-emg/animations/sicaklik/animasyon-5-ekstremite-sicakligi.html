@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sıcaklık — Ekstremite Sıcaklığı Animasyonu</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;font-variant-numeric:tabular-nums;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.badge{display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border-radius:999px;background:#e6f7ec;color:var(--green);border:1px solid #c8e8d3;font-size:13px;font-weight:700;text-transform:none;letter-spacing:0;}
+.badge.cold{background:#e9f1fb;color:var(--blue);border-color:#cddef4;}
+.modetoggle{display:flex;border:1px solid var(--line2);border-radius:6px;overflow:hidden;}
+.mbtn{appearance:none;border:none;background:#fff;color:var(--muted);padding:6px 12px;font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;text-transform:none;letter-spacing:0;}
+.mbtn.active{background:var(--cyan);color:#fff;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:14px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:15px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:17px;font-variant-numeric:tabular-nums;}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14.5px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;align-items:center;gap:18px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+.slider-row span{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+input[type="range"]{flex:1;max-width:420px;accent-color:var(--cyan);}
+.pos-readout{font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:110px;text-align:right;text-transform:capitalize;}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Sıcaklık</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">5 / 9 — Ekstremite Sıcaklığı</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>Ekstremite Boyunca Sıcaklık · Deri vs Sinir</span><div style="display:flex;align-items:center;gap:10px;"><div class="modetoggle" id="stateToggle"><button class="mbtn active" data-state="warm" type="button">Sıcak Ekstremite</button><button class="mbtn" data-state="cool" type="button">Soğuk Ekstremite</button></div><span class="badge" id="stateBadge">sıcak ekstremite</span></div></div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Okuma</span></div>
+<div class="side-body">
+<div class="stat-row"><span>Konum</span><b id="posLabel">orta</b></div>
+<div class="stat-row"><span>Sinir Yakını Sıcaklık</span><b id="nerveTempOut">32.5°C</b></div>
+<div class="stat-row"><span>Deri Sıcaklığı</span><b id="skinTempOut">34.0°C</b></div>
+<div class="stat-row"><span>Fark (Deri − Sinir)</span><b id="diffOut">+1.5°C</b></div>
+<div class="note-box" id="mechNote"><b>Sıcak ekstremitede:</b> Deri, sinirden yaklaşık 1–2°C daha sıcaktır.</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="slider-row">
+<span>Proksimal</span>
+<input id="posSlider" type="range" min="0" max="100" step="1" value="30" aria-label="Ölçüm noktası: proksimalden distale">
+<span>Distal</span>
+</div>
+<div class="pos-readout" id="posReadout">orta</div>
+</footer>
+
+<div class="bottom-bar">
+<a class="fkey" href="ekstremite-sicakligi.html">F1<b>Önceki: Ekstremite Sıcaklığı</b></a>
+<a class="fkey" href="../index.html">F2<b>İçindekiler</b></a>
+<a class="fkey" href="yanlis-tani.html">F3<b>Sıradaki: Yanlış Tanı Tuzakları</b></a>
+</div>
+
+</div>
+
+<script>
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const stateBadge=document.getElementById("stateBadge");
+const posLabel=document.getElementById("posLabel");
+const nerveTempOut=document.getElementById("nerveTempOut");
+const skinTempOut=document.getElementById("skinTempOut");
+const diffOut=document.getElementById("diffOut");
+const mechNote=document.getElementById("mechNote");
+const posSlider=document.getElementById("posSlider");
+const posReadout=document.getElementById("posReadout");
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(220,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(()=>{resizeCanvas();draw();}).observe(stageWrap);
+resizeCanvas();
+
+let pos=0.3, limbState="warm";
+
+function nerveTempAt(p){
+  const base = limbState==="warm" ? 34 : 28;
+  return base - 5*p;
+}
+function skinTempAt(p){
+  const nerve=nerveTempAt(p);
+  return limbState==="warm" ? nerve+1.5 : nerve-1.5;
+}
+function tempColor(t){
+  const f=Math.max(0,Math.min(1,(t-21)/13));
+  const cold=[64,124,214], warm=[214,122,54];
+  const r=Math.round(cold[0]+(warm[0]-cold[0])*f);
+  const g=Math.round(cold[1]+(warm[1]-cold[1])*f);
+  const b=Math.round(cold[2]+(warm[2]-cold[2])*f);
+  return `rgb(${r},${g},${b})`;
+}
+
+function updateReadouts(){
+  const nerve=nerveTempAt(pos), skin=skinTempAt(pos), diff=skin-nerve;
+  nerveTempOut.textContent=`${nerve.toFixed(1)}°C`;
+  skinTempOut.textContent=`${skin.toFixed(1)}°C`;
+  diffOut.textContent=`${diff>0?"+":""}${diff.toFixed(1)}°C`;
+  const posWord = pos<.2?"proksimal":pos>.8?"distal (yüzeyel)":"orta";
+  posLabel.textContent=posWord;
+  posReadout.textContent=posWord;
+  stateBadge.textContent = limbState==="warm" ? "sıcak ekstremite" : "soğuk ekstremite";
+  stateBadge.classList.toggle("cold", limbState==="cool");
+  if(limbState==="warm") mechNote.innerHTML="<b>Sıcak ekstremitede:</b> Deri, sinirden yaklaşık 1–2°C daha sıcaktır.";
+  else mechNote.innerHTML="<b>Soğuk ekstremitede:</b> Bu genelde tersine döner — deri, sinirden daha soğuk ölçülür.";
+}
+
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+function draw(){
+  const W=cssW,H=cssH;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fcfdfe"; ctx.fillRect(0,0,W,H);
+
+  const barX=W*0.07, barY=H*0.14, barW=W*0.86, barH=Math.max(28,H*0.14);
+  const base = limbState==="warm" ? 34 : 28;
+  const grad=ctx.createLinearGradient(barX,0,barX+barW,0);
+  for(let i=0;i<=12;i++){ const p=i/12; grad.addColorStop(p, tempColor(base-5*p)); }
+  ctx.save();
+  roundRect(barX,barY,barW,barH,barH/2); ctx.clip();
+  ctx.fillStyle=grad; ctx.fillRect(barX,barY,barW,barH);
+  ctx.restore();
+  ctx.strokeStyle="#8a97a3"; ctx.lineWidth=1.6;
+  roundRect(barX,barY,barW,barH,barH/2); ctx.stroke();
+
+  ctx.strokeStyle="rgba(22,35,44,.55)"; ctx.lineWidth=2.4;
+  ctx.beginPath(); ctx.moveTo(barX+10,barY+barH/2); ctx.lineTo(barX+barW-10,barY+barH/2); ctx.stroke();
+
+  ctx.fillStyle="#45525c"; ctx.font="700 "+Math.max(11,W*0.011)+"px Inter, sans-serif";
+  ctx.textAlign="left"; ctx.fillText("PROKSİMAL",barX,barY-10);
+  ctx.textAlign="right"; ctx.fillText("DİSTAL (yüzeyel)",barX+barW,barY-10);
+  ctx.textAlign="left";
+
+  const markerX=barX+barW*pos;
+  ctx.strokeStyle="#0f7a95"; ctx.lineWidth=2.4;
+  ctx.beginPath(); ctx.moveTo(markerX,barY-6); ctx.lineTo(markerX,barY+barH+6); ctx.stroke();
+  ctx.fillStyle="#0f7a95";
+  ctx.beginPath(); ctx.moveTo(markerX-7,barY-6); ctx.lineTo(markerX+7,barY-6); ctx.lineTo(markerX,barY-16); ctx.closePath(); ctx.fill();
+
+  const inX=W*0.26, inY=barY+barH+H*0.14, inW=W*0.48, inH=H*0.5;
+  ctx.fillStyle="#ffffff"; ctx.strokeStyle="#d7dee5"; ctx.lineWidth=2;
+  roundRect(inX,inY,inW,inH,10); ctx.fill(); ctx.stroke();
+  ctx.fillStyle="#16232c"; ctx.font="800 "+Math.max(12,inW*0.04)+"px Inter, sans-serif";
+  ctx.fillText("BU NOKTADA KESİT",inX+16,inY+26);
+
+  const nerve=nerveTempAt(pos), skin=skinTempAt(pos);
+  const skinY=inY+inH*0.34, skinH=inH*0.2;
+  const nerveY=inY+inH*0.7, nerveR=Math.min(inW*0.09,skinH*0.95);
+
+  ctx.fillStyle=tempColor(skin);
+  roundRect(inX+16,skinY,inW-32,skinH,8); ctx.fill();
+  ctx.fillStyle="#ffffff"; ctx.font="700 "+Math.max(12,inW*0.036)+"px Inter, sans-serif";
+  ctx.textAlign="left"; ctx.fillText("DERİ",inX+28,skinY+skinH/2+5);
+  ctx.textAlign="right"; ctx.fillText(`${skin.toFixed(1)}°C`,inX+inW-20,skinY+skinH/2+5);
+
+  ctx.fillStyle=tempColor(nerve);
+  ctx.beginPath(); ctx.arc(inX+inW/2,nerveY,nerveR,0,Math.PI*2); ctx.fill();
+  ctx.strokeStyle="#16232c"; ctx.lineWidth=1.4; ctx.stroke();
+  ctx.fillStyle="#16232c"; ctx.font="800 "+Math.max(11,inW*0.032)+"px Inter, sans-serif";
+  ctx.textAlign="center";
+  ctx.fillText("SİNİR",inX+inW/2,nerveY+nerveR+22);
+  ctx.fillStyle="#ffffff";
+  ctx.fillText(`${nerve.toFixed(1)}°C`,inX+inW/2,nerveY+5);
+
+  const diff=skin-nerve;
+  const midX=inX+inW-54;
+  ctx.strokeStyle="#c97a2a"; ctx.lineWidth=2;
+  ctx.beginPath();
+  if(diff>=0){ ctx.moveTo(midX,nerveY-nerveR-4); ctx.lineTo(midX,skinY+skinH+4); }
+  else { ctx.moveTo(midX,skinY+skinH+4); ctx.lineTo(midX,nerveY-nerveR-4); }
+  ctx.stroke();
+  ctx.fillStyle="#c97a2a"; ctx.font="800 "+Math.max(11,inW*0.032)+"px Inter, sans-serif";
+  ctx.textAlign="left";
+  ctx.fillText(`${diff>0?"+":""}${diff.toFixed(1)}°C`,midX+10,(skinY+nerveY)/2+18);
+}
+
+posSlider.addEventListener("input",e=>{ pos=Number(e.target.value)/100; updateReadouts(); draw(); });
+const stateBtns=[...document.querySelectorAll(".mbtn")];
+stateBtns.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    limbState=btn.dataset.state;
+    stateBtns.forEach(b=>b.classList.toggle("active",b===btn));
+    updateReadouts(); draw();
+  });
+});
+
+updateReadouts();
+draw();
+</script>
+</body>
+</html>

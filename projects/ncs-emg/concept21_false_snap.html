@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gerçek DSAP kaybolsa bile geç motor bileşen kalabilir</title>
+<style>
+:root{
+  --shell:#eef2f5;--paper:#fff;--line:#cfd8df;--ink:#17242d;--muted:#5b6973;
+  --blue:#176f8a;--cyan:#55d9e8;--green:#68e0a3;--amber:#ffc45c;--red:#ff6876;
+  --scope:#03110c;--grid:#17382b;--nav:#e8edf1
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#cbd4da;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+body{display:grid;place-items:center;padding:14px}
+button,input{font:inherit}
+.app{
+  width:min(calc(100vw - 28px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);
+  display:grid;grid-template-rows:50px 38px minmax(0,1fr) 106px 56px;overflow:hidden;
+  background:var(--shell);border:1px solid #bdc8d0;border-radius:7px;box-shadow:0 24px 64px rgba(19,33,42,.23)
+}
+.titlebar,.topicbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 18px}
+.titlebar{background:linear-gradient(#fff,#eef2f5);border-bottom:1px solid var(--line)}
+.title-left{min-width:0;display:flex;align-items:center;gap:10px}
+.status{width:9px;height:9px;border-radius:50%;background:#2e8055;box-shadow:0 0 6px rgba(46,128,85,.55);flex:none}
+h1{margin:0;font-size:20px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lab{border:1px solid #95b2bd;background:#e9f5f7;color:#15586a;padding:6px 10px;font-size:12px;font-weight:850;letter-spacing:.07em;white-space:nowrap}
+.topicbar{background:#e6ecf1;border-bottom:1px solid var(--line);font-size:13px;color:#3d4c56}
+.topicbar b{color:var(--blue)}.topicbar .model{color:var(--muted);white-space:nowrap}
+.workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:12px;padding:12px}
+.scope,.side{min-width:0;min-height:0;border:1px solid var(--line);overflow:hidden}
+.scope{position:relative;background:var(--scope)}
+#labCanvas{display:block;width:100%;height:100%}
+.scope-head{
+  position:absolute;z-index:2;left:14px;right:14px;top:9px;display:flex;justify-content:space-between;
+  color:#aac4ba;font:11px/1.2 Consolas,monospace;letter-spacing:.04em;pointer-events:none
+}
+.scope-head b{color:#eafff3}
+.mode-badge{
+  position:absolute;z-index:2;right:13px;bottom:10px;padding:5px 8px;border:1px solid rgba(255,196,92,.55);
+  color:#ffe3a4;background:rgba(3,17,12,.84);font:10px/1.2 Consolas,monospace;letter-spacing:.05em
+}
+.side{display:grid;grid-template-rows:34px 256px minmax(0,1fr);background:#fff}
+.side-head{display:flex;align-items:center;padding:0 12px;background:#e6ecf1;border-bottom:1px solid var(--line);font-size:12px;font-weight:850;letter-spacing:.06em;text-transform:uppercase;color:#4a5963}
+.book{display:grid;grid-template-rows:minmax(0,1fr) auto;place-items:center;padding:7px 10px 0;border-bottom:1px solid var(--line);background:#fff}
+.book img{display:block;max-width:100%;max-height:220px;object-fit:contain}
+.book span{width:100%;padding:5px 4px;text-align:center;border-top:1px solid #e1e6ea;color:#56646e;font-size:9px;font-weight:750}
+.diagnosis{min-height:0;padding:8px 12px;display:grid;align-content:start;gap:6px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.metric{padding:7px 8px;border:1px solid var(--line);background:#fafcfd}
+.metric span{display:block;font-size:9.5px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.metric strong{display:block;margin-top:2px;font-size:15px}
+.verdict{padding:8px 9px;border-left:4px solid #2e8055;background:#edf8f2}
+.verdict.warn{border-left-color:#c97a2a;background:#fff7e9}
+.verdict.bad{border-left-color:#c33e4b;background:#fff0f2}
+.verdict span{display:block;font-size:9.5px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.verdict strong{display:block;margin-top:2px;font-size:14px}
+.logic{font-size:11px;line-height:1.3;color:#34434d}
+.logic b{color:var(--blue)}
+.warning{font-size:9.5px;line-height:1.23;color:#596771;border-top:1px solid var(--line);padding-top:5px}
+.warning a{color:var(--blue);text-decoration:none}
+.controls{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:12px;align-items:stretch;padding:10px 18px;background:#fff;border-top:1px solid var(--line)}
+.position{min-width:0;padding:7px 10px;border:1px solid var(--line);background:#f8fafb}
+.position label{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11.5px;font-weight:800;color:#45545e}
+.position output{font-size:13px;color:var(--blue)}
+.scale-labels{display:flex;justify-content:space-between;color:#75828b;font-size:9.5px;margin-top:2px}
+input[type=range]{display:block;width:100%;margin:9px 0 0;accent-color:var(--blue)}
+.scan{border:1px solid #153d4a;background:#153d4a;color:#fff;cursor:pointer;font-size:12px;font-weight:820;line-height:1.2;padding:8px}
+.scan:hover,.scan:focus-visible{background:#0d657c;outline:none}
+.nav{display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line)}
+.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:var(--nav);color:var(--ink);text-decoration:none;font-size:13px;font-weight:800}
+.fkey span{font-size:15px;color:var(--blue)}
+.fkey:hover,.fkey:focus-visible{background:#dce8ee;outline:none}
+@media(max-width:1000px){
+  body{padding:0}.app{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:48px 34px minmax(0,1fr) 130px 52px}
+  .workspace{grid-template-columns:1fr}.side{display:none}.controls{grid-template-columns:1fr 135px;gap:7px;padding:7px}
+  h1{font-size:16px}.topicbar .model{display:none}
+}
+</style>
+</head>
+<body>
+<main class="app" aria-labelledby="pageTitle">
+  <header class="titlebar">
+    <div class="title-left"><span class="status"></span><h1 id="pageTitle">Gerçek DSAP kaybolsa bile geç motor bileşen kalabilir</h1></div>
+    <div class="lab">SERBEST LABORATUVAR</div>
+  </header>
+  <div class="topicbar">
+    <div><b>Şekil 8.26</b> · Median bilek uyarımı ve D2 kaydı sabit; değişen yalnız gerçek duysal akson katkısıdır.</div>
+    <div class="model">Geç motor uzak-alan bileşeni sabit · DSAP değildir</div>
+  </div>
+  <section class="workspace">
+    <div class="scope">
+      <canvas id="labCanvas" aria-label="Gerçek duysal yanıt azalırken sabit kalan hacim iletilen motor potansiyel ve ortodromik doğrulama kaydı"></canvas>
+      <div class="scope-head"><span>NCS/EMG KAYIT EKRANI · ÖĞRETİM MODELİ</span><span><b>Negatif ↑ · pozitif ↓</b> · 20 µV/div · 1 ms/div</span></div>
+      <div class="mode-badge" id="modeBadge">ERKEN DSAP VAR · GEÇ MOTOR AYRI</div>
+    </div>
+    <aside class="side">
+      <div class="side-head">Antidromik gerçek kayıt · Şekil 8.26</div>
+      <div class="book">
+        <img src="../figures/source-v3/fig_8_26_antidromic_motor.png" alt="Şekil 8.26 antidromik median kayıt, erken 33 mikrovolt DSAP ve onu izleyen büyük hacim iletilen motor potansiyel">
+        <span>Erken ve keskin: DSAP · Daha geç ve geniş: hacim-iletilen motor bileşen</span>
+      </div>
+      <div class="diagnosis">
+        <div class="metrics">
+          <div class="metric"><span>Gerçek antidromik DSAP</span><strong id="antiSnapText"></strong></div>
+          <div class="metric"><span>Ortodromik doğrulama</span><strong id="orthoSnapText"></strong></div>
+          <div class="metric"><span>Geç motor bileşen</span><strong id="motorText">Sabit</strong></div>
+          <div class="metric"><span>Erken DSAP peak</span><strong id="latencyText">2,2 ms</strong></div>
+        </div>
+        <div class="verdict" id="verdictBox"><span>Teknik karar</span><strong id="verdictText"></strong></div>
+        <div class="logic" id="logicText"></div>
+        <div class="warning"><b>Resident notu:</b> Beklenen duysal zaman penceresi, keskin DSAP morfolojisi ve ortodromik doğrulama birlikte değerlendirilmelidir. Geç, geniş motor bileşene DSAP imleci konmamalıdır. <a href="https://pubmed.ncbi.nlm.nih.gov/35616546/" target="_blank" rel="noreferrer">Hemmi ve ark., 2022</a></div>
+      </div>
+    </aside>
+  </section>
+  <section class="controls">
+    <div class="position">
+      <label for="sensory"><span>Gerçek duysal akson katkısı</span><output id="sensoryOutput">%100 · 33 µV DSAP</output></label>
+      <input id="sensory" type="range" min="0" max="100" step="1" value="100">
+      <div class="scale-labels"><span>%0 · DSAP yok</span><span>%50 · küçük DSAP</span><span>%100 · 33 µV</span></div>
+    </div>
+    <button class="scan" id="scanButton" type="button">↓ DSAP’ı otomatik azalt ve geri getir</button>
+  </section>
+  <nav class="nav bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="hacim-iletilen-motor.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="../elektrot-sinir-mesafesi/index.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const canvas=document.getElementById("labCanvas"),ctx=canvas.getContext("2d");
+const slider=document.getElementById("sensory"),scanButton=document.getElementById("scanButton");
+const sensoryOutput=document.getElementById("sensoryOutput"),antiSnapText=document.getElementById("antiSnapText"),orthoSnapText=document.getElementById("orthoSnapText");
+const verdictBox=document.getElementById("verdictBox"),verdictText=document.getElementById("verdictText"),logicText=document.getElementById("logicText"),modeBadge=document.getElementById("modeBadge");
+let integrity=100,autoScan=false,scanStart=0;
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function gauss(x,m,s){const z=(x-m)/s;return Math.exp(-.5*z*z)}
+function model(){
+  const q=clamp(integrity/100,0,1),antiAmp=33*q,orthoAmp=22*q,present=q>.08;
+  return{
+    variable:"true_sensory_axon_contribution_percent",sensoryIntegrity:Number(integrity.toFixed(1)),
+    stimulation:"fixed_median_wrist_supramaximal",recording:"fixed_digit2_antidromic",
+    motorFibersStimulated:true,motorComponentFixed:true,motorComponentAmplitudeUv:80,
+    antidromicSnapAmplitudeUv:Number(antiAmp.toFixed(2)),orthodromicConfirmationUv:Number(orthoAmp.toFixed(2)),
+    trueSnapPresent:present,earlySnapPeakMs:2.2,lateMotorOnsetMs:4.8,lateMotorPeakMs:6.3,
+    interpretation:!present?"absent_snap_false_motor_risk":q<.45?"small_snap_separate_from_motor":"early_snap_then_late_motor",
+    bookCalibration:{normalSnapUv:33,normalSnapPeakMs:2.2},
+    traceProvenance:"teaching_model_calibrated_to_figure_8_26"
+  };
+}
+function resize(){
+  const r=canvas.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);
+  canvas.width=Math.max(1,Math.round(r.width*d));canvas.height=Math.max(1,Math.round(r.height*d));ctx.setTransform(d,0,0,d,0,0);
+}
+addEventListener("resize",resize);resize();
+function text(s,x,y,color="#d8ebe3",size=12,align="left",weight=650){
+  ctx.fillStyle=color;ctx.font=`${weight} ${size}px Segoe UI`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.textAlign="left";
+}
+function line(points,color="#68e0a3",width=2,dash=[]){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();
+  points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.restore();
+}
+function grid(x,y,w,h,dx=10,dy=4){
+  ctx.fillStyle="#04150f";ctx.fillRect(x,y,w,h);ctx.strokeStyle="#16382a";ctx.lineWidth=1;
+  for(let i=0;i<=dx;i++){const xx=x+w*i/dx;ctx.beginPath();ctx.moveTo(xx,y);ctx.lineTo(xx,y+h);ctx.stroke()}
+  for(let i=0;i<=dy;i++){const yy=y+h*i/dy;ctx.beginPath();ctx.moveTo(x,yy);ctx.lineTo(x+w,yy);ctx.stroke()}
+  ctx.strokeStyle="#2b624c";ctx.beginPath();ctx.moveTo(x,y+h/2);ctx.lineTo(x+w,y+h/2);ctx.stroke();
+}
+function rawSnap(ms){
+  return .10*(1.8*gauss(ms,.48,.025)-1.1*gauss(ms,.60,.06))-.25*gauss(ms,1.92,.12)+1.0*gauss(ms,2.20,.16)-.76*gauss(ms,2.54,.20)+.16*gauss(ms,2.95,.30);
+}
+function rawMotor(ms){
+  return .28*gauss(ms,4.95,.34)+.72*gauss(ms,5.65,.56)-1.05*gauss(ms,6.65,.70)+.26*gauss(ms,8.05,.92);
+}
+function peakToPeak(fn){
+  let lo=Infinity,hi=-Infinity;
+  for(let i=0;i<=1000;i++){const v=fn(i/100);lo=Math.min(lo,v);hi=Math.max(hi,v)}
+  return hi-lo;
+}
+const snapPp=peakToPeak(rawSnap),motorPp=peakToPeak(rawMotor);
+function snapUv(ms,amp){return rawSnap(ms)*(amp/snapPp)}
+function motorUv(ms){return rawMotor(ms)*(80/motorPp)}
+function baseline(ms){return .35*Math.sin(ms*21)+.22*Math.sin(ms*47+1.3)}
+function drawWindows(x,y,w,h){
+  const earlyX=x+w*1.35/10,earlyW=w*1.75/10,lateX=x+w*4.45/10,lateW=w*4.75/10;
+  ctx.fillStyle="rgba(47,125,82,.10)";ctx.fillRect(earlyX,y,earlyW,h);
+  ctx.fillStyle="rgba(180,59,71,.09)";ctx.fillRect(lateX,y,lateW,h);
+  text("BEKLENEN DSAP PENCERESİ",earlyX+7,y+34,"#79dca9",9,"left",850);
+  text("GEÇ MOTOR UZAK-ALAN PENCERESİ",lateX+7,y+34,"#ff98a3",9,"left",850);
+}
+function trace(x,y,w,h,fn,color,label,showWindows=false,showLateMarker=false,snapPresent=true){
+  grid(x,y,w,h);if(showWindows)drawWindows(x,y,w,h);text(label,x+9,y+17,"#a9c4b9",10.5,"left",760);
+  const pts=[];for(let i=0;i<=800;i++){const t=i/800,ms=t*10,raw=fn(ms);pts.push([x+w*t,clamp(y+h/2-raw/110*h*.55,y+2,y+h-2)])}
+  line(pts,color,2.2);
+  const early=x+w*2.2/10,late=x+w*6.3/10;
+  const markers=[[early,"#55d9e8",snapPresent?"DSAP peak 2,2 ms":"beklenen DSAP penceresi · 2,2 ms"]];
+  if(showLateMarker)markers.push([late,"#ff6876","motor peak · geç"]);
+  for(const [cx,c,labelText] of markers){
+    ctx.strokeStyle=c;ctx.lineWidth=1.3;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(cx,y+22);ctx.lineTo(cx,y+h-6);ctx.stroke();ctx.setLineDash([]);
+    text(labelText,cx+5,y+h-10,c,9.3,"left",800);
+  }
+}
+function drawPathway(W,now,s){
+  const left=95,right=W-90,stimX=left+35,splitX=left+210,recX=right-15,topY=79,bottomY=139;
+  ctx.fillStyle="#ff6876";ctx.beginPath();ctx.arc(stimX,108,15,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();
+  text("BİLEK MEDİAN UYARIM",stimX,72,"#ff9ba6",10,"center",850);
+  line([[stimX+16,108],[splitX,108]],"#ffc45c",6);
+  line([[splitX,108],[splitX+52,topY],[recX,topY]],"#68e0a3",5);
+  line([[splitX,108],[splitX+52,bottomY],[recX-90,bottomY]],"#75b8ff",5);
+  line([[recX-90,bottomY],[recX,topY]],"#75b8ff",2,[6,4]);
+  ctx.fillStyle="#68e0a3";ctx.beginPath();ctx.arc(recX,topY,13,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();
+  text("D2 KAYIT",recX,49,"#8bf0bb",10,"center",850);
+  ctx.fillStyle="#75b8ff";ctx.fillRect(recX-118,bottomY-13,55,26);
+  text("THENAR",recX-91,bottomY+4,"#07120e",9,"center",900);
+  text(`duysal lifler · ${s.antidromicSnapAmplitudeUv.toFixed(0)} µV · erken`,splitX+250,topY-14,"#8bf0bb",9.5,"center",800);
+  text("motor lifler → kas depolarizasyonu → hacim iletimi · geç",splitX+260,bottomY+28,"#9bd0ff",9.5,"center",800);
+  const phase=(now/1500)%1;
+  for(let i=0;i<4;i++){
+    const q=(phase+i/4)%1,x=splitX+(recX-splitX)*q;
+    ctx.fillStyle=`rgba(104,224,163,${.15+.75*(1-q)*integrity/100})`;ctx.beginPath();ctx.arc(x,topY,4.3,0,Math.PI*2);ctx.fill();
+  }
+  const phase2=(now/2400)%1;
+  for(let i=0;i<4;i++){
+    const q=(phase2+i/4)%1,x=splitX+(recX-90-splitX)*q;
+    ctx.fillStyle=`rgba(117,184,255,${.25+.65*(1-q)})`;ctx.beginPath();ctx.arc(x,bottomY,4.3,0,Math.PI*2);ctx.fill();
+  }
+}
+function tr0(v){return Math.round(v).toString()}
+function updatePanel(s){
+  sensoryOutput.textContent=`%${Math.round(integrity)} · ${tr0(s.antidromicSnapAmplitudeUv)} µV DSAP`;
+  antiSnapText.textContent=s.trueSnapPresent?`${tr0(s.antidromicSnapAmplitudeUv)} µV`:"Yok";
+  orthoSnapText.textContent=s.trueSnapPresent?`${tr0(s.orthodromicConfirmationUv)} µV`:"Yok";
+  if(!s.trueSnapPresent){
+    verdictBox.className="verdict bad";verdictText.textContent="DSAP yok · kalan geç yanıt motor potansiyeldir";
+    logicText.innerHTML="Erken duysal pencerede gerçek yanıt yoktur. Geç ve geniş bileşenin ilk sapmasına imleç koymak <b>sahte DSAP</b> üretir.";
+    modeBadge.textContent="DSAP YOK · GEÇ MOTORU DUYSAL SANMA";
+  }else if(integrity<45){
+    verdictBox.className="verdict warn";verdictText.textContent="Küçük DSAP var · geç motor bileşenden ayır";
+    logicText.innerHTML="Küçük ve erken DSAP, geç geniş motor bileşenden zaman ve morfolojiyle ayrılır; ortodromik kanalda da küçük bir karşılığı bulunur.";
+    modeBadge.textContent="KÜÇÜK ERKEN DSAP · GEÇ MOTOR SABİT";
+  }else{
+    verdictBox.className="verdict";verdictText.textContent="Erken DSAP var · geç motor bileşen ayrı";
+    logicText.innerHTML="İlk keskin yanıt gerçek DSAP’tır. Daha sonra gelen geniş potansiyel, motor liflerin thenar kası aktive etmesinden doğan <b>hacim-iletilen motor</b> bileşendir.";
+    modeBadge.textContent="ERKEN DSAP VAR · GEÇ MOTOR AYRI";
+  }
+  window.__falseSnapState=s;
+}
+function draw(now){
+  if(autoScan){
+    const q=(now-scanStart)/5600;
+    if(q>=1){autoScan=false;integrity=100;slider.value=100;scanButton.textContent="↓ DSAP’ı otomatik azalt ve geri getir"}
+    else{integrity=100*(.5+.5*Math.cos(q*2*Math.PI));slider.value=Math.round(integrity)}
+  }
+  const s=model(),r=canvas.getBoundingClientRect(),W=r.width,H=r.height;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle="#03110c";ctx.fillRect(0,0,W,H);
+  drawPathway(W,now,s);
+  const x=22,w=W-44,top=207,gap=8,h=(H-top-30-gap)/2;
+  trace(x,top,w,h,ms=>snapUv(ms,s.antidromicSnapAmplitudeUv)+motorUv(ms)+baseline(ms),"#68e0a3",`ANTİDROMİK D2 HAM KAYIT · ERKEN DSAP ${tr0(s.antidromicSnapAmplitudeUv)} µV + GEÇ MOTOR SABİT`,true,true,s.trueSnapPresent);
+  trace(x,top+h+gap,w,h,ms=>snapUv(ms,s.orthodromicConfirmationUv)+baseline(ms)*.65,"#75b8ff",`ORTODROMİK DOĞRULAMA · MOTOR KONTAMİNASYONU YOK · DSAP ${tr0(s.orthodromicConfirmationUv)} µV`,false,false,s.trueSnapPresent);
+  updatePanel(s);requestAnimationFrame(draw);
+}
+slider.addEventListener("input",()=>{autoScan=false;integrity=Number(slider.value);scanButton.textContent="↓ DSAP’ı otomatik azalt ve geri getir"});
+scanButton.addEventListener("click",()=>{autoScan=true;scanStart=performance.now();scanButton.textContent="DSAP azaltılıyor…"});
+document.addEventListener("keydown",event=>{
+  if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;
+  const key=event.key.toUpperCase(),link=key==="F1"?document.querySelector(".fkey:nth-child(1)"):key==="F2"?document.querySelector(".fkey:nth-child(2)"):key==="F3"?document.querySelector(".fkey:nth-child(3)"):null;
+  if(link){event.preventDefault();location.href=link.href}
+});
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sensitivite ve Latans Ölçümü</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;font-variant-numeric:tabular-nums;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.badge{display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border-radius:999px;background:#e6f7ec;color:var(--green);border:1px solid #c8e8d3;font-size:13px;font-weight:700;text-transform:none;letter-spacing:0;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:12px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:15px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:17px;font-variant-numeric:tabular-nums;}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;align-items:center;gap:14px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);flex-wrap:wrap;}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1;min-width:220px;}
+.slider-row span{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+input[type="range"]{flex:1;accent-color:var(--cyan);}
+.n-readout{font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:76px;text-align:right;}
+button{appearance:none;border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:6px;min-height:36px;padding:0 14px;font:inherit;font-size:13.5px;font-weight:800;cursor:pointer;white-space:nowrap;}
+button:hover{border-color:var(--cyan);}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+
+/* standard-nav-v3 */
+.bottom-bar{flex:none;height:56px;display:flex!important;align-items:stretch!important;gap:1px!important;background:#d5dde4!important;border-top:1px solid #d5dde4!important}.bottom-bar .fkey{flex:1!important;background:#e7edf3!important;color:#16232c!important;text-decoration:none!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;padding:0 12px!important;font:800 13px/1 "Segoe UI",Arial,sans-serif!important}.bottom-bar .fkey span{color:#0f7a95!important;font-size:15px!important}.bottom-bar .fkey b{color:#16232c!important;font-size:13px!important}.bottom-bar .fkey:hover,.bottom-bar .fkey:focus-visible{background:#dce8f0!important;outline:none!important}
+
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Latans Ölçümü: Sweep Hızı ve Sensitivite</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">1 / 2 — Sensitivite</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>Median Motor — Bilek Uyarımı, APB Kaydı (bkz. Şekil 8.33)</span><span class="badge" id="stateBadge">2 mV/kutu</span></div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Okuma</span></div>
+<div class="side-body">
+<div class="stat-row"><span>Sensitivite</span><b id="sensOut">2 mV/kutu</b></div>
+<div class="stat-row"><span>Ölçülen başlangıç latansı</span><b id="latOut">3.9 ms</b></div>
+<div class="note-box" id="mechNote">Sensitivite arttıkça (kutu başına mV azaldıkça), dalganın taban çizgisinden ilk sapması ekranda daha erken fark edilir.</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="slider-row">
+<span>5 mV/kutu</span>
+<input id="sensSlider" type="range" min="0" max="4" step="1" value="2" aria-label="Sensitivite">
+<span>0.5 mV/kutu</span>
+</div>
+<div class="n-readout" id="sensReadout">2 mV/kutu</div>
+<button id="presetLowBtn" type="button">Düşük sensitivite (Şekil 8.33 üst)</button>
+<button id="presetHighBtn" type="button">Yüksek sensitivite (Şekil 8.33 alt)</button>
+</footer>
+
+<div class="bottom-bar" aria-label="Standart sunum gezinmesi">
+<a class="fkey" href="index.html"><span>F1</span><b>Önceki</b></a>
+<a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+<a class="fkey" href="animasyon-2-sweep-hizi.html"><span>F3</span><b>Sonraki</b></a>
+</div>
+
+</div>
+
+<script>
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const stateBadge=document.getElementById("stateBadge");
+const sensOut=document.getElementById("sensOut");
+const latOut=document.getElementById("latOut");
+const mechNote=document.getElementById("mechNote");
+const sensSlider=document.getElementById("sensSlider");
+const sensReadout=document.getElementById("sensReadout");
+const presetLowBtn=document.getElementById("presetLowBtn");
+const presetHighBtn=document.getElementById("presetHighBtn");
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(240,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(()=>{resizeCanvas();draw();}).observe(stageWrap);
+resizeCanvas();
+
+// Illustrative model of Fig. 8.33: fixed true CMAP with a fixed true onset (3.6 ms).
+// The initial rise is gradual, not a step, so a fixed minimum on-screen deflection
+// (in pixels/divisions) is needed before the eye/cursor registers "onset." At low
+// sensitivity (large mV/box) that fixed pixel threshold corresponds to a LARGER real
+// voltage, which the gradual rise only reaches LATER -> measured onset looks longer.
+// At high sensitivity (small mV/box) the same pixel threshold corresponds to a smaller
+// real voltage, reached EARLIER -> measured onset looks shorter. This is a measurement
+// artifact, not a true physiologic change in the underlying response.
+function shape(dt,riseTau,decayTau){ if(dt<0) return 0; return Math.exp(-dt/decayTau)-Math.exp(-dt/riseTau); }
+function shapePeak(riseTau,decayTau){ let m=0; for(let dt=0;dt<=decayTau*8;dt+=decayTau/60){const v=shape(dt,riseTau,decayTau); if(v>m)m=v;} return m||1; }
+const MAIN_R=.3, MAIN_D=1.1, MAIN_PEAK=shapePeak(MAIN_R,MAIN_D);
+const AFTER_R=.55, AFTER_D=1.8, AFTER_PEAK=shapePeak(AFTER_R,AFTER_D);
+const TRUE_ONSET=3.6, AMP_MV=9.0;
+function motorWave(msRel){
+  const main=-AMP_MV*shape(msRel,MAIN_R,MAIN_D)/MAIN_PEAK;
+  const after=.2*AMP_MV*shape(msRel-1.2,AFTER_R,AFTER_D)/AFTER_PEAK;
+  return main+after;
+}
+
+const SENS_LEVELS=[5,2,1,0.7,0.5]; // mV per division, index 0..4 (low -> high sensitivity)
+const DETECT_PX=2.6; // fixed on-screen deflection (in px at a reference scale) needed to "see" onset
+const REF_HALF_H=140; // reference half-height in px used to calibrate DETECT_PX against mV/div
+
+function measuredOnset(mvPerDiv){
+  // detection threshold in mV, scaled from a fixed pixel threshold at this sensitivity
+  const mvPerPx=(mvPerDiv*4)/REF_HALF_H; // 4 divisions approx span half height
+  const thresholdMv=DETECT_PX*mvPerPx;
+  for(let t=TRUE_ONSET; t<TRUE_ONSET+2.5; t+=0.01){
+    if(Math.abs(motorWave(t-TRUE_ONSET))>=thresholdMv) return t;
+  }
+  return TRUE_ONSET+2.5;
+}
+
+let sensIdx=2;
+
+function updateStatics(){
+  const mvPerDiv=SENS_LEVELS[sensIdx];
+  sensOut.textContent=`${mvPerDiv} mV/kutu`;
+  sensReadout.textContent=`${mvPerDiv} mV/kutu`;
+  stateBadge.textContent=`${mvPerDiv} mV/kutu`;
+  const lat=measuredOnset(mvPerDiv);
+  latOut.textContent=`${lat.toFixed(2)} ms`;
+
+  if(sensIdx<=1){
+    mechNote.innerHTML=`<b>Düşük sensitivite (${mvPerDiv} mV/kutu):</b> Dalganın ilk yükselişi ekranda küçük kalır — ölçülen başlangıç latansı (${lat.toFixed(2)} ms) gerçek değerden (${TRUE_ONSET.toFixed(1)} ms) belirgin şekilde <b>uzun</b> görünür.`;
+  } else if(sensIdx===2){
+    mechNote.innerHTML=`<b>Orta sensitivite:</b> Ölçülen başlangıç latansı (${lat.toFixed(2)} ms) gerçek değere (${TRUE_ONSET.toFixed(1)} ms) yaklaşıyor.`;
+  } else {
+    mechNote.innerHTML=`<b>Yüksek sensitivite (${mvPerDiv} mV/kutu):</b> Aynı gerçek başlangıç (${TRUE_ONSET.toFixed(1)} ms) artık çok daha erken fark ediliyor — ölçülen latans (${lat.toFixed(2)} ms) gerçeğe en yakın sonuç.`;
+  }
+}
+
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+function draw(){
+  const W=cssW,H=cssH;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fcfdfe"; ctx.fillRect(0,0,W,H);
+
+  const mvPerDiv=SENS_LEVELS[sensIdx];
+  const left=W*0.08, right=W*0.95, top=H*0.1, bottom=H*0.85;
+  const midY=(top+bottom)/2, halfH=(bottom-top)/2;
+  const WINDOW_MS=12;
+  const rangeMv=mvPerDiv*8; // 8 divisions total span
+
+  roundRect(left-8,top-10,(right-left)+16,(bottom-top)+20,6);
+  ctx.fillStyle="#071a12"; ctx.fill();
+
+  ctx.strokeStyle="#123024"; ctx.lineWidth=1;
+  for(let d=1; d<8; d++){ const y=top+(bottom-top)*(d/8); ctx.beginPath(); ctx.moveTo(left,y); ctx.lineTo(right,y); ctx.stroke(); }
+  for(let d=1; d<12; d++){ const x=left+(right-left)*(d/12); ctx.beginPath(); ctx.moveTo(x,top); ctx.lineTo(x,bottom); ctx.stroke(); }
+
+  ctx.strokeStyle="#5eea8d"; ctx.lineWidth=2; ctx.beginPath();
+  for(let i=0;i<=260;i++){
+    const xMs=WINDOW_MS*(i/260);
+    const v=Math.max(-rangeMv/2,Math.min(rangeMv/2,motorWave(xMs-TRUE_ONSET)));
+    const px=left+(right-left)*(i/260), py=midY+(v/(rangeMv/2))*halfH;
+    if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+  }
+  ctx.stroke();
+
+  const lat=measuredOnset(mvPerDiv);
+  const markerX=left+(right-left)*(lat/WINDOW_MS);
+  ctx.strokeStyle="#ffce7a"; ctx.lineWidth=1.6; ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(markerX,top); ctx.lineTo(markerX,bottom); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle="#ffce7a"; ctx.font="800 "+Math.max(10,W*0.013)+"px Inter, sans-serif"; ctx.textAlign="center";
+  ctx.fillText(`ölçülen başlangıç: ${lat.toFixed(2)} ms`,markerX,top-14);
+  ctx.textAlign="left";
+
+  ctx.fillStyle="#9db3a6"; ctx.font="700 "+Math.max(9,W*0.012)+"px Inter, sans-serif";
+  ctx.fillText(`${mvPerDiv} mV/kutu · 2 ms/kutu`,left,bottom+18);
+}
+
+function setSensIdx(i){
+  sensIdx=Math.max(0,Math.min(SENS_LEVELS.length-1,i));
+  sensSlider.value=sensIdx;
+  updateStatics();
+  draw();
+}
+
+sensSlider.addEventListener("input",e=>setSensIdx(Number(e.target.value)));
+presetLowBtn.addEventListener("click",()=>setSensIdx(0));
+presetHighBtn.addEventListener("click",()=>setSensIdx(4));
+
+updateStatics();
+draw();
+</script>
+<script data-standard-nav-v3>
+document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase();const a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});
+</script>
+</body>
+</html>

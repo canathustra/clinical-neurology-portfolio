@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Walking the Anode — Serbest Laboratuvar</title>
+<style>
+:root{
+  --paper:#f7f8f9;--panel:#fff;--head:#e7edf3;--line:#d5dde4;
+  --ink:#15232d;--muted:#60707d;--cyan:#36c9d7;--teal:#0f7a95;
+  --green:#5eea8d;--amber:#ffc857;--red:#eb5a65;--blue:#64a7ff;
+  --scope:#06140f;--grid:#143326;
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;font-family:"Segoe UI",Inter,Arial,sans-serif;background:#fff;color:var(--ink)}
+body{display:grid;place-items:center;padding:12px}
+.app{width:min(calc(100vw - 24px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 24px);background:var(--paper);border:1px solid #c8d1d9;box-shadow:0 18px 48px #23313b24;display:grid;grid-template-rows:42px 48px 1fr 72px 56px;overflow:hidden}
+.titlebar,.toolbar{display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line)}
+.titlebar{background:linear-gradient(#fff,#f0f3f5);font-size:14px;color:#43515c}
+.brand{font-weight:900;letter-spacing:.12em;color:#73808b}.brand b{color:var(--teal)}
+.session{display:flex;align-items:center;gap:9px;font-weight:700}.dot{width:9px;height:9px;border-radius:50%;background:#2f7d52;box-shadow:0 0 7px #2f7d5270}
+.toolbar{background:var(--head);gap:20px;justify-content:flex-start}
+.label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:900}
+.toolbar strong{font-size:15px}.toolbar .mode{margin-left:auto;color:var(--teal);font-weight:900}
+.workspace{min-height:0;padding:10px;display:grid;grid-template-columns:minmax(0,1fr) 326px;gap:10px}
+.panel{background:var(--panel);border:1px solid var(--line);min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+.panel-head{height:39px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 13px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#4a5964}
+.state{padding:4px 10px;border-radius:999px;background:#e6f7ec;color:#28744a;border:1px solid #c8e8d3;text-transform:none;letter-spacing:0}
+.state.warn{background:#fff2dd;color:#965817;border-color:#edd0a2}.state.bad{background:#fde8ea;color:#a6313d;border-color:#f0c3c8}
+.lab{flex:1;min-height:0;display:grid;grid-template-rows:35% 65%}
+.anatomy{position:relative;min-height:0;background:#17222a;overflow:hidden;border-bottom:4px solid #d5dde4}
+.photo{position:absolute;inset:0 55% 0 0;overflow:hidden;background:#1c2429}
+.photo img{height:100%;width:164%;object-fit:cover;object-position:left top;filter:saturate(.88) contrast(1.04) brightness(.82)}
+.photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 55%,#17222a 100%),linear-gradient(0deg,#17222aa8,transparent 46%)}
+.booktag{position:absolute;left:10px;top:9px;padding:4px 8px;background:#ffffffd9;color:#24313a;font-size:11px;font-weight:900;border-radius:2px}
+#geoCanvas{position:absolute;inset:0;width:100%;height:100%}
+.fixed-chip{position:absolute;left:11px;bottom:10px;padding:6px 9px;background:#101a20e8;border:1px solid #70808b;color:#fff;font-size:11px;font-weight:800;border-radius:3px}
+.fixed-chip b{color:var(--amber)}
+.scope{position:relative;min-height:0;background:var(--scope)}
+#scopeCanvas{position:absolute;inset:0;width:100%;height:100%}
+.legend{position:absolute;right:12px;top:8px;display:flex;gap:12px;padding:5px 8px;background:#06140fdb;border:1px solid #2b493a;color:#b8c8bf;font-size:11px;font-weight:800}
+.key{display:inline-flex;align-items:center;gap:5px}.sw{width:18px;height:3px;background:var(--green)}.sw.true{background:var(--amber);height:0;border-top:2px dashed var(--amber)}.sw.art{background:var(--cyan)}
+.side-body{padding:11px;display:grid;gap:8px;align-content:start;overflow:auto}
+.invariant{display:grid;grid-template-columns:1fr auto;gap:4px 9px;padding:9px 10px;border:1px solid #d6e2ea;background:#f2f7fa}
+.invariant .name{font-size:12px;color:var(--muted);font-weight:800}.invariant b{font-size:12px;color:#256744}.lock{color:#256744;font-weight:900}
+.meter{padding:9px 10px;border:1px solid var(--line);background:#f5f7f9}
+.meter-top{display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:800;color:var(--muted)}.meter-top b{color:var(--ink);font-variant-numeric:tabular-nums}
+.track{height:7px;margin-top:6px;background:#dde4e9;border-radius:9px;overflow:hidden}.fill{height:100%;width:0;background:var(--cyan);transition:width .18s}
+.readout{display:grid;grid-template-columns:1fr auto;padding:8px 10px;border:1px solid var(--line);font-size:12px;background:#fff}.readout span{color:var(--muted);font-weight:800}.readout b{font-variant-numeric:tabular-nums}
+.lesson{padding:9px 10px;border-left:4px solid var(--teal);background:#edf6f8;font-size:12px;line-height:1.35;font-weight:650}.lesson b{color:var(--teal)}
+.book-ref{height:96px;border:1px solid var(--line);overflow:hidden;position:relative;background:#fff}.book-ref img{width:100%;height:100%;object-fit:cover;object-position:right 14%}.book-ref span{position:absolute;left:6px;bottom:5px;background:#fffffff2;padding:3px 6px;font-size:10px;font-weight:900}
+.controls{display:grid;grid-template-columns:auto auto auto minmax(230px,1fr) auto;align-items:center;gap:10px;padding:10px 16px;background:#fff;border-top:1px solid var(--line)}
+button{appearance:none;border:1px solid #b8c5cf;background:#f2f5f7;color:var(--ink);font:800 12px "Segoe UI",sans-serif;padding:9px 12px;cursor:pointer;border-radius:3px}
+button:hover,button:focus-visible{background:#e2edf2;outline:2px solid #8ac4d1;outline-offset:1px}button.active{background:#dceef2;border-color:#62aaba;color:#0b6075}.stim{background:#172b24;color:#dfffea;border-color:#315a48}.stim:hover{background:#234436}
+.sliderbox{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center}.sliderbox span{font-size:11px;color:var(--muted);font-weight:900}.sliderbox output{min-width:62px;text-align:right;font:900 14px "Segoe UI";color:var(--teal);font-variant-numeric:tabular-nums}input[type=range]{width:100%;accent-color:var(--teal)}
+.bottom-bar{height:56px;display:flex!important;align-items:stretch!important;gap:1px!important;background:#d5dde4!important;border-top:1px solid #d5dde4!important}.bottom-bar .fkey{flex:1!important;background:#e7edf3!important;color:#16232c!important;text-decoration:none!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;padding:0 12px!important;font:800 13px/1 "Segoe UI",Arial,sans-serif!important}.bottom-bar .fkey span{color:#0f7a95!important;font-size:15px!important}.bottom-bar .fkey b{color:#16232c!important;font-size:13px!important}.bottom-bar .fkey:hover,.bottom-bar .fkey:focus-visible{background:#dce8f0!important;outline:none!important}
+@media(max-width:980px){
+  body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;grid-template-rows:42px auto minmax(760px,1fr) auto 56px}.toolbar{padding:8px 12px;flex-wrap:wrap}.workspace{grid-template-columns:1fr}.panel.side{max-height:none}.controls{grid-template-columns:repeat(3,1fr)}.sliderbox{grid-column:1/-1}.stim{grid-column:1/-1}.photo{inset:0 48% 0 0}
+}
+</style>
+</head>
+<body>
+<main class="app">
+  <div class="titlebar">
+    <div class="session"><span class="dot"></span>EDX Öğrenim İstasyonu — Bölüm 8</div>
+    <div class="brand"><b>EDX</b>SİM</div>
+  </div>
+  <div class="toolbar">
+    <span class="label">Konu</span><strong>Stimulus artefaktı</strong>
+    <span class="label">Tek hedef</span><strong>Walking the anode</strong>
+    <span class="mode">SERBEST LABORATUVAR</span>
+  </div>
+  <section class="workspace">
+    <div class="panel">
+      <div class="panel-head"><span>Katot sabit · anot döner · far-field artefakt değişir</span><span id="stateBadge" class="state">Yatay başlangıç · en temiz baseline</span></div>
+      <div class="lab">
+        <div class="anatomy" id="anatomy">
+          <div class="photo"><img src="../figures/source-v3/fig_8_13_walking_anode.png" alt=""></div>
+          <div class="booktag">Kitap örneği · yüzeyel peroneal duysal çalışma</div>
+          <canvas id="geoCanvas"></canvas>
+          <div class="fixed-chip"><b>🔒 Katot / depolarizasyon:</b> aynı nokta</div>
+        </div>
+        <div class="scope" id="scope">
+          <canvas id="scopeCanvas"></canvas>
+          <div class="legend">
+            <span class="key"><i class="sw"></i>Kaydedilen</span>
+            <span class="key"><i class="sw art"></i>Artefakt bileşeni</span>
+            <span class="key"><i class="sw true"></i>Gerçek DSAP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="panel side">
+      <div class="panel-head"><span>Neyi sabit tutuyoruz?</span></div>
+      <div class="side-body">
+        <div class="invariant">
+          <span class="name">Katot koordinatı</span><b id="cathodeOut">x=0 · sabit</b>
+          <span class="name">Depolarizasyon bölgesi</span><b class="lock">SABİT</b>
+          <span class="name">Gerçek DSAP</span><b id="trueOut">14 µV · 2,4 ms</b>
+        </div>
+        <div class="meter"><div class="meter-top"><span>Artefakt kuyruğu</span><b id="tailOut">2 µV</b></div><div class="track"><div id="tailFill" class="fill"></div></div></div>
+        <div class="readout"><span>Baseline eğimi</span><b id="slopeOut">0,2 µV/ms</b></div>
+        <div class="readout"><span>Onset görünürlüğü</span><b id="onsetOut">YÜKSEK</b></div>
+        <div class="lesson" id="lesson"><b>Konum 2:</b> Bu modelin +85° örneğinde artefakt kuyruğu küçülür. Klinikte sabit bir derece yoktur; en düz baseline aranır.</div>
+        <div class="book-ref"><img src="../figures/source-v3/fig_8_13_walking_anode.png" alt="Kitaptaki anot Konum 1 ve Konum 2 izleri"><span>Kitap: Konum 1 ↔ Konum 2</span></div>
+      </div>
+    </aside>
+  </section>
+  <div class="controls">
+    <button id="pos1Btn" class="active">Yatay başlangıç · en temiz</button>
+    <button id="pos2Btn">Kitap · Konum 1</button>
+    <button id="reverseBtn">Kitap · Konum 2</button>
+    <label class="sliderbox"><span>Anot açısı</span><input id="angle" type="range" min="-105" max="105" step="1" value="0" aria-label="Anot açısı"><output id="angleOut">0°</output></label>
+    <button id="stimBtn" class="stim">Uyarıyı göster</button>
+  </div>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="anot-dondurme.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="kablo-ayrimi.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const angleEl=document.getElementById("angle"), angleOut=document.getElementById("angleOut");
+const stateBadge=document.getElementById("stateBadge"),tailOut=document.getElementById("tailOut");
+const tailFill=document.getElementById("tailFill"),slopeOut=document.getElementById("slopeOut");
+const onsetOut=document.getElementById("onsetOut"),lesson=document.getElementById("lesson");
+const geo=document.getElementById("geoCanvas"),gc=geo.getContext("2d");
+const scope=document.getElementById("scopeCanvas"),sc=scope.getContext("2d");
+const anatomy=document.getElementById("anatomy"),scopeWrap=document.getElementById("scope");
+const pos1Btn=document.getElementById("pos1Btn"),pos2Btn=document.getElementById("pos2Btn"),reverseBtn=document.getElementById("reverseBtn");
+let angle=0,stimStart=-1,raf=0,dpr=Math.max(1,window.devicePixelRatio||1),traceVisible=false;
+const OPTIMUM=0, TRUE_AMP=14, TRUE_LAT=2.4, CATHODE={x:.62,y:.58};
+
+function fit(canvas,wrap){
+  const r=wrap.getBoundingClientRect(),w=Math.max(320,Math.round(r.width)),h=Math.max(130,Math.round(r.height));
+  canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+  canvas.style.width=w+"px";canvas.style.height=h+"px";
+  const c=canvas.getContext("2d");c.setTransform(dpr,0,0,dpr,0,0);return {w,h};
+}
+function artifactFactor(a){
+  // Qualitative field-geometry model: crossing the local equipotential
+  // orientation reverses the far-field tail without changing the neural response.
+  return Math.tanh((a-OPTIMUM)/20);
+}
+function artifactTailAtOnset(a){return artifactFactor(a)*24;}
+function baselineSlope(a){return artifactFactor(a)*4.6;}
+function trueSnap(t){
+  if(t<TRUE_LAT)return 0;
+  const u=t-TRUE_LAT;
+  const neg=-14*Math.exp(-Math.pow((u-.42)/.20,2));
+  const pos=10.7*Math.exp(-Math.pow((u-.96)/.34,2));
+  const after=-1.5*Math.exp(-Math.pow((u-1.82)/.58,2));
+  return neg+pos+after;
+}
+function artifact(t,a){
+  if(t<.22)return 0;
+  const u=t-.22,k=artifactFactor(a);
+  const shock=-120*Math.exp(-u/.032)+48*Math.exp(-u/.105);
+  const slow=k*(40*Math.exp(-u/.72)+26*Math.exp(-u/3.3));
+  return shock+slow;
+}
+function noise(t){return .38*Math.sin(t*27.1)+.19*Math.sin(t*62.7+.8)+.12*Math.sin(t*103.3);}
+
+function drawArrow(c,x1,y1,x2,y2,color,width=2){
+  const a=Math.atan2(y2-y1,x2-x1);c.strokeStyle=color;c.fillStyle=color;c.lineWidth=width;
+  c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.stroke();
+  c.beginPath();c.moveTo(x2,y2);c.lineTo(x2-8*Math.cos(a-.48),y2-8*Math.sin(a-.48));c.lineTo(x2-8*Math.cos(a+.48),y2-8*Math.sin(a+.48));c.closePath();c.fill();
+}
+function dot(c,x,y,r,fill,stroke="#fff"){
+  c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fillStyle=fill;c.fill();c.strokeStyle=stroke;c.lineWidth=2;c.stroke();
+}
+function drawGeometry(now){
+  const {w,h}=fit(geo,anatomy);gc.clearRect(0,0,w,h);
+  const sx=w*.52,sy=h*.55,ex=w*.91,ey=h*.55;
+  gc.fillStyle="rgba(8,16,21,.67)";gc.fillRect(w*.48,0,w*.52,h);
+  gc.strokeStyle="#d8b16b";gc.lineWidth=5;gc.beginPath();gc.moveTo(sx,sy);gc.bezierCurveTo(w*.66,h*.53,w*.78,h*.57,ex,ey);gc.stroke();
+  gc.fillStyle="#f2d394";gc.font="800 11px Segoe UI";gc.fillText("YÜZEYEL PERONEAL SİNİR",w*.66,h*.41);
+
+  const cx=w*CATHODE.x,cy=h*CATHODE.y;
+  const rad=Math.min(w*.11,h*.35),theta=(180-angle)*Math.PI/180;
+  const ax=cx+Math.cos(theta)*rad,ay=cy-Math.sin(theta)*rad;
+  gc.setLineDash([4,4]);gc.strokeStyle="#8aa0ad";gc.lineWidth=1.3;
+  gc.beginPath();gc.arc(cx,cy,rad,Math.PI,Math.PI-(angle*Math.PI/180),angle<0);gc.stroke();gc.setLineDash([]);
+  gc.strokeStyle="#d4e1e8";gc.lineWidth=4;gc.beginPath();gc.moveTo(cx,cy);gc.lineTo(ax,ay);gc.stroke();
+
+  const g1x=w*.81,g2x=w*.90,gy=h*.58;
+  dot(gc,cx,cy,10,"#101820","#ffc857");dot(gc,ax,ay,9,"#eb5a65");
+  dot(gc,g1x,gy,8,"#64a7ff");dot(gc,g2x,gy,8,"#fff","#64a7ff");
+  gc.font="900 12px Segoe UI";gc.textAlign="center";
+  gc.fillStyle="#ffc857";gc.fillText("KATOT (−) · SABİT",cx,cy+27);
+  const anodeLabelY=Math.abs(ay-cy)<22?ay-15:ay+(ay<cy?-15:25);
+  gc.fillStyle="#ff9aa2";gc.fillText("ANOT (+)",ax,anodeLabelY);
+  gc.fillStyle="#8fc2ff";gc.fillText("G1",g1x,gy-15);gc.fillText("G2",g2x,gy-15);
+  gc.textAlign="left";
+
+  const f=artifactFactor(angle), fieldColor=Math.abs(f)<.15?"rgba(94,234,141,.68)":f<0?"rgba(235,90,101,.63)":"rgba(54,201,215,.63)";
+  for(let i=0;i<4;i++){
+    const bend=(i-1.5)*h*.085;
+    gc.strokeStyle=fieldColor;gc.lineWidth=1.3;gc.setLineDash([5,5]);
+    gc.beginPath();gc.moveTo((cx+ax)/2,(cy+ay)/2);gc.quadraticCurveTo(w*.72,h*.35+bend,g1x,gy+bend*.15);gc.stroke();
+  }
+  gc.setLineDash([]);
+  gc.fillStyle=fieldColor;gc.font="800 11px Segoe UI";gc.fillText("anlık hacim iletimi",w*.69,h*.28);
+
+  if(stimStart>=0){
+    const elapsed=(now-stimStart)/1000;
+    const flash=Math.max(0,1-elapsed/0.32);
+    if(flash>0){gc.beginPath();gc.arc(cx,cy,13+22*(1-flash),0,Math.PI*2);gc.strokeStyle=`rgba(255,200,87,${flash})`;gc.lineWidth=4;gc.stroke();}
+    const travel=(elapsed-.35)/1.45;
+    if(travel>=0&&travel<=1){
+      const px=sx+(ex-sx)*travel,py=sy+(ey-sy)*travel+Math.sin(travel*Math.PI)*2;
+      dot(gc,px,py,7,"#ffc857","#fff");
+      gc.fillStyle="#ffc857";gc.font="900 11px Segoe UI";gc.fillText("sinir volüsü",px-28,py-14);
+    }
+    if(elapsed>2.1)stimStart=-1;
+  }
+  gc.fillStyle="#d9e4e9";gc.font="700 11px Segoe UI";gc.fillText("Katot değişmediği için uyarılma noktası ve iletim mesafesi değişmez.",w*.53,h*.91);
+}
+function drawScope(now){
+  const {w,h}=fit(scope,scopeWrap);sc.clearRect(0,0,w,h);sc.fillStyle="#06140f";sc.fillRect(0,0,w,h);
+  const L=50,R=w-22,T=25,B=h-31,mid=(T+B)/2,windowMs=8,halfUv=50;
+  const x=t=>L+(R-L)*t/windowMs,y=v=>mid+(v/halfUv)*(B-T)/2;
+  sc.strokeStyle="#143326";sc.lineWidth=1;
+  for(let i=0;i<=8;i++){sc.beginPath();sc.moveTo(x(i),T);sc.lineTo(x(i),B);sc.stroke()}
+  for(let i=0;i<=6;i++){const yy=T+(B-T)*i/6;sc.beginPath();sc.moveTo(L,yy);sc.lineTo(R,yy);sc.stroke()}
+  sc.strokeStyle="#27533e";sc.lineWidth=1.3;sc.beginPath();sc.moveTo(L,mid);sc.lineTo(R,mid);sc.stroke();
+  sc.fillStyle="#789486";sc.font="700 10px Segoe UI";sc.textAlign="center";for(let i=0;i<=8;i+=2)sc.fillText(i+" ms",x(i),B+16);sc.textAlign="left";sc.fillText("20 µV/div",L,T-8);
+  const elapsed=stimStart>=0?(now-stimStart)/1000:99,progress=traceVisible?(stimStart>=0?Math.min(1,Math.max(.02,elapsed/2.0)):1):0;
+  function plot(fn,color,width,dash=[]){
+    sc.strokeStyle=color;sc.lineWidth=width;sc.setLineDash(dash);sc.beginPath();
+    const n=Math.floor(720*progress);
+    for(let i=0;i<=n;i++){const t=windowMs*i/720,v=Math.max(-halfUv,Math.min(halfUv,fn(t)));i?sc.lineTo(x(t),y(v)):sc.moveTo(x(t),y(v))}
+    sc.stroke();sc.setLineDash([]);
+  }
+  if(traceVisible){
+    plot(t=>artifact(t,angle),"#36c9d7",1.5);
+    plot(t=>trueSnap(t),"#ffc857",1.6,[6,4]);
+    sc.save();sc.shadowColor="#5eea8d";sc.shadowBlur=5;plot(t=>artifact(t,angle)+trueSnap(t)+noise(t),"#5eea8d",2.6);sc.restore();
+    sc.strokeStyle="#ffc85788";sc.setLineDash([3,4]);sc.beginPath();sc.moveTo(x(TRUE_LAT),T);sc.lineTo(x(TRUE_LAT),B);sc.stroke();sc.setLineDash([]);
+    sc.fillStyle="#ffc857";sc.font="800 10px Segoe UI";sc.fillText("gerçek onset 2,4 ms",x(TRUE_LAT)+5,B-7);
+    const tail=artifactTailAtOnset(angle);sc.fillStyle="#36c9d7";sc.fillText(`artefakt @ onset ${tail>=0?"+":""}${tail.toFixed(1)} µV`,x(4.8),T+14);
+  }else{
+    sc.fillStyle="#a7c4b8";sc.font="800 13px Segoe UI";sc.textAlign="center";sc.fillText("İz gizli · uyarıyı göstermek için düğmeye basın",(L+R)/2,mid);sc.textAlign="left";
+  }
+}
+function updateUI(){
+  const f=artifactFactor(angle),tail=artifactTailAtOnset(angle),abs=Math.abs(tail);
+  angleEl.value=angle;angleOut.value=(angle>0?"+":"")+angle+"°";
+  tailOut.textContent=(tail>0?"+":"")+tail.toFixed(1).replace(".",",")+" µV";
+  slopeOut.textContent=(baselineSlope(angle)>0?"+":"")+baselineSlope(angle).toFixed(1).replace(".",",")+" µV/ms";
+  tailFill.style.width=Math.min(100,abs/36*100)+"%";
+  tailFill.style.background=abs<5?"#5aa977":f<0?"#eb5a65":"#36c9d7";
+  pos1Btn.classList.toggle("active",Math.abs(angle-0)<2);pos2Btn.classList.toggle("active",Math.abs(angle+65)<2);reverseBtn.classList.toggle("active",Math.abs(angle-65)<2);
+  if(abs<5){
+    stateBadge.textContent="Yatay başlangıç · en temiz baseline";stateBadge.className="state";
+    onsetOut.textContent="YÜKSEK";onsetOut.style.color="#28744a";
+    lesson.innerHTML="<b>Başlangıç konumu:</b> Anot–katot ekseni G1–G2 ekseniyle aynı yatay çizgidedir; bu modelde far-field kuyruk en küçüktür. Klinikte amaç sabit bir derece değil, en düz baseline'dır.";
+  }else if(abs<15){
+    stateBadge.textContent="Kısmi artefakt";stateBadge.className="state warn";
+    onsetOut.textContent="ORTA";onsetOut.style.color="#965817";
+    lesson.innerHTML="<b>Ara açı:</b> Gerçek DSAP değişmedi; fakat far-field kuyruk onset çevresindeki baseline'ı hâlâ eğiyor.";
+  }else{
+    stateBadge.textContent=f<0?"Konum 1 · büyük kuyruk":"Ters polariteli kuyruk";stateBadge.className="state bad";
+    onsetOut.textContent="DÜŞÜK";onsetOut.style.color="#a6313d";
+    lesson.innerHTML="<b>Kritik ayrım:</b> Değişen sinir yanıtı değil, uyarıcı dipolünün kayıt elektrotlarına göre geometrisidir. Onset ve amplitüd bu yüzden hatalı seçilir.";
+  }
+  window.__walkingAnodeState={angle,cathodeX:CATHODE.x,cathodeY:CATHODE.y,trueAmp:TRUE_AMP,trueLatency:TRUE_LAT,artifactTail:+tail.toFixed(3),baselineSlope:+baselineSlope(angle).toFixed(3),traceVisible};
+}
+function setAngle(v){angle=Math.max(-105,Math.min(105,Math.round(Number(v))));traceVisible=false;stimStart=-1;updateUI();draw(performance.now())}
+function draw(now){drawGeometry(now);drawScope(now)}
+function loop(now){draw(now);if(stimStart>=0)raf=requestAnimationFrame(loop);else raf=0}
+angleEl.addEventListener("input",e=>setAngle(e.target.value));
+pos1Btn.addEventListener("click",()=>setAngle(0));pos2Btn.addEventListener("click",()=>setAngle(-65));reverseBtn.addEventListener("click",()=>setAngle(65));
+document.getElementById("stimBtn").addEventListener("click",()=>{traceVisible=true;stimStart=performance.now();updateUI();if(!raf)raf=requestAnimationFrame(loop)});
+new ResizeObserver(()=>draw(performance.now())).observe(document.querySelector(".app"));
+setAngle(0);
+</script>
+<script data-standard-nav-v3>
+document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase();const a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});
+</script>
+</body>
+</html>

@@ -1,0 +1,2581 @@
+{
+  "summary": {
+    "pages": 83,
+    "failures": []
+  },
+  "rows": [
+    {
+      "number": 1,
+      "type": "topic_entry",
+      "file": "impedans-gurultu/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/proksimal-distal/animasyon-1-segment-hizi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/index.html"
+          }
+        ],
+        "title": "Elektrot Empedansı ve Gürültü",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 2,
+      "type": "explanation",
+      "file": "impedans-gurultu/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/animasyon-0-gurultu-haritasi.html"
+          }
+        ],
+        "title": "Elektrot İmpedansı ve Gürültü — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 3,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-0-gurultu-haritasi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/diferansiyel-amplifikasyon.html"
+          }
+        ],
+        "title": "Doymuş kayıt ekranını 50/60 Hz olarak tanıma laboratuvarı",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 4,
+      "type": "explanation",
+      "file": "impedans-gurultu/diferansiyel-amplifikasyon.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/animasyon-0-gurultu-haritasi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/animasyon-1-diferansiyel-amp.html"
+          }
+        ],
+        "title": "Diferansiyel Amplifikasyon ve Ortak Mod Reddi",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 5,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-1-diferansiyel-amp.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/diferansiyel-amplifikasyon.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/impedans-uyumsuzlugu.html"
+          }
+        ],
+        "title": "G1 ve G2 eşitse ortak 50/60 Hz iptal olur",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 6,
+      "type": "explanation",
+      "file": "impedans-gurultu/impedans-uyumsuzlugu.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/animasyon-1-diferansiyel-amp.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/animasyon-3-ohm-empedans.html"
+          }
+        ],
+        "title": "Empedans Uyumsuzluğu ve Ohm Yasası",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 7,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-3-ohm-empedans.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/impedans-uyumsuzlugu.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/60hz-azaltma.html"
+          }
+        ],
+        "title": "G1 ve G2 empedans eşleşmesi laboratuvarı",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 8,
+      "type": "explanation",
+      "file": "impedans-gurultu/60hz-azaltma.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/animasyon-3-ohm-empedans.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/animasyon-2-gurultu-azaltma.html"
+          }
+        ],
+        "title": "60 Hz İnterferansını Azaltma — Box 8.3",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 9,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-2-gurultu-azaltma.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/60hz-azaltma.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/konu-girisi.html"
+          }
+        ],
+        "title": "Box 8.3 — Gürültüyü örüntüsüne göre azaltma",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 10,
+      "type": "topic_entry",
+      "file": "filtreler/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/impedans-gurultu/animasyon-2-gurultu-azaltma.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/index.html"
+          }
+        ],
+        "title": "Filtre Ayarları",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 11,
+      "type": "explanation",
+      "file": "filtreler/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/animasyon-0-filtre-spektrumu.html"
+          }
+        ],
+        "title": "Filtreler — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 12,
+      "type": "animation",
+      "file": "filtreler/animasyon-0-filtre-spektrumu.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/gecirgen-bant.html"
+          }
+        ],
+        "title": "Ham kayıt tek bir frekanstan oluşmaz",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 13,
+      "type": "explanation",
+      "file": "filtreler/gecirgen-bant.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/animasyon-0-filtre-spektrumu.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/animasyon-1-gecirgen-bant.html"
+          }
+        ],
+        "title": "Geçirgen Bant — Motor ve Duysal Filtre Ayarları",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 14,
+      "type": "animation",
+      "file": "filtreler/animasyon-1-gecirgen-bant.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/gecirgen-bant.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/filtre-odunlesimi.html"
+          }
+        ],
+        "title": "Geçirgen bant kayıt türüne göre seçilir",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 15,
+      "type": "explanation",
+      "file": "filtreler/filtre-odunlesimi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/animasyon-1-gecirgen-bant.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/animasyon-2-filtre-odunlesimi.html"
+          }
+        ],
+        "title": "Filtre Ödünleşimi — Süre ve Amplitüd",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 16,
+      "type": "animation",
+      "file": "filtreler/animasyon-2-filtre-odunlesimi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/filtre-odunlesimi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektronik-ortalama/konu-girisi.html"
+          }
+        ],
+        "title": "Filtre değişince amplitüd ve süre de değişir",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 17,
+      "type": "topic_entry",
+      "file": "elektronik-ortalama/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/filtreler/animasyon-2-filtre-odunlesimi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektronik-ortalama/index.html"
+          }
+        ],
+        "title": "Elektronik Ortalama",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 18,
+      "type": "explanation",
+      "file": "elektronik-ortalama/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektronik-ortalama/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektronik-ortalama/animasyon-1-ortalama.html"
+          }
+        ],
+        "title": "Elektronik Ortalama — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 19,
+      "type": "animation",
+      "file": "elektronik-ortalama/animasyon-1-ortalama.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektronik-ortalama/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/konu-girisi.html"
+          }
+        ],
+        "title": "Elektronik Ortalama — Aynı Sinyal Kalır, Rastgele Gürültü Söner",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 20,
+      "type": "topic_entry",
+      "file": "stimulus-artefakti/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektronik-ortalama/animasyon-1-ortalama.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/index.html"
+          }
+        ],
+        "title": "Stimulus Artefaktı",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 21,
+      "type": "explanation",
+      "file": "stimulus-artefakti/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/animasyon-0-mekanizma.html"
+          }
+        ],
+        "title": "Stimulus Artefaktı — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 22,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-0-mekanizma.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/azaltma-yontemleri.html"
+          }
+        ],
+        "title": "Stimulus Artefaktı — Zaman İşareti ve Örtüşen Kuyruk",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 23,
+      "type": "explanation",
+      "file": "stimulus-artefakti/azaltma-yontemleri.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/animasyon-0-mekanizma.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/animasyon-2-artefakt-azaltma.html"
+          }
+        ],
+        "title": "Stimulus Artefaktını Azaltma Yöntemleri",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 24,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-2-artefakt-azaltma.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/azaltma-yontemleri.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/anot-dondurme.html"
+          }
+        ],
+        "title": "Box 8.4 — Stimulus Artefaktını Sistematik Azaltma",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 25,
+      "type": "explanation",
+      "file": "stimulus-artefakti/anot-dondurme.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/animasyon-2-artefakt-azaltma.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/animasyon-1-anot-rotasyon.html"
+          }
+        ],
+        "title": "Anot Döndürme (Walking the Anode)",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 26,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-1-anot-rotasyon.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/anot-dondurme.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/kablo-ayrimi.html"
+          }
+        ],
+        "title": "Walking the Anode — Serbest Laboratuvar",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 27,
+      "type": "explanation",
+      "file": "stimulus-artefakti/kablo-ayrimi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/animasyon-1-anot-rotasyon.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/animasyon-3-kablo-induksiyonu.html"
+          }
+        ],
+        "title": "Kablo Ayrımı ve İndüksiyon",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 28,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-3-kablo-induksiyonu.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/kablo-ayrimi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/katot-polarite/konu-girisi.html"
+          }
+        ],
+        "title": "Kablo Kuplajı ve Stimulus Artefaktı — Serbest Laboratuvar",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 29,
+      "type": "topic_entry",
+      "file": "katot-polarite/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/stimulus-artefakti/animasyon-3-kablo-induksiyonu.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/katot-polarite/index.html"
+          }
+        ],
+        "title": "Katot–Anot Polaritesi",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 30,
+      "type": "explanation",
+      "file": "katot-polarite/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/katot-polarite/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/katot-polarite/animasyon-0-depolarizasyon-anodal-blok.html"
+          }
+        ],
+        "title": "Katot Pozisyonu ve Polarite Tersliği — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 31,
+      "type": "animation",
+      "file": "katot-polarite/animasyon-0-depolarizasyon-anodal-blok.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/katot-polarite/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/katot-polarite/latans-hatasi.html"
+          }
+        ],
+        "title": "Anodal Blok — Mekanizma Modeli",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 32,
+      "type": "explanation",
+      "file": "katot-polarite/latans-hatasi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/katot-polarite/animasyon-0-depolarizasyon-anodal-blok.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/katot-polarite/animasyon-1-polarite-tersligi.html"
+          }
+        ],
+        "title": "Latans ve İletim Hızı Hatası — Ters Çevrilmiş Polarite",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 33,
+      "type": "animation",
+      "file": "katot-polarite/animasyon-1-polarite-tersligi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/katot-polarite/latans-hatasi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/konu-girisi.html"
+          }
+        ],
+        "title": "Ters Polarite: Gerçek Yol Uzar — Serbest Laboratuvar",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 34,
+      "type": "topic_entry",
+      "file": "supramaksimal/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/katot-polarite/animasyon-1-polarite-tersligi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/index.html"
+          }
+        ],
+        "title": "Supramaksimal Uyarım",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 35,
+      "type": "explanation",
+      "file": "supramaksimal/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/animasyon-0-akson-rekrutmani.html"
+          }
+        ],
+        "title": "Supramaksimal Uyarım — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 36,
+      "type": "animation",
+      "file": "supramaksimal/animasyon-0-akson-rekrutmani.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/nasil-yapilir.html"
+          }
+        ],
+        "title": "Akım Artışı, Akson Rekruitmanı ve BKAP Platosu",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 37,
+      "type": "explanation",
+      "file": "supramaksimal/nasil-yapilir.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/animasyon-0-akson-rekrutmani.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/animasyon-1-uyari-egrisi.html"
+          }
+        ],
+        "title": "Supramaksimal Uyarım Nasıl Sağlanır?",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 38,
+      "type": "animation",
+      "file": "supramaksimal/animasyon-1-uyari-egrisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/nasil-yapilir.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/yanlis-yorumlar.html"
+          }
+        ],
+        "title": "İlk Maksimal Yanıtta Durma — Platoyu Ek Akımla Kanıtla",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 39,
+      "type": "explanation",
+      "file": "supramaksimal/yanlis-yorumlar.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/animasyon-1-uyari-egrisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/animasyon-2-amplitud-farki.html"
+          }
+        ],
+        "title": "Submaksimal Uyarımın Yol Açtığı Yanlış Yorumlar",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 40,
+      "type": "animation",
+      "file": "supramaksimal/animasyon-2-amplitud-farki.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/yanlis-yorumlar.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/konu-girisi.html"
+          }
+        ],
+        "title": "Normal Sinirde Submaksimal Uyarım — Yalancı Amplitüd Asimetrisi",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 41,
+      "type": "topic_entry",
+      "file": "kostimulasyon/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/supramaksimal/animasyon-2-amplitud-farki.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/index.html"
+          }
+        ],
+        "title": "Komşu Sinir Ko-stimülasyonu",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 42,
+      "type": "explanation",
+      "file": "kostimulasyon/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/animasyon-0-akim-yayilimi.html"
+          }
+        ],
+        "title": "Komşu Sinirlerin Birlikte Uyarılması — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 43,
+      "type": "animation",
+      "file": "kostimulasyon/animasyon-0-akim-yayilimi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/hata-oruntuleri.html"
+          }
+        ],
+        "title": "Akım Komşu Sinire Taşınca BKAP Hedefe Özgü Olmaktan Çıkar",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 44,
+      "type": "explanation",
+      "file": "kostimulasyon/hata-oruntuleri.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/animasyon-0-akim-yayilimi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/animasyon-1-tanisal-hatalar.html"
+          }
+        ],
+        "title": "Ko-stimülasyonun Yol Açtığı Hata Örüntüleri",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 45,
+      "type": "animation",
+      "file": "kostimulasyon/animasyon-1-tanisal-hatalar.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/hata-oruntuleri.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/onleme-yontemleri.html"
+          }
+        ],
+        "title": "Ko-stimülasyonun yeri: yalancı blok veya gizlenen blok",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 46,
+      "type": "explanation",
+      "file": "kostimulasyon/onleme-yontemleri.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/animasyon-1-tanisal-hatalar.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/animasyon-2-optimal-yerlesim.html"
+          }
+        ],
+        "title": "Ko-stimülasyonu Önleme Yöntemleri — Box 8.5",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 47,
+      "type": "animation",
+      "file": "kostimulasyon/animasyon-2-optimal-yerlesim.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/onleme-yontemleri.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/konu-girisi.html"
+          }
+        ],
+        "title": "Optimal stimülatör yerleşimi: önce konumu bul, sonra supramaksimale çık",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 48,
+      "type": "topic_entry",
+      "file": "motor-elektrot-yerlesimi/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/kostimulasyon/animasyon-2-optimal-yerlesim.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/index.html"
+          }
+        ],
+        "title": "Motor Kayıt Elektrot Yerleşimi",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 49,
+      "type": "explanation",
+      "file": "motor-elektrot-yerlesimi/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/animasyon-0-belly-tendon-montaj.html"
+          }
+        ],
+        "title": "Motor Elektrot Yerleşimi — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 50,
+      "type": "animation",
+      "file": "motor-elektrot-yerlesimi/animasyon-0-belly-tendon-montaj.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/g1-yerlesimi.html"
+          }
+        ],
+        "title": "G2 sessizse, belly-tendon BKAP G1 sinyalini korur",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 51,
+      "type": "explanation",
+      "file": "motor-elektrot-yerlesimi/g1-yerlesimi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/animasyon-0-belly-tendon-montaj.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/animasyon-1-g1-konumu.html"
+          }
+        ],
+        "title": "G1 Yerleşimi ve İlk Pozitif Sapma",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 52,
+      "type": "animation",
+      "file": "motor-elektrot-yerlesimi/animasyon-1-g1-konumu.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/g1-yerlesimi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/g2-yerlesimi.html"
+          }
+        ],
+        "title": "G1 motor noktadan uzaklaşınca ilk pozitiflik amplitüdü ve onseti bozar",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 53,
+      "type": "explanation",
+      "file": "motor-elektrot-yerlesimi/g2-yerlesimi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/animasyon-1-g1-konumu.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/animasyon-2-g2-tendon-potansiyeli.html"
+          }
+        ],
+        "title": "G2 Yerleşimi ve Tendon Potansiyeli",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 54,
+      "type": "animation",
+      "file": "motor-elektrot-yerlesimi/animasyon-2-g2-tendon-potansiyeli.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/g2-yerlesimi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/antidromik-ortodromik/konu-girisi.html"
+          }
+        ],
+        "title": "G2 konumu tek başına 8,3 → 5,6 mV BKAP farkı yaratabilir",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 55,
+      "type": "topic_entry",
+      "file": "antidromik-ortodromik/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/motor-elektrot-yerlesimi/animasyon-2-g2-tendon-potansiyeli.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/antidromik-ortodromik/index.html"
+          }
+        ],
+        "title": "Antidromik ve Ortodromik Kayıt",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 56,
+      "type": "explanation",
+      "file": "antidromik-ortodromik/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/antidromik-ortodromik/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/antidromik-ortodromik/animasyon-1-antidromik-vs-ortodromik.html"
+          }
+        ],
+        "title": "Antidromik ve Ortodromik Kayıt — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 57,
+      "type": "animation",
+      "file": "antidromik-ortodromik/animasyon-1-antidromik-vs-ortodromik.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/antidromik-ortodromik/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/antidromik-ortodromik/hacim-iletilen-motor.html"
+          }
+        ],
+        "title": "Yön değişir; 2,2 ms aynı kalır, kayıt derinliği amplitüdü değiştirir",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 58,
+      "type": "explanation",
+      "file": "antidromik-ortodromik/hacim-iletilen-motor.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/antidromik-ortodromik/animasyon-1-antidromik-vs-ortodromik.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/antidromik-ortodromik/animasyon-2-sahte-dsap.html"
+          }
+        ],
+        "title": "Hacim İletilen Motor Potansiyeli ve Sahte DSAP",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 59,
+      "type": "animation",
+      "file": "antidromik-ortodromik/animasyon-2-sahte-dsap.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/antidromik-ortodromik/hacim-iletilen-motor.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/konu-girisi.html"
+          }
+        ],
+        "title": "Gerçek DSAP kaybolsa bile geç motor bileşen kalabilir",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 60,
+      "type": "topic_entry",
+      "file": "elektrot-sinir-mesafesi/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/antidromik-ortodromik/animasyon-2-sahte-dsap.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/index.html"
+          }
+        ],
+        "title": "Elektrot–Sinir Mesafesi",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 61,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/animasyon-0-derinlik-filtresi.html"
+          }
+        ],
+        "title": "Elektrot-Sinir Mesafesi — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 62,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-0-derinlik-filtresi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/odem-etkisi.html"
+          }
+        ],
+        "title": "Elektrot sinirden uzaklaştıkça SNAP amplitüdü düşer",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 63,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/odem-etkisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/animasyon-0-derinlik-filtresi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/animasyon-1-mesafe-amplitud-latans.html"
+          }
+        ],
+        "title": "Ödem ve Amplitüd Atenüasyonu",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 64,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-1-mesafe-amplitud-latans.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/odem-etkisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/lateral-yerlesim.html"
+          }
+        ],
+        "title": "Ödem duysal yanıtı küçültür ve yayar",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 65,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/lateral-yerlesim.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/animasyon-1-mesafe-amplitud-latans.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/animasyon-2-elektrot-arama.html"
+          }
+        ],
+        "title": "Lateral/Medial Yerleşim ve Arama Tekniği",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 66,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-2-elektrot-arama.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/lateral-yerlesim.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/latans-hatasi.html"
+          }
+        ],
+        "title": "Elektrotu ara: en büyük SNAP sinirin yerini doğrular",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 67,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/latans-hatasi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/animasyon-2-elektrot-arama.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/animasyon-3-yanlis-hiz.html"
+          }
+        ],
+        "title": "Latans Hatası ve Yapay Hızlı İletim Hızı",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 68,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-3-yanlis-hiz.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/latans-hatasi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/aktif-referans-mesafesi/konu-girisi.html"
+          }
+        ],
+        "title": "Gerçek hız değişmez; erken onset hesabı yalancı hızlandırır",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 69,
+      "type": "topic_entry",
+      "file": "aktif-referans-mesafesi/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/elektrot-sinir-mesafesi/animasyon-3-yanlis-hiz.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/aktif-referans-mesafesi/index.html"
+          }
+        ],
+        "title": "Aktif–Referans Elektrot Mesafesi",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 70,
+      "type": "explanation",
+      "file": "aktif-referans-mesafesi/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/aktif-referans-mesafesi/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/aktif-referans-mesafesi/animasyon-1-g1-g2-mesafesi.html"
+          }
+        ],
+        "title": "Aktif-Referans Elektrot Mesafesi — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 71,
+      "type": "animation",
+      "file": "aktif-referans-mesafesi/animasyon-1-g1-g2-mesafesi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/aktif-referans-mesafesi/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-mesafe/konu-girisi.html"
+          }
+        ],
+        "title": "G1 ve G2 aynı anda aktifse çıkarma SNAP'ı iptal eder",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 72,
+      "type": "topic_entry",
+      "file": "ekstremite-mesafe/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/aktif-referans-mesafesi/animasyon-1-g1-g2-mesafesi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-mesafe/index.html"
+          }
+        ],
+        "title": "Ekstremite Pozisyonu ve Ölçüm Mesafesi",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 73,
+      "type": "explanation",
+      "file": "ekstremite-mesafe/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-mesafe/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-mesafe/animasyon-1-dirsek-pozisyonu.html"
+          }
+        ],
+        "title": "Ekstremite Pozisyonu ve Mesafe Ölçümü — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 74,
+      "type": "animation",
+      "file": "ekstremite-mesafe/animasyon-1-dirsek-pozisyonu.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-mesafe/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-mesafe/diger-sinirler-caliper.html"
+          }
+        ],
+        "title": "Ulnar Sinir — Dirsek Pozisyonu ve Mesafe",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 75,
+      "type": "explanation",
+      "file": "ekstremite-mesafe/diger-sinirler-caliper.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-mesafe/animasyon-1-dirsek-pozisyonu.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-mesafe/animasyon-2-kaliper.html"
+          }
+        ],
+        "title": "Diğer Sinirler ve Obstetrik Kaliper",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 76,
+      "type": "animation",
+      "file": "ekstremite-mesafe/animasyon-2-kaliper.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-mesafe/diger-sinirler-caliper.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-morfoloji/konu-girisi.html"
+          }
+        ],
+        "title": "Doğrusal Olmayan Segmentlerde Obstetrik Kaliper",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 77,
+      "type": "topic_entry",
+      "file": "ekstremite-morfoloji/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-mesafe/animasyon-2-kaliper.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-morfoloji/index.html"
+          }
+        ],
+        "title": "Ekstremite Pozisyonu ve Dalga Morfolojisi",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 78,
+      "type": "explanation",
+      "file": "ekstremite-morfoloji/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-morfoloji/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-morfoloji/animasyon-1-pozisyon-tutarliligi.html"
+          }
+        ],
+        "title": "Ekstremite Pozisyonu ve Dalga Morfolojisi — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 79,
+      "type": "animation",
+      "file": "ekstremite-morfoloji/animasyon-1-pozisyon-tutarliligi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-morfoloji/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/sweep-sensitivite/konu-girisi.html"
+          }
+        ],
+        "title": "Ekstremite Pozisyonu ve BKAP Morfolojisi",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 80,
+      "type": "topic_entry",
+      "file": "sweep-sensitivite/konu-girisi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/ekstremite-morfoloji/animasyon-1-pozisyon-tutarliligi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/sweep-sensitivite/index.html"
+          }
+        ],
+        "title": "Sensitivite ve Sweep Hızı",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 81,
+      "type": "explanation",
+      "file": "sweep-sensitivite/index.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/sweep-sensitivite/konu-girisi.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/sweep-sensitivite/animasyon-1-sensitivite.html"
+          }
+        ],
+        "title": "Latans Ölçümü: Sweep Hızı ve Sensitivite — Bölüm 8",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 82,
+      "type": "animation",
+      "file": "sweep-sensitivite/animasyon-1-sensitivite.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/sweep-sensitivite/index.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/sweep-sensitivite/animasyon-2-sweep-hizi.html"
+          }
+        ],
+        "title": "Sensitivite ve Başlangıç Latansı",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    },
+    {
+      "number": 83,
+      "type": "animation",
+      "file": "sweep-sensitivite/animasyon-2-sweep-hizi.html",
+      "errors": [],
+      "dom": {
+        "duplicateIds": [],
+        "emptyButtons": 0,
+        "missingAlt": 0,
+        "nav": [
+          {
+            "text": "F1Önceki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/sweep-sensitivite/animasyon-1-sensitivite.html"
+          },
+          {
+            "text": "F2İçindekiler",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          },
+          {
+            "text": "F3Sonraki",
+            "href": "file:///C:/Users/uugur/OneDrive/Desktop/EMG_NCS_Nonfizyolojik_Faktorler_Sunumu/index.html"
+          }
+        ],
+        "title": "Yatay Zaman Ölçeği ve Başlangıç Latansı",
+        "fullscreenStyles": 1,
+        "fontScaleStyles": 1,
+        "fontScaleZoom": "1.15"
+      },
+      "brokenTargets": [],
+      "externalRefs": []
+    }
+  ]
+}

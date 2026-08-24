@@ -1,0 +1,248 @@
+from pathlib import Path
+import shutil
+
+
+LIVE = Path(
+    r"C:\Users\uugur\OneDrive\Desktop\Second_Brain\presentations"
+    r"\artifacts_of_ncs_emg\animations"
+)
+WORK = Path(r"C:\Users\uugur\OneDrive\Desktop\animations_ncs_emg")
+
+target = LIVE / "elektronik-ortalama" / "animasyon-1-ortalama.html"
+figure_target = LIVE / "figures" / "source-v3" / "fig_8_10_electronic_averaging.png"
+figure_source = WORK / "fig_8_10_electronic_averaging.png"
+
+html = r"""<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elektronik Ortalama — Aynı Sinyal Kalır, Rastgele Gürültü Söner</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#fff;--head:#e7edf3;--line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--cyan:#0f7a95;--blue:#2f6fbd;
+  --amber:#d89a38;--green:#2f7d52;--red:#bd4250;--scope:#061a13;
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);
+  font-family:"Segoe UI",Inter,Arial,sans-serif}
+body{display:grid;place-items:center;padding:14px}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);
+  background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;
+  box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;
+  grid-template-rows:40px 50px 1fr 58px 56px;overflow:hidden}
+.titlebar{display:flex;align-items:center;justify-content:space-between;padding:0 18px;
+  background:linear-gradient(180deg,#fff,#eef1f4);border-bottom:1px solid var(--line);
+  font-size:16px;color:#45525c}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 6px rgba(47,125,82,.5)}
+.tb-right{display:flex;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px}
+.tb-right b{color:var(--cyan)}
+.toolbar{display:flex;align-items:center;gap:24px;padding:0 18px;background:var(--head);
+  border-bottom:1px solid var(--line)}
+.tf{display:flex;align-items:baseline;gap:9px}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.tf strong{font-size:15px;color:var(--ink);font-weight:800}
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:12px}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);
+  display:flex;flex-direction:column;overflow:hidden}
+.panel-head{height:38px;flex:none;display:flex;align-items:center;justify-content:space-between;
+  padding:0 14px;background:var(--head);border-bottom:1px solid var(--line);
+  font-size:14px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#465762}
+.panel-head .claim{color:var(--green);font-size:12px}
+.stage-wrap{flex:1;min-height:0;background:#fcfdfe}
+canvas{display:block;width:100%;height:100%}
+.side-body{flex:1;min-height:0;padding:10px;display:grid;gap:8px;align-content:start;overflow:auto}
+.stat-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;
+  background:#f3f6f8;border:1px solid var(--line);font-size:13px}
+.stat-row span{color:var(--muted);font-weight:700}.stat-row b{font-size:15px;font-variant-numeric:tabular-nums}
+.note{padding:10px;background:#f3f6f8;border:1px solid var(--line);font-size:12.5px;
+  line-height:1.38;font-weight:600}.note b{color:var(--cyan)}
+.book{display:grid;grid-template-columns:88px 1fr;gap:9px;align-items:center;padding:8px;
+  border:1px solid var(--line);background:#fff}
+.book img{width:88px;height:77px;object-fit:contain;background:#fff}
+.book b{display:block;font-size:12px;line-height:1.25}.book span{display:block;margin-top:3px;
+  font-size:11px;line-height:1.28;color:var(--muted)}
+.source{font-size:10.5px;line-height:1.3;color:#687784;padding:0 2px}
+.controls{display:flex;align-items:center;gap:10px;padding:8px 18px;background:var(--head);
+  border-top:1px solid var(--line)}
+.slider-row{display:flex;align-items:center;gap:9px;flex:1;min-width:260px}
+.slider-row label{font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase;
+  letter-spacing:.04em;white-space:nowrap}
+input[type=range]{flex:1;accent-color:var(--cyan)}
+.nread{min-width:52px;text-align:center;font-size:18px;font-weight:900;font-variant-numeric:tabular-nums}
+button{appearance:none;border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:5px;
+  min-height:34px;padding:0 12px;font:800 12.5px "Segoe UI",Arial,sans-serif;cursor:pointer;white-space:nowrap}
+button:hover,button:focus-visible{border-color:var(--cyan);outline:none}
+button.primary{background:var(--cyan);color:#fff;border-color:var(--cyan)}
+.bottom-bar{height:56px;display:flex;align-items:stretch;gap:1px;background:#d5dde4;border-top:1px solid #d5dde4}
+.fkey{flex:1;background:var(--head);color:var(--ink);text-decoration:none;display:flex;
+  align-items:center;justify-content:center;gap:9px;font:800 13px/1 "Segoe UI",Arial,sans-serif}
+.fkey span{color:var(--cyan);font-size:15px}.fkey:hover{background:#dce8f0}
+@media(max-width:980px){
+  body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0}
+  .workspace{grid-template-columns:1fr}.side{display:none}.controls{flex-wrap:wrap;height:auto}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="titlebar">
+    <div class="tb-left"><span class="dot"></span>EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+    <div class="tb-right"><b>EDX</b><span>SİM</span></div>
+  </div>
+  <div class="toolbar">
+    <div class="tf"><label>Konu</label><strong>Elektronik Ortalama</strong></div>
+    <div class="tf"><label>Animasyon</label><strong>Aynı DSAP kalır; rastgele gürültü söner</strong></div>
+  </div>
+
+  <div class="workspace">
+    <section class="panel">
+      <div class="panel-head">
+        <span>Median duysal — bilek uyarımı, D2 kaydı</span>
+        <span class="claim">Aynı zaman penceresi · gerçek koşan ortalama</span>
+      </div>
+      <div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div>
+    </section>
+
+    <aside class="panel side">
+      <div class="panel-head"><span>Kitapla birlikte oku</span></div>
+      <div class="side-body">
+        <div class="stat-row"><span>Ortalama sayısı</span><b id="nOut">1</b></div>
+        <div class="stat-row"><span>Ortalama bazal RMS</span><b id="rmsOut">—</b></div>
+        <div class="stat-row"><span>Beklenen gürültü</span><b id="theoryOut">12.0 µV</b></div>
+        <div class="stat-row"><span>Teorik SNR kazancı</span><b id="snrOut">1.00×</b></div>
+        <div class="note" id="mechNote"></div>
+        <div class="book">
+          <img src="../figures/source-v3/fig_8_10_electronic_averaging.png" alt="Şekil 8.10 elektronik ortalama">
+          <div><b>Şekil 8.10 — tek süpürüm ve 10 ortalama</b>
+          <span>N=10’da bazal çizgi netleşir; başlangıç latansı ve amplitüd ölçülebilir.</span></div>
+        </div>
+        <div class="source">Kaynak: Preston &amp; Shapiro, Şekil 8.10; Lovelace ve ark., JNNP 1973, PMID 4359163.</div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="controls">
+    <div class="slider-row">
+      <label for="nSlider">Ortalama N</label>
+      <input id="nSlider" type="range" min="1" max="32" step="1" value="1">
+      <div class="nread" id="nReadout">1</div>
+    </div>
+    <button id="addBtn" class="primary" type="button">+1 uyarı</button>
+    <button id="presetBtn" type="button">N = 10 · Şekil 8.10</button>
+    <button id="autoBtn" type="button">Otomatik ekle</button>
+    <button id="resetBtn" type="button">Sıfırla</button>
+  </div>
+
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="index.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="../stimulus-artefakti/index.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</div>
+
+<script>
+const wrap=document.getElementById("stageWrap"),canvas=document.getElementById("sceneCanvas"),ctx=canvas.getContext("2d");
+const nSlider=document.getElementById("nSlider"),nOut=document.getElementById("nOut"),nReadout=document.getElementById("nReadout");
+const rmsOut=document.getElementById("rmsOut"),theoryOut=document.getElementById("theoryOut"),snrOut=document.getElementById("snrOut");
+const mechNote=document.getElementById("mechNote"),addBtn=document.getElementById("addBtn"),presetBtn=document.getElementById("presetBtn");
+const autoBtn=document.getElementById("autoBtn"),resetBtn=document.getElementById("resetBtn");
+
+let W=0,H=0,dpr=Math.min(2,devicePixelRatio||1),N=1,auto=false,lastStep=0;
+const COUNT=800,WINDOW=10,AMP=24,BASE_NOISE=12,ONSET=3.0,PEAK=3.45;
+
+function mulberry32(seed){return function(){let t=seed+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+function gauss(t,m,s){const z=(t-m)/s;return Math.exp(-.5*z*z)}
+function dsap(t){return AMP*(.92*gauss(t,PEAK,.22)-.62*gauss(t,4.02,.31)+.16*gauss(t,4.72,.55))}
+function makeTrial(index){
+  const rand=mulberry32(9137+index*7919),phase=[];
+  for(let k=0;k<13;k++)phase.push([120+rand()*3000,rand()*Math.PI*2,.25+rand()*.75]);
+  const noiseArr=new Float32Array(COUNT),arr=new Float32Array(COUNT);
+  for(let i=0;i<COUNT;i++){
+    const t=WINDOW*i/(COUNT-1);let noise=0;
+    for(const [f,p,a] of phase)noise+=a*Math.sin(2*Math.PI*f*t/1000+p);
+    noise+=.7*Math.sin(2*Math.PI*50*t/1000+phase[0][1]);
+    noiseArr[i]=noise;
+  }
+  let s=0,c=0;for(let i=0;i<COUNT;i++){const t=WINDOW*i/(COUNT-1);if(t<2.55){s+=noiseArr[i]*noiseArr[i];c++}}
+  const scale=BASE_NOISE/Math.sqrt(s/c);
+  for(let i=0;i<COUNT;i++){const t=WINDOW*i/(COUNT-1);arr[i]=dsap(t)+noiseArr[i]*scale}
+  return arr;
+}
+const trials=Array.from({length:32},(_,i)=>makeTrial(i));
+function meanTrace(n){const out=new Float32Array(COUNT);for(let j=0;j<n;j++)for(let i=0;i<COUNT;i++)out[i]+=trials[j][i]/n;return out}
+function rmsBaseline(arr){let s=0,c=0;for(let i=0;i<COUNT;i++){const t=WINDOW*i/(COUNT-1);if(t<2.55){s+=arr[i]*arr[i];c++}}return Math.sqrt(s/c)}
+
+function resize(){
+  const r=wrap.getBoundingClientRect();W=Math.max(500,Math.round(r.width));H=Math.max(360,Math.round(r.height));
+  canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw()
+}
+new ResizeObserver(resize).observe(wrap);
+
+function line(points,color,width=2,dash=[]){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();
+  points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.restore()
+}
+function txt(s,x,y,color,size=12,weight=700,align="left"){
+  ctx.save();ctx.fillStyle=color;ctx.font=`${weight} ${size}px "Segoe UI",Arial,sans-serif`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.restore()
+}
+function grid(x,y,w,h){
+  ctx.fillStyle="#061a13";ctx.fillRect(x,y,w,h);ctx.strokeStyle="#143126";ctx.lineWidth=1;
+  for(let i=1;i<10;i++){const xx=x+w*i/10;ctx.beginPath();ctx.moveTo(xx,y);ctx.lineTo(xx,y+h);ctx.stroke()}
+  for(let i=1;i<5;i++){const yy=y+h*i/5;ctx.beginPath();ctx.moveTo(x,yy);ctx.lineTo(x+w,yy);ctx.stroke()}
+  ctx.strokeStyle="#2a4a3b";ctx.beginPath();ctx.moveTo(x,y+h/2);ctx.lineTo(x+w,y+h/2);ctx.stroke()
+}
+function scope(x,y,w,h,arr,title,sub,measure){
+  grid(x,y,w,h);txt(title,x+10,y+18,"#d8eee4",12,800);txt(sub,x+w-10,y+18,"#9db3a6",11,700,"right");
+  const pts=[];for(let i=0;i<COUNT;i++){const px=x+w*i/(COUNT-1),py=y+h/2-arr[i]*h/90;pts.push([px,Math.max(y+3,Math.min(y+h-3,py))])}
+  line(pts,"#64eda0",2);
+  const triggerX=x+w*.08;line([[triggerX,y+3],[triggerX,y+h-3]],"#d89a38",1,[5,4]);txt("uyarı",triggerX+5,y+h-8,"#d89a38",10,800);
+  for(let ms=0;ms<=10;ms+=2){const xx=x+w*ms/10;txt(`${ms}`,xx,y+h+15,"#657a70",9,600,ms===0?"left":ms===10?"right":"center")}
+  if(measure){
+    const onsetX=x+w*ONSET/WINDOW,peakX=x+w*PEAK/WINDOW,base=y+h/2,peakY=base-dsap(PEAK)*h/90;
+    line([[onsetX,y+26],[onsetX,y+h-18]],"#e58b96",1,[4,4]);txt("başlangıç",onsetX+5,y+38,"#e58b96",10,800);
+    line([[peakX+14,base],[peakX+14,peakY]],"#60b4e8",2);
+    line([[peakX+9,base],[peakX+19,base]],"#60b4e8",2);line([[peakX+9,peakY],[peakX+19,peakY]],"#60b4e8",2);
+    txt("amplitüd",peakX+22,(base+peakY)/2+3,"#60b4e8",10,800)
+  }
+}
+function draw(){
+  if(!W||!H)return;ctx.clearRect(0,0,W,H);ctx.fillStyle="#fcfdfe";ctx.fillRect(0,0,W,H);
+  const pad=12,gap=16,panelH=(H-pad*2-gap)/2,mean=meanTrace(N),single=trials[N-1];
+  scope(pad,pad,W-pad*2,panelH,single,`TEK SÜPÜRÜM · uyarı ${N}`,"DSAP + o süpürüme özgü rastgele gürültü",false);
+  scope(pad,pad+panelH+gap,W-pad*2,panelH,mean,`KOŞAN ORTALAMA · N = ${N}`,"aynı zamanda kilitli DSAP korunur",N>=10)
+}
+function update(){
+  nSlider.value=N;nOut.textContent=N;nReadout.textContent=N;
+  const mean=meanTrace(N),rms=rmsBaseline(mean),theory=BASE_NOISE/Math.sqrt(N);
+  rmsOut.textContent=`${rms.toFixed(1)} µV`;theoryOut.textContent=`${theory.toFixed(1)} µV`;snrOut.textContent=`${Math.sqrt(N).toFixed(2)}×`;
+  if(N===1)mechNote.innerHTML="<b>Tek süpürüm:</b> DSAP vardır; fakat rastgele bazal gürültü başlangıç latansı ve amplitüd ölçümünü belirsizleştirir.";
+  else if(N<10)mechNote.innerHTML=`<b>${N} süpürüm:</b> DSAP her uyarıda aynı zamanda toplandığı için korunur. Rastgele pozitif ve negatif gürültü örnekleri birbirini giderek götürür.`;
+  else if(N===10)mechNote.innerHTML="<b>Şekil 8.10 noktası:</b> On süpürümden sonra bazal çizgi yeterince nettir; başlangıç latansı ve amplitüd güvenilir biçimde işaretlenebilir.";
+  else mechNote.innerHTML=`<b>Azalan getiri:</b> Gürültü doğrusal değil, yaklaşık 1/√N azalır. ${N} ortalama teorik olarak SNR'yi ${Math.sqrt(N).toFixed(2)} kat iyileştirir.`;
+  draw()
+}
+function setN(v){N=Math.max(1,Math.min(32,Math.round(v)));update()}
+nSlider.addEventListener("input",e=>{auto=false;autoBtn.textContent="Otomatik ekle";setN(+e.target.value)});
+addBtn.addEventListener("click",()=>{auto=false;autoBtn.textContent="Otomatik ekle";setN(N+1)});
+presetBtn.addEventListener("click",()=>{auto=false;autoBtn.textContent="Otomatik ekle";setN(10)});
+resetBtn.addEventListener("click",()=>{auto=false;autoBtn.textContent="Otomatik ekle";setN(1)});
+autoBtn.addEventListener("click",()=>{auto=!auto;autoBtn.textContent=auto?"Durdur":"Otomatik ekle"});
+function loop(t){if(auto&&t-lastStep>300){lastStep=t;setN(N>=32?1:N+1)}requestAnimationFrame(loop)}
+document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;
+  const k=e.key.toUpperCase(),a=k==="F1"?document.querySelector(".fkey:nth-child(1)"):k==="F2"?document.querySelector(".fkey:nth-child(2)"):k==="F3"?document.querySelector(".fkey:nth-child(3)"):null;
+  if(a){e.preventDefault();location.href=a.href}});
+resize();update();requestAnimationFrame(loop);
+</script>
+</body>
+</html>
+"""
+
+target.write_text(html, encoding="utf-8")
+figure_target.parent.mkdir(parents=True, exist_ok=True)
+shutil.copy2(figure_source, figure_target)
+print(target)
+print(figure_target)

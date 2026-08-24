@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ko-stimülasyonun yeri: yalancı blok veya gizlenen blok</title>
+<style>
+:root{
+  --shell:#eef2f5;--paper:#fff;--line:#cfd8df;--line2:#b8c6cf;--ink:#17242d;
+  --muted:#5b6973;--blue:#176f8a;--cyan:#55d9e8;--green:#68e0a3;--amber:#ffc45c;
+  --red:#ff6876;--scope:#03110c;--grid:#17382b;--nav:#e8edf1
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#cbd4da;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+body{display:grid;place-items:center;padding:14px}
+button{font:inherit}
+.app{
+  width:min(calc(100vw - 28px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);
+  display:grid;grid-template-rows:50px 38px minmax(0,1fr) 114px 56px;overflow:hidden;
+  background:var(--shell);border:1px solid #bdc8d0;border-radius:7px;box-shadow:0 24px 64px rgba(19,33,42,.23)
+}
+.titlebar,.topicbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 18px}
+.titlebar{background:linear-gradient(#fff,#eef2f5);border-bottom:1px solid var(--line)}
+.title-left{min-width:0;display:flex;align-items:center;gap:10px}
+.status{width:9px;height:9px;border-radius:50%;background:#2e8055;box-shadow:0 0 6px rgba(46,128,85,.55);flex:none}
+h1{margin:0;font-size:20px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lab{border:1px solid #95b2bd;background:#e9f5f7;color:#15586a;padding:6px 10px;font-size:12px;font-weight:850;letter-spacing:.07em;white-space:nowrap}
+.topicbar{background:#e6ecf1;border-bottom:1px solid var(--line);font-size:13px;color:#3d4c56}
+.topicbar b{color:var(--blue)}
+.topicbar .model{color:var(--muted);white-space:nowrap}
+.workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:12px;padding:12px}
+.scope,.side{min-width:0;min-height:0;border:1px solid var(--line);overflow:hidden}
+.scope{position:relative;background:var(--scope)}
+#labCanvas{display:block;width:100%;height:100%}
+.scope-head{
+  position:absolute;z-index:2;left:14px;right:14px;top:9px;display:flex;justify-content:space-between;
+  color:#aac4ba;font:11px/1.2 Consolas,monospace;letter-spacing:.04em;pointer-events:none
+}
+.scope-head b{color:#eafff3}
+.model-stamp{
+  position:absolute;z-index:2;right:13px;bottom:10px;padding:5px 8px;border:1px solid rgba(255,196,92,.55);
+  color:#ffe3a4;background:rgba(3,17,12,.84);font:10px/1.2 Consolas,monospace;letter-spacing:.05em
+}
+.side{display:grid;grid-template-rows:34px 174px minmax(0,1fr);background:#fff}
+.side-head{display:flex;align-items:center;padding:0 12px;background:#e6ecf1;border-bottom:1px solid var(--line);font-size:12px;font-weight:850;letter-spacing:.06em;text-transform:uppercase;color:#4a5963}
+.figure{display:grid;place-items:center;padding:7px 10px;border-bottom:1px solid var(--line);background:#fff}
+.figure img{display:block;max-width:100%;max-height:160px;object-fit:contain}
+.diagnosis{min-height:0;padding:8px 12px;display:grid;align-content:start;gap:6px}
+.truth{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;background:#f4f7f9;border-left:4px solid var(--blue)}
+.truth span{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.truth strong{font-size:13px;text-align:right}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.metric{padding:7px 8px;border:1px solid var(--line);background:#fafcfd}
+.metric span{display:block;font-size:10px;color:var(--muted);font-weight:750;text-transform:uppercase;letter-spacing:.04em}
+.metric strong{display:block;margin-top:2px;font-size:16px}
+.verdict{padding:8px 10px;border-left:4px solid var(--green);background:#eef8f3}
+.verdict.bad{border-left-color:var(--red);background:#fff0f2}
+.verdict.masked{border-left-color:var(--amber);background:#fff8e9}
+.verdict span{display:block;font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.verdict strong{display:block;margin-top:2px;font-size:16px}
+.logic{font-size:12px;line-height:1.35;color:#33434d}
+.logic b{color:var(--blue)}
+.warning{font-size:10px;line-height:1.25;color:#596771;border-top:1px solid var(--line);padding-top:6px}
+.controls{display:grid;grid-template-columns:1fr 1fr 150px;gap:14px;align-items:stretch;padding:10px 18px;background:#fff;border-top:1px solid var(--line)}
+.pair{min-width:0;border:1px solid var(--line);padding:7px 8px;background:#f8fafb}
+.pair-title{display:flex;justify-content:space-between;gap:8px;margin-bottom:6px;font-size:11px;font-weight:850;color:#485761}
+.pair-title em{font-style:normal;color:var(--blue)}
+.buttons{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.scenario,.play{
+  min-height:47px;border:1px solid #aebbc4;background:#fff;color:#263640;padding:6px 7px;
+  cursor:pointer;font-size:11px;font-weight:780;line-height:1.2
+}
+.scenario small{display:block;margin-top:3px;color:#6d7a83;font-size:9.5px;font-weight:650}
+.scenario:hover,.scenario:focus-visible,.scenario.active{border-color:var(--blue);background:#e9f4f7;outline:none}
+.scenario.active{box-shadow:inset 0 -3px 0 var(--blue)}
+.play{background:#153d4a;color:#fff;border-color:#153d4a;font-size:12px}
+.play:hover,.play:focus-visible{background:#0d657c;outline:none}
+.nav{display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line)}
+.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:var(--nav);color:var(--ink);text-decoration:none;font-size:13px;font-weight:800}
+.fkey span{font-size:15px;color:var(--blue)}
+.fkey:hover,.fkey:focus-visible{background:#dce8ee;outline:none}
+@media(max-width:1000px){
+  body{padding:0}.app{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:48px 34px minmax(0,1fr) 170px 52px}
+  .workspace{grid-template-columns:1fr}.side{display:none}.controls{grid-template-columns:1fr 1fr 112px;gap:7px;padding:7px}
+  h1{font-size:16px}.pair{padding:5px}.scenario{min-height:57px;padding:4px}.topicbar .model{display:none}
+}
+</style>
+</head>
+<body>
+<main class="app" aria-labelledby="pageTitle">
+  <header class="titlebar">
+    <div class="title-left"><span class="status"></span><h1 id="pageTitle">Ko-stimülasyonun yeri, iletim bloğunu yaratabilir ya da gizleyebilir</h1></div>
+    <div class="lab">SERBEST LABORATUVAR</div>
+  </header>
+  <div class="topicbar">
+    <div><b>Şekil 8.20</b> · Aynı teknik hata, uygulandığı düzeye göre zıt tanısal sonuç üretir.</div>
+    <div class="model">Karşılaştırmalı model · gerçek hasta kaydı değil</div>
+  </div>
+  <section class="workspace">
+    <div class="scope">
+      <canvas id="labCanvas" aria-label="Distal ve proksimal ko-stimülasyonun iletim bloğu yorumuna etkisi"></canvas>
+      <div class="scope-head"><span>NCS/EMG KAYIT EKRANI</span><span><b>Hedef: APB</b> · Komşu kontrol: ADM · 2 ms/div</span></div>
+      <div class="model-stamp">MODEL DEĞERLER · ŞEKİL 8.20 MANTIĞI</div>
+    </div>
+    <aside class="side">
+      <div class="side-head">Kitap referansı ve tanısal okuma</div>
+      <div class="figure"><img src="../figures/source-v3/fig_8_20_block_patterns.png" alt="Şekil 8.20, distal ve proksimal ko-stimülasyonun blok yorumuna etkisi"></div>
+      <div class="diagnosis">
+        <div class="truth"><span>Gerçek sinir</span><strong id="truthText"></strong></div>
+        <div class="metrics">
+          <div class="metric"><span>Distal BKAP</span><strong id="distalText"></strong></div>
+          <div class="metric"><span>Proksimal BKAP</span><strong id="proximalText"></strong></div>
+          <div class="metric"><span>P / D oranı</span><strong id="ratioText"></strong></div>
+          <div class="metric"><span>Komşu kontrol</span><strong id="neighborText"></strong></div>
+        </div>
+        <div class="verdict" id="verdictBox"><span>Görünen sonuç</span><strong id="verdictText"></strong></div>
+        <div class="logic" id="logicText"></div>
+        <div class="warning"><b>Güvenlik kontrolü:</b> Blok kararı yalnız amplitüd oranına dayanmaz. Supramaksimal uyarım, morfoloji/alan/süre, komşu kas aktivasyonu ve anatomik varyantlar birlikte denetlenir.</div>
+      </div>
+    </aside>
+  </section>
+  <section class="controls" aria-label="Kitap senaryoları">
+    <div class="pair">
+      <div class="pair-title"><span>A · Sinir normal</span><em>Distal ko-stim ne yapar?</em></div>
+      <div class="buttons">
+        <button class="scenario active" type="button" data-scenario="normal">Seçici uyarım<small>Doğru normal patern</small></button>
+        <button class="scenario" type="button" data-scenario="false_block">Distal ko-stim<small>Yalancı blok üretir</small></button>
+      </div>
+    </div>
+    <div class="pair">
+      <div class="pair-title"><span>B · Gerçek blok var</span><em>Proksimal ko-stim ne yapar?</em></div>
+      <div class="buttons">
+        <button class="scenario" type="button" data-scenario="true_block">Seçici uyarım<small>Gerçek blok görünür</small></button>
+        <button class="scenario" type="button" data-scenario="masked">Proksimal ko-stim<small>Bloğu gizler</small></button>
+      </div>
+    </div>
+    <button class="play" id="playButton" type="button">▶ Uyarıları göster</button>
+  </section>
+  <nav class="nav bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="hata-oruntuleri.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="onleme-yontemleri.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const scenarios={
+  normal:{
+    key:"normal",truth:"NORMAL SİNİR",distalAmp:5.0,proximalAmp:4.8,distalCostim:false,proximalCostim:false,
+    neighborDistal:0,neighborProximal:0,verdict:"Normal teknik patern",tone:"ok",
+    logic:"İki düzey de hedef siniri seçici uyarır. <b>Proksimal/distal oranı korunur</b>; komşu kontrol kanalı sessizdir."
+  },
+  false_block:{
+    key:"false_block",truth:"NORMAL SİNİR",distalAmp:9.0,proximalAmp:4.8,distalCostim:true,proximalCostim:false,
+    neighborDistal:.72,neighborProximal:0,verdict:"Yalancı ileti bloğu",tone:"bad",
+    logic:"Distalde komşu sinir de hedef kasa hacim iletimiyle katkı verir; distal BKAP yapay büyür. Proksimal yanıt değişmediği için <b>yalancı proksimal düşüş</b> oluşur."
+  },
+  true_block:{
+    key:"true_block",truth:"GERÇEK İLETİM BLOĞU",distalAmp:9.0,proximalAmp:4.0,distalCostim:false,proximalCostim:false,
+    neighborDistal:0,neighborProximal:0,verdict:"Gerçek blok görünür",tone:"bad",
+    logic:"Seçici uyarımda distal yanıt korunur, proksimal yanıt düşüktür. <b>Gerçek proksimal/distal fark</b> teknik katkıyla tamamlanmamıştır."
+  },
+  masked:{
+    key:"masked",truth:"GERÇEK İLETİM BLOĞU",distalAmp:9.0,proximalAmp:8.6,distalCostim:false,proximalCostim:true,
+    neighborDistal:0,neighborProximal:.72,verdict:"Gerçek blok gizlendi",tone:"masked",
+    logic:"Proksimalde komşu sinir hedef kas kaydına katkı verir; düşük gerçek proksimal BKAP yapay tamamlanır. Oran normale yaklaşır ve <b>blok gözden kaçar</b>."
+  }
+};
+const canvas=document.getElementById("labCanvas"),ctx=canvas.getContext("2d");
+const buttons=[...document.querySelectorAll(".scenario")],playButton=document.getElementById("playButton");
+const truthText=document.getElementById("truthText"),distalText=document.getElementById("distalText");
+const proximalText=document.getElementById("proximalText"),ratioText=document.getElementById("ratioText");
+const neighborText=document.getElementById("neighborText"),verdictText=document.getElementById("verdictText");
+const verdictBox=document.getElementById("verdictBox"),logicText=document.getElementById("logicText");
+let active=scenarios.normal,animationStart=0,animationRunning=false,traceVisible=false;
+
+function resize(){
+  const r=canvas.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);
+  canvas.width=Math.max(1,Math.round(r.width*d));canvas.height=Math.max(1,Math.round(r.height*d));
+  ctx.setTransform(d,0,0,d,0,0);
+}
+addEventListener("resize",resize);resize();
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function gauss(x,m,s){const z=(x-m)/s;return Math.exp(-.5*z*z)}
+function text(s,x,y,color="#d8ebe3",size=12,align="left",weight=650){
+  ctx.fillStyle=color;ctx.font=`${weight} ${size}px Segoe UI`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.textAlign="left";
+}
+function line(points,color="#68e0a3",width=2,dash=[]){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();
+  points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.restore();
+}
+function rounded(x,y,w,h,r,fill,stroke){
+  ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.stroke()}
+}
+function grid(x,y,w,h,dx=10,dy=4){
+  ctx.fillStyle="#04150f";ctx.fillRect(x,y,w,h);ctx.strokeStyle="#16382a";ctx.lineWidth=1;
+  for(let i=0;i<=dx;i++){const xx=x+w*i/dx;ctx.beginPath();ctx.moveTo(xx,y);ctx.lineTo(xx,y+h);ctx.stroke()}
+  for(let i=0;i<=dy;i++){const yy=y+h*i/dy;ctx.beginPath();ctx.moveTo(x,yy);ctx.lineTo(x+w,yy);ctx.stroke()}
+  ctx.strokeStyle="#2b624c";ctx.beginPath();ctx.moveTo(x,y+h/2);ctx.lineTo(x+w,y+h/2);ctx.stroke();
+}
+function cmap(t,on,width=1){
+  const art=.16*(1.85*gauss(t,.055,.004)-1.1*gauss(t,.067,.011));
+  if(t<=on)return art;
+  const gate=1-Math.exp(-Math.pow((t-on)/.008,2));
+  const main=gate*(1.08*gauss(t,on+.024*width,.032*width)-.86*gauss(t,on+.082*width,.050*width)+.28*gauss(t,on+.156*width,.070*width));
+  const late=gate*.08*Math.sin((t-on)*110)*Math.exp(-(t-on)*13);
+  return art+main+late;
+}
+function trace(x,y,w,h,amp,on,color,label,reveal=1,dashed=false){
+  grid(x,y,w,h);
+  text(label,x+9,y+16,"#a9c4b9",11,"left",750);
+  const pts=[],limit=clamp(reveal,0,1),scale=amp/10;
+  for(let i=0;i<=720*limit;i++){
+    const t=i/720,raw=scale*cmap(t,on,1+(on-.21)*.9);
+    pts.push([x+w*t,clamp(y+h/2-raw*h*.42,y+2,y+h-2)]);
+  }
+  line(pts,color,2,dashed?[6,4]:[]);
+}
+function propagationDot(x1,x2,y,q,color){
+  if(q<=0||q>=1)return;
+  const x=x1+(x2-x1)*q;ctx.fillStyle=color;ctx.shadowColor=color;ctx.shadowBlur=12;
+  ctx.beginPath();ctx.arc(x,y,6,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+}
+function drawAnatomy(W,q){
+  const x1=54,x2=W-54,y=92,target=x1+8,distal=x1+(x2-x1)*.25,prox=x1+(x2-x1)*.77;
+  text("UYARIM ve YAYILIM",22,52,"#9fbbb0",11);
+  line([[x1,y],[x2,y]],"#d9b15f",7);
+  line([[x1,y+34],[x2,y+34]],"#72a8dc",5);
+  text("hedef sinir",x1,y-16,"#ffd88b",11);
+  text("komşu sinir",x1,y+57,"#9ec9ee",11);
+  ctx.fillStyle="#68e0a3";ctx.beginPath();ctx.arc(target,y,8,0,Math.PI*2);ctx.fill();
+  text("HEDEF KAS · APB",target,y-34,"#8cf1b7",10,"left",850);
+  [["DİSTAL",distal],["PROKSİMAL",prox]].forEach(([lab,x])=>{
+    ctx.fillStyle="#eef8f4";ctx.beginPath();ctx.arc(x,y-29,13,0,Math.PI*2);ctx.fill();
+    line([[x,y-16],[x,y-2]],"#ff6876",2);text(lab,x,y-50,"#e8f7f1",10,"center",800);
+  });
+  const costimX=active.distalCostim?distal:(active.proximalCostim?prox:null);
+  if(costimX!==null){
+    ctx.strokeStyle="#ff6876";ctx.lineWidth=2;ctx.setLineDash([5,4]);ctx.beginPath();ctx.arc(costimX,y+15,29,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+    line([[costimX,y-2],[costimX,y+34]],"#ff6876",2,[4,3]);
+    text("AKIM YAYILIMI",costimX,y+70,"#ff9ba4",10,"center",850);
+  }
+  if(active.truth.includes("BLOĞU")){
+    const bx=x1+(x2-x1)*.53;rounded(bx-14,y-14,28,28,4,"rgba(255,104,118,.23)","#ff6876");
+    line([[bx-9,y+9],[bx+9,y-9]],"#ff6876",3);line([[bx-9,y-9],[bx+9,y+9]],"#ff6876",3);
+    text("GERÇEK BLOK",bx,y-24,"#ff9ba4",10,"center",850);
+  }
+  if(q>0){
+    if(q<.5) propagationDot(distal,target,y,(q/.5),"#68e0a3");
+    else propagationDot(prox,target,y,((q-.5)/.5),"#55d9e8");
+  }
+}
+function draw(now){
+  const r=canvas.getBoundingClientRect(),W=r.width,H=r.height;ctx.clearRect(0,0,W,H);ctx.fillStyle="#03110c";ctx.fillRect(0,0,W,H);
+  let q=traceVisible?1:0;
+  if(animationRunning){
+    q=(now-animationStart)/2600;if(q>=1){q=1;animationRunning=false;playButton.textContent="↻ Yeniden göster"}
+  }
+  drawAnatomy(W,q);
+  const x=22,w=W-44,top=162,gap=8,targetH=Math.max(75,(H-top-112)/2);
+  const distalReveal=!traceVisible?0:animationRunning?clamp((q-.08)/.38,0,1):1;
+  const proximalReveal=!traceVisible?0:animationRunning?clamp((q-.54)/.38,0,1):1;
+  trace(x,top,w,targetH,active.distalAmp,.235,"#68e0a3",`HEDEF APB · DİSTAL · ${active.distalAmp.toFixed(1)} mV`,distalReveal);
+  trace(x,top+targetH+gap,w,targetH,active.proximalAmp,.36,"#55d9e8",`HEDEF APB · PROKSİMAL · ${active.proximalAmp.toFixed(1)} mV`,proximalReveal);
+  const ny=top+2*(targetH+gap),nh=Math.max(64,H-ny-22),half=(w-8)/2;
+  trace(x,ny,half,nh,active.neighborDistal*7,.25,"#ffc45c","KOMŞU ADM · DİSTAL KONTROL",distalReveal,true);
+  trace(x+half+8,ny,half,nh,active.neighborProximal*7,.34,"#ffc45c","KOMŞU ADM · PROKSİMAL KONTROL",proximalReveal,true);
+  if(!traceVisible)text("İzler gizli · uyarıları göstermek için düğmeye basın",x+w/2,top+targetH+4,"#a7c4b8",13,"center",800);
+  text("2 mV",x+w-8,top+targetH-8,"#9fbbb0",10,"right");line([[x+w-47,top+targetH-14],[x+w-47,top+targetH-36]],"#9fbbb0",2);
+  requestAnimationFrame(draw);
+}
+function updatePanel(){
+  const ratio=Math.round(active.proximalAmp/active.distalAmp*100);
+  truthText.textContent=active.truth;distalText.textContent=`${active.distalAmp.toFixed(1)} mV`;
+  proximalText.textContent=`${active.proximalAmp.toFixed(1)} mV`;ratioText.textContent=`%${ratio}`;
+  neighborText.textContent=active.neighborDistal?"Distalde +":active.neighborProximal?"Proksimalde +":"Sessiz";
+  verdictText.textContent=active.verdict;logicText.innerHTML=active.logic;
+  verdictBox.className=`verdict ${active.tone==="ok"?"":active.tone}`;
+  window.__costimDiagnosticState={
+    scenario:active.key,truePathology:active.truth==="NORMAL SİNİR"?"normal":"conduction_block",
+    distalCostim:active.distalCostim,proximalCostim:active.proximalCostim,
+    distalAmp:active.distalAmp,proximalAmp:active.proximalAmp,ratio,
+    apparentVerdict:active.key,neighborDistal:active.neighborDistal,neighborProximal:active.neighborProximal,
+    targetRecording:"APB",neighborControl:"ADM",propagationDirection:"both_stimuli_to_APB",traceVisible
+  };
+}
+buttons.forEach(button=>button.addEventListener("click",()=>{
+  active=scenarios[button.dataset.scenario];buttons.forEach(b=>b.classList.toggle("active",b===button));
+  traceVisible=false;animationRunning=false;playButton.textContent="▶ Uyarıları göster";updatePanel();
+}));
+playButton.addEventListener("click",()=>{traceVisible=true;animationStart=performance.now();animationRunning=true;playButton.textContent="Uyarılar oynuyor…";updatePanel()});
+document.addEventListener("keydown",event=>{
+  if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;
+  const key=event.key.toUpperCase(),link=key==="F1"?document.querySelector(".fkey:nth-child(1)"):key==="F2"?document.querySelector(".fkey:nth-child(2)"):key==="F3"?document.querySelector(".fkey:nth-child(3)"):null;
+  if(link){event.preventDefault();location.href=link.href}
+});
+updatePanel();requestAnimationFrame(draw);
+</script>
+</body>
+</html>

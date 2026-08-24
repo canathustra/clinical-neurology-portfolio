@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ödem duysal yanıtı küçültür ve yayar</title>
+<style>
+:root{--bg:#eef1f4;--paper:#fff;--head:#e7edf3;--line:#d5dde4;--ink:#16232c;--muted:#5d6b76;--cyan:#0f7a95;--green:#2f7d52;--amber:#c97a2a;--red:#b43b47;--scope:#03110c;--grid:#173a2c}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0}
+body{display:grid;place-items:center;padding:14px;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,Arial,sans-serif}
+.app{width:min(calc(100vw - 28px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);display:grid;grid-template-rows:50px 38px minmax(0,1fr) 106px 56px;overflow:hidden;background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25)}
+.titlebar,.topicbar{display:flex;align-items:center;justify-content:space-between;gap:14px}.titlebar{padding:0 18px;background:linear-gradient(180deg,#fff,#eef1f4);border-bottom:1px solid var(--line)}
+.title-left{min-width:0;display:flex;align-items:center;gap:10px}.dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5)}
+h1{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:18px;font-weight:800}.lab-badge{flex:none;padding:7px 11px;border:1px solid #9bb9c6;background:#f7fbfc;color:#14576c;font:800 11px/1 Consolas,monospace;letter-spacing:.05em}
+.topicbar{padding:0 18px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px}.topicbar b{color:#0d6d87}.topicbar .fixed{color:var(--muted)}
+.workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:12px;padding:12px}.scope,.side{min-width:0;min-height:0;border:1px solid var(--line);overflow:hidden}
+.scope{position:relative;background:var(--scope)}canvas{width:100%;height:100%;display:block}.mode-badge{position:absolute;right:12px;bottom:10px;padding:6px 9px;border:1px solid #bd9b25;background:rgba(36,30,0,.92);color:#ffe38a;font:800 10px/1 Consolas,monospace;letter-spacing:.03em}
+.side{display:grid;grid-template-rows:34px 250px minmax(0,1fr);background:#fff}.side-head{display:flex;align-items:center;padding:0 12px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px;font-weight:850;letter-spacing:.05em;text-transform:uppercase;color:#475762}
+.book{display:grid;place-items:center;padding:7px 9px;border-bottom:1px solid var(--line);background:#fff}.book img{display:block;width:100%;height:100%;object-fit:contain}
+.readout{min-height:0;display:grid;align-content:start;gap:5px;padding:7px 10px;background:#fff}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:5px}.metric{min-height:43px;padding:5px 7px;border:1px solid #cbd6de;background:#f8fafb}.metric span{display:block;margin-bottom:2px;color:#53626d;font-size:8.5px;font-weight:850;text-transform:uppercase}.metric strong{font-size:14px;font-variant-numeric:tabular-nums}
+.verdict{padding:5px 7px;border-left:4px solid var(--green);background:#edf7f1}.verdict.warn{border-color:var(--amber);background:#fff7e9}.verdict.bad{border-color:var(--red);background:#fff0f2}.verdict span{display:block;margin-bottom:2px;color:#53626d;font-size:8.5px;font-weight:850;text-transform:uppercase}.verdict strong{font-size:11.5px;line-height:1.2}.logic,.source-note{margin:0;color:#43525e;font-size:9.3px;line-height:1.24}.logic b{color:#006b85}.source-note{padding-top:4px;border-top:1px solid var(--line)}.source-note a{color:#0f7a95;text-decoration:none}
+.controls{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:12px;align-items:stretch;padding:10px 18px;background:#fff;border-top:1px solid var(--line)}.control{display:grid;grid-template-rows:auto 1fr auto;gap:7px;padding:0 10px;border:1px solid #cbd6de;background:#f8fafb}.control label{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px;color:#34444f;font-size:12px;font-weight:800}.control output{color:#006b85;font-size:14px;font-variant-numeric:tabular-nums}.control input{width:100%;accent-color:#177b96}.marks{display:flex;justify-content:space-between;padding-bottom:7px;color:#5e6d78;font-size:9px}.scan{border:0;background:#174c5b;color:#fff;font:800 12px/1.25 "Segoe UI",Arial,sans-serif;cursor:pointer}.scan:hover,.scan:focus-visible{background:#0f6177;outline:2px solid #79b9cc;outline-offset:2px}
+.bottom-bar{height:56px;display:flex;align-items:stretch;gap:1px;background:#d5dde4;border-top:1px solid #d5dde4}.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:#e7edf3;color:#16232c;text-decoration:none;font:800 13px/1 "Segoe UI",Arial,sans-serif}.fkey span{color:#0f7a95;font-size:15px}.fkey:hover,.fkey:focus-visible{background:#dce8f0;outline:none}
+@media(max-width:980px){body{padding:0}.app{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:48px 34px minmax(0,1fr) 130px 52px}.workspace{grid-template-columns:1fr}.side{display:none}.controls{grid-template-columns:1fr 135px;gap:7px;padding:7px}.titlebar,.topicbar{padding-left:10px;padding-right:10px}h1{font-size:15px}.fixed{display:none}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="titlebar"><div class="title-left"><span class="dot"></span><h1>Ödem yanıtı küçültür, yayar ve onset–peak ilişkisini değiştirir</h1></div><div class="lab-badge">SERBEST LABORATUVAR</div></header>
+  <div class="topicbar"><span><b>Şekil 8.28</b> · Alt ekstremite duysal kaydı</span><span class="fixed">Elektrotlar sinirin üzerinde; değişen yalnız aradaki ödemli doku</span></div>
+  <section class="workspace">
+    <div class="scope">
+      <canvas id="labCanvas" aria-label="Ödemli dokunun elektrot ile duysal sinir arasındaki mesafeyi artırarak amplitüdü azalttığı, süreyi genişlettiği, onseti hafif kısalttığı ve peak latansını hafif uzattığı interaktif NCS laboratuvarı"></canvas>
+      <div class="mode-badge" id="modeBadge">ÖDEM YOK · REFERANS KAYIT</div>
+    </div>
+    <aside class="side">
+      <div class="side-head">Kitaptaki mekanizma · Şekil 8.28</div>
+      <div class="book"><img id="bookFigure" src="../figures/source-v3/fig_8_28_depth_edema_clean.png" alt="Şekil 8.28: yüzey elektrotları ile sinir arasına ödemli doku girdiğinde duysal yanıtın küçülmesi ve genişlemesi"></div>
+      <div class="readout">
+        <div class="metrics">
+          <div class="metric"><span>Amplitüd</span><strong id="amplitudeText">20,0 µV</strong></div>
+          <div class="metric"><span>Yanıt süresi</span><strong id="durationText">1,20 ms</strong></div>
+          <div class="metric"><span>Onset değişimi</span><strong id="onsetText">0,00 ms</strong></div>
+          <div class="metric"><span>Peak değişimi</span><strong id="peakText">0,00 ms</strong></div>
+        </div>
+        <div class="verdict" id="verdictBox"><span>Teknik karar</span><strong id="verdictText">Ödem yok · ölçüm referans koşulda</strong></div>
+        <p class="logic" id="logicText">Elektrot–sinir mesafesi kısa; hızlı bileşenler korunur ve duysal yanıt yüksek amplitüdle, dar morfolojide kaydedilir.</p>
+        <p class="source-note"><b>Resident notu:</b> Sayılar normatif eşik değildir; Şekil 8.28’in yönlerini gösteren öğretim modelidir. Kalın doku ile düşük SNAP ilişkisi insan çalışmalarında da gösterilmiştir. <a href="https://pubmed.ncbi.nlm.nih.gov/10627934/" target="_blank" rel="noreferrer">Chira-Adisai ve ark., 1999</a></p>
+      </div>
+    </aside>
+  </section>
+  <section class="controls">
+    <div class="control">
+      <label for="edema"><span>Ek ödemli doku / elektrot–sinir mesafesi</span><output id="edemaOutput">0,0 mm · 20,0 µV</output></label>
+      <input id="edema" type="range" min="0" max="20" step="0.1" value="0">
+      <div class="marks"><span>0 mm · ödem yok</span><span>10 mm · belirgin</span><span>20 mm · ileri ödem</span></div>
+    </div>
+    <button class="scan" id="scanButton" type="button">Ödemi artır ve geri getir</button>
+  </section>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="odem-etkisi.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="lateral-yerlesim.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const canvas=document.getElementById("labCanvas"),ctx=canvas.getContext("2d");
+const slider=document.getElementById("edema"),edemaOutput=document.getElementById("edemaOutput"),scanButton=document.getElementById("scanButton"),modeBadge=document.getElementById("modeBadge");
+const amplitudeText=document.getElementById("amplitudeText"),durationText=document.getElementById("durationText"),onsetText=document.getElementById("onsetText"),peakText=document.getElementById("peakText");
+const verdictBox=document.getElementById("verdictBox"),verdictText=document.getElementById("verdictText"),logicText=document.getElementById("logicText");
+let edema=0,autoScan=false,scanStart=0;const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}function gauss(x,m,s){return Math.exp(-.5*((x-m)/s)**2)}
+function fmt1(v){return v.toFixed(1).replace(".",",")}function fmt2(v){return v.toFixed(2).replace(".",",")}
+function round2(v){return Math.sign(v)*Math.round((Math.abs(v)+1e-9)*100)/100}
+function model(){
+  const q=edema/20,amplitude=20*Math.exp(-2*q),duration=1.2+q,onset=3.2-.22*q,peak=3.8+.45*q;
+  const state={
+    variable:"additional_edematous_tissue_depth_mm",edemaMm:Number(edema.toFixed(1)),edemaFraction:Number(q.toFixed(3)),
+    nerve:"fixed_lower_limb_sensory_nerve",electrodesCenteredOverNerve:true,stimulusFixed:true,trueAxonResponseFixed:true,g1g2DistanceFixed:true,displaySettingsFixed:true,
+    amplitudeUv:Number(amplitude.toFixed(1)),durationMs:round2(duration),onsetMs:round2(onset),peakMs:round2(peak),
+    onsetShiftMs:round2(onset-3.2),peakShiftMs:round2(peak-3.8),
+    tissueEffect:"preferential_high_frequency_attenuation_and_volume_conduction",
+    interpretation:q<.1?"reference_no_edema":q<.65?"attenuated_technical_response":"marked_edema_low_or_absent_not_diagnostic",
+    teachingModel:true,normativeThreshold:false,sourceFigure:"Preston_Shapiro_Figure_8_28"
+  };
+  window.__edemaAttenuationState=state;return state;
+}
+function resize(){const r=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);if(canvas.width!==Math.round(r.width*dpr)||canvas.height!==Math.round(r.height*dpr)){canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}return r}
+function text(t,x,y,color="#d7eee4",size=11,align="left",weight=700){ctx.fillStyle=color;ctx.font=`${weight} ${size}px "Segoe UI",Arial,sans-serif`;ctx.textAlign=align;ctx.textBaseline="alphabetic";ctx.fillText(t,x,y)}
+function line(points,color,width=1,dash=[]){ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.setLineDash([])}
+function rawResponse(ms,onset,peak,duration){
+  const lead=Math.max(.12,(peak-onset)/2.5),tail=Math.max(.2,duration*.23);
+  return .08*gauss(ms,onset,lead*.5)+1.0*gauss(ms,peak,lead)-.62*gauss(ms,peak+duration*.38,tail)+.13*gauss(ms,peak+duration*.82,tail*1.45);
+}
+function ppFor(onset,peak,duration){let lo=Infinity,hi=-Infinity;for(let i=0;i<=1200;i++){const v=rawResponse(i/120,onset,peak,duration);lo=Math.min(lo,v);hi=Math.max(hi,v)}return hi-lo}
+function responseUv(ms,s){return rawResponse(ms,s.onsetMs,s.peakMs,s.durationMs)*(s.amplitudeUv/ppFor(s.onsetMs,s.peakMs,s.durationMs))}
+function baseline(ms,phase=0){return .22*Math.sin(ms*18.9+phase)+.14*Math.sin(ms*43.4+1.1+phase)+.08*Math.sin(ms*69.7+.3)}
+function drawGeometry(W,now,s){
+  const q=s.edemaFraction,left=88,right=W-60,nerveY=180,surfaceY=108-q*58,g1x=W*.66,g2x=W*.82;
+  ctx.fillStyle="#101b1a";ctx.fillRect(left,surfaceY,right-left,nerveY-surfaceY+20);
+  if(q>.01){
+    const fluid=ctx.createLinearGradient(0,surfaceY,0,nerveY);fluid.addColorStop(0,"rgba(82,181,220,.28)");fluid.addColorStop(1,"rgba(35,115,155,.12)");
+    ctx.fillStyle=fluid;ctx.fillRect(left,surfaceY,right-left,nerveY-surfaceY);
+    for(let i=0;i<7;i++){const yy=surfaceY+14+i*(nerveY-surfaceY-18)/6;line([[left+20,yy],[right-20,yy]],`rgba(104,199,231,${.08+.06*q})`,1,[3,7])}
+  }
+  line([[left,surfaceY],[right,surfaceY]],"#c9d5da",4);
+  for(const [x,label] of [[g1x,"G1"],[g2x,"G2"]]){
+    ctx.fillStyle="#f5f8fa";ctx.beginPath();ctx.arc(x,surfaceY-12,14,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#9db0bc";ctx.lineWidth=2;ctx.stroke();ctx.fillStyle="#15232c";ctx.beginPath();ctx.arc(x,surfaceY-12,5,0,Math.PI*2);ctx.fill();text(label,x,surfaceY-34,"#dce8ed",10,"center",900)
+  }
+  line([[left,nerveY],[right,nerveY]],"#ffc45c",7);line([[left,nerveY-13],[right,nerveY-13]],"rgba(255,196,92,.18)",1);line([[left,nerveY+13],[right,nerveY+13]],"rgba(255,196,92,.18)",1);
+  text("DUYSAL SİNİR · GERÇEK AKSON YANITI SABİT",W*.38,nerveY+30,"#ffd887",9.5,"center",850);
+  const phase=reduceMotion?.35:(now/1800)%1;for(let i=0;i<4;i++){const z=(phase+i/4)%1,x=left+20+(right-left-40)*z;ctx.fillStyle=`rgba(104,224,163,${.25+.65*(1-z)})`;ctx.beginPath();ctx.arc(x,nerveY,4,0,Math.PI*2);ctx.fill()}
+  const bx=left+35;line([[bx,surfaceY],[bx,nerveY]],"#55d9e8",1.3,[5,4]);line([[bx-6,surfaceY],[bx+6,surfaceY]],"#55d9e8",1.3);line([[bx-6,nerveY],[bx+6,nerveY]],"#55d9e8",1.3);
+  text(q<.01?"EK ÖDEM YOK":`+${fmt1(s.edemaMm)} mm ÖDEM`,bx+10,(surfaceY+nerveY)/2+4,"#77ddeb",10,"left",850);
+  text(q<.01?"NORMAL DOKU MESAFESİ":"ÖDEMLİ DOKU · YÜKSEK FREKANSLAR DAHA FAZLA ATENÜE",right,surfaceY+17,q<.01?"#a8c0c7":"#83d8f1",9.5,"right",800);
+}
+function drawGrid(x,y,w,h){ctx.fillStyle="#03110c";ctx.fillRect(x,y,w,h);ctx.strokeStyle="#153a2b";ctx.lineWidth=1;for(let i=0;i<=10;i++){ctx.beginPath();ctx.moveTo(x+w*i/10,y);ctx.lineTo(x+w*i/10,y+h);ctx.stroke()}for(let i=0;i<=3;i++){ctx.beginPath();ctx.moveTo(x,y+h*i/3);ctx.lineTo(x+w,y+h*i/3);ctx.stroke()}}
+function drawTraceLane(x,y,w,h,s,color,label,showShifts){
+  drawGrid(x,y,w,h);text(label,x+9,y+16,"#aac4b9",10,"left",800);const mid=y+h*.56,scale=h*.52/24,pts=[];
+  for(let i=0;i<=900;i++){const ms=i/90,artifact=2.6*gauss(ms,.48,.035)-2.0*gauss(ms,.55,.045),uv=artifact+responseUv(ms,s)+baseline(ms,showShifts?.4:0);pts.push([x+w*i/900,clamp(mid-uv*scale,y+2,y+h-2)])}
+  line(pts,color,2.1);line([[x,mid],[x+w,mid]],"rgba(149,196,172,.22)",1);
+  const onsetX=x+w*s.onsetMs/10,peakX=x+w*s.peakMs/10,durationEnd=x+w*(s.onsetMs+s.durationMs)/10;
+  line([[onsetX,y+22],[onsetX,y+h-6]],"#55d9e8",1.1,[4,4]);line([[peakX,y+22],[peakX,y+h-6]],"#ffc45c",1.1,[4,4]);
+  text(`onset ${fmt2(s.onsetMs)} ms`,onsetX+4,y+h-9,"#70dce8",8.8,"left",800);text(`peak ${fmt2(s.peakMs)} ms`,peakX+4,y+31,"#ffd176",8.8,"left",800);
+  line([[onsetX,y+h-23],[durationEnd,y+h-23]],"#9fb9ae",1.2);line([[onsetX,y+h-27],[onsetX,y+h-19]],"#9fb9ae",1.2);line([[durationEnd,y+h-27],[durationEnd,y+h-19]],"#9fb9ae",1.2);
+  text(`süre ${fmt2(s.durationMs)} ms`,(onsetX+durationEnd)/2,y+h-28,"#a9c4b9",8.8,"center",800);
+  const peakRaw=responseUv(s.peakMs,s),troughMs=s.peakMs+s.durationMs*.38,troughRaw=responseUv(troughMs,s),peakY=mid-peakRaw*scale,troughY=mid-troughRaw*scale,bracketX=x+w*.73;
+  line([[bracketX,peakY],[bracketX,troughY]],color,1.2,[4,3]);line([[bracketX-5,peakY],[bracketX+5,peakY]],color,1.2);line([[bracketX-5,troughY],[bracketX+5,troughY]],color,1.2);
+  text(`${fmt1(s.amplitudeUv)} µV p-p`,bracketX+8,(peakY+troughY)/2+4,color,9.5,"left",900);
+}
+function updatePanel(s){
+  edemaOutput.textContent=`${fmt1(s.edemaMm)} mm · ${fmt1(s.amplitudeUv)} µV`;amplitudeText.textContent=`${fmt1(s.amplitudeUv)} µV`;durationText.textContent=`${fmt2(s.durationMs)} ms`;
+  onsetText.textContent=`${s.onsetShiftMs>0?"+":""}${fmt2(s.onsetShiftMs)} ms`;peakText.textContent=`${s.peakShiftMs>0?"+":""}${fmt2(s.peakShiftMs)} ms`;
+  if(s.edemaFraction<.1){verdictBox.className="verdict";verdictText.textContent="Ödem yok · ölçüm referans koşulda";logicText.innerHTML="Elektrot–sinir mesafesi kısa; hızlı bileşenler korunur ve duysal yanıt <b>yüksek amplitüdle, dar morfolojide</b> kaydedilir.";modeBadge.textContent="ÖDEM YOK · REFERANS KAYIT"}
+  else if(s.edemaFraction<.65){verdictBox.className="verdict warn";verdictText.textContent="Teknik atenüasyon · patoloji ile karıştırma";logicText.innerHTML=`Ek doku ${fmt1(s.edemaMm)} mm’ye çıktı: amplitüd küçüldü, süre genişledi. Onset hafif erkene, peak hafif geçe kaydı; bu bütünlük <b>teknik doku filtresini</b> düşündürür.`;modeBadge.textContent="ÖDEM · ATENÜASYON VE YAYILMA"}
+  else{verdictBox.className="verdict bad";verdictText.textContent="Belirgin ödem · düşük/yok yanıt tek başına tanısal değil";logicText.innerHTML=`Gerçek akson yanıtı sabitken yüzeyde yalnız ${fmt1(s.amplitudeUv)} µV kaldı. Bu koşulda düşük veya alınamayan SNAP <b>tek başına akson kaybı kanıtı değildir</b>.`;modeBadge.textContent="İLERİ ÖDEM · YALANCI DÜŞÜK/YOK SNAP RİSKİ"}
+}
+function draw(now){
+  if(autoScan){const q=(now-scanStart)/6200;if(q>=1){autoScan=false;edema=0;slider.value=0;scanButton.textContent="Ödemi artır ve geri getir"}else{edema=10-10*Math.cos(q*2*Math.PI);slider.value=edema.toFixed(1)}}
+  const r=resize(),s=model(),W=r.width,H=r.height;ctx.clearRect(0,0,W,H);ctx.fillStyle="#03110c";ctx.fillRect(0,0,W,H);text("NCS/EMG KAYIT EKRANI · ÖĞRETİM MODELİ",14,19,"#a9c4b9",10,"left",800);
+  drawGeometry(W,now,s);const x=22,w=W-44,top=222,gap=7,h=(H-top-28-gap)/2;
+  const ref={amplitudeUv:20,durationMs:1.2,onsetMs:3.2,peakMs:3.8};
+  drawTraceLane(x,top,w,h,ref,"#75b8ff","SABİT REFERANS · ÖDEM YOK",false);drawTraceLane(x,top+h+gap,w,h,s,"#68e0a3",`MEVCUT KAYIT · EK ÖDEM ${fmt1(s.edemaMm)} mm`,true);updatePanel(s);requestAnimationFrame(draw)
+}
+slider.addEventListener("input",()=>{autoScan=false;edema=Number(slider.value);scanButton.textContent="Ödemi artır ve geri getir"});scanButton.addEventListener("click",()=>{autoScan=true;scanStart=performance.now();scanButton.textContent="Ödem artırılıyor…"});
+document.addEventListener("keydown",event=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const key=event.key.toUpperCase(),link=key==="F1"?document.querySelector(".fkey:nth-child(1)"):key==="F2"?document.querySelector(".fkey:nth-child(2)"):key==="F3"?document.querySelector(".fkey:nth-child(3)"):null;if(link){event.preventDefault();location.href=link.href}});
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

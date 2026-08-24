@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boy — Boy ve İletim Hızı</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;font-variant-numeric:tabular-nums;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.badge{display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border-radius:999px;background:#e6f7ec;color:var(--green);border:1px solid #c8e8d3;font-size:13px;font-weight:700;text-transform:none;letter-spacing:0;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:12px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:15px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:17px;font-variant-numeric:tabular-nums;}
+.sel-row{display:flex;flex-direction:column;gap:6px;}
+.sel-row label{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+select,.inp-row input{font:inherit;font-size:15px;font-weight:700;color:var(--ink);border:1px solid var(--line2);border-radius:6px;padding:7px 9px;background:#fff;}
+.inp-row{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:14px;gap:8px;}
+.inp-row span{color:var(--muted);font-weight:700;}
+.inp-row input{width:78px;text-align:right;}
+.badge-row{display:flex;flex-direction:column;gap:6px;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);}
+.badge-row .lbl{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.badge-row b{font-size:16px;font-weight:800;}
+.badge-row b.ok{color:var(--green);}
+.badge-row b.warn{color:var(--amber);}
+.badge-row b.bad{color:var(--red);}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;align-items:center;gap:16px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+.slider-row span{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+input[type="range"]{flex:1;accent-color:var(--cyan);}
+.h-readout{font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:74px;text-align:right;}
+button{appearance:none;border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:6px;min-height:36px;padding:0 14px;font:inherit;font-size:13.5px;font-weight:800;cursor:pointer;white-space:nowrap;}
+button:hover{border-color:var(--cyan);}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Boy</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">2 / 3 — Boy ve İletim Hızı</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>İletim Hızı vs Boy — Seçili Sinir</span><span class="badge" id="stateBadge">170 cm</span></div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Okuma</span></div>
+<div class="side-body">
+<div class="sel-row"><label for="nerveSelect">Sinir</label>
+<select id="nerveSelect">
+<option value="medianMotor">Median Motor (üst ekstremite)</option>
+<option value="tibialMotor" selected>Tibial Motor (alt ekstremite)</option>
+<option value="peronealMotor">Peroneal Motor (alt ekstremite)</option>
+<option value="suralSensory">Sural Duysal (alt ekstremite)</option>
+</select>
+</div>
+<div class="stat-row"><span>Boy</span><b id="hOut">170 cm</b></div>
+<div class="stat-row"><span>Bu boy için beklenen İH</span><b id="expOut">48 m/s</b></div>
+<div class="inp-row"><span>Ölçülen İH</span><input id="measInput" type="number" step="0.5" value="48"></div>
+<div class="badge-row"><span class="lbl">Standart Ölçüt (LLN)</span><b id="stdVerdict" class="ok">NORMAL</b></div>
+<div class="badge-row"><span class="lbl">Boya Göre Ölçüt</span><b id="adjVerdict" class="ok">NORMAL</b></div>
+<div class="note-box" id="mechNote">Sinir seç, boyu kaydır; ölçülen değeri elle girip iki ölçütü karşılaştır.</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="slider-row">
+<span>150 cm</span>
+<input id="hSlider" type="range" min="150" max="210" step="1" value="170" aria-label="Boy">
+<span>210 cm</span>
+</div>
+<div class="h-readout" id="hReadout">170 cm</div>
+<button id="presetBtn" type="button">Örnek: 208 cm · Tibial 38 m/s</button>
+</footer>
+
+<div class="bottom-bar">
+<a class="fkey" href="asiri-boy-duzeltmesi.html">F1<b>Önceki: Aşırı Boyda Düzeltme</b></a>
+<a class="fkey" href="../index.html">F2<b>İçindekiler</b></a>
+<a class="fkey" href="gec-yanit-ve-boy.html">F3<b>Sıradaki: Geç Yanıtlar ve Boy</b></a>
+</div>
+
+</div>
+
+<script>
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const stateBadge=document.getElementById("stateBadge");
+const nerveSelect=document.getElementById("nerveSelect");
+const hOut=document.getElementById("hOut");
+const expOut=document.getElementById("expOut");
+const measInput=document.getElementById("measInput");
+const stdVerdict=document.getElementById("stdVerdict");
+const adjVerdict=document.getElementById("adjVerdict");
+const mechNote=document.getElementById("mechNote");
+const hSlider=document.getElementById("hSlider");
+const hReadout=document.getElementById("hReadout");
+const presetBtn=document.getElementById("presetBtn");
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(220,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(()=>{resizeCanvas();draw();}).observe(stageWrap);
+resizeCanvas();
+
+// Illustrative composite model from the chapter text (not a single-study lookup table):
+// taller -> slower CV; lower-extremity nerves affected more (longer limb, more distal
+// tapering + cooling). Extreme height allows the normal lower limit to drop by up to
+// ~2-4 m/s. Example: 208 cm, tibial 38 m/s (standard LLN 41) is within normal for height.
+const NERVES={
+  medianMotor:  { label:"Median Motor",  typ:57, lln:49, slope:0.10 },
+  tibialMotor:  { label:"Tibial Motor",  typ:48, lln:41, slope:0.15 },
+  peronealMotor:{ label:"Peroneal Motor",typ:50, lln:44, slope:0.15 },
+  suralSensory: { label:"Sural Duysal",  typ:48, lln:40, slope:0.15 }
+};
+const H_REF=170, Y_MIN=20, Y_MAX=70;
+function expectedCV(n,h){ return NERVES[n].typ - NERVES[n].slope*(h-H_REF); }
+function heightAdjust(h){ return Math.min(4, Math.max(0,(h-183)*0.12)); } // m/s tolerance for tall
+function adjustedLLN(n,h){ return NERVES[n].lln - heightAdjust(h); }
+
+let nerve="tibialMotor", curH=170;
+
+function updateStatics(){
+  const exp=expectedCV(nerve,curH);
+  hOut.textContent=`${curH} cm`;
+  expOut.textContent=`${exp.toFixed(1)} m/s`;
+  hReadout.textContent=`${curH} cm`;
+  stateBadge.textContent=`${curH} cm`;
+
+  const meas=Number(measInput.value);
+  const lln=NERVES[nerve].lln, aLln=adjustedLLN(nerve,curH);
+  const stdOk=meas>=lln, adjOk=meas>=aLln;
+  stdVerdict.textContent=stdOk?"NORMAL":"ANORMAL (sınırın altında)";
+  stdVerdict.className=stdOk?"ok":"bad";
+  adjVerdict.textContent=adjOk?"NORMAL (boya göre)":"ANORMAL";
+  adjVerdict.className=adjOk?"ok":"bad";
+
+  if(!stdOk && adjOk){
+    mechNote.innerHTML=`<b>Boy etkisi:</b> ${meas} m/s standart sınırın (${lln}) altında görünüyor, ama bu boyda düzeltilmiş sınır ${aLln.toFixed(1)} m/s — yani değer aslında <b>normal</b>.`;
+  } else if(!stdOk && !adjOk){
+    mechNote.innerHTML=`Boya göre düzeltmeden sonra bile (sınır ${aLln.toFixed(1)} m/s) değer düşük — boy etkisiyle açıklanamaz, <b>gerçek yavaşlama</b> düşün.`;
+  } else {
+    mechNote.innerHTML=`Değer standart sınırın üzerinde — bu boyda <b>normal</b>.`;
+  }
+}
+
+function draw(){
+  const W=cssW,H=cssH;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fcfdfe"; ctx.fillRect(0,0,W,H);
+
+  const left=W*0.09, right=W*0.97, top=H*0.09, bottom=H*0.82;
+  const hToX=h=>left+(right-left)*((h-150)/60);
+  const vToY=v=>bottom-(bottom-top)*((v-Y_MIN)/(Y_MAX-Y_MIN));
+  const lln=NERVES[nerve].lln;
+
+  // green (>= standard LLN), amber (whole lower area), red (below adjusted-LLN curve)
+  ctx.fillStyle="#e8f5ec"; ctx.fillRect(left,vToY(Y_MAX),right-left,vToY(lln)-vToY(Y_MAX));
+  ctx.fillStyle="#fbf0de"; ctx.fillRect(left,vToY(lln),right-left,vToY(Y_MIN)-vToY(lln));
+  ctx.fillStyle="#fbe6e7";
+  ctx.beginPath();
+  ctx.moveTo(left,bottom);
+  for(let h=150;h<=210;h+=1){ ctx.lineTo(hToX(h),vToY(adjustedLLN(nerve,h))); }
+  ctx.lineTo(right,bottom); ctx.closePath(); ctx.fill();
+
+  ctx.strokeStyle="#e7edf1"; ctx.lineWidth=1;
+  for(let h=150;h<=210;h+=10){ const x=hToX(h); ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke(); }
+  for(let v=Y_MIN;v<=Y_MAX;v+=10){ const y=vToY(v); ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(right,y);ctx.stroke(); }
+
+  // standard LLN line + adjusted-LLN curve
+  ctx.strokeStyle="#b98a2e"; ctx.lineWidth=1.6; ctx.setLineDash([6,4]);
+  ctx.beginPath(); ctx.moveTo(left,vToY(lln)); ctx.lineTo(right,vToY(lln)); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.strokeStyle="#b43b47"; ctx.lineWidth=2;
+  ctx.beginPath();
+  for(let h=150;h<=210;h+=1){ const x=hToX(h),y=vToY(adjustedLLN(nerve,h)); if(h===150)ctx.moveTo(x,y);else ctx.lineTo(x,y);} ctx.stroke();
+
+  ctx.strokeStyle="#8a97a3"; ctx.lineWidth=1.4;
+  ctx.beginPath(); ctx.moveTo(left,bottom); ctx.lineTo(right,bottom); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(left,top); ctx.lineTo(left,bottom); ctx.stroke();
+
+  ctx.fillStyle="#45525c"; ctx.font="700 "+Math.max(9,W*0.013)+"px Inter, sans-serif";
+  ctx.textAlign="center";
+  for(let h=150;h<=210;h+=10){ ctx.fillText(`${h}`,hToX(h),bottom+16); }
+  ctx.textAlign="right";
+  for(let v=Y_MIN;v<=Y_MAX;v+=10){ ctx.fillText(`${v}`,left-6,vToY(v)+4); }
+  ctx.textAlign="left";
+  ctx.fillStyle="#5c6b78"; ctx.font="700 "+Math.max(10,W*0.0115)+"px Inter, sans-serif";
+  ctx.fillText("Boy (cm)",right-64,bottom+34);
+  ctx.save(); ctx.translate(left-40,top+8); ctx.rotate(-Math.PI/2);
+  ctx.fillText("İletim Hızı (m/s)",0,0); ctx.restore();
+
+  ctx.fillStyle="#8a5a2a"; ctx.font="700 "+Math.max(9,W*0.0105)+"px Inter, sans-serif";
+  ctx.textAlign="right";
+  ctx.fillText(`Standart LLN ${lln}`,right-4,vToY(lln)-5);
+  ctx.fillStyle="#a33540";
+  ctx.fillText("Boya göre düzeltilmiş sınır",right-4,vToY(adjustedLLN(nerve,210))+14);
+  ctx.textAlign="left";
+
+  // expected-CV curve
+  ctx.strokeStyle="#2f6fbd"; ctx.lineWidth=3;
+  ctx.beginPath();
+  for(let h=150;h<=210;h+=1){ const x=hToX(h),y=vToY(expectedCV(nerve,h)); if(h===150)ctx.moveTo(x,y);else ctx.lineTo(x,y);} ctx.stroke();
+
+  const curX=hToX(curH);
+  ctx.strokeStyle="rgba(15,122,149,.8)"; ctx.lineWidth=2; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(curX,top); ctx.lineTo(curX,bottom); ctx.stroke();
+  ctx.setLineDash([]);
+  const expY=vToY(expectedCV(nerve,curH));
+  ctx.fillStyle="#2f6fbd";
+  ctx.beginPath(); ctx.arc(curX,expY,5,0,Math.PI*2); ctx.fill();
+
+  // measured marker (triangle)
+  const measY=vToY(Number(measInput.value));
+  ctx.fillStyle="#c97a2a";
+  ctx.beginPath(); ctx.moveTo(curX-8,measY-8); ctx.lineTo(curX+8,measY-8); ctx.lineTo(curX,measY); ctx.closePath(); ctx.fill();
+  ctx.strokeStyle="#16232c"; ctx.lineWidth=1; ctx.stroke();
+}
+
+function defaultMeasure(){ measInput.value=expectedCV(nerve,curH).toFixed(1); }
+
+function setH(v){
+  curH=Math.max(150,Math.min(210,Math.round(Number(v))));
+  hSlider.value=curH;
+  updateStatics(); draw();
+}
+hSlider.addEventListener("input",e=>{ setH(e.target.value); });
+measInput.addEventListener("input",()=>{ updateStatics(); draw(); });
+nerveSelect.addEventListener("change",()=>{ nerve=nerveSelect.value; defaultMeasure(); updateStatics(); draw(); });
+presetBtn.addEventListener("click",()=>{
+  nerve="tibialMotor"; nerveSelect.value="tibialMotor";
+  curH=208; hSlider.value=208;
+  measInput.value="38";
+  updateStatics(); draw();
+});
+
+defaultMeasure();
+setH(170);
+</script>
+</body>
+</html>

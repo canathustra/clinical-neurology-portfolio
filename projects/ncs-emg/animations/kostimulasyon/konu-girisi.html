@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Komşu Sinir Ko-stimülasyonu</title>
+<style>
+:root{--ink:#172630;--muted:#63727d;--teal:#0d788e;--teal2:#54b5c1;--line:#d7e0e6;--paper:#fff}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;font-family:"Segoe UI",Arial,sans-serif;color:var(--ink)}body{display:grid;place-items:center}
+.slide{position:relative;width:min(100vw,1600px);aspect-ratio:16/9;max-height:100vh;background:var(--paper);border:1px solid #d3dce2;box-shadow:0 18px 56px rgba(25,45,58,.12);display:grid;grid-template-rows:1fr 56px;overflow:hidden}
+.stage{position:relative;display:grid;place-items:center;padding:8% 10%;isolation:isolate}
+.stage:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(13,120,142,.045) 1px,transparent 1px),linear-gradient(rgba(13,120,142,.045) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(90deg,#000,transparent 76%);z-index:-2}
+.stage:after{content:"";position:absolute;left:0;top:0;bottom:0;width:18px;background:linear-gradient(180deg,#0d788e,#56b4bf);z-index:-1}
+.rule{position:absolute;left:8%;right:8%;top:20%;height:1px;background:linear-gradient(90deg,var(--teal),rgba(13,120,142,.08))}
+.kicker{position:absolute;left:9%;top:13%;font-size:15px;letter-spacing:.18em;font-weight:800;color:var(--teal)}
+.number{position:absolute;right:6%;top:5%;font-size:210px;line-height:1;font-weight:900;letter-spacing:-.08em;color:rgba(13,120,142,.065);user-select:none}
+h1{margin:0;max-width:1120px;text-align:center;font-size:clamp(44px,5.1vw,82px);line-height:1.04;letter-spacing:-.035em;font-weight:760;text-wrap:balance}
+.accent{position:absolute;left:50%;bottom:25%;transform:translateX(-50%);width:110px;height:7px;background:linear-gradient(90deg,var(--teal),var(--teal2));border-radius:10px}
+.bottom-bar{height:56px;display:flex;align-items:stretch;gap:1px;background:#d5dde4;border-top:1px solid #d5dde4}
+.fkey{flex:1;background:#e7edf3;color:#16232c;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:9px;padding:0 12px;font:800 13px/1 "Segoe UI",Arial,sans-serif}
+.fkey span{color:#0f7a95;font-size:15px}.fkey b{color:#16232c;font-size:13px}.fkey:hover,.fkey:focus-visible{background:#dce8f0;outline:none}
+@media(max-width:800px){.slide{width:100vw;height:100vh;aspect-ratio:auto}.number{font-size:120px}h1{font-size:44px}}
+</style></head><body><main class="slide"><section class="stage"><div class="rule"></div><div class="kicker">NON-FİZYOLOJİK FAKTÖRLER</div><div class="number">07</div><h1>Komşu Sinir Ko-stimülasyonu</h1><div class="accent"></div></section><nav class="bottom-bar" aria-label="Standart sunum gezinmesi"><a class="fkey" href="../supramaksimal/animasyon-2-amplitud-farki.html"><span>F1</span><b>Önceki</b></a><a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a><a class="fkey" href="index.html"><span>F3</span><b>Sonraki</b></a></nav></main><script>document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase(),a=k==="F1"?document.querySelector(".fkey:nth-child(1)"):k==="F2"?document.querySelector(".fkey:nth-child(2)"):k==="F3"?document.querySelector(".fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});</script></body></html>

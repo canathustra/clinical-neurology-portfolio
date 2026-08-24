@@ -1,0 +1,13 @@
+EMG–NCS NON-FİZYOLOJİK FAKTÖRLER — KAPANIŞ QA RAPORU
+
+- Toplam sunum sayfası: 83
+- Açıklama sayfası: 34
+- Animasyon sayfası: 35
+- Konu giriş sayfası: 14
+- Doğrulanan gezinme bağlantısı: 167
+- Sayfa/etkileşim hatası: 0
+- Dış internet bağımlılığı: 0
+- Eksik yerel dosya veya görsel: 0
+- Görünür şekil numarası / kitap dışı kaynak işareti: 0
+
+Paket başka bilgisayarda file:// protokolüyle, çevrimdışı olarak test edilmiştir.

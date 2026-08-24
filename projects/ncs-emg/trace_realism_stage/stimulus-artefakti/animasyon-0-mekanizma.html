@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stimulus Artefaktı — Zaman İşareti ve Örtüşen Kuyruk</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#fff;--head:#e7edf3;--line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--cyan:#0f7a95;--green:#2f7d52;
+  --amber:#d89a38;--red:#bd4250;--scope:#061a13;
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);
+  font-family:"Segoe UI",Inter,Arial,sans-serif}
+body{display:grid;place-items:center;padding:14px}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);
+  background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;
+  box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;
+  grid-template-rows:40px 50px 1fr 62px 56px;overflow:hidden}
+.titlebar{display:flex;align-items:center;justify-content:space-between;padding:0 18px;
+  background:linear-gradient(180deg,#fff,#eef1f4);border-bottom:1px solid var(--line);
+  font-size:16px;color:#45525c}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600}.dot{width:10px;height:10px;border-radius:50%;
+  background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5)}
+.tb-right{display:flex;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px}.tb-right b{color:var(--cyan)}
+.toolbar{display:flex;align-items:center;gap:24px;padding:0 18px;background:var(--head);border-bottom:1px solid var(--line)}
+.tf{display:flex;align-items:baseline;gap:9px}.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.tf strong{font-size:15px;color:var(--ink);font-weight:800}
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:12px}
+.main{min-width:0;min-height:0;display:grid;grid-template-rows:46% 54%;gap:10px}
+.panel{min-width:0;min-height:0;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden}
+.panel-head{height:36px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 13px;
+  background:var(--head);border-bottom:1px solid var(--line);font-size:13px;font-weight:800;
+  letter-spacing:.04em;text-transform:uppercase;color:#465762}
+.panel-head .claim{color:var(--green);font-size:11.5px}
+.anatomy{position:relative;min-height:0;flex:1;overflow:hidden;background:#111820}
+.arm{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 44%;
+  filter:saturate(.85) contrast(1.03) brightness(.76)}
+.shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,10,14,.54),transparent 48%),
+  linear-gradient(90deg,rgba(3,8,12,.12),rgba(3,8,12,.03) 65%,rgba(3,8,12,.28))}
+.overlay{position:absolute;inset:0;width:100%;height:100%}
+.nerve{fill:none;stroke:#e9ac49;stroke-width:7;stroke-linecap:round;filter:drop-shadow(0 0 5px #9f6b21)}
+.field-path{fill:none;stroke:#45d5e6;stroke-width:4;stroke-linecap:round;opacity:0}
+.field-path.live{animation:fieldFlow .48s ease-out}
+@keyframes fieldFlow{0%{opacity:.9;stroke-dasharray:1 1200;stroke-dashoffset:0}100%{opacity:.05;stroke-dasharray:1200 1;stroke-dashoffset:-80}}
+.volley{fill:#ffd274;stroke:#fff1c7;stroke-width:3;filter:drop-shadow(0 0 7px #ffc05c)}
+.stim text,.rec text{fill:#fff;font-size:18px;font-weight:800}.stim circle,.rec rect{stroke:#fff;stroke-width:3}
+.sequence{position:absolute;left:14px;right:14px;bottom:10px;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:6px;color:#eaf3f5;font-size:12px;font-weight:700}
+.sequence div{padding:7px 9px;background:rgba(4,12,17,.84);border-left:3px solid var(--cyan)}
+.sequence b{color:#58dfed}
+.scope-wrap{position:relative;flex:1;min-height:0;background:var(--scope)}
+canvas{display:block;width:100%;height:100%}
+.scope-meta{position:absolute;left:12px;right:12px;top:8px;display:flex;justify-content:space-between;
+  pointer-events:none;color:#a7c0b7;font-size:11px;font-weight:800;letter-spacing:.04em}
+.scope-meta b{color:#e9f7f1;font-size:13px}
+.legend{position:absolute;right:12px;bottom:7px;display:flex;gap:12px;color:#9cb2aa;font-size:10.5px}
+.legend span::before{content:"";display:inline-block;width:22px;margin-right:5px;vertical-align:middle;border-top:2px solid #64eda0}
+.legend .true::before{border-color:#d89a38;border-style:dashed}.legend .artifact::before{border-color:#45d5e6}
+.side-body{flex:1;min-height:0;padding:9px;display:grid;gap:7px;align-content:start;overflow:auto}
+.stat{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 9px;background:#f3f6f8;
+  border:1px solid var(--line);font-size:12.5px}.stat span{color:var(--muted);font-weight:700}.stat b{font-size:14px;font-variant-numeric:tabular-nums}
+.note{padding:9px;background:#f3f6f8;border:1px solid var(--line);font-size:12px;line-height:1.35;font-weight:600}.note b{color:var(--cyan)}
+.book{display:grid;grid-template-columns:80px 1fr;gap:8px;align-items:center;padding:7px;border:1px solid var(--line)}
+.book img{width:80px;height:104px;object-fit:contain}.book b{display:block;font-size:11.5px;line-height:1.22}
+.book span{display:block;margin-top:3px;font-size:10.5px;line-height:1.24;color:var(--muted)}
+.source{font-size:10px;line-height:1.25;color:#687784;padding:0 2px}
+.controls{display:flex;align-items:center;gap:9px;padding:8px 18px;background:var(--head);border-top:1px solid var(--line)}
+button{appearance:none;border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:5px;min-height:34px;
+  padding:0 12px;font:800 12.5px "Segoe UI",Arial,sans-serif;cursor:pointer;white-space:nowrap}
+button:hover,button:focus-visible{border-color:var(--cyan);outline:none}.shock{background:var(--cyan);color:#fff;border-color:var(--cyan)}
+.modes{display:flex;gap:5px}.mbtn.active{background:#e5f2f5;border-color:var(--cyan);color:#07566a}
+.slider-row{display:flex;align-items:center;gap:8px;flex:1;min-width:240px;margin-left:8px}
+.slider-row label{font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase;white-space:nowrap}
+input[type=range]{flex:1;accent-color:var(--cyan)}.distance{min-width:54px;text-align:right;font-size:15px;font-weight:900}
+.bottom-bar{height:56px;display:flex;align-items:stretch;gap:1px;background:#d5dde4;border-top:1px solid #d5dde4}
+.fkey{flex:1;background:var(--head);color:var(--ink);text-decoration:none;display:flex;align-items:center;
+  justify-content:center;gap:9px;font:800 13px/1 "Segoe UI",Arial,sans-serif}
+.fkey span{color:var(--cyan);font-size:15px}.fkey:hover{background:#dce8f0}
+@media(max-width:980px){body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0}
+  .workspace{grid-template-columns:1fr}.side{display:none}.controls{flex-wrap:wrap;height:auto}.sequence{font-size:10px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="titlebar">
+    <div class="tb-left"><span class="dot"></span>EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+    <div class="tb-right"><b>EDX</b><span>SİM</span></div>
+  </div>
+  <div class="toolbar">
+    <div class="tf"><label>Konu</label><strong>Stimulus Artefaktı</strong></div>
+    <div class="tf"><label>Animasyon</label><strong>Şok zaman işaretidir; uzayan kuyruk ölçümü bozar</strong></div>
+  </div>
+
+  <div class="workspace">
+    <div class="main">
+      <section class="panel">
+        <div class="panel-head"><span>Hacim iletimi sinir yanıtından önce kayıt elektrotlarına ulaşır</span>
+          <span class="claim">Aynı uyarı · iki farklı varış zamanı</span></div>
+        <div class="anatomy">
+          <img class="arm" src="stimulus-artifact-forearm.png" alt="Median duysal sinir iletim çalışması için önkol ve el">
+          <div class="shade"></div>
+          <svg class="overlay" viewBox="0 0 1600 520" preserveAspectRatio="none" aria-label="Stimulus artefaktının ve sinir volleyinin yolu">
+            <path class="nerve" id="nervePath" d="M620 335 C785 325 930 278 1080 232 C1220 190 1350 172 1465 176"/>
+            <path class="field-path" id="fieldA" d="M620 335 C830 170 1120 105 1370 166"/>
+            <path class="field-path" id="fieldB" d="M620 335 C850 430 1130 360 1428 184"/>
+            <g class="stim">
+              <circle cx="620" cy="335" r="20" fill="#1c252b"/><circle cx="570" cy="354" r="20" fill="#bd4250"/>
+              <text x="594" y="300">Katot</text><text x="536" y="398">Anot</text>
+            </g>
+            <g class="rec">
+              <rect x="1360" y="140" width="18" height="72" fill="#26343b"/><rect x="1420" y="140" width="18" height="72" fill="#c85862"/>
+              <text x="1347" y="126">G1</text><text x="1407" y="126">G2</text>
+            </g>
+            <circle class="volley" id="volley" cx="620" cy="335" r="11"/>
+          </svg>
+          <div class="sequence">
+            <div><b>1 · t=0</b> Hacim iletimi → artefakt</div>
+            <div><b>2 · iletim süresi</b> Sinir volleyi ilerler</div>
+            <div><b>3 · ≈latans</b> DSAP kayıt elektrotlarına gelir</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><span id="scopeTitle">Artefakt kuyruğu DSAP’tan önce bazale döner</span>
+          <span class="claim" id="scopeClaim">Ölçüm doğru</span></div>
+        <div class="scope-wrap">
+          <canvas id="scopeCanvas"></canvas>
+          <div class="scope-meta"><span>MEDİAN DSAP · 20 µV/div · 1 ms/div</span>
+            <b id="measuredTop">38 µV · 2.0 ms</b></div>
+          <div class="legend"><span>kaydedilen iz</span><span class="true">gerçek DSAP</span><span class="artifact">artefakt bileşeni</span></div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="panel side">
+      <div class="panel-head"><span>Kitapla birlikte oku</span></div>
+      <div class="side-body">
+        <div class="stat"><span>Gerçek DSAP</span><b>38 µV</b></div>
+        <div class="stat"><span>Gerçek latans</span><b id="trueLatOut">2.0 ms</b></div>
+        <div class="stat"><span>Ölçülen amplitüd</span><b id="ampOut">38 µV</b></div>
+        <div class="stat"><span>Ölçülen latans</span><b id="latOut">2.0 ms</b></div>
+        <div class="note" id="mechNote"></div>
+        <div class="book">
+          <img src="../figures/source-v3/fig_8_11_stimulus_measurement.png" alt="Şekil 8.11 stimulus artefaktı ve ölçüm hatası">
+          <div><b>Şekil 8.11 — gerçek sinir yanıtı değişmeden ölçüm değişir</b>
+            <span>Negatif: 29 µV/2.1 ms · Temel: 38 µV/2.0 ms · Pozitif: 45 µV/1.9 ms.</span></div>
+        </div>
+        <div class="source">Kaynak: Preston &amp; Shapiro, Şekil 8.11; McLean ve ark., 1996, PMID 8976313.</div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="controls">
+    <button class="shock" id="shockBtn" type="button">Uyarıyı göster</button>
+    <div class="modes" id="modeToggle">
+      <button class="mbtn active" data-mode="clean" type="button">Temel · 38 µV / 2,0 ms</button>
+      <button class="mbtn" data-mode="negative" type="button">Negatif · 29 µV / 2,1 ms</button>
+      <button class="mbtn" data-mode="positive" type="button">Pozitif · 45 µV / 1,9 ms</button>
+      <button class="mbtn" data-mode="short" type="button">Kısa mesafe</button>
+    </div>
+    <div class="slider-row">
+      <label for="distanceSlider">Uyarı–kayıt mesafesi</label>
+      <input id="distanceSlider" type="range" min="6" max="14" step=".5" value="14">
+      <div class="distance" id="distanceOut">14 cm</div>
+    </div>
+  </div>
+
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="index.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="azaltma-yontemleri.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</div>
+
+<script>
+const canvas=document.getElementById("scopeCanvas"),ctx=canvas.getContext("2d"),wrap=canvas.parentElement;
+const distanceSlider=document.getElementById("distanceSlider"),distanceOut=document.getElementById("distanceOut");
+const ampOut=document.getElementById("ampOut"),latOut=document.getElementById("latOut"),trueLatOut=document.getElementById("trueLatOut");
+const measuredTop=document.getElementById("measuredTop"),mechNote=document.getElementById("mechNote");
+const scopeTitle=document.getElementById("scopeTitle"),scopeClaim=document.getElementById("scopeClaim");
+const shockBtn=document.getElementById("shockBtn"),fieldA=document.getElementById("fieldA"),fieldB=document.getElementById("fieldB");
+const nervePath=document.getElementById("nervePath"),volley=document.getElementById("volley");
+let W=0,H=0,dpr=Math.min(2,devicePixelRatio||1),mode="clean",distance=14,animStart=0,animating=false,traceVisible=false;
+
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function gauss(t,m,s){const z=(t-m)/s;return Math.exp(-.5*z*z)}
+function trueLatency(){return 2*distance/14}
+function dsap(t){
+  const l=trueLatency(),u=t-l;if(u<0)return 0;
+  return 31.5*(.46*gauss(u,.20,.11)-.86*gauss(u,.62,.22)+.22*gauss(u,1.26,.38))
+}
+function artifact(t){
+  if(t<0)return 0;
+  const shock=-145*Math.exp(-t/.028)+58*Math.exp(-t/.105);
+  const polarity=mode==="negative"?-1:mode==="positive"?1:mode==="short"?-1:0;
+  const tail=polarity*(18*Math.exp(-t/.72)+12*Math.exp(-t/2.15));
+  return shock+tail
+}
+function measurement(){
+  const tl=trueLatency();
+  if(mode==="negative")return{amp:29,lat:tl+.1};
+  if(mode==="positive")return{amp:45,lat:Math.max(.2,tl-.1)};
+  if(mode==="short")return{amp:24,lat:tl+.18};
+  return{amp:38,lat:tl}
+}
+function resize(){
+  const r=wrap.getBoundingClientRect();W=Math.max(600,Math.round(r.width));H=Math.max(220,Math.round(r.height));
+  canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw()
+}
+new ResizeObserver(resize).observe(wrap);
+function line(points,color,width=2,dash=[]){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();
+  points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.restore()
+}
+function txt(s,x,y,color,size=10,weight=700,align="left"){
+  ctx.save();ctx.fillStyle=color;ctx.font=`${weight} ${size}px "Segoe UI",Arial,sans-serif`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.restore()
+}
+function draw(){
+  if(!W||!H)return;ctx.clearRect(0,0,W,H);ctx.fillStyle="#061a13";ctx.fillRect(0,0,W,H);
+  const l=26,r=W-18,t=35,b=H-30,mid=(t+b)/2,msX=ms=>l+(r-l)*ms/7,uvY=uv=>mid-uv*(b-t)/120;
+  ctx.strokeStyle="#143126";ctx.lineWidth=1;
+  for(let i=0;i<=14;i++){const x=l+(r-l)*i/14;ctx.beginPath();ctx.moveTo(x,t);ctx.lineTo(x,b);ctx.stroke()}
+  for(let i=0;i<=6;i++){const y=t+(b-t)*i/6;ctx.beginPath();ctx.moveTo(l,y);ctx.lineTo(r,y);ctx.stroke()}
+  line([[l,mid],[r,mid]],"#2a4a3b",1);line([[msX(0),t],[msX(0),b]],"#45d5e6",1,[4,4]);txt("t=0 · zaman işareti",msX(0)+5,t+11,"#69e2ee",10,800);
+  if(traceVisible){
+    const artifactPts=[],truePts=[],recordedPts=[];
+    for(let i=0;i<=700;i++){const ms=7*i/700,a=artifact(ms),d=dsap(ms);artifactPts.push([msX(ms),uvY(a)]);truePts.push([msX(ms),uvY(d)]);recordedPts.push([msX(ms),uvY(a+d)])}
+    line(artifactPts,"#45d5e6",1.5);line(truePts,"#d89a38",2,[6,4]);line(recordedPts,"#64eda0",2.7);
+    const m=measurement(),tl=trueLatency();
+    line([[msX(tl),t+8],[msX(tl),b-8]],"#d89a38",1,[4,4]);line([[msX(m.lat),t+8],[msX(m.lat),b-8]],"#64eda0",1);
+    txt("gerçek başlangıç",msX(tl)+5,b-18,"#d89a38",9,800);txt("ölçülen",msX(m.lat)+5,b-5,"#64eda0",9,800);
+    const bx=r-72,half=m.amp*(b-t)/120/2;line([[bx,mid-half],[bx,mid+half]],"#64eda0",1.5);line([[bx-5,mid-half],[bx+5,mid-half]],"#64eda0",1.5);line([[bx-5,mid+half],[bx+5,mid+half]],"#64eda0",1.5);txt(`${m.amp} µV`,bx-9,mid+4,"#64eda0",10,850,"right");
+  }else{
+    txt("İz gizli · uyarıyı göstermek için düğmeye basın",(l+r)/2,mid,"#a7c4b8",13,800,"center");
+  }
+  for(let ms=0;ms<=7;ms++){txt(`${ms}`,msX(ms),b+16,"#799087",9,600,ms===0?"left":ms===7?"right":"center")}
+}
+function update(){
+  distanceOut.textContent=`${distance.toFixed(distance%1?1:0)} cm`;
+  const m=measurement(),tl=trueLatency();ampOut.textContent=`${m.amp.toFixed(0)} µV`;latOut.textContent=`${m.lat.toFixed(1)} ms`;
+  trueLatOut.textContent=`${tl.toFixed(1)} ms`;measuredTop.textContent=`${m.amp.toFixed(0)} µV · ${m.lat.toFixed(1)} ms`;
+  if(mode==="clean"){
+    scopeTitle.textContent="Artefakt kuyruğu DSAP’tan önce bazale döner";scopeClaim.textContent="Ölçüm doğru";
+    mechNote.innerHTML="<b>Yararlı taraf:</b> t=0’daki artefakt şok zamanını gösterir. Kuyruk DSAP’tan önce biterse latans ve amplitüd doğru ölçülür.";
+  }else if(mode==="negative"){
+    scopeTitle.textContent="Negatif kuyruk DSAP başlangıcını aşağı çeker";scopeClaim.textContent="29 µV · 2.1 ms";
+    mechNote.innerHTML="<b>Şekil 8.11:</b> Gerçek DSAP değişmediği halde negatif kuyruk amplitüdü düşük, başlangıç latansını uzun gösterir.";
+  }else if(mode==="positive"){
+    scopeTitle.textContent="Pozitif kuyruk DSAP’a eklenir";scopeClaim.textContent="45 µV · 1.9 ms";
+    mechNote.innerHTML="<b>Şekil 8.11:</b> Gerçek DSAP değişmediği halde pozitif kuyruk amplitüdü yüksek, başlangıç latansını kısa gösterir.";
+  }else{
+    scopeTitle.textContent="Kısa mesafede DSAP artefakt kuyruğuna yaklaşır";scopeClaim.textContent="Örtüşme artar";
+    mechNote.innerHTML="<b>Kısa mesafe:</b> Sinir yanıtı daha erken gelir; aynı artefakt kuyruğuyla daha fazla üst üste biner ve ölçüm hatası büyür.";
+  }
+  window.__stimulusArtifactMeasurementState={mode,distanceCm:distance,measuredAmplitudeUv:m.amp,measuredLatencyMs:m.lat,trueLatencyMs:tl,traceVisible};
+  draw()
+}
+function setMode(next){
+  mode=next;if(mode==="short"){distance=7;distanceSlider.value=7}else if(distance<10){distance=14;distanceSlider.value=14}
+  traceVisible=false;animating=false;document.querySelectorAll(".mbtn").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));update()
+}
+function trigger(){
+  traceVisible=true;
+  update();
+  [fieldA,fieldB].forEach((f,i)=>{f.classList.remove("live");void f.getBoundingClientRect();setTimeout(()=>f.classList.add("live"),i*40)});
+  animStart=performance.now();animating=true
+}
+function animate(now){
+  if(animating){
+    const p=clamp((now-animStart)/1150,0,1),pt=nervePath.getPointAtLength(nervePath.getTotalLength()*p);
+    volley.setAttribute("cx",pt.x);volley.setAttribute("cy",pt.y);volley.style.opacity=p<1?1:.35;if(p>=1)animating=false
+  }
+  requestAnimationFrame(animate)
+}
+document.getElementById("modeToggle").addEventListener("click",e=>{const b=e.target.closest(".mbtn");if(b)setMode(b.dataset.mode)});
+distanceSlider.addEventListener("input",()=>{distance=+distanceSlider.value;mode=mode==="clean"?"clean":mode==="positive"?"positive":"negative";
+  traceVisible=false;animating=false;document.querySelectorAll(".mbtn").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));update()});
+shockBtn.addEventListener("click",trigger);
+document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;
+  const k=e.key.toUpperCase(),a=k==="F1"?document.querySelector(".fkey:nth-child(1)"):k==="F2"?document.querySelector(".fkey:nth-child(2)"):k==="F3"?document.querySelector(".fkey:nth-child(3)"):null;
+  if(a){e.preventDefault();location.href=a.href}});
+resize();update();requestAnimationFrame(animate);
+</script>
+</body>
+</html>

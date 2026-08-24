@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geçirgen bant kayıt türüne göre seçilir</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:20px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:19px;color:var(--amber);font-weight:800;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#4a5964;flex-wrap:wrap;}
+.modetoggle{display:flex;border:1px solid var(--line2);border-radius:6px;overflow:hidden;}
+.mbtn{appearance:none;border:none;background:#fff;color:var(--muted);padding:6px 11px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;text-transform:none;letter-spacing:0;white-space:nowrap;}
+.mbtn.active{background:var(--cyan);color:#fff;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+.scope-calibration{position:absolute;right:36px;top:calc(43% + 10px);z-index:3;padding:5px 8px;border:1px solid #315347;border-radius:3px;background:rgba(6,23,16,.90);color:#cde6dc;font:800 10px/1.2 Consolas,"Courier New",monospace;letter-spacing:.04em;pointer-events:none;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:12px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:15px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:17px;font-variant-numeric:tabular-nums;}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;flex-direction:column;gap:8px;padding:10px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.slider-row{display:flex;align-items:center;gap:10px;}
+.slider-row span.lbl{color:var(--muted);font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;min-width:118px;}
+input[type="range"]{flex:1;accent-color:var(--cyan);}
+.slider-row .val{font-size:15px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:70px;text-align:right;}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+
+/* standard-nav-v3 */
+.bottom-bar{flex:none;height:56px;display:flex!important;align-items:stretch!important;gap:1px!important;background:#d5dde4!important;border-top:1px solid #d5dde4!important}.bottom-bar .fkey{flex:1!important;background:#e7edf3!important;color:#16232c!important;text-decoration:none!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;padding:0 12px!important;font:800 13px/1 "Segoe UI",Arial,sans-serif!important}.bottom-bar .fkey span{color:#0f7a95!important;font-size:15px!important}.bottom-bar .fkey b{color:#16232c!important;font-size:13px!important}.bottom-bar .fkey:hover,.bottom-bar .fkey:focus-visible{background:#dce8f0!important;outline:none!important}
+
+
+/* concept-03-filter-sequence-book-aligned */
+.app{grid-template-rows:auto auto minmax(0,1fr) auto 56px}
+.toolbar{padding:9px 18px}
+.workspace{padding:10px;grid-template-columns:minmax(0,1fr) 310px}
+.panel-head{padding:8px 14px}
+.same-recording{margin-left:auto;color:var(--green);font-size:11px;font-weight:800;letter-spacing:.04em}
+.side-body{padding:10px;gap:8px;overflow:hidden}
+.stat-row{padding:7px 10px;font-size:13px}.stat-row b{font-size:14px}
+.note-box{padding:9px 10px;font-size:12px;line-height:1.35}
+.source-card{display:grid;grid-template-columns:94px 1fr;gap:8px;align-items:center;padding:7px;background:#fff;border:1px solid var(--line)}
+.source-card img{width:94px;height:92px;object-fit:contain;display:block}
+.source-card div{font-size:10.5px;line-height:1.25;color:var(--muted)}.source-card b{display:block;color:var(--ink);font-size:11.5px;margin-bottom:2px}
+footer{padding:8px 18px;gap:6px}
+.footer-explain{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.footer-explain span{padding:7px 9px;background:#f8fafb;border:1px solid var(--line);font-size:11px;line-height:1.25;color:var(--muted)}
+.footer-explain b{color:var(--cyan)}
+.slider-row span.lbl{min-width:138px}
+
+</style>
+</head>
+<body data-filter-step="passband">
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Filtreler</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">2 / 3 — Motor ve duysal geçirgen bant</strong></div>
+</div>
+
+
+<div class="workspace">
+  <div class="panel">
+    <div class="panel-head">
+      <span>Motor BKAP ve duysal SNAP için doğru preset</span>
+      <div class="modetoggle" id="modeToggle"><button class="mbtn" data-mode="motor" type="button">Motor BKAP · 10 Hz–10 kHz</button><button class="mbtn active" data-mode="sensory" type="button">Duysal SNAP · 20 Hz–2 kHz</button></div>
+      <span class="same-recording">AYRI KAYITLAR</span>
+    </div>
+    <div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas><div class="scope-calibration" id="scopeCalibration">Sensitivite 10 µV/div · Sweep 1 ms/div</div></div>
+  </div>
+  <div class="panel side">
+    <div class="panel-head"><span>Kitapla birlikte oku</span></div>
+    <div class="side-body">
+      <div class="stat-row"><span id="stat1Label">Alçak kesim (LFF)</span><b id="stat1Value">20 Hz</b></div><div class="stat-row"><span id="stat2Label">Yüksek kesim (HFF)</span><b id="stat2Value">2 kHz</b></div><div class="stat-row"><span id="stat3Label">SNAP amplitüdü</span><b id="stat3Value">30 µV</b></div><div class="stat-row"><span id="stat4Label">Kayıt / ölçek</span><b id="stat4Value">Duysal · 1 ms/div</b></div>
+      <div class="note-box" id="mechNote"></div>
+      <div class="source-card">
+        <img src="../figures/source-v3/fig_8_7_passband.png" alt=" — geçirgen bant keskin bir duvar değildir">
+        <div><b> — geçirgen bant keskin bir duvar değildir</b>Motor için 10 Hz–10 kHz; duysal için 20 Hz–2 kHz tipik başlangıç ayarlarıdır.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer>
+<div class="slider-row"><span class="lbl">Alçak kesim (LFF)</span><input id="lffSlider" type="range" min="1" max="100" step="1" value="20"><span class="val" id="lffVal">20 Hz</span></div>
+<div class="slider-row"><span class="lbl">Yüksek kesim (HFF)</span><input id="hffSlider" type="range" min="500" max="10000" step="100" value="2000"><span class="val" id="hffVal">2 kHz</span></div>
+</footer>
+
+
+<div class="bottom-bar" aria-label="Standart sunum gezinmesi">
+<a class="fkey" href="gecirgen-bant.html"><span>F1</span><b>Önceki</b></a>
+<a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+<a class="fkey" href="filtre-odunlesimi.html"><span>F3</span><b>Sonraki</b></a>
+</div>
+
+</div>
+
+<script>
+
+const STEP=document.body.dataset.filterStep;
+const stageWrap=document.getElementById("stageWrap"),canvas=document.getElementById("sceneCanvas"),ctx=canvas.getContext("2d");
+const modeToggle=document.getElementById("modeToggle"),mechNote=document.getElementById("mechNote");
+const scopeCalibration=document.getElementById("scopeCalibration");
+const lffSlider=document.getElementById("lffSlider"),hffSlider=document.getElementById("hffSlider");
+const lffVal=document.getElementById("lffVal"),hffVal=document.getElementById("hffVal");
+const labels=[1,2,3,4].map(i=>document.getElementById(`stat${i}Label`)),values=[1,2,3,4].map(i=>document.getElementById(`stat${i}Value`));
+let W=0,H=0,dpr=Math.min(2,devicePixelRatio||1),mode=document.querySelector(".mbtn.active")?.dataset.mode||"sensory",signalType=mode,lff=Number(lffSlider?.value||20),hff=Number(hffSlider?.value||2000);
+function resize(){const r=stageWrap.getBoundingClientRect();W=Math.max(600,r.width);H=Math.max(320,r.height);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+new ResizeObserver(resize).observe(stageWrap);resize();
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function gauss(x,m,s){const z=(x-m)/s;return Math.exp(-.5*z*z)}
+function pseudo(x){return .52*Math.sin(37.1*x)+.27*Math.sin(83.7*x+1.1)+.13*Math.sin(151.3*x+.4)}
+function drift(t){return .24*Math.sin(2*Math.PI*(.65*t+.12))}
+function mains(t){return .18*Math.sin(2*Math.PI*(6*t+.05))}
+function hf(t){return .11*pseudo(t*4.5)}
+function snap(t,amp=1,width=1){return amp*(-.12*gauss(t,.43,.010*width)+1.0*gauss(t,.47,.021*width)-.72*gauss(t,.52,.032*width)+.18*gauss(t,.60,.06*width))}
+function cmap(t,amp=1,width=1){return amp*(-.08*gauss(t,.31,.018*width)+.92*gauss(t,.39,.050*width)-.58*gauss(t,.50,.078*width)+.12*gauss(t,.66,.105*width))}
+function target(t){return signalType==="motor"?cmap(t,.78,1):snap(t,.72,1)}
+function raw(t){const noise=signalType==="motor"?.035:.11;return .22*drift(t)+.14*mains(t)+noise/0.11*hf(t)+target(t)}
+function ampFromHff(v){if(v<=500)return 16;if(v<=2000)return 16+14*Math.log(v/500)/Math.log(4);return Math.min(34,30+4*Math.log(v/2000)/Math.log(5))}
+function durFromLff(v){return 1+.24*(1-clamp(v/20,0,1))}
+function filtered(t,lo=lff,hi=hff){
+  const sensoryAmp=ampFromHff(hi)/30;
+  const motorAmp=.88+.12*clamp(Math.log(Math.max(hi,500)/500)/Math.log(20),0,1);
+  const amp=signalType==="motor"?motorAmp:sensoryAmp;
+  const dur=durFromLff(lo),wander=.22*clamp((20-lo)/19,0,1);
+  const noiseBase=signalType==="motor"?.025:.065;
+  const noise=noiseBase*(.35+.65*clamp((hi-500)/9500,0,1));
+  const shaped=signalType==="motor"?cmap(t,.78,dur):snap(t,.72,dur);
+  return wander*drift(t)+.06*mains(t)+noise/0.11*hf(t)+amp*shaped;
+}
+function line(points,color,width=2,dash=[]){ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.restore()}
+function text(s,x,y,color="#16232c",size=11,align="left",weight=700){ctx.fillStyle=color;ctx.font=`${weight} ${size}px Segoe UI`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.textAlign="left"}
+function grid(x,y,w,h){ctx.fillStyle="#061710";ctx.fillRect(x,y,w,h);ctx.strokeStyle="#17392b";for(let i=0;i<=12;i++){const xx=x+w*i/12;ctx.beginPath();ctx.moveTo(xx,y);ctx.lineTo(xx,y+h);ctx.stroke()}for(let i=0;i<=6;i++){const yy=y+h*i/6;ctx.beginPath();ctx.moveTo(x,yy);ctx.lineTo(x+w,yy);ctx.stroke()}ctx.strokeStyle="#2a5945";ctx.beginPath();ctx.moveTo(x,y+h/2);ctx.lineTo(x+w,y+h/2);ctx.stroke()}
+function scope(x,y,w,h,fn,color,label,dash=[]){grid(x,y,w,h);const pts=[];for(let i=0;i<=700;i++){const t=i/700;pts.push([x+w*t,clamp(y+h/2-fn(t)*h*.38,y+2,y+h-2)])}line(pts,color,2,dash);text(label,x+9,y+17,"#b8d1c8",11)}
+const fMin=1,fMax=100000;
+function fx(f,x,w){return x+w*(Math.log10(f)-Math.log10(fMin))/(Math.log10(fMax)-Math.log10(fMin))}
+function axes(x,y,w,h){ctx.strokeStyle="#aebcc7";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y+h);ctx.lineTo(x+w,y+h);ctx.stroke();[1,10,100,1000,10000,100000].forEach(f=>{const xx=fx(f,x,w);ctx.beginPath();ctx.moveTo(xx,y+h);ctx.lineTo(xx,y+h+5);ctx.stroke();text(f>=1000?`${f/1000}k`:`${f}`,xx,y+h+18,"#5c6b78",10,"center")})}
+function drawComponents(){
+  const x=55,y=45,w=W-110,h=H*.36;axes(x,y,w,h);
+  const bands=[
+    ["drift",1,10,"#c97a2a","Bazal kayma <10 Hz"],
+    ["mains",45,65,"#b43b47","50/60 Hz"],
+    ["dsap",200,2500,"#2f7d52","DSAP ana bileşenleri"],
+    ["hf",10000,100000,"#2f6fbd","HF gürültü >10 kHz"]
+  ];
+  bands.forEach(([key,a,b,c,label],i)=>{const active=mode==="all"||mode===key,xa=fx(a,x,w),xb=fx(b,x,w);ctx.globalAlpha=active?1:.18;ctx.fillStyle=c;ctx.fillRect(xa,y+18+i*25,Math.max(4,xb-xa),16);text(label,xa+4,y+30+i*25,"#16232c",10);ctx.globalAlpha=1});
+  const fns={all:raw,drift,mains,dsap:t=>snap(t,.72,1),hf};
+  scope(25,H*.50,W-50,H*.43,fns[mode]||raw,"#69dfa0",mode==="all"?"AYNI HAM KAYIT · bütün bileşenler birlikte":`İZOLE BİLEŞEN · ${mode}`);
+}
+function passStrength(f){const rise=1/(1+Math.pow(lff/f,4)),fall=1/(1+Math.pow(f/hff,4));return Math.sqrt(rise*fall)}
+function drawPassband(overlay=false){
+  const x=55,y=38,w=W-110,h=H*.32;axes(x,y,w,h);const pts=[];
+  for(let i=0;i<=500;i++){const f=Math.pow(10,5*i/500);pts.push([fx(f,x,w),y+h-passStrength(f)*(h-15)])}line(pts,"#2f6fbd",3);
+  ctx.strokeStyle="#b43b47";ctx.setLineDash([5,4]);[lff,hff].forEach(f=>{const xx=fx(f,x,w);ctx.beginPath();ctx.moveTo(xx,y);ctx.lineTo(xx,y+h);ctx.stroke()});ctx.setLineDash([]);
+  text(`LFF ${lff} Hz`,fx(lff,x,w)+4,y+15,"#b43b47",10);text(`HFF ${hff>=1000?(hff/1000).toFixed(1)+" kHz":hff+" Hz"}`,fx(hff,x,w)-4,y+15,"#b43b47",10,"right");
+  const sy=H*.43,sh=H*.48;
+  if(overlay){
+    grid(25,sy,W-50,sh);const ref=[],sel=[];
+    for(let i=0;i<=700;i++){const t=i/700;ref.push([25+(W-50)*t,sy+sh/2-filtered(t,20,2000)*sh*.38]);sel.push([25+(W-50)*t,sy+sh/2-filtered(t,lff,hff)*sh*.38])}
+    line(ref,"#ffc05c",2,[7,5]);line(sel,"#69dfa0",2);text("KESİKLİ: standart 20 Hz–2 kHz",36,sy+18,"#ffc05c",10);text("DÜZ: seçilen filtre",36,sy+35,"#69dfa0",10);
+  }else{
+    grid(25,sy,W-50,sh);const rawPts=[],filPts=[];
+    for(let i=0;i<=700;i++){const t=i/700;rawPts.push([25+(W-50)*t,sy+sh/2-raw(t)*sh*.30]);filPts.push([25+(W-50)*t,sy+sh/2-filtered(t)*sh*.38])}
+    const response=signalType==="motor"?"BKAP":"SNAP";
+    line(rawPts,"#ffc05c",1.7,[6,5]);line(filPts,"#69dfa0",2);text(`KESİKLİ: ham ${response}`,36,sy+18,"#ffc05c",10);text(`DÜZ: filtrelenmiş ${response}`,36,sy+35,"#69dfa0",10);
+  }
+}
+function setStat(i,label,value){labels[i].textContent=label;values[i].textContent=value}
+function update(){
+  if(lffSlider){lff=Number(lffSlider.value);lffVal.textContent=`${lff} Hz`}
+  if(hffSlider){hff=Number(hffSlider.value);hffVal.textContent=hff>=1000?`${(hff/1000).toFixed(1)} kHz`:`${hff} Hz`}
+  if(STEP==="components"){
+    const info={
+      all:["Tüm ham kayıt","1 Hz–30 kHz","Bileşik iz","Henüz uygulanmadı","Ham kayıt, hedef yanıt ile istenmeyen bileşenleri aynı anda taşır. Önce hangi frekansın hangi görünümü oluşturduğunu ayırın."],
+      drift:["Bazal kayma","<10 Hz","Yavaş taban gezinmesi","LFF etkiler","Alçak kesim filtresi yükseltildiğinde yavaş bazal bileşenler azalır; ancak hedef potansiyelin düşük frekans içeriği de değişir."],
+      mains:["Şebeke gürültüsü","50/60 Hz","Periyodik sinüs","Empedans/CMRR önce","50/60 Hz yalnız filtre sorunu değildir. Elektrot empedansı ve ortak mod zinciri düzeltilmeden filtreyle bastırmak hedef yanıtı da değiştirir."],
+      dsap:["Hedef DSAP","≈200 Hz–2.5 kHz","Hızlı çok fazlı yanıt","Bant içinde korunmalı","DSAP geniş bir frekans bandı taşır; dar bir bant hedef yanıtın amplitüd ve süresini değiştirir."],
+      hf:["Yüksek frekans gürültüsü",">10 kHz","İnce hızlı titreşim","HFF etkiler","Yüksek kesim filtresi HF gürültüyü azaltır; fazla düşürülürse DSAP'ın hızlı bileşenleri ve amplitüdü de azalır."]
+    }[mode];for(let i=0;i<4;i++)values[i].textContent=info[i];mechNote.innerHTML=`<b>Kitap mesajı:</b> ${info[4]}`;
+  }else{
+    const sensoryAmp=ampFromHff(hff),motorAmp=8*(.88+.12*clamp(Math.log(Math.max(hff,500)/500)/Math.log(20),0,1)),dur=durFromLff(lff),snr=hff>6000?"daha fazla HF":hff<800?"temiz fakat atenüe":"uygun";
+    if(STEP==="passband"){
+      setStat(0,"Alçak kesim (LFF)",`${lff} Hz`);setStat(1,"Yüksek kesim (HFF)",hff>=1000?`${(hff/1000).toFixed(1)} kHz`:`${hff} Hz`);
+      if(signalType==="motor"){
+        setStat(2,"BKAP amplitüdü",`${motorAmp.toFixed(1)} mV`);setStat(3,"Kayıt / ölçek","Motor · 2 ms/div");
+        scopeCalibration.textContent="Sensitivite 2 mV/div · Sweep 2 ms/div";
+        mechNote.innerHTML="<b>Motor kayıt:</b> BKAP, kas üzerinden ayrı elektrot geometrisiyle kaydedilir. 10 Hz–10 kHz preset, geniş motor yanıtı korur; bu işlem bir SNAP'ı BKAP'a dönüştürmez.";
+      }else{
+        setStat(2,"SNAP amplitüdü",`${sensoryAmp.toFixed(0)} µV`);setStat(3,"Kayıt / ölçek","Duysal · 1 ms/div");
+        scopeCalibration.textContent="Sensitivite 10 µV/div · Sweep 1 ms/div";
+        mechNote.innerHTML="<b>Duysal kayıt:</b> SNAP, sinir üzerinden ayrı elektrot geometrisiyle kaydedilir. 20 Hz–2 kHz preset küçük ve hızlı yanıt için uygun başlangıç ayarıdır; motor kaydın ölçeği burada kullanılamaz.";
+      }
+      window.__filterPresetState={signalType,lff,hff,response:signalType==="motor"?"BKAP":"SNAP",unit:signalType==="motor"?"mV":"µV",calibration:scopeCalibration.textContent,snr,durationFactor:dur};
+    }else{
+      setStat(0,"Standart amplitüd","30 µV");setStat(1,"Seçilen amplitüd",`${sensoryAmp.toFixed(0)} µV`);setStat(2,"Amplitüd farkı",`${sensoryAmp-30>=0?"+":""}${(sensoryAmp-30).toFixed(0)} µV`);setStat(3,"Süre değişimi",`${dur.toFixed(2)}×`);
+      mechNote.innerHTML=hff<=600?"<b>:</b> HFF 2 kHz'den 0.5 kHz'ye düşünce yüksek frekanslı SNAP bileşenleri atenüe olur; amplitüd 30 µV'den 16 µV'ye iner.":lff<5?"<b>Düşük LFF:</b> daha fazla düşük frekans bileşeni geçer; potansiyel süresi uzar.":"<b>Standart ayar:</b> seçilen kayıt, 20 Hz–2 kHz referansıyla örtüşür.";
+    }
+  }
+}
+function applyMode(next){
+  mode=next;signalType=next;document.querySelectorAll(".mbtn").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));
+  if(STEP==="passband"){if(mode==="motor"){lff=10;hff=10000}else{lff=20;hff=2000}}
+  if(STEP==="tradeoff"){if(mode==="hff500"){lff=20;hff=500}else if(mode==="standard"){lff=20;hff=2000}else{lff=2;hff=2000}}
+  if(lffSlider)lffSlider.value=lff;if(hffSlider)hffSlider.value=hff;update();
+}
+modeToggle.addEventListener("click",e=>{const b=e.target.closest(".mbtn");if(b)applyMode(b.dataset.mode)});
+[lffSlider,hffSlider].filter(Boolean).forEach(s=>s.addEventListener("input",update));
+function draw(){ctx.clearRect(0,0,W,H);ctx.fillStyle="#fcfdfe";ctx.fillRect(0,0,W,H);if(STEP==="components")drawComponents();else drawPassband(STEP==="tradeoff");requestAnimationFrame(draw)}
+applyMode(mode);requestAnimationFrame(draw);
+
+</script>
+<script data-standard-nav-v3>
+document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase();const a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});
+</script>
+</body>
+</html>

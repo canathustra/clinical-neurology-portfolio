@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dirsek Pozisyonu ve Ulnar Sinir Uzunluğu</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.badge{display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border-radius:999px;background:#e6f7ec;color:var(--green);border:1px solid #c8e8d3;font-size:13px;font-weight:700;text-transform:none;letter-spacing:0;}
+.badge.warn{background:#fbf0de;color:var(--amber);border-color:#f0dfc0;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+.legend{flex:none;display:flex;gap:18px;padding:8px 16px;background:#f4f7f9;font-size:12px;font-weight:700;color:#5c6b78;border-top:1px solid var(--line);flex-wrap:wrap;}
+.legend span{display:flex;align-items:center;gap:6px;}
+.legend i{width:16px;height:2px;display:inline-block;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:11px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:14.5px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:16px;font-variant-numeric:tabular-nums;}
+.badge-row{display:flex;flex-direction:column;gap:6px;padding:10px 13px;background:#f3f6f8;border:1px solid var(--line);}
+.badge-row .lbl{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.badge-row b{font-size:14.5px;font-weight:800;}
+.badge-row b.ok{color:var(--green);}
+.badge-row b.bad{color:var(--red);}
+.note-box{padding:12px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:13.5px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;align-items:center;gap:16px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+.slider-row span{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+input[type="range"]{flex:1;accent-color:var(--cyan);}
+.pos-readout{font-size:16px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:150px;text-align:right;}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+
+/* standard-nav-v3 */
+.bottom-bar{flex:none;height:56px;display:flex!important;align-items:stretch!important;gap:1px!important;background:#d5dde4!important;border-top:1px solid #d5dde4!important}.bottom-bar .fkey{flex:1!important;background:#e7edf3!important;color:#16232c!important;text-decoration:none!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;padding:0 12px!important;font:800 13px/1 "Segoe UI",Arial,sans-serif!important}.bottom-bar .fkey span{color:#0f7a95!important;font-size:15px!important}.bottom-bar .fkey b{color:#16232c!important;font-size:13px!important}.bottom-bar .fkey:hover,.bottom-bar .fkey:focus-visible{background:#dce8f0!important;outline:none!important}
+
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Ekstremite Pozisyonu ve Mesafe Ölçümü</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">1 / 1 — Dirsek Pozisyonu</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>Ulnar Sinir — Dirsek Üstü / Dirsek Altı (bkz. Şekil 8.32)</span><span class="badge" id="stateBadge">Ekstansiyon</span></div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div>
+<div class="legend">
+<span><i style="background:#2f7d52;"></i>Ölçülen yüzey mesafesi</span>
+<span><i style="background:#c97a2a;"></i>Gerçek sinir yolu (gevşek/fazla ise dalgalı)</span>
+</div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Okuma</span></div>
+<div class="side-body">
+<div class="stat-row"><span>Ölçülen mesafe</span><b id="measOut">9.0 cm</b></div>
+<div class="stat-row"><span>Gerçek sinir uzunluğu</span><b>10.0 cm</b></div>
+<div class="stat-row"><span>Hesaplanan İH</span><b id="cvOut">50 m/s</b></div>
+<div class="stat-row"><span>Gerçek İH</span><b>55 m/s</b></div>
+<div class="badge-row"><span class="lbl">Durum</span><b id="verdictOut" class="bad">YAPAY YAVAŞLAMA</b></div>
+<div class="note-box" id="mechNote"></div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="slider-row">
+<span>Ekstansiyon</span>
+<input id="flexSlider" type="range" min="0" max="100" step="1" value="0" aria-label="Dirsek fleksiyonu">
+<span>Fleksiyon</span>
+</div>
+<div class="pos-readout" id="posReadout">Tam Ekstansiyon</div>
+</footer>
+
+<div class="bottom-bar" aria-label="Standart sunum gezinmesi">
+<a class="fkey" href="index.html"><span>F1</span><b>Önceki</b></a>
+<a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+<a class="fkey" href="diger-sinirler-caliper.html"><span>F3</span><b>Sonraki</b></a>
+</div>
+
+</div>
+
+<script>
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const stateBadge=document.getElementById("stateBadge");
+const measOut=document.getElementById("measOut");
+const cvOut=document.getElementById("cvOut");
+const verdictOut=document.getElementById("verdictOut");
+const mechNote=document.getElementById("mechNote");
+const flexSlider=document.getElementById("flexSlider");
+const posReadout=document.getElementById("posReadout");
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(240,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(()=>{resizeCanvas();draw();}).observe(stageWrap);
+resizeCanvas();
+
+// Anchored to Fig. 8.32: surface distance measures 9 cm with the elbow extended and
+// 10 cm with the elbow flexed, because the ulnar nerve is slack/redundant when
+// extended (its true length, ~10 cm, is not captured by a straight surface reading).
+// True conduction time across this fixed-length segment does not change with position;
+// using the wrong (shorter, extended-position) distance with that fixed time yields an
+// artifactually slow calculated CV.
+const TRUE_LEN_CM=10.0, TRUE_CV=55;
+const TRUE_TIME_MS = TRUE_LEN_CM*10/TRUE_CV;
+function measuredDist(flexPct){ return 9.0 + (10.0-9.0)*(flexPct/100); }
+
+let flexPct=0;
+const startTime=performance.now();
+
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+function updateStatics(){
+  const meas=measuredDist(flexPct);
+  const cv = meas*10/TRUE_TIME_MS;
+  measOut.textContent=`${meas.toFixed(1)} cm`;
+  cvOut.textContent=`${cv.toFixed(0)} m/s`;
+  posReadout.textContent = flexPct<15?"Tam Ekstansiyon" : flexPct>85?"Tam Fleksiyon" : `%${flexPct} Fleksiyon`;
+
+  const flexed = flexPct>60;
+  stateBadge.textContent = flexed?"Fleksiyon":"Ekstansiyon";
+  stateBadge.className = flexed?"badge":"badge warn";
+
+  if(flexed){
+    verdictOut.textContent="GEÇERLİ ÖLÇÜM"; verdictOut.className="ok";
+    mechNote.innerHTML=`<b>Fleksiyonda:</b> Ölçülen mesafe (${meas.toFixed(1)} cm) gerçek sinir uzunluğuna (10 cm) yakın — İH doğru hesaplanır (${cv.toFixed(0)} m/s ≈ gerçek 55 m/s).`;
+  } else {
+    verdictOut.textContent="YAPAY YAVAŞLAMA"; verdictOut.className="bad";
+    mechNote.innerHTML=`<b>Ekstansiyonda:</b> Sinir gevşek/fazladır — ölçülen mesafe (${meas.toFixed(1)} cm) gerçek uzunluğun (10 cm) altında kalır. Aynı iletim süresiyle hesaplanan İH (${cv.toFixed(0)} m/s), gerçek değerden (55 m/s) yapay olarak <b>yavaş</b> çıkar.`;
+  }
+}
+
+function drawArm(x0,y0,w,h){
+  const elbowX=x0+w*0.42, elbowY=y0+h*0.5;
+  const upperLen=Math.min(w,h)*0.34, forearmLen=Math.min(w,h)*0.34;
+
+  const upperEndX=elbowX, upperEndY=elbowY-upperLen;
+
+  const bendDeg=90*(flexPct/100);
+  const bendRad=bendDeg*Math.PI/180;
+  const forearmEndX=elbowX+forearmLen*Math.sin(bendRad);
+  const forearmEndY=elbowY+forearmLen*Math.cos(bendRad);
+
+  ctx.strokeStyle="#f2d9c4"; ctx.lineWidth=Math.max(28,w*0.05); ctx.lineCap="round";
+  ctx.beginPath(); ctx.moveTo(upperEndX,upperEndY); ctx.lineTo(elbowX,elbowY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(elbowX,elbowY); ctx.lineTo(forearmEndX,forearmEndY); ctx.stroke();
+  ctx.lineCap="butt";
+
+  ctx.fillStyle="#5c6b78"; ctx.font="700 "+Math.max(10,w*0.014)+"px Inter, sans-serif";
+  ctx.textAlign="center";
+  ctx.fillText("Üst Kol",(upperEndX+elbowX)/2-24,(upperEndY+elbowY)/2);
+  ctx.fillText("Önkol",(elbowX+forearmEndX)/2+ (flexPct>40?0:32),(elbowY+forearmEndY)/2 - (flexPct>40?18:0));
+
+  function ptAlong(x1,y1,x2,y2,frac){ return [x1+(x2-x1)*frac, y1+(y2-y1)*frac]; }
+  const [aboveX,aboveY]=ptAlong(elbowX,elbowY,upperEndX,upperEndY,0.45);
+  const [belowX,belowY]=ptAlong(elbowX,elbowY,forearmEndX,forearmEndY,0.45);
+
+  const midX=(aboveX+belowX)/2, midY=(aboveY+belowY)/2;
+  const bulgeAmt=(flexPct/100)*Math.min(w,h)*0.1;
+  const dx=belowX-aboveX, dy=belowY-aboveY;
+  const len=Math.max(1,Math.hypot(dx,dy));
+  const nx=-dy/len, ny=dx/len;
+  const ctrlX=midX+nx*bulgeAmt, ctrlY=midY+ny*bulgeAmt;
+
+  ctx.strokeStyle="#2f7d52"; ctx.lineWidth=2.6;
+  ctx.beginPath(); ctx.moveTo(aboveX,aboveY); ctx.quadraticCurveTo(ctrlX,ctrlY,belowX,belowY); ctx.stroke();
+
+  const waveAmp=(1-flexPct/100)*Math.min(w,h)*0.05;
+  ctx.strokeStyle="#c97a2a"; ctx.lineWidth=2;
+  ctx.beginPath();
+  const N=24;
+  for(let i=0;i<=N;i++){
+    const t=i/N;
+    const bx=aboveX+(belowX-aboveX)*t, by=aboveY+(belowY-aboveY)*t;
+    const wobble=Math.sin(t*Math.PI*3)*waveAmp;
+    const px=bx+nx*wobble*-1, py=by+ny*wobble*-1;
+    if(i===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+  }
+  ctx.stroke();
+
+  ctx.fillStyle="#b43b47";
+  ctx.beginPath(); ctx.arc(aboveX,aboveY,6,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(belowX,belowY,6,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle="#16232c"; ctx.font="700 "+Math.max(9,w*0.013)+"px Inter, sans-serif";
+  ctx.fillText("Dirsek Üstü",aboveX,aboveY-14);
+  ctx.fillText("Dirsek Altı",belowX,belowY+22);
+  ctx.textAlign="left";
+}
+
+function draw(){
+  const W=cssW,H=cssH;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fcfdfe"; ctx.fillRect(0,0,W,H);
+  drawArm(0,0,W,H);
+
+  ctx.fillStyle="#5c6b78"; ctx.font="700 "+Math.max(10,W*0.013)+"px Inter, sans-serif";
+  ctx.textAlign="left";
+  ctx.fillText(`Ölçülen: ${measuredDist(flexPct).toFixed(1)} cm`,W*0.04,H*0.94);
+}
+
+function setFlex(v){
+  flexPct=Math.max(0,Math.min(100,Math.round(v)));
+  flexSlider.value=flexPct;
+  updateStatics(); draw();
+}
+flexSlider.addEventListener("input",e=>{ setFlex(Number(e.target.value)); });
+
+setFlex(0);
+draw();
+</script>
+<script data-standard-nav-v3>
+document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase();const a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});
+</script>
+</body>
+</html>

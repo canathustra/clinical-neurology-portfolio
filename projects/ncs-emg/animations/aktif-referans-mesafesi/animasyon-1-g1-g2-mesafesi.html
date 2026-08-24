@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>G1 ve G2 aynı anda aktifse çıkarma SNAP'ı iptal eder</title>
+<style>
+:root{--bg:#eef1f4;--paper:#fff;--head:#e7edf3;--line:#d5dde4;--ink:#16232c;--muted:#596a75;--cyan:#0f7a95;--blue:#6bbcff;--green:#5de1a0;--amber:#ffd05b;--red:#ff7280;--scope:#03110c;--grid:#12392b}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{display:grid;place-items:center;padding:14px;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,Arial,sans-serif}
+button,input{font:inherit}.app{width:min(calc(100vw - 28px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);display:grid;grid-template-rows:50px 38px minmax(0,1fr) 106px 56px;overflow:hidden;background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25)}
+.titlebar,.topicbar{display:flex;align-items:center;justify-content:space-between;gap:14px}.titlebar{padding:0 18px;background:linear-gradient(180deg,#fff,#eef1f4);border-bottom:1px solid var(--line)}
+.title-left{min-width:0;display:flex;align-items:center;gap:10px}.dot{width:10px;height:10px;border-radius:50%;background:#2f7d52;box-shadow:0 0 6px rgba(47,125,82,.5)}h1{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:18px;font-weight:800}.lab-badge{flex:none;padding:7px 11px;border:1px solid #9bb9c6;background:#f7fbfc;color:#14576c;font:800 11px/1 Consolas,monospace;letter-spacing:.05em}
+.topicbar{padding:0 18px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px}.topicbar b{color:#0d6d87}.topicbar .fixed{color:var(--muted)}
+.workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:12px;padding:12px}.scope{position:relative;min-width:0;min-height:0;overflow:hidden;background:var(--scope);border:1px solid #19382e}.scope canvas{width:100%;height:100%;display:block}.mode-badge{position:absolute;right:12px;bottom:10px;padding:6px 9px;border:1px solid #bd9b25;background:rgba(36,30,0,.93);color:#ffe38a;font:800 10px/1 Consolas,monospace;letter-spacing:.03em}
+.side{min-width:0;min-height:0;display:grid;grid-template-rows:34px 258px minmax(0,1fr);overflow:hidden;background:#fff;border:1px solid var(--line)}.side-head{display:flex;align-items:center;padding:0 12px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px;font-weight:850;letter-spacing:.05em;text-transform:uppercase;color:#475762}
+.book{min-height:0;display:grid;place-items:center;overflow:hidden;padding:7px 9px;border-bottom:1px solid var(--line);background:#fff}.book img{display:block;width:auto;height:230px;max-width:100%;object-fit:contain}.readout{min-height:0;display:grid;align-content:start;gap:5px;padding:7px 10px;background:#fff}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:5px}.metric{min-height:42px;padding:5px 7px;border:1px solid #cbd6de;background:#f8fafb}.metric span{display:block;margin-bottom:2px;color:#53626d;font-size:8.5px;font-weight:850;text-transform:uppercase}.metric strong{font-size:13.5px;font-variant-numeric:tabular-nums}
+.verdict{padding:5px 7px;border-left:4px solid #2f7d52;background:#edf7f1}.verdict.warn{border-color:#c97a2a;background:#fff7e9}.verdict.bad{border-color:#b43b47;background:#fff0f2}.verdict span{display:block;margin-bottom:2px;color:#53626d;font-size:8.5px;font-weight:850;text-transform:uppercase}.verdict strong{font-size:11.2px;line-height:1.2}.logic,.source-note{margin:0;color:#43525e;font-size:9.15px;line-height:1.22}.logic b{color:#006b85}.source-note{padding-top:4px;border-top:1px solid var(--line)}.source-note a{color:#0f7a95;text-decoration:none}
+.controls{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:12px;align-items:stretch;padding:10px 18px;background:#fff;border-top:1px solid var(--line)}.control{display:grid;grid-template-rows:auto 1fr auto;gap:7px;padding:0 10px;border:1px solid #cbd6de;background:#f8fafb}.control label{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px;color:#34444f;font-size:12px;font-weight:800}.control output{color:#006b85;font-size:14px;font-variant-numeric:tabular-nums}.control input{width:100%;accent-color:#177b96}.marks{display:flex;justify-content:space-between;padding-bottom:7px;color:#5e6d78;font-size:9px}.actions{display:grid;grid-template-rows:1fr 1fr;gap:7px}.scan{border:0;background:#174c5b;color:#fff;font:800 11.5px/1.2 "Segoe UI",Arial,sans-serif;cursor:pointer}.scan.secondary{background:#49636d}.scan:hover,.scan:focus-visible{background:#0f6177;outline:2px solid #79b9cc;outline-offset:2px}
+.bottom-bar{height:56px;display:flex;align-items:stretch;gap:1px;background:#d5dde4;border-top:1px solid #d5dde4}.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:#e7edf3;color:#16232c;text-decoration:none;font:800 13px/1 "Segoe UI",Arial,sans-serif}.fkey span{color:#0f7a95;font-size:15px}.fkey:hover,.fkey:focus-visible{background:#dce8f0;outline:none}
+@media(max-width:1000px){body{padding:0}.app{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:48px 34px minmax(0,1fr) 130px 52px}.workspace{grid-template-columns:1fr;padding:8px}.side{display:none}.controls{grid-template-columns:minmax(0,1fr) 150px;padding:8px}.titlebar{padding:0 10px}h1{font-size:15px}.topicbar{padding:0 10px}.fixed{display:none}}
+</style>
+</head>
+<body>
+<main class="app" aria-labelledby="lab-title">
+  <div class="titlebar"><div class="title-left"><span class="dot"></span><h1 id="lab-title">G1 ve G2 aynı anda aktifse çıkarma SNAP'ı iptal eder</h1></div><div class="lab-badge">SERBEST LABORATUVAR</div></div>
+  <div class="topicbar"><div>Aynı depolarize segment önce G1, sonra G2 altından geçer</div><div class="fixed">Sabit: gerçek sinir yanıtı · İH 55 m/s · stimulus · ekran ayarları</div></div>
+  <section class="workspace">
+    <div class="scope"><canvas id="scopeCanvas" aria-label="G1 ve G2 ham potansiyelleri ile diferansiyel G1 eksi G2 SNAP kaydının elektrot aralığına göre değiştiği interaktif NCS laboratuvarı"></canvas><div class="mode-badge" id="modeBadge"></div></div>
+    <aside class="side">
+      <div class="side-head">Gerçek kayıt · </div>
+      <div class="book"><img id="bookFigure" src="../figures/source-v3/fig_8_31_g1_g2_distance_clean.png" alt="G1-G2 mesafesi 1,0 cm iken 14 mikrovolt, 2,5 cm iken 25 mikrovolt ve 4,0 cm iken 28 mikrovolt SNAP"></div>
+      <div class="readout">
+        <div class="metrics">
+          <div class="metric"><span>G1–G2 mesafesi</span><strong id="distanceText"></strong></div>
+          <div class="metric"><span>G2 zaman gecikmesi</span><strong id="delayText"></strong></div>
+          <div class="metric"><span>Kayıt amplitüdü</span><strong id="amplitudeText"></strong></div>
+          <div class="metric"><span>İptal oranı</span><strong id="cancelText"></strong></div>
+        </div>
+        <div class="verdict" id="verdictBox"><span>Teknik karar</span><strong id="verdictText"></strong></div>
+        <p class="logic" id="logicText"></p>
+        <p class="source-note"><b>Kitap kaydı:</b> G1–G2 aralığı 1,0 / 2,5 / 4,0 cm olduğunda amplitüd 14 / 25 / 28 µV’tur; önerilen aralık 3–4 cm’dir.</p>
+      </div>
+    </aside>
+  </section>
+  <section class="controls">
+    <div class="control"><label for="distance"><span>G1–G2 interelektrot mesafesi</span><output id="distanceOutput"></output></label><input id="distance" type="range" min="1" max="5" step="0.1" value="3.5"><div class="marks"><span>1 cm · belirgin iptal</span><span>2,5 cm</span><span>3–4 cm · önerilen</span><span>5 cm · plato</span></div></div>
+    <div class="actions">
+      <button class="scan" id="stimulateButton" type="button">⚡ Uyar ve izleri oluştur</button>
+      <button class="scan secondary" id="compareButton" type="button">1 ↔ 4 cm karşılaştır</button>
+    </div>
+  </section>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="index.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="../ekstremite-mesafe/konu-girisi.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const canvas=document.getElementById("scopeCanvas"),ctx=canvas.getContext("2d");
+const slider=document.getElementById("distance"),distanceOutput=document.getElementById("distanceOutput"),stimulateButton=document.getElementById("stimulateButton"),compareButton=document.getElementById("compareButton");
+const distanceText=document.getElementById("distanceText"),delayText=document.getElementById("delayText"),amplitudeText=document.getElementById("amplitudeText"),cancelText=document.getElementById("cancelText");
+const verdictBox=document.getElementById("verdictBox"),verdictText=document.getElementById("verdictText"),logicText=document.getElementById("logicText"),modeBadge=document.getElementById("modeBadge");
+const velocityMs=55,depolarizedSegmentCm=3;
+let distance=3.5,autoCompare=false,compareStart=0,phase=0,traceReveal=0;const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function gauss(x,m,s){return Math.exp(-.5*((x-m)/s)**2)}
+function fmt1(v){return v.toFixed(1).replace(".",",")}function fmt2(v){return v.toFixed(2).replace(".",",")}
+function amplitudeAt(d){if(d<=1)return 14;if(d<=2.5)return 14+(d-1)/1.5*11;if(d<=4)return 25+(d-2.5)/1.5*3;return 28}
+function model(){
+  const amplitude=amplitudeAt(distance),delayMs=distance*10/velocityMs,cancelPct=(1-amplitude/28)*100,overlapPct=clamp((depolarizedSegmentCm-distance)/depolarizedSegmentCm*100,0,100);
+  const state={
+    variable:"g1_g2_interelectrode_distance_cm",g1g2DistanceCm:Number(distance.toFixed(1)),
+    sensoryConductionVelocityMs:velocityMs,conductionVelocityFixed:true,trueNerveResponseFixed:true,stimulusFixed:true,displaySettingsFixed:true,
+    g2DelayMs:Number(delayMs.toFixed(2)),recordedAmplitudeUv:Number(amplitude.toFixed(1)),cancellationPct:Number(cancelPct.toFixed(1)),simultaneousActivationOverlapPct:Number(overlapPct.toFixed(1)),
+    g1RawSignalVisible:traceReveal>0,g2RawSignalVisible:traceReveal>0,differentialOutputVisible:traceReveal>0,
+    traceInduced:traceReveal>=1,traceRevealFraction:Number(traceReveal.toFixed(2)),
+    interpretation:distance<2?"marked_temporal_overlap_and_cancellation":distance<3?"partial_overlap_continue_separation":distance<=4.2?"recommended_3_to_4_cm_separation":"amplitude_plateau_no_additional_gain",
+    teachingModel:true,normativeThreshold:false,sourceFigure:"Preston_Shapiro_Figures_8_30_and_8_31"
+  };
+  window.__g1g2CancellationState=state;return state;
+}
+function resize(){const r=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);if(canvas.width!==Math.round(r.width*dpr)||canvas.height!==Math.round(r.height*dpr)){canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}return r}
+function text(s,x,y,color="#d9e9e3",size=11,align="left",weight=650){ctx.fillStyle=color;ctx.font=`${weight} ${size}px "Segoe UI",Arial,sans-serif`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.textAlign="left"}
+function line(x1,y1,x2,y2,color,width=1,dash=[]){ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore()}
+function grid(x,y,w,h){ctx.fillStyle="#03110c";ctx.fillRect(x,y,w,h);for(let i=0;i<=10;i++){const xx=x+w*i/10;line(xx,y,xx,y+h,"#12392b")}for(let i=0;i<=3;i++){const yy=y+h*i/3;line(x,yy,x+w,yy,"#12392b")}line(x,y+h/2,x+w,y+h/2,"#2b6450")}
+function noise(t){return .014*Math.sin(t*137+phase)+.009*Math.sin(t*277+1.2)+.006*Math.sin(t*451+.4)}
+function fieldPotential(t,on=.34,width=.026){return 1.08*gauss(t,on,width)-.18*gauss(t,on+.075,width*1.8)}
+function rawDiffStats(shift){let min=Infinity,max=-Infinity;for(let i=0;i<=800;i++){const t=i/800,v=fieldPotential(t,.34)-fieldPotential(t,.34+shift);min=Math.min(min,v);max=Math.max(max,v)}return {range:max-min}}
+function drawTrace(x,y,w,h,label,kind,s,color){
+  grid(x,y,w,h);text(label,x+9,y+15,"#a9c5ba",9,"left",800);
+  const shift=s.g2DelayMs/6,amp=s.recordedAmplitudeUv/28,stats=rawDiffStats(shift),pts=[];
+  for(let i=0;i<=700;i++){const t=i/700;let v=0;if(kind==="g1")v=.76*fieldPotential(t,.34);if(kind==="g2")v=.76*fieldPotential(t,.34+shift);if(kind==="out")v=(fieldPotential(t,.34)-fieldPotential(t,.34+shift))/stats.range*1.72*amp;v+=noise(t)*.55;pts.push([x+w*t,y+h/2-v*h*.34])}
+  ctx.save();ctx.globalAlpha=.22;ctx.strokeStyle=color;ctx.lineWidth=1;ctx.beginPath();for(let i=0;i<=700;i++){const t=i/700,py=y+h/2-noise(t)*h*.12;i?ctx.lineTo(x+w*t,py):ctx.moveTo(x+w*t,py)}ctx.stroke();ctx.restore();
+  if(traceReveal>0){ctx.save();ctx.beginPath();ctx.rect(x,y,Math.max(1,w*traceReveal),h);ctx.clip();ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.restore()}
+  else{text("Uyar düğmesine basın",x+w/2,y+h/2+4,"#6f9184",10,"center",800)}
+  const g1x=x+w*.34,g2x=x+w*(.34+shift);if(kind!=="out"){line(g1x,y+18,g1x,y+h-5,"#ffd05b",1,[4,3]);line(g2x,y+18,g2x,y+h-5,"#6bbcff",1,[4,3])}
+  if(kind==="out"&&traceReveal>.82){const bx=x+w*.79,half=Math.max(5,amp*h*.30);line(bx,y+h/2-half,bx,y+h/2+half,color);line(bx-5,y+h/2-half,bx+5,y+h/2-half,color);line(bx-5,y+h/2+half,bx+5,y+h/2+half,color);text(`${fmt1(s.recordedAmplitudeUv)} µV p-p`,bx+8,y+h/2+3,color,9,"left",800)}
+}
+function drawMechanism(W,s){
+  const x=76,y=64,w=W-152,scale=Math.min(95,w/8),g1x=x+w*.48,g2x=g1x+distance*scale;
+  ctx.fillStyle="#17312a";ctx.fillRect(x,y-17,w,54);line(x,y+10,x+w,y+10,"#e3edf0",16);line(x,y+10,x+w,y+10,"#5c746d",2);
+  for(const [px,label,fill] of [[g1x,"G1","#f6f8f9"],[g2x,"G2","#d7e5ea"]]){ctx.fillStyle=fill;ctx.beginPath();ctx.arc(px,y-2,14,Math.PI,0);ctx.fill();text(label,px,y-22,"#fff",10,"center",850)}
+  line(g1x,y-2,g2x,y-2,"#6ee2e8",1);line(g1x,y-7,g1x,y+3,"#6ee2e8");line(g2x,y-7,g2x,y+3,"#6ee2e8");text(`${fmt1(distance)} cm`,(g1x+g2x)/2,y-9,"#72e5e9",9,"center",800);
+  const travel=(phase*.11)%1,segW=depolarizedSegmentCm*scale,segX=x-20+travel*(w+40)-segW/2;ctx.fillStyle="#bd1830";ctx.fillRect(segX,y+1,segW,18);line(segX+segW,y+10,segX+segW+20,y+10,"#6bbcff",2);text("depolarize segment",segX+segW/2,y+34,"#ff9ba4",8,"center",800);
+  const underG1=g1x>=segX&&g1x<=segX+segW,underG2=g2x>=segX&&g2x<=segX+segW;
+  if(underG1){ctx.strokeStyle="#ffd05b";ctx.lineWidth=3;ctx.beginPath();ctx.arc(g1x,y-2,18,Math.PI,0);ctx.stroke()}if(underG2){ctx.strokeStyle="#6bbcff";ctx.lineWidth=3;ctx.beginPath();ctx.arc(g2x,y-2,18,Math.PI,0);ctx.stroke()}
+  const both=underG1&&underG2,overlapPossible=distance<depolarizedSegmentCm;
+  const headline=overlapPossible?(both?"G1 VE G2 ŞİMDİ AYNI ANDA AKTİF → ÇIKARMADA İPTAL":"BU MESAFEDE EŞZAMANLI G1–G2 AKTİVASYON PENCERESİ VAR"):"DEPOLARİZASYON G1 VE G2'YE AYRI ZAMANLARDA ULAŞIYOR";
+  text(headline,W/2,22,overlapPossible?"#ff8a96":"#83e4bc",10,"center",900);
+  text(` mekanizması · İH ${velocityMs} m/s sabit · G2 gecikmesi ${fmt2(s.g2DelayMs)} ms`,W/2,y+52,"#9db8ad",9,"center",750);
+}
+function paint(){
+  const r=resize(),W=r.width,H=r.height,s=model();ctx.clearRect(0,0,W,H);ctx.fillStyle="#03110c";ctx.fillRect(0,0,W,H);
+  drawMechanism(W,s);const traceY=138,gap=6,traceH=(H-traceY-34-gap*2)/3;
+  drawTrace(22,traceY,W-44,traceH,"G1 HAM POTANSİYELİ · önce", "g1",s,"#ffd05b");
+  drawTrace(22,traceY+traceH+gap,W-44,traceH,`G2 HAM POTANSİYELİ · ${fmt2(s.g2DelayMs)} ms sonra`, "g2",s,"#6bbcff");
+  drawTrace(22,traceY+(traceH+gap)*2,W-44,traceH,"DİFERANSİYEL KAYIT · G1 − G2", "out",s,"#5de1a0");
+  distanceOutput.textContent=`${fmt1(distance)} cm · ${fmt1(s.recordedAmplitudeUv)} µV`;distanceText.textContent=`${fmt1(distance)} cm`;delayText.textContent=`${fmt2(s.g2DelayMs)} ms`;amplitudeText.textContent=`${fmt1(s.recordedAmplitudeUv)} µV`;cancelText.textContent=`%${fmt1(s.cancellationPct)}`;
+  verdictBox.className="verdict"+(distance<2?" bad":distance<3?" warn":"");
+  if(distance<2){verdictText.textContent="Belirgin iptal · G1 ve G2 fazla yakın";logicText.innerHTML=`G2 yalnız ${fmt2(s.g2DelayMs)} ms sonra aktif: ham potansiyeller örtüşüyor ve <b>G1 − G2 yalnız ${fmt1(s.recordedAmplitudeUv)} µV</b> kalıyor.`}
+  else if(distance<3){verdictText.textContent="Kısmi iptal · aralığı 3–4 cm'ye çıkar";logicText.innerHTML=`Zamansal ayrım arttı fakat G2 katkısı hâlâ hedef yanıtla örtüşüyor.  2,5 cm kayıt <b>25 µV</b>.`}
+  else if(distance<=4.2){verdictText.textContent="Önerilen 3–4 cm · maksimal ve standardize kayıt";logicText.innerHTML=`G1 ve G2 aynı segmenti eşzamanlı görmüyor. ${fmt1(distance)} cm’de amplitüd <b>${fmt1(s.recordedAmplitudeUv)} µV</b>; iptal minimal.`}
+  else{verdictText.textContent="Amplitüd platosu · daha fazla ayırmak ek kazanç sağlamaz";logicText.innerHTML="4 cm’den sonra amplitüd 28 µV civarında plato yapıyor; standardizasyon için laboratuvar aralığını koru."}
+  modeBadge.textContent=traceReveal===0?"UYAR BEKLENİYOR":distance<2?"AYNI ANDA AKTİF · BELİRGİN İPTAL":distance<3?"KISMİ ZAMANSAL ÖRTÜŞME":distance<=4.2?"3–4 CM · ÖNERİLEN ARALIK":"4 CM ÜZERİ · AMPLİTÜD PLATOSU";
+}
+function render(){
+  paint();
+  phase+=reduceMotion?0:.012;requestAnimationFrame(render);
+}
+slider.addEventListener("input",()=>{autoCompare=false;traceReveal=0;distance=Number(slider.value);stimulateButton.textContent="⚡ Uyar ve izleri oluştur";compareButton.textContent="1 ↔ 4 cm karşılaştır";paint()});
+stimulateButton.addEventListener("click",()=>{autoCompare=false;traceReveal=1;stimulateButton.textContent="↺ Yeniden uyar";paint()});
+compareButton.addEventListener("click",()=>{traceReveal=1;autoCompare=true;compareStart=performance.now();stimulateButton.textContent="↺ Yeniden uyar";compareButton.textContent="Karşılaştırılıyor…";paint()});
+function animate(now){
+  if(autoCompare){const q=(now-compareStart)/6200;if(q>=1){autoCompare=false;distance=3.5;slider.value="3.5";compareButton.textContent="1 ↔ 4 cm karşılaştır"}else{distance=2.5-1.5*Math.cos(q*2*Math.PI);slider.value=distance.toFixed(1)}}
+  requestAnimationFrame(animate);
+}
+render();requestAnimationFrame(animate);
+addEventListener("keydown",e=>{if(e.key==="F1"){e.preventDefault();location.href="index.html"}if(e.key==="F2"){e.preventDefault();location.href="../index.html"}if(e.key==="F3"){e.preventDefault();location.href="../ekstremite-mesafe/index.html"}});
+</script>
+</body>
+</html>

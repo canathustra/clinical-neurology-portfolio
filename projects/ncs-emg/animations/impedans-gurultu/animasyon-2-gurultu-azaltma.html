@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Box 8.3 — Gürültüyü örüntüsüne göre azaltma</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:340px 1fr;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#4a5964;}
+
+.checklist{flex:1;min-height:0;overflow-y:auto;padding:14px;display:grid;gap:9px;align-content:start;}
+.chk-item{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;background:#f3f6f8;border:1px solid var(--line);border-radius:6px;cursor:pointer;user-select:none;}
+.chk-item:hover{border-color:var(--cyan);}
+.chk-item input{margin-top:3px;width:18px;height:18px;accent-color:var(--green);flex:none;}
+.chk-item .txt{font-size:14.5px;font-weight:650;line-height:1.4;color:var(--ink);}
+.chk-item .txt b{color:var(--cyan);}
+.chk-item.on{background:#e9f5ee;border-color:#bfe0cb;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+
+.meterbar{flex:none;display:flex;align-items:center;gap:14px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.meterbar span{font-size:13px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+.meter{position:relative;flex:1;height:18px;border-radius:9px;background:linear-gradient(90deg,#e6f7ec 0%,#fbf0de 55%,#fbe6e7 100%);border:1px solid var(--line2);overflow:hidden;}
+.meter-fill{position:absolute;top:0;right:0;bottom:0;background:rgba(180,59,71,.28);transition:width .25s;}
+.score-readout{font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:110px;text-align:right;}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+
+/* standard-nav-v3 */
+.bottom-bar{flex:none;height:56px;display:flex!important;align-items:stretch!important;gap:1px!important;background:#d5dde4!important;border-top:1px solid #d5dde4!important}.bottom-bar .fkey{flex:1!important;background:#e7edf3!important;color:#16232c!important;text-decoration:none!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;padding:0 12px!important;font:800 13px/1 "Segoe UI",Arial,sans-serif!important}.bottom-bar .fkey span{color:#0f7a95!important;font-size:15px!important}.bottom-bar .fkey b{color:#16232c!important;font-size:13px!important}.bottom-bar .fkey:hover,.bottom-bar .fkey:focus-visible{background:#dce8f0!important;outline:none!important}
+
+
+/* concept-02-box83-book-aligned */
+.app{grid-template-rows:auto auto minmax(0,1fr) 56px}
+.toolbar{padding:9px 18px}
+.workspace{padding:10px;grid-template-columns:350px minmax(0,1fr)}
+.panel-head{padding:8px 14px}
+.checklist{padding:10px;gap:6px;overflow:hidden}
+.chk-item{padding:7px 9px;border-radius:4px}
+.chk-item input{width:16px;height:16px;margin-top:2px}
+.chk-item .txt{font-size:12.5px;line-height:1.25}
+.book-ref{display:grid;grid-template-columns:72px 1fr;gap:8px;align-items:center;margin-top:2px;padding:6px;background:#fff;border:1px solid var(--line)}
+.book-ref img{display:block;width:72px;height:68px;object-fit:contain}
+.book-ref div{font-size:10.5px;line-height:1.25;color:var(--muted)}
+.book-ref b{display:block;color:var(--ink);font-size:11px;margin-bottom:2px}
+.meterbar{display:grid;grid-template-columns:minmax(220px,1.4fr) repeat(3,minmax(110px,.75fr)) 95px;gap:10px;padding:8px 12px;align-items:center}
+.effect-note{font-size:11px;line-height:1.25;color:var(--ink);font-weight:650}
+.effect-note b{color:var(--cyan)}
+.component{min-width:0}.component label{display:flex;justify-content:space-between;gap:7px;margin-bottom:4px;font-size:9.5px;color:var(--muted);font-weight:800;text-transform:uppercase}
+.component-track{height:8px;background:#dbe3e8;border-radius:4px;overflow:hidden}
+.component-fill{height:100%;width:100%;background:var(--red);transition:width .25s,background .25s}
+.score-readout{font-size:15px;min-width:90px}
+
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Elektrot İmpedansı ve Gürültü</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">Kitap sırası — Box 8.3 teknik kontrol zinciri</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>Box 8.3 — adımı tıkla, kayıttaki karşılığını gör</span></div>
+<div class="checklist" id="checklist">
+<label class="chk-item" data-fix="type"><input type="checkbox"><span class="txt">Aktif ve referans elektrot <b>aynı tip</b></span></label>
+<label class="chk-item" data-fix="wires"><input type="checkbox"><span class="txt">Bağlantılar sağlam, <b>yıpranmış/kopuk kablo yok</b></span></label>
+<label class="chk-item" data-fix="clean"><input type="checkbox"><span class="txt">Deri <b>alkol/aseton</b> ile temizlendi</span></label>
+<label class="chk-item" data-fix="gel"><input type="checkbox"><span class="txt"><b>İletken jel</b> uygulandı</span></label>
+<label class="chk-item" data-fix="fix"><input type="checkbox"><span class="txt">Elektrotlar <b>tape/Velcro</b> ile sabitlendi</span></label>
+<label class="chk-item" data-fix="ground"><input type="checkbox"><span class="txt">Toprak, stimülatör ile kayıt <b>arasına</b> yerleştirildi</span></label>
+<label class="chk-item" data-fix="coax"><input type="checkbox"><span class="txt"><b>Koaksiyel</b> kayıt kablosu kullanıldı</span></label>
+<label class="chk-item" data-fix="close"><input type="checkbox"><span class="txt">Elektrotlar birbirine <b>yakın</b> yerleştirildi</span></label>
+
+<div class="book-ref">
+  <img src="../figures/source-v3/fig_8_6_frayed_cable.png" alt=" yıpranmış elektrot kablosu">
+  <div><b>Box 8.3 + </b>Kontrol maddeleri aynı kalır. Her tıklama yalnız toplam gürültüyü değil, hedeflediği teknik örüntüyü azaltır.</div>
+</div>
+
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-head"><span>Aynı kayıt — her müdahaleden sonra</span></div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div>
+<div class="meterbar">
+<div class="effect-note" id="effectNote"><b>Başlangıç:</b> Box 8.3 adımlarını tek tek uygulayın; hangi kayıt örüntüsünün değiştiğini izleyin.</div>
+<div class="component"><label><span>Sürekli 50/60 Hz</span><output id="mainsOut">100%</output></label><div class="component-track"><div class="component-fill" id="mainsFill"></div></div></div>
+<div class="component"><label><span>Kablo geçicileri</span><output id="cableOut">100%</output></label><div class="component-track"><div class="component-fill" id="cableFill"></div></div></div>
+<div class="component"><label><span>Stimulus bağlaşımı</span><output id="stimOut">100%</output></label><div class="component-track"><div class="component-fill" id="stimFill"></div></div></div>
+<div class="score-readout" id="scoreOut">8/8 eksik</div>
+</div>
+</div>
+</div>
+<div class="bottom-bar" aria-label="Standart sunum gezinmesi">
+<a class="fkey" href="60hz-azaltma.html"><span>F1</span><b>Önceki</b></a>
+<a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+<a class="fkey" href="../filtreler/konu-girisi.html"><span>F3</span><b>Sonraki</b></a>
+</div>
+
+</div>
+
+<script>
+
+const checklist=document.getElementById("checklist");
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const scoreOut=document.getElementById("scoreOut");
+const effectNote=document.getElementById("effectNote");
+const mainsFill=document.getElementById("mainsFill"),cableFill=document.getElementById("cableFill"),stimFill=document.getElementById("stimFill");
+const mainsOut=document.getElementById("mainsOut"),cableOut=document.getElementById("cableOut"),stimOut=document.getElementById("stimOut");
+let W=0,H=0,dpr=Math.min(2,window.devicePixelRatio||1),checked=new Set(),lastFix="";
+function resize(){const r=stageWrap.getBoundingClientRect();W=Math.max(500,r.width);H=Math.max(280,r.height);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}
+new ResizeObserver(resize).observe(stageWrap);resize();
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function gauss(x,m,s){const z=(x-m)/s;return Math.exp(-.5*z*z)}
+function pseudo(x){return .5*Math.sin(x*37.1)+.28*Math.sin(x*79.3+1.2)+.15*Math.sin(x*141.7+.4)}
+function dsap(t){return -.12*gauss(t,.43,.009)+.86*gauss(t,.47,.020)-.62*gauss(t,.515,.030)+.16*gauss(t,.59,.055)}
+function components(){
+  let mains=1,cable=1,stim=1,drift=1;
+  if(checked.has("type"))mains*=.65;
+  if(checked.has("wires"))cable*=.12;
+  if(checked.has("clean")){mains*=.60;drift*=.45}
+  if(checked.has("gel")){mains*=.60;drift*=.55}
+  if(checked.has("fix")){cable*=.55;drift*=.35}
+  if(checked.has("ground")){mains*=.80;stim*=.22}
+  if(checked.has("coax")){cable*=.45;stim*=.50}
+  if(checked.has("close"))mains*=.55;
+  return{mains,cable,stim,drift}
+}
+const EFFECTS={
+  type:"Aynı tip elektrotlar, elektrot özelliklerinden doğan giriş farkını azaltır → sürekli 50/60 Hz azalır.",
+  wires:"Sağlam kablo ve bağlantı, aralıklı kesilme ile sivri temas geçicilerini azaltır.",
+  clean:"Deri temizliği empedansı ve yavaş bazal kaymayı azaltır; ortak mod eşleşmesi iyileşir.",
+  gel:"İletken jel elektrot–deri temasını düzeltir → empedans farkı ve 50/60 Hz azalır.",
+  fix:"Elektrotların sabitlenmesi hareketle oluşan bazal kayma ve temas geçicilerini azaltır.",
+  ground:"Toprağın stimülatör ile kayıt arasına yerleştirilmesi stimulusun kayıt devresine bağlaşımını azaltır.",
+  coax:"Koaksiyel geometri elektromanyetik indüksiyon ile sivri stimulus/kablo geçicilerini azaltır.",
+  close:"G1 ve G2 birbirine yaklaştıkça aynı çevresel alanı görür → ortak gürültü daha iyi iptal edilir."
+};
+function color(v){return v<.2?"#2f7d52":v<.55?"#c97a2a":"#b43b47"}
+function updateStatics(){
+  const c=components(),done=checked.size;
+  [[mainsFill,mainsOut,c.mains],[cableFill,cableOut,c.cable],[stimFill,stimOut,c.stim]].forEach(([fill,out,v])=>{fill.style.width=`${Math.round(v*100)}%`;fill.style.background=color(v);out.textContent=`${Math.round(v*100)}%`});
+  scoreOut.textContent=`${8-done}/8 eksik`;
+  effectNote.innerHTML=lastFix?`<b>Son müdahale:</b> ${EFFECTS[lastFix]}`:`<b>Başlangıç:</b> Box 8.3 adımlarını tek tek uygulayın; hangi kayıt örüntüsünün değiştiğini izleyin.`;
+}
+function line(points,color,width=2,dash=[]){ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.restore()}
+function text(s,x,y,color="#b8d1c8",size=11,align="left",weight=700){ctx.fillStyle=color;ctx.font=`${weight} ${size}px Segoe UI`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.textAlign="left"}
+function grid(x,y,w,h){ctx.fillStyle="#061710";ctx.fillRect(x,y,w,h);ctx.strokeStyle="#17392b";for(let i=0;i<=12;i++){const xx=x+w*i/12;ctx.beginPath();ctx.moveTo(xx,y);ctx.lineTo(xx,y+h);ctx.stroke()}for(let i=0;i<=8;i++){const yy=y+h*i/8;ctx.beginPath();ctx.moveTo(x,yy);ctx.lineTo(x+w,yy);ctx.stroke()}ctx.strokeStyle="#2a5945";ctx.beginPath();ctx.moveTo(x,y+h/2);ctx.lineTo(x+w,y+h/2);ctx.stroke()}
+function draw(){
+  const c=components(),x=24,y=36,w=W-48,h=H-65;ctx.clearRect(0,0,W,H);grid(x,y,w,h);
+  const now=performance.now()/1000,pts=[];
+  for(let i=0;i<=800;i++){
+    const t=i/800;
+    const mains=.92*c.mains*Math.sin(2*Math.PI*(6*t+now*.08));
+    const drift=.40*c.drift*Math.sin(2*Math.PI*(.72*t+now*.025));
+    const cable=c.cable*(1.35*gauss(t,.23,.004)-1.05*gauss(t,.245,.013)+1.10*gauss(t,.74,.005)-.85*gauss(t,.755,.016));
+    const stim=c.stim*(1.55*gauss(t,.055,.003)-1.15*gauss(t,.068,.012));
+    const grain=.035*pseudo(t*4+now*.02);
+    const v=clamp(mains+drift+cable+stim+.62*dsap(t)+grain,-1,1);
+    pts.push([x+w*t,y+h/2-v*h*.41]);
+  }
+  line(pts,"#69dfa0",2);
+  text("20 µV/div · 2 ms/div",x+10,y+18);text(`Box 8.3: ${checked.size}/8 uygulandı`,x+w-10,y+18,"#b8d1c8",11,"right");
+  text("stimulus",x+w*.055,y+h-12,"#ff9aa3",10,"center");text("DSAP",x+w*.47,y+h-12,"#ffc05c",10,"center");
+  const clean=c.mains<.22&&c.cable<.18&&c.stim<.2;
+  text(clean?"TEKNİK OLARAK GEÇERLİ KAYIT":"ÖNCE TEKNİK ZİNCİRİ DÜZELT",x+w-10,y+h-12,clean?"#79e3ac":"#ff9aa3",11,"right",800);
+  requestAnimationFrame(draw);
+}
+checklist.addEventListener("change",e=>{
+  const item=e.target.closest(".chk-item");if(!item)return;const key=item.dataset.fix;lastFix=key;
+  if(e.target.checked){checked.add(key);item.classList.add("on")}else{checked.delete(key);item.classList.remove("on")}
+  updateStatics();
+});
+updateStatics();requestAnimationFrame(draw);
+
+</script>
+<script data-standard-nav-v3>
+document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase();const a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});
+</script>
+</body>
+</html>

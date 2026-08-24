@@ -1,0 +1,4393 @@
+{
+  "summary": {
+    "pages": 83,
+    "pagesWithUnder10": 21,
+    "pagesWithUnder11": 33,
+    "lowestMin": 8.5,
+    "lowestMedian": 10.5,
+    "worstPages": [
+      {
+        "number": 43,
+        "type": "animation",
+        "file": "kostimulasyon/animasyon-0-akim-yayilimi.html",
+        "min": 9,
+        "median": 10.5,
+        "under10": 4,
+        "under11": 25,
+        "smallest": [
+          {
+            "size": 9,
+            "text": "Normal bireylerde 0,2 ms uyarıyla 50 mA üzeri akımlar komşu sinir ko-stimülasyonu olasılığını belirg"
+          },
+          {
+            "size": 9,
+            "text": "Kitap ölçütü:"
+          },
+          {
+            "size": 9.5,
+            "text": "Bilekte 87 mA ile 10,4 mV; dirsek altında 37 mA ile 7,5 mV. Kitap, yüksek distal akımın ulnar ve med"
+          },
+          {
+            "size": 9.5,
+            "text": "Kitap kaydı · ulnar motor"
+          },
+          {
+            "size": 10,
+            "text": "aynı ulnar sinir · aynı FDI kaydı · iki uyarım yeri"
+          },
+          {
+            "size": 10,
+            "text": "MODEL:"
+          },
+          {
+            "size": 10,
+            "text": "Kayıt"
+          },
+          {
+            "size": 10,
+            "text": "FDI · G1 SABİT"
+          }
+        ]
+      },
+      {
+        "number": 79,
+        "type": "animation",
+        "file": "ekstremite-morfoloji/animasyon-1-pozisyon-tutarliligi.html",
+        "min": 9,
+        "median": 12,
+        "under10": 7,
+        "under11": 24,
+        "smallest": [
+          {
+            "size": 9,
+            "text": "ULNAR MOTOR · ADM · ÖĞRETİM MODELİ"
+          },
+          {
+            "size": 9,
+            "text": "negatif ↑ · 2 mV/div · 2 ms/div"
+          },
+          {
+            "size": 9,
+            "text": "aynı-pozisyon referansı"
+          },
+          {
+            "size": 9,
+            "text": "bu oturum"
+          },
+          {
+            "size": 9,
+            "text": "Dirsek-altı BKAP"
+          },
+          {
+            "size": 9,
+            "text": "Dirsek-üstü BKAP"
+          },
+          {
+            "size": 9,
+            "text": "Okunan dirsek İH"
+          },
+          {
+            "size": 10,
+            "text": "TUTARLI"
+          }
+        ]
+      },
+      {
+        "number": 40,
+        "type": "animation",
+        "file": "supramaksimal/animasyon-2-amplitud-farki.html",
+        "min": 9,
+        "median": 11,
+        "under10": 4,
+        "under11": 23,
+        "smallest": [
+          {
+            "size": 9,
+            "text": "Bu model yalnız submaksimal mekanizmayı izole eder.  örüntüsü tek başına tanı değildir; gerçek ileti"
+          },
+          {
+            "size": 9,
+            "text": "Sınır:"
+          },
+          {
+            "size": 9.5,
+            "text": "A: bilek 10,7; dirsek altı 6,1 mV. B: bilek 6,1; dirsek altı 10,7 mV. Kitap her iki örüntünün de bir"
+          },
+          {
+            "size": 9.5,
+            "text": "Kitap kaydı · ulnar motor"
+          },
+          {
+            "size": 10,
+            "text": "normal · gerçek maksimal BKAP 10,7 mV"
+          },
+          {
+            "size": 10,
+            "text": "GERÇEK SİNİR:"
+          },
+          {
+            "size": 10,
+            "text": "Sinir fizyolojisi"
+          },
+          {
+            "size": 10,
+            "text": "NORMAL · SABİT"
+          }
+        ]
+      },
+      {
+        "number": 50,
+        "type": "animation",
+        "file": "motor-elektrot-yerlesimi/animasyon-0-belly-tendon-montaj.html",
+        "min": 9,
+        "median": 11.5,
+        "under10": 9,
+        "under11": 16,
+        "smallest": [
+          {
+            "size": 9,
+            "text": "G1 girişi"
+          },
+          {
+            "size": 9,
+            "text": "G2 girişi"
+          },
+          {
+            "size": 9,
+            "text": "BKAP"
+          },
+          {
+            "size": 9.5,
+            "text": "Temel sonuç"
+          },
+          {
+            "size": 9.5,
+            "text": "Motor son-plak"
+          },
+          {
+            "size": 9.5,
+            "text": "G1 başlangıç negatifliği"
+          },
+          {
+            "size": 9.5,
+            "text": "G1−G2 çıkışı"
+          },
+          {
+            "size": 9.8,
+            "text": "Tendon bölgesinin elektriksel olarak inert olması bir varsayımdır. Özellikle bazı ulnar ve tibial ka"
+          }
+        ]
+      },
+      {
+        "number": 68,
+        "type": "animation",
+        "file": "elektrot-sinir-mesafesi/animasyon-3-yanlis-hiz.html",
+        "min": 8.5,
+        "median": 12,
+        "under10": 13,
+        "under11": 14,
+        "smallest": [
+          {
+            "size": 8.5,
+            "text": "Ölçüm mesafesi"
+          },
+          {
+            "size": 8.5,
+            "text": "Ölçülen onset"
+          },
+          {
+            "size": 8.5,
+            "text": "Hesaplanan İH"
+          },
+          {
+            "size": 8.5,
+            "text": "Yalancı artış"
+          },
+          {
+            "size": 8.5,
+            "text": "Teknik karar"
+          },
+          {
+            "size": 9,
+            "text": "Sinir üzerinde"
+          },
+          {
+            "size": 9,
+            "text": "1 cm lateral"
+          },
+          {
+            "size": 9,
+            "text": "2 cm lateral"
+          }
+        ]
+      },
+      {
+        "number": 71,
+        "type": "animation",
+        "file": "aktif-referans-mesafesi/animasyon-1-g1-g2-mesafesi.html",
+        "min": 8.5,
+        "median": 12,
+        "under10": 13,
+        "under11": 14,
+        "smallest": [
+          {
+            "size": 8.5,
+            "text": "G1–G2 mesafesi"
+          },
+          {
+            "size": 8.5,
+            "text": "G2 zaman gecikmesi"
+          },
+          {
+            "size": 8.5,
+            "text": "Kayıt amplitüdü"
+          },
+          {
+            "size": 8.5,
+            "text": "İptal oranı"
+          },
+          {
+            "size": 8.5,
+            "text": "Teknik karar"
+          },
+          {
+            "size": 9,
+            "text": "1 cm · belirgin iptal"
+          },
+          {
+            "size": 9,
+            "text": "2,5 cm"
+          },
+          {
+            "size": 9,
+            "text": "3–4 cm · önerilen"
+          }
+        ]
+      },
+      {
+        "number": 47,
+        "type": "animation",
+        "file": "kostimulasyon/animasyon-2-optimal-yerlesim.html",
+        "min": 9.5,
+        "median": 11.5,
+        "under10": 10,
+        "under11": 14,
+        "smallest": [
+          {
+            "size": 9.5,
+            "text": "Tarama akımı"
+          },
+          {
+            "size": 9.5,
+            "text": "APB yanıtı"
+          },
+          {
+            "size": 9.5,
+            "text": "Gerekli supramaks."
+          },
+          {
+            "size": 9.5,
+            "text": "ADM kontrolü"
+          },
+          {
+            "size": 9.5,
+            "text": "Teknik karar"
+          },
+          {
+            "size": 9.5,
+            "text": "−20 mm · lateral"
+          },
+          {
+            "size": 9.5,
+            "text": "0 · median sinir"
+          },
+          {
+            "size": 9.5,
+            "text": "+20 mm · medial / ulnara doğru"
+          }
+        ]
+      },
+      {
+        "number": 62,
+        "type": "animation",
+        "file": "elektrot-sinir-mesafesi/animasyon-0-derinlik-filtresi.html",
+        "min": 8.5,
+        "median": 12,
+        "under10": 12,
+        "under11": 13,
+        "smallest": [
+          {
+            "size": 8.5,
+            "text": "Lateral sapma"
+          },
+          {
+            "size": 8.5,
+            "text": "Ölçülen amplitüd"
+          },
+          {
+            "size": 8.5,
+            "text": "Kalan amplitüd"
+          },
+          {
+            "size": 8.5,
+            "text": "Merkeze göre kayıp"
+          },
+          {
+            "size": 8.5,
+            "text": "Teknik karar"
+          },
+          {
+            "size": 9,
+            "text": "0 mm · 38 µV"
+          },
+          {
+            "size": 9,
+            "text": "5 mm · 31 µV"
+          },
+          {
+            "size": 9,
+            "text": "10 mm · 12 µV"
+          }
+        ]
+      },
+      {
+        "number": 64,
+        "type": "animation",
+        "file": "elektrot-sinir-mesafesi/animasyon-1-mesafe-amplitud-latans.html",
+        "min": 8.5,
+        "median": 12,
+        "under10": 12,
+        "under11": 13,
+        "smallest": [
+          {
+            "size": 8.5,
+            "text": "Amplitüd"
+          },
+          {
+            "size": 8.5,
+            "text": "Yanıt süresi"
+          },
+          {
+            "size": 8.5,
+            "text": "Onset değişimi"
+          },
+          {
+            "size": 8.5,
+            "text": "Peak değişimi"
+          },
+          {
+            "size": 8.5,
+            "text": "Teknik karar"
+          },
+          {
+            "size": 9,
+            "text": "0 mm · ödem yok"
+          },
+          {
+            "size": 9,
+            "text": "10 mm · belirgin"
+          },
+          {
+            "size": 9,
+            "text": "20 mm · ileri ödem"
+          }
+        ]
+      },
+      {
+        "number": 66,
+        "type": "animation",
+        "file": "elektrot-sinir-mesafesi/animasyon-2-elektrot-arama.html",
+        "min": 8.5,
+        "median": 12,
+        "under10": 12,
+        "under11": 13,
+        "smallest": [
+          {
+            "size": 8.5,
+            "text": "Elektrot konumu"
+          },
+          {
+            "size": 8.5,
+            "text": "SNAP amplitüdü"
+          },
+          {
+            "size": 8.5,
+            "text": "Onset değişimi"
+          },
+          {
+            "size": 8.5,
+            "text": "Bulunan en iyi kayıt"
+          },
+          {
+            "size": 8.5,
+            "text": "Teknik karar"
+          },
+          {
+            "size": 9,
+            "text": "30 mm medial"
+          },
+          {
+            "size": 9,
+            "text": "Anatomik işaret · 0"
+          },
+          {
+            "size": 9,
+            "text": "30 mm lateral"
+          }
+        ]
+      },
+      {
+        "number": 54,
+        "type": "animation",
+        "file": "motor-elektrot-yerlesimi/animasyon-2-g2-tendon-potansiyeli.html",
+        "min": 9,
+        "median": 11.5,
+        "under10": 12,
+        "under11": 13,
+        "smallest": [
+          {
+            "size": 9,
+            "text": "Kitap mekanizması · G1 + (−G2)"
+          },
+          {
+            "size": 9,
+            "text": "Kitap kayıtları · 8,3 / 7,2 / 5,6 mV"
+          },
+          {
+            "size": 9.5,
+            "text": "G2 konumu"
+          },
+          {
+            "size": 9.5,
+            "text": "BKAP çıkışı"
+          },
+          {
+            "size": 9.5,
+            "text": "−G2 katkısı · model"
+          },
+          {
+            "size": 9.5,
+            "text": "Yalancı fark"
+          },
+          {
+            "size": 9.5,
+            "text": "Teknik karar"
+          },
+          {
+            "size": 9.5,
+            "text": "Ulnar ve tibial çalışmalarda tendon G2 elektriksel olarak aktif olabilir. Sağ–sol ve seri kayıtlarda"
+          }
+        ]
+      },
+      {
+        "number": 59,
+        "type": "animation",
+        "file": "antidromik-ortodromik/animasyon-2-sahte-dsap.html",
+        "min": 9,
+        "median": 12,
+        "under10": 11,
+        "under11": 12,
+        "smallest": [
+          {
+            "size": 9,
+            "text": "Erken ve keskin: DSAP · Daha geç ve geniş: hacim-iletilen motor bileşen"
+          },
+          {
+            "size": 9.5,
+            "text": "Gerçek antidromik DSAP"
+          },
+          {
+            "size": 9.5,
+            "text": "Ortodromik doğrulama"
+          },
+          {
+            "size": 9.5,
+            "text": "Geç motor bileşen"
+          },
+          {
+            "size": 9.5,
+            "text": "Erken DSAP peak"
+          },
+          {
+            "size": 9.5,
+            "text": "Teknik karar"
+          },
+          {
+            "size": 9.5,
+            "text": "Erken ve keskin yanıt DSAP’tır. DSAP yoksa daha geç ve geniş hacim-iletilen motor bileşen duysal yan"
+          },
+          {
+            "size": 9.5,
+            "text": "Kitap uyarısı:"
+          }
+        ]
+      },
+      {
+        "number": 45,
+        "type": "animation",
+        "file": "kostimulasyon/animasyon-1-tanisal-hatalar.html",
+        "min": 9.5,
+        "median": 11,
+        "under10": 4,
+        "under11": 12,
+        "smallest": [
+          {
+            "size": 9.5,
+            "text": "Doğru normal patern"
+          },
+          {
+            "size": 9.5,
+            "text": "Yalancı blok üretir"
+          },
+          {
+            "size": 9.5,
+            "text": "Gerçek blok görünür"
+          },
+          {
+            "size": 9.5,
+            "text": "Bloğu gizler"
+          },
+          {
+            "size": 10,
+            "text": "MODEL DEĞERLER ·  MANTIĞI"
+          },
+          {
+            "size": 10,
+            "text": "Distal BKAP"
+          },
+          {
+            "size": 10,
+            "text": "Proksimal BKAP"
+          },
+          {
+            "size": 10,
+            "text": "P / D oranı"
+          }
+        ]
+      },
+      {
+        "number": 57,
+        "type": "animation",
+        "file": "antidromik-ortodromik/animasyon-1-antidromik-vs-ortodromik.html",
+        "min": 9,
+        "median": 12,
+        "under10": 10,
+        "under11": 11,
+        "smallest": [
+          {
+            "size": 9,
+            "text": "İlk keskin DSAP: 33 ve 22 µV; peak latans her ikisinde 2,2 ms"
+          },
+          {
+            "size": 9.5,
+            "text": "Aktif teknik"
+          },
+          {
+            "size": 9.5,
+            "text": "Kayıt alanı"
+          },
+          {
+            "size": 9.5,
+            "text": "DSAP amplitüdü"
+          },
+          {
+            "size": 9.5,
+            "text": "Peak latans"
+          },
+          {
+            "size": 9.5,
+            "text": "Teknik karar"
+          },
+          {
+            "size": 9.5,
+            "text": "Aynı sinir segmenti ve mesafede latans ile iletim hızı aynıdır; antidromik amplitüd çoğunlukla daha "
+          },
+          {
+            "size": 9.5,
+            "text": "Kitap sonucu:"
+          }
+        ]
+      },
+      {
+        "number": 24,
+        "type": "animation",
+        "file": "stimulus-artefakti/animasyon-2-artefakt-azaltma.html",
+        "min": 9.5,
+        "median": 12.2,
+        "under10": 2,
+        "under11": 11,
+        "smallest": [
+          {
+            "size": 9.5,
+            "text": "Anot ve kablo mekanizmaları sonraki sayfalarda ayrıntılıdır."
+          },
+          {
+            "size": 9.5,
+            "text": "Kaynak: Preston & Shapiro, Box 8.4."
+          },
+          {
+            "size": 10,
+            "text": "kaydedilen iz"
+          },
+          {
+            "size": 10,
+            "text": "gerçek DSAP"
+          },
+          {
+            "size": 10.5,
+            "text": "Tümünü uygula"
+          },
+          {
+            "size": 10.5,
+            "text": "Sıfırla"
+          },
+          {
+            "size": 10.5,
+            "text": "Hacim iletilen alan"
+          },
+          {
+            "size": 10.5,
+            "text": "Diferansiyel/empedans artığı"
+          }
+        ]
+      }
+    ]
+  },
+  "rows": [
+    {
+      "number": 1,
+      "type": "topic_entry",
+      "file": "impedans-gurultu/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Elektrot Empedansı ve Gürültü"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "type": "explanation",
+      "file": "impedans-gurultu/index.html",
+      "count": 35,
+      "min": 13,
+      "median": 20,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Fizyolojik olmayan faktörlerin ilki"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-0-gurultu-haritasi.html",
+      "count": 27,
+      "min": 11,
+      "median": 12,
+      "under10": 0,
+      "under11": 0,
+      "under12": 5,
+      "smallest": [
+        {
+          "size": 11,
+          "text": "Preston & Shapiro, Bölüm 8, s. 82"
+        },
+        {
+          "size": 11,
+          "text": "Sensitivite değişince görünen 60 Hz"
+        },
+        {
+          "size": 11,
+          "text": "20 µV/div - doygun"
+        },
+        {
+          "size": 11,
+          "text": "1 mV/div"
+        },
+        {
+          "size": 11,
+          "text": "10 mV/div - 60 Hz görünür"
+        },
+        {
+          "size": 12,
+          "text": "SERBEST LABORATUVAR"
+        },
+        {
+          "size": 12,
+          "text": "NCS/EMG KAYIT EKRANI"
+        },
+        {
+          "size": 12,
+          "text": "20 µV/div veya 5 mV/div · 1-2 ms/div"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "type": "explanation",
+      "file": "impedans-gurultu/diferansiyel-amplifikasyon.html",
+      "count": 44,
+      "min": 13,
+      "median": 20,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Gürültü nasıl elenir — ya da elenmez?"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-1-diferansiyel-amp.html",
+      "count": 40,
+      "min": 10,
+      "median": 13,
+      "under10": 0,
+      "under11": 3,
+      "under12": 7,
+      "smallest": [
+        {
+          "size": 10,
+          "text": "Çevresel 50/60 Hz iki elektroda da ulaşır."
+        },
+        {
+          "size": 10,
+          "text": "Empedanslar farklıysa giriş voltajları eşit olmaz."
+        },
+        {
+          "size": 10,
+          "text": "Eşit voltaj iptal; fark ise çıkışta kalır."
+        },
+        {
+          "size": 11,
+          "text": "1 · Aynı akım"
+        },
+        {
+          "size": 11,
+          "text": "2 · E = I × Z"
+        },
+        {
+          "size": 11,
+          "text": "3 · G1 − G2"
+        },
+        {
+          "size": 11,
+          "text": "İki girişte ortak görülen voltaj çıkarılır. Uyumsuz empedans ortak gürültüyü diferansiyel hataya dön"
+        },
+        {
+          "size": 12,
+          "text": "20 µV/div"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "type": "explanation",
+      "file": "impedans-gurultu/impedans-uyumsuzlugu.html",
+      "count": 38,
+      "min": 13,
+      "median": 20,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Gürültü neden iki elektrotta farklı görünür?"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-3-ohm-empedans.html",
+      "count": 27,
+      "min": 11,
+      "median": 12,
+      "under10": 0,
+      "under11": 0,
+      "under12": 5,
+      "smallest": [
+        {
+          "size": 11,
+          "text": "Preston & Shapiro, Bölüm 8, s. 82-83"
+        },
+        {
+          "size": 11,
+          "text": "Diferansiyel amplifikasyon ve empedans uyumsuzluğu"
+        },
+        {
+          "size": 11,
+          "text": "Eşleşmiş"
+        },
+        {
+          "size": 11,
+          "text": "Orta uyumsuzluk"
+        },
+        {
+          "size": 11,
+          "text": "Belirgin uyumsuzluk"
+        },
+        {
+          "size": 12,
+          "text": "SERBEST LABORATUVAR"
+        },
+        {
+          "size": 12,
+          "text": "NCS/EMG KAYIT EKRANI"
+        },
+        {
+          "size": 12,
+          "text": "20 µV/div veya 5 mV/div · 1-2 ms/div"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "type": "explanation",
+      "file": "impedans-gurultu/60hz-azaltma.html",
+      "count": 38,
+      "min": 13,
+      "median": 19,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Her elektrot amplifikatöre aynı görünmeli"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-2-gurultu-azaltma.html",
+      "count": 42,
+      "min": 9.5,
+      "median": 12.5,
+      "under10": 3,
+      "under11": 4,
+      "under12": 7,
+      "smallest": [
+        {
+          "size": 9.5,
+          "text": "100%"
+        },
+        {
+          "size": 9.5,
+          "text": "100%"
+        },
+        {
+          "size": 9.5,
+          "text": "100%"
+        },
+        {
+          "size": 10.5,
+          "text": "Kontrol maddeleri aynı kalır. Her tıklama yalnız toplam gürültüyü değil, hedeflediği teknik örüntüyü"
+        },
+        {
+          "size": 11,
+          "text": "Box 8.3 +"
+        },
+        {
+          "size": 11,
+          "text": "Box 8.3 adımlarını tek tek uygulayın; hangi kayıt örüntüsünün değiştiğini izleyin."
+        },
+        {
+          "size": 11,
+          "text": "Başlangıç:"
+        },
+        {
+          "size": 12.5,
+          "text": "Aktif ve referans elektrot"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "type": "topic_entry",
+      "file": "filtreler/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Filtre Ayarları"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "type": "explanation",
+      "file": "filtreler/index.html",
+      "count": 39,
+      "min": 13,
+      "median": 19,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Her potansiyel iki filtreden geçer"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "type": "animation",
+      "file": "filtreler/animasyon-0-filtre-spektrumu.html",
+      "count": 39,
+      "min": 10.5,
+      "median": 13,
+      "under10": 0,
+      "under11": 1,
+      "under12": 9,
+      "smallest": [
+        {
+          "size": 10.5,
+          "text": "Kitap önce sinyalin bir frekans spektrumu olduğunu gösterir; filtre kararı bundan sonra gelir."
+        },
+        {
+          "size": 11,
+          "text": "AYNI HAM KAYIT"
+        },
+        {
+          "size": 11,
+          "text": "Bazal kayma ve hareket bileşenleri."
+        },
+        {
+          "size": 11,
+          "text": "1 · Düşük frekans"
+        },
+        {
+          "size": 11,
+          "text": "DSAP'ın hızlı bileşenleri."
+        },
+        {
+          "size": 11,
+          "text": "2 · Hedef bant"
+        },
+        {
+          "size": 11,
+          "text": "Hedefi örtebilen elektriksel gürültü."
+        },
+        {
+          "size": 11,
+          "text": "3 · Yüksek frekans"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "type": "explanation",
+      "file": "filtreler/gecirgen-bant.html",
+      "count": 35,
+      "min": 13,
+      "median": 19,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Çalışma türüne göre değişir —"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "type": "animation",
+      "file": "filtreler/animasyon-1-gecirgen-bant.html",
+      "count": 35,
+      "min": 10,
+      "median": 13,
+      "under10": 0,
+      "under11": 2,
+      "under12": 4,
+      "smallest": [
+        {
+          "size": 10,
+          "text": "Sensitivite 10 µV/div · Sweep 1 ms/div"
+        },
+        {
+          "size": 10.5,
+          "text": "Motor için 10 Hz–10 kHz; duysal için 20 Hz–2 kHz tipik başlangıç ayarlarıdır."
+        },
+        {
+          "size": 11,
+          "text": "AYRI KAYITLAR"
+        },
+        {
+          "size": 11.5,
+          "text": "— geçirgen bant keskin bir duvar değildir"
+        },
+        {
+          "size": 12,
+          "text": "Motor BKAP · 10 Hz–10 kHz"
+        },
+        {
+          "size": 12,
+          "text": "Duysal SNAP · 20 Hz–2 kHz"
+        },
+        {
+          "size": 12,
+          "text": "SNAP, sinir üzerinden ayrı elektrot geometrisiyle kaydedilir. 20 Hz–2 kHz preset küçük ve hızlı yanı"
+        },
+        {
+          "size": 12,
+          "text": "Duysal kayıt:"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "type": "explanation",
+      "file": "filtreler/filtre-odunlesimi.html",
+      "count": 39,
+      "min": 13,
+      "median": 19,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Her filtre, sinyalden de bir şey götürür —"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "type": "animation",
+      "file": "filtreler/animasyon-2-filtre-odunlesimi.html",
+      "count": 35,
+      "min": 10.5,
+      "median": 13,
+      "under10": 0,
+      "under11": 1,
+      "under12": 3,
+      "smallest": [
+        {
+          "size": 10.5,
+          "text": "Filtre değişikliğinden sonra oluşan amplitüd veya süre farkı patoloji olarak yorumlanmaz."
+        },
+        {
+          "size": 11,
+          "text": "AYNI HAM KAYIT"
+        },
+        {
+          "size": 11.5,
+          "text": "— HFF 2 kHz→0.5 kHz: 30→16 µV"
+        },
+        {
+          "size": 12,
+          "text": "HFF 0.5 kHz"
+        },
+        {
+          "size": 12,
+          "text": "Standart 20 Hz–2 kHz"
+        },
+        {
+          "size": 12,
+          "text": "LFF 2 Hz"
+        },
+        {
+          "size": 12,
+          "text": "HFF 2 kHz'den 0.5 kHz'ye düşünce yüksek frekanslı DSAP bileşenleri atenüe olur; amplitüd 30 µV'den 1"
+        },
+        {
+          "size": 12,
+          "text": ":"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "type": "topic_entry",
+      "file": "elektronik-ortalama/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Elektronik Ortalama"
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "type": "explanation",
+      "file": "elektronik-ortalama/index.html",
+      "count": 39,
+      "min": 13,
+      "median": 20,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Filtreler ve empedans eşleşmesi yetmezse son çare"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "type": "animation",
+      "file": "elektronik-ortalama/animasyon-1-ortalama.html",
+      "count": 35,
+      "min": 10.5,
+      "median": 13,
+      "under10": 0,
+      "under11": 1,
+      "under12": 2,
+      "smallest": [
+        {
+          "size": 10.5,
+          "text": "Kaynak: Preston & Shapiro, Bölüm 8."
+        },
+        {
+          "size": 11,
+          "text": "N=10’da bazal çizgi netleşir; başlangıç latansı ve amplitüd ölçülebilir."
+        },
+        {
+          "size": 12,
+          "text": "Aynı zaman penceresi · gerçek koşan ortalama"
+        },
+        {
+          "size": 12,
+          "text": "— tek süpürüm ve 10 ortalama"
+        },
+        {
+          "size": 12,
+          "text": "Ortalama N"
+        },
+        {
+          "size": 12.5,
+          "text": "DSAP vardır; fakat rastgele bazal gürültü başlangıç latansı ve amplitüd ölçümünü belirsizleştirir."
+        },
+        {
+          "size": 12.5,
+          "text": "Tek süpürüm:"
+        },
+        {
+          "size": 12.5,
+          "text": "+1 uyarı"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "type": "topic_entry",
+      "file": "stimulus-artefakti/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Stimulus Artefaktı"
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "type": "explanation",
+      "file": "stimulus-artefakti/index.html",
+      "count": 39,
+      "min": 13,
+      "median": 19,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Her zaman var, sorun kuyruğunda"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-0-mekanizma.html",
+      "count": 49,
+      "min": 10,
+      "median": 12.5,
+      "under10": 0,
+      "under11": 5,
+      "under12": 9,
+      "smallest": [
+        {
+          "size": 10,
+          "text": "Kaynak: Preston & Shapiro, Bölüm 8."
+        },
+        {
+          "size": 10.5,
+          "text": "kaydedilen iz"
+        },
+        {
+          "size": 10.5,
+          "text": "gerçek DSAP"
+        },
+        {
+          "size": 10.5,
+          "text": "artefakt bileşeni"
+        },
+        {
+          "size": 10.5,
+          "text": "Negatif: 29 µV/2.1 ms · Temel: 38 µV/2.0 ms · Pozitif: 45 µV/1.9 ms."
+        },
+        {
+          "size": 11,
+          "text": "MEDİAN DSAP · 20 µV/div · 1 ms/div"
+        },
+        {
+          "size": 11.5,
+          "text": "Aynı uyarı · iki farklı varış zamanı"
+        },
+        {
+          "size": 11.5,
+          "text": "Ölçüm doğru"
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "type": "explanation",
+      "file": "stimulus-artefakti/azaltma-yontemleri.html",
+      "count": 31,
+      "min": 13,
+      "median": 19,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "ve Box 8.4"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-2-artefakt-azaltma.html",
+      "count": 60,
+      "min": 9.5,
+      "median": 12.2,
+      "under10": 2,
+      "under11": 11,
+      "under12": 27,
+      "smallest": [
+        {
+          "size": 9.5,
+          "text": "Anot ve kablo mekanizmaları sonraki sayfalarda ayrıntılıdır."
+        },
+        {
+          "size": 9.5,
+          "text": "Kaynak: Preston & Shapiro, Box 8.4."
+        },
+        {
+          "size": 10,
+          "text": "kaydedilen iz"
+        },
+        {
+          "size": 10,
+          "text": "gerçek DSAP"
+        },
+        {
+          "size": 10.5,
+          "text": "Tümünü uygula"
+        },
+        {
+          "size": 10.5,
+          "text": "Sıfırla"
+        },
+        {
+          "size": 10.5,
+          "text": "Hacim iletilen alan"
+        },
+        {
+          "size": 10.5,
+          "text": "Diferansiyel/empedans artığı"
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "type": "explanation",
+      "file": "stimulus-artefakti/anot-dondurme.html",
+      "count": 37,
+      "min": 13,
+      "median": 19,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Katot sabit, anot döner —"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-1-anot-rotasyon.html",
+      "count": 44,
+      "min": 10,
+      "median": 12,
+      "under10": 0,
+      "under11": 1,
+      "under12": 10,
+      "smallest": [
+        {
+          "size": 10,
+          "text": "Kitap: Konum 1 ↔ Konum 2"
+        },
+        {
+          "size": 11,
+          "text": "Konu"
+        },
+        {
+          "size": 11,
+          "text": "Tek hedef"
+        },
+        {
+          "size": 11,
+          "text": "Kitap örneği · yüzeyel peroneal duysal çalışma"
+        },
+        {
+          "size": 11,
+          "text": "aynı nokta"
+        },
+        {
+          "size": 11,
+          "text": "🔒 Katot / depolarizasyon:"
+        },
+        {
+          "size": 11,
+          "text": "Kaydedilen"
+        },
+        {
+          "size": 11,
+          "text": "Artefakt bileşeni"
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "type": "explanation",
+      "file": "stimulus-artefakti/kablo-ayrimi.html",
+      "count": 28,
+      "min": 13,
+      "median": 16,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "En basit, en etkili yöntemlerden biri"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 28,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-3-kablo-induksiyonu.html",
+      "count": 50,
+      "min": 10,
+      "median": 12,
+      "under10": 0,
+      "under11": 3,
+      "under12": 19,
+      "smallest": [
+        {
+          "size": 10,
+          "text": "I ≈ Ck·dV/dt  | Vind ≈ M·di/dt"
+        },
+        {
+          "size": 10,
+          "text": "Kapasitif:"
+        },
+        {
+          "size": 10,
+          "text": "Manyetik:"
+        },
+        {
+          "size": 11,
+          "text": "Konu"
+        },
+        {
+          "size": 11,
+          "text": "Tek hedef"
+        },
+        {
+          "size": 11,
+          "text": "Koaksiyel + ayrık"
+        },
+        {
+          "size": 11,
+          "text": "Yakın koaksiyel"
+        },
+        {
+          "size": 11,
+          "text": "Üst üste serbest"
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "type": "topic_entry",
+      "file": "katot-polarite/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Katot–Anot Polaritesi"
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "type": "explanation",
+      "file": "katot-polarite/index.html",
+      "count": 38,
+      "min": 13,
+      "median": 19,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "\"Siyaha siyah\" —"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "type": "animation",
+      "file": "katot-polarite/animasyon-0-depolarizasyon-anodal-blok.html",
+      "count": 46,
+      "min": 10,
+      "median": 11,
+      "under10": 0,
+      "under11": 7,
+      "under12": 27,
+      "smallest": [
+        {
+          "size": 10,
+          "text": "≈ referans × anot bölgesini geçen lif oranı"
+        },
+        {
+          "size": 10,
+          "text": "Yanıt amplitüdü"
+        },
+        {
+          "size": 10,
+          "text": "Depolarizasyon katot altında başlar ve iki yöne yayılır. Anot altındaki hiperpolarize segment, geçen"
+        },
+        {
+          "size": 10,
+          "text": "Kitap mekanizması"
+        },
+        {
+          "size": 10,
+          "text": "Rutin kısa-puls bipolar NCS'de anodal blok nadirdir; anodal/virtual-cathode eksitasyon da görülebili"
+        },
+        {
+          "size": 10,
+          "text": "Klinik sınır:"
+        },
+        {
+          "size": 10,
+          "text": "MEKANİZMA MODELİ · klinik olasılık değildir"
+        },
+        {
+          "size": 11,
+          "text": "Konu"
+        }
+      ]
+    },
+    {
+      "number": 32,
+      "type": "explanation",
+      "file": "katot-polarite/latans-hatasi.html",
+      "count": 39,
+      "min": 13,
+      "median": 19,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "— daha sık ve daha önemli"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "type": "animation",
+      "file": "katot-polarite/animasyon-1-polarite-tersligi.html",
+      "count": 41,
+      "min": 10,
+      "median": 12,
+      "under10": 0,
+      "under11": 3,
+      "under12": 9,
+      "smallest": [
+        {
+          "size": 10,
+          "text": "= ölçülen 14 cm / onset latansı"
+        },
+        {
+          "size": 10,
+          "text": "Görünen İH"
+        },
+        {
+          "size": 10,
+          "text": "Kapsam:  rutin duysal çalışma. Yüksek şiddetli anode-distal motor uyarımda anodal eksitasyon ayrı bi"
+        },
+        {
+          "size": 11,
+          "text": "Konu"
+        },
+        {
+          "size": 11,
+          "text": "Tek hedef"
+        },
+        {
+          "size": 11,
+          "text": "Seçilen polarite"
+        },
+        {
+          "size": 11,
+          "text": "Doğru referans · 2,2 ms"
+        },
+        {
+          "size": 11,
+          "text": "Doğru: 2,2 ms. Ters: 2,5 ms. Kitap, tipik hatayı 0,3–0,4 ms ve duysal İH'de yaklaşık 10 m/s yalancı "
+        }
+      ]
+    },
+    {
+      "number": 34,
+      "type": "topic_entry",
+      "file": "supramaksimal/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Supramaksimal Uyarım"
+        }
+      ]
+    },
+    {
+      "number": 35,
+      "type": "explanation",
+      "file": "supramaksimal/index.html",
+      "count": 31,
+      "min": 13,
+      "median": 19,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Her NCS ölçümünün temel varsayımı"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 36,
+      "type": "animation",
+      "file": "supramaksimal/animasyon-0-akson-rekrutmani.html",
+      "count": 47,
+      "min": 10,
+      "median": 11,
+      "under10": 0,
+      "under11": 6,
+      "under12": 26,
+      "smallest": [
+        {
+          "size": 10,
+          "text": "aktif lif sayısı BKAP amplitüdüne ölçeklenmiştir"
+        },
+        {
+          "size": 10,
+          "text": "MODEL:"
+        },
+        {
+          "size": 10,
+          "text": "6,0 → 14,0 mA boyunca amplitüd 4,5 → 10,5 mV yükselir. 11 ve 14 mA'da amplitüd aynıdır."
+        },
+        {
+          "size": 10,
+          "text": "Kitap kaydı"
+        },
+        {
+          "size": 10,
+          "text": "Kitap sonucu: akım arttıkça amplitüd yükselir ve latans kısalır; amplitüd platosu ek %25 akımla deği"
+        },
+        {
+          "size": 10,
+          "text": "BASAMAĞI"
+        },
+        {
+          "size": 11,
+          "text": "Konu"
+        },
+        {
+          "size": 11,
+          "text": "Tek değişken"
+        }
+      ]
+    },
+    {
+      "number": 37,
+      "type": "explanation",
+      "file": "supramaksimal/nasil-yapilir.html",
+      "count": 44,
+      "min": 12,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 12,
+          "text": "Akım"
+        },
+        {
+          "size": 12,
+          "text": "Amplitüd"
+        },
+        {
+          "size": 12,
+          "text": "Latans"
+        },
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "type": "animation",
+      "file": "supramaksimal/animasyon-1-uyari-egrisi.html",
+      "count": 41,
+      "min": 9.5,
+      "median": 11,
+      "under10": 1,
+      "under11": 6,
+      "under12": 24,
+      "smallest": [
+        {
+          "size": 9.5,
+          "text": "Kitap protokolü: amplitüd artık artmadığında akımı yaklaşık %25 yükselt; amplitüd yine değişmiyorsa "
+        },
+        {
+          "size": 10,
+          "text": "ilk plato adayı · ek akımda değişmeyen amplitüd"
+        },
+        {
+          "size": 10,
+          "text": "Maksimal:"
+        },
+        {
+          "size": 10,
+          "text": "Supramaksimal:"
+        },
+        {
+          "size": 10,
+          "text": "11 mA'da 10,5 mV; 14 mA'da yine 10,5 mV. Son basamak 11 mA'nın %27 üzeridir ve kitabın “yaklaşık %25"
+        },
+        {
+          "size": 10,
+          "text": "Kitap protokolü"
+        },
+        {
+          "size": 11,
+          "text": "Konu"
+        },
+        {
+          "size": 11,
+          "text": "Tek değişken"
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "type": "explanation",
+      "file": "supramaksimal/yanlis-yorumlar.html",
+      "count": 30,
+      "min": 13,
+      "median": 18,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Supramaksimal Uyarım"
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "type": "animation",
+      "file": "supramaksimal/animasyon-2-amplitud-farki.html",
+      "count": 46,
+      "min": 9,
+      "median": 11,
+      "under10": 4,
+      "under11": 23,
+      "under12": 27,
+      "smallest": [
+        {
+          "size": 9,
+          "text": "Bu model yalnız submaksimal mekanizmayı izole eder.  örüntüsü tek başına tanı değildir; gerçek ileti"
+        },
+        {
+          "size": 9,
+          "text": "Sınır:"
+        },
+        {
+          "size": 9.5,
+          "text": "A: bilek 10,7; dirsek altı 6,1 mV. B: bilek 6,1; dirsek altı 10,7 mV. Kitap her iki örüntünün de bir"
+        },
+        {
+          "size": 9.5,
+          "text": "Kitap kaydı · ulnar motor"
+        },
+        {
+          "size": 10,
+          "text": "normal · gerçek maksimal BKAP 10,7 mV"
+        },
+        {
+          "size": 10,
+          "text": "GERÇEK SİNİR:"
+        },
+        {
+          "size": 10,
+          "text": "Sinir fizyolojisi"
+        },
+        {
+          "size": 10,
+          "text": "NORMAL · SABİT"
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "type": "topic_entry",
+      "file": "kostimulasyon/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Komşu Sinir Ko-stimülasyonu"
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "type": "explanation",
+      "file": "kostimulasyon/index.html",
+      "count": 37,
+      "min": 13,
+      "median": 18,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Supramaksimal uyarımın \"aynı derecede önemli\" ikiz sorunu"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "type": "animation",
+      "file": "kostimulasyon/animasyon-0-akim-yayilimi.html",
+      "count": 48,
+      "min": 9,
+      "median": 10.5,
+      "under10": 4,
+      "under11": 25,
+      "under12": 29,
+      "smallest": [
+        {
+          "size": 9,
+          "text": "Normal bireylerde 0,2 ms uyarıyla 50 mA üzeri akımlar komşu sinir ko-stimülasyonu olasılığını belirg"
+        },
+        {
+          "size": 9,
+          "text": "Kitap ölçütü:"
+        },
+        {
+          "size": 9.5,
+          "text": "Bilekte 87 mA ile 10,4 mV; dirsek altında 37 mA ile 7,5 mV. Kitap, yüksek distal akımın ulnar ve med"
+        },
+        {
+          "size": 9.5,
+          "text": "Kitap kaydı · ulnar motor"
+        },
+        {
+          "size": 10,
+          "text": "aynı ulnar sinir · aynı FDI kaydı · iki uyarım yeri"
+        },
+        {
+          "size": 10,
+          "text": "MODEL:"
+        },
+        {
+          "size": 10,
+          "text": "Kayıt"
+        },
+        {
+          "size": 10,
+          "text": "FDI · G1 SABİT"
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "type": "explanation",
+      "file": "kostimulasyon/hata-oruntuleri.html",
+      "count": 36,
+      "min": 13,
+      "median": 17,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Komşu Sinirlerin Birlikte Uyarılması"
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "type": "animation",
+      "file": "kostimulasyon/animasyon-1-tanisal-hatalar.html",
+      "count": 44,
+      "min": 9.5,
+      "median": 11,
+      "under10": 4,
+      "under11": 12,
+      "under12": 24,
+      "smallest": [
+        {
+          "size": 9.5,
+          "text": "Doğru normal patern"
+        },
+        {
+          "size": 9.5,
+          "text": "Yalancı blok üretir"
+        },
+        {
+          "size": 9.5,
+          "text": "Gerçek blok görünür"
+        },
+        {
+          "size": 9.5,
+          "text": "Bloğu gizler"
+        },
+        {
+          "size": 10,
+          "text": "MODEL DEĞERLER ·  MANTIĞI"
+        },
+        {
+          "size": 10,
+          "text": "Distal BKAP"
+        },
+        {
+          "size": 10,
+          "text": "Proksimal BKAP"
+        },
+        {
+          "size": 10,
+          "text": "P / D oranı"
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "type": "explanation",
+      "file": "kostimulasyon/onleme-yontemleri.html",
+      "count": 41,
+      "min": 13,
+      "median": 17,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Az akım, doğru yerleşim"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "type": "animation",
+      "file": "kostimulasyon/animasyon-2-optimal-yerlesim.html",
+      "count": 44,
+      "min": 9.5,
+      "median": 11.5,
+      "under10": 10,
+      "under11": 14,
+      "under12": 24,
+      "smallest": [
+        {
+          "size": 9.5,
+          "text": "Tarama akımı"
+        },
+        {
+          "size": 9.5,
+          "text": "APB yanıtı"
+        },
+        {
+          "size": 9.5,
+          "text": "Gerekli supramaks."
+        },
+        {
+          "size": 9.5,
+          "text": "ADM kontrolü"
+        },
+        {
+          "size": 9.5,
+          "text": "Teknik karar"
+        },
+        {
+          "size": 9.5,
+          "text": "−20 mm · lateral"
+        },
+        {
+          "size": 9.5,
+          "text": "0 · median sinir"
+        },
+        {
+          "size": 9.5,
+          "text": "+20 mm · medial / ulnara doğru"
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "type": "topic_entry",
+      "file": "motor-elektrot-yerlesimi/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Motor Kayıt Elektrot Yerleşimi"
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "type": "explanation",
+      "file": "motor-elektrot-yerlesimi/index.html",
+      "count": 38,
+      "min": 13,
+      "median": 19,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Motor çalışmaların standart yerleşimi"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "type": "animation",
+      "file": "motor-elektrot-yerlesimi/animasyon-0-belly-tendon-montaj.html",
+      "count": 43,
+      "min": 9,
+      "median": 11.5,
+      "under10": 9,
+      "under11": 16,
+      "under12": 23,
+      "smallest": [
+        {
+          "size": 9,
+          "text": "G1 girişi"
+        },
+        {
+          "size": 9,
+          "text": "G2 girişi"
+        },
+        {
+          "size": 9,
+          "text": "BKAP"
+        },
+        {
+          "size": 9.5,
+          "text": "Temel sonuç"
+        },
+        {
+          "size": 9.5,
+          "text": "Motor son-plak"
+        },
+        {
+          "size": 9.5,
+          "text": "G1 başlangıç negatifliği"
+        },
+        {
+          "size": 9.5,
+          "text": "G1−G2 çıkışı"
+        },
+        {
+          "size": 9.8,
+          "text": "Tendon bölgesinin elektriksel olarak inert olması bir varsayımdır. Özellikle bazı ulnar ve tibial ka"
+        }
+      ]
+    },
+    {
+      "number": 51,
+      "type": "explanation",
+      "file": "motor-elektrot-yerlesimi/g1-yerlesimi.html",
+      "count": 38,
+      "min": 13,
+      "median": 17.5,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Motor Elektrot Yerleşimi"
+        }
+      ]
+    },
+    {
+      "number": 52,
+      "type": "animation",
+      "file": "motor-elektrot-yerlesimi/animasyon-1-g1-konumu.html",
+      "count": 35,
+      "min": 9.5,
+      "median": 12,
+      "under10": 10,
+      "under11": 11,
+      "under12": 17,
+      "smallest": [
+        {
+          "size": 9.5,
+          "text": "G1 uzaklığı"
+        },
+        {
+          "size": 9.5,
+          "text": "BKAP amplitüdü"
+        },
+        {
+          "size": 9.5,
+          "text": "İlk pozitiflik"
+        },
+        {
+          "size": 9.5,
+          "text": "Negatif onset riski"
+        },
+        {
+          "size": 9.5,
+          "text": "Teknik karar"
+        },
+        {
+          "size": 9.5,
+          "text": "İlk pozitif sapma görülürse G1 motor nokta dışında kabul edilir; pozitiflik kaybolana kadar G1 yenid"
+        },
+        {
+          "size": 9.5,
+          "text": "Kitap kuralı:"
+        },
+        {
+          "size": 9.5,
+          "text": "−15 mm"
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "type": "explanation",
+      "file": "motor-elektrot-yerlesimi/g2-yerlesimi.html",
+      "count": 35,
+      "min": 13,
+      "median": 17.5,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Motor Elektrot Yerleşimi"
+        }
+      ]
+    },
+    {
+      "number": 54,
+      "type": "animation",
+      "file": "motor-elektrot-yerlesimi/animasyon-2-g2-tendon-potansiyeli.html",
+      "count": 37,
+      "min": 9,
+      "median": 11.5,
+      "under10": 12,
+      "under11": 13,
+      "under12": 19,
+      "smallest": [
+        {
+          "size": 9,
+          "text": "Kitap mekanizması · G1 + (−G2)"
+        },
+        {
+          "size": 9,
+          "text": "Kitap kayıtları · 8,3 / 7,2 / 5,6 mV"
+        },
+        {
+          "size": 9.5,
+          "text": "G2 konumu"
+        },
+        {
+          "size": 9.5,
+          "text": "BKAP çıkışı"
+        },
+        {
+          "size": 9.5,
+          "text": "−G2 katkısı · model"
+        },
+        {
+          "size": 9.5,
+          "text": "Yalancı fark"
+        },
+        {
+          "size": 9.5,
+          "text": "Teknik karar"
+        },
+        {
+          "size": 9.5,
+          "text": "Ulnar ve tibial çalışmalarda tendon G2 elektriksel olarak aktif olabilir. Sağ–sol ve seri kayıtlarda"
+        }
+      ]
+    },
+    {
+      "number": 55,
+      "type": "topic_entry",
+      "file": "antidromik-ortodromik/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Antidromik ve Ortodromik Kayıt"
+        }
+      ]
+    },
+    {
+      "number": 56,
+      "type": "explanation",
+      "file": "antidromik-ortodromik/index.html",
+      "count": 34,
+      "min": 13,
+      "median": 18,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Antidromik ve Ortodromik Kayıt"
+        }
+      ]
+    },
+    {
+      "number": 57,
+      "type": "animation",
+      "file": "antidromik-ortodromik/animasyon-1-antidromik-vs-ortodromik.html",
+      "count": 35,
+      "min": 9,
+      "median": 12,
+      "under10": 10,
+      "under11": 11,
+      "under12": 17,
+      "smallest": [
+        {
+          "size": 9,
+          "text": "İlk keskin DSAP: 33 ve 22 µV; peak latans her ikisinde 2,2 ms"
+        },
+        {
+          "size": 9.5,
+          "text": "Aktif teknik"
+        },
+        {
+          "size": 9.5,
+          "text": "Kayıt alanı"
+        },
+        {
+          "size": 9.5,
+          "text": "DSAP amplitüdü"
+        },
+        {
+          "size": 9.5,
+          "text": "Peak latans"
+        },
+        {
+          "size": 9.5,
+          "text": "Teknik karar"
+        },
+        {
+          "size": 9.5,
+          "text": "Aynı sinir segmenti ve mesafede latans ile iletim hızı aynıdır; antidromik amplitüd çoğunlukla daha "
+        },
+        {
+          "size": 9.5,
+          "text": "Kitap sonucu:"
+        }
+      ]
+    },
+    {
+      "number": 58,
+      "type": "explanation",
+      "file": "antidromik-ortodromik/hacim-iletilen-motor.html",
+      "count": 34,
+      "min": 13,
+      "median": 17.5,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Antidromik ve Ortodromik Kayıt"
+        }
+      ]
+    },
+    {
+      "number": 59,
+      "type": "animation",
+      "file": "antidromik-ortodromik/animasyon-2-sahte-dsap.html",
+      "count": 36,
+      "min": 9,
+      "median": 12,
+      "under10": 11,
+      "under11": 12,
+      "under12": 18,
+      "smallest": [
+        {
+          "size": 9,
+          "text": "Erken ve keskin: DSAP · Daha geç ve geniş: hacim-iletilen motor bileşen"
+        },
+        {
+          "size": 9.5,
+          "text": "Gerçek antidromik DSAP"
+        },
+        {
+          "size": 9.5,
+          "text": "Ortodromik doğrulama"
+        },
+        {
+          "size": 9.5,
+          "text": "Geç motor bileşen"
+        },
+        {
+          "size": 9.5,
+          "text": "Erken DSAP peak"
+        },
+        {
+          "size": 9.5,
+          "text": "Teknik karar"
+        },
+        {
+          "size": 9.5,
+          "text": "Erken ve keskin yanıt DSAP’tır. DSAP yoksa daha geç ve geniş hacim-iletilen motor bileşen duysal yan"
+        },
+        {
+          "size": 9.5,
+          "text": "Kitap uyarısı:"
+        }
+      ]
+    },
+    {
+      "number": 60,
+      "type": "topic_entry",
+      "file": "elektrot-sinir-mesafesi/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Elektrot–Sinir Mesafesi"
+        }
+      ]
+    },
+    {
+      "number": 61,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/index.html",
+      "count": 36,
+      "min": 13,
+      "median": 18,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Elektrot-Sinir Mesafesi"
+        }
+      ]
+    },
+    {
+      "number": 62,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-0-derinlik-filtresi.html",
+      "count": 32,
+      "min": 8.5,
+      "median": 12,
+      "under10": 12,
+      "under11": 13,
+      "under12": 15,
+      "smallest": [
+        {
+          "size": 8.5,
+          "text": "Lateral sapma"
+        },
+        {
+          "size": 8.5,
+          "text": "Ölçülen amplitüd"
+        },
+        {
+          "size": 8.5,
+          "text": "Kalan amplitüd"
+        },
+        {
+          "size": 8.5,
+          "text": "Merkeze göre kayıp"
+        },
+        {
+          "size": 8.5,
+          "text": "Teknik karar"
+        },
+        {
+          "size": 9,
+          "text": "0 mm · 38 µV"
+        },
+        {
+          "size": 9,
+          "text": "5 mm · 31 µV"
+        },
+        {
+          "size": 9,
+          "text": "10 mm · 12 µV"
+        }
+      ]
+    },
+    {
+      "number": 63,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/odem-etkisi.html",
+      "count": 33,
+      "min": 13,
+      "median": 17.5,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "— özellikle sural, süperfisyal peroneal"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 64,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-1-mesafe-amplitud-latans.html",
+      "count": 32,
+      "min": 8.5,
+      "median": 12,
+      "under10": 12,
+      "under11": 13,
+      "under12": 15,
+      "smallest": [
+        {
+          "size": 8.5,
+          "text": "Amplitüd"
+        },
+        {
+          "size": 8.5,
+          "text": "Yanıt süresi"
+        },
+        {
+          "size": 8.5,
+          "text": "Onset değişimi"
+        },
+        {
+          "size": 8.5,
+          "text": "Peak değişimi"
+        },
+        {
+          "size": 8.5,
+          "text": "Teknik karar"
+        },
+        {
+          "size": 9,
+          "text": "0 mm · ödem yok"
+        },
+        {
+          "size": 9,
+          "text": "10 mm · belirgin"
+        },
+        {
+          "size": 9,
+          "text": "20 mm · ileri ödem"
+        }
+      ]
+    },
+    {
+      "number": 65,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/lateral-yerlesim.html",
+      "count": 34,
+      "min": 13,
+      "median": 17,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Elektrot-Sinir Mesafesi"
+        }
+      ]
+    },
+    {
+      "number": 66,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-2-elektrot-arama.html",
+      "count": 32,
+      "min": 8.5,
+      "median": 12,
+      "under10": 12,
+      "under11": 13,
+      "under12": 15,
+      "smallest": [
+        {
+          "size": 8.5,
+          "text": "Elektrot konumu"
+        },
+        {
+          "size": 8.5,
+          "text": "SNAP amplitüdü"
+        },
+        {
+          "size": 8.5,
+          "text": "Onset değişimi"
+        },
+        {
+          "size": 8.5,
+          "text": "Bulunan en iyi kayıt"
+        },
+        {
+          "size": 8.5,
+          "text": "Teknik karar"
+        },
+        {
+          "size": 9,
+          "text": "30 mm medial"
+        },
+        {
+          "size": 9,
+          "text": "Anatomik işaret · 0"
+        },
+        {
+          "size": 9,
+          "text": "30 mm lateral"
+        }
+      ]
+    },
+    {
+      "number": 67,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/latans-hatasi.html",
+      "count": 34,
+      "min": 13,
+      "median": 17.5,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Elektrot-Sinir Mesafesi"
+        }
+      ]
+    },
+    {
+      "number": 68,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-3-yanlis-hiz.html",
+      "count": 33,
+      "min": 8.5,
+      "median": 12,
+      "under10": 13,
+      "under11": 14,
+      "under12": 16,
+      "smallest": [
+        {
+          "size": 8.5,
+          "text": "Ölçüm mesafesi"
+        },
+        {
+          "size": 8.5,
+          "text": "Ölçülen onset"
+        },
+        {
+          "size": 8.5,
+          "text": "Hesaplanan İH"
+        },
+        {
+          "size": 8.5,
+          "text": "Yalancı artış"
+        },
+        {
+          "size": 8.5,
+          "text": "Teknik karar"
+        },
+        {
+          "size": 9,
+          "text": "Sinir üzerinde"
+        },
+        {
+          "size": 9,
+          "text": "1 cm lateral"
+        },
+        {
+          "size": 9,
+          "text": "2 cm lateral"
+        }
+      ]
+    },
+    {
+      "number": 69,
+      "type": "topic_entry",
+      "file": "aktif-referans-mesafesi/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Aktif–Referans Elektrot Mesafesi"
+        }
+      ]
+    },
+    {
+      "number": 70,
+      "type": "explanation",
+      "file": "aktif-referans-mesafesi/index.html",
+      "count": 39,
+      "min": 13,
+      "median": 18,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Aktif-Referans Elektrot Mesafesi"
+        }
+      ]
+    },
+    {
+      "number": 71,
+      "type": "animation",
+      "file": "aktif-referans-mesafesi/animasyon-1-g1-g2-mesafesi.html",
+      "count": 33,
+      "min": 8.5,
+      "median": 12,
+      "under10": 13,
+      "under11": 14,
+      "under12": 16,
+      "smallest": [
+        {
+          "size": 8.5,
+          "text": "G1–G2 mesafesi"
+        },
+        {
+          "size": 8.5,
+          "text": "G2 zaman gecikmesi"
+        },
+        {
+          "size": 8.5,
+          "text": "Kayıt amplitüdü"
+        },
+        {
+          "size": 8.5,
+          "text": "İptal oranı"
+        },
+        {
+          "size": 8.5,
+          "text": "Teknik karar"
+        },
+        {
+          "size": 9,
+          "text": "1 cm · belirgin iptal"
+        },
+        {
+          "size": 9,
+          "text": "2,5 cm"
+        },
+        {
+          "size": 9,
+          "text": "3–4 cm · önerilen"
+        }
+      ]
+    },
+    {
+      "number": 72,
+      "type": "topic_entry",
+      "file": "ekstremite-mesafe/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Ekstremite Pozisyonu ve Ölçüm Mesafesi"
+        }
+      ]
+    },
+    {
+      "number": 73,
+      "type": "explanation",
+      "file": "ekstremite-mesafe/index.html",
+      "count": 39,
+      "min": 13,
+      "median": 18,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Ekstremite Pozisyonu ve Mesafe Ölçümü"
+        }
+      ]
+    },
+    {
+      "number": 74,
+      "type": "animation",
+      "file": "ekstremite-mesafe/animasyon-1-dirsek-pozisyonu.html",
+      "count": 51,
+      "min": 10,
+      "median": 12,
+      "under10": 0,
+      "under11": 8,
+      "under12": 11,
+      "smallest": [
+        {
+          "size": 10,
+          "text": "CMAP · ADM"
+        },
+        {
+          "size": 10,
+          "text": "5 ms/div · 5 mV/div"
+        },
+        {
+          "size": 10,
+          "text": "Yüzey mesafesi"
+        },
+        {
+          "size": 10,
+          "text": "Δ latans — sabit"
+        },
+        {
+          "size": 10,
+          "text": "Hesaplanan İH"
+        },
+        {
+          "size": 10,
+          "text": "Gerçek İH — sabit"
+        },
+        {
+          "size": 10,
+          "text": "Teknik sonuç"
+        },
+        {
+          "size": 10,
+          "text": "Dirsek fleksiyonu"
+        }
+      ]
+    },
+    {
+      "number": 75,
+      "type": "explanation",
+      "file": "ekstremite-mesafe/diger-sinirler-caliper.html",
+      "count": 30,
+      "min": 13,
+      "median": 18,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Bölüm"
+        },
+        {
+          "size": 13,
+          "text": "Düz hat, eğri yolu yansıtmaz"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 76,
+      "type": "animation",
+      "file": "ekstremite-mesafe/animasyon-2-kaliper.html",
+      "count": 53,
+      "min": 9.5,
+      "median": 12,
+      "under10": 5,
+      "under11": 11,
+      "under12": 21,
+      "smallest": [
+        {
+          "size": 9.5,
+          "text": "Ölçülen mesafe"
+        },
+        {
+          "size": 9.5,
+          "text": "Δ latans — sabit"
+        },
+        {
+          "size": 9.5,
+          "text": "Hesaplanan İH"
+        },
+        {
+          "size": 9.5,
+          "text": "Modelde gerçek İH"
+        },
+        {
+          "size": 9.5,
+          "text": "Teknik sonuç"
+        },
+        {
+          "size": 10,
+          "text": "Preston & Shapiro"
+        },
+        {
+          "size": 10,
+          "text": "Proksimal motor NCS"
+        },
+        {
+          "size": 10,
+          "text": "5 ms/div · 5 mV/div"
+        }
+      ]
+    },
+    {
+      "number": 77,
+      "type": "topic_entry",
+      "file": "ekstremite-morfoloji/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Ekstremite Pozisyonu ve Dalga Morfolojisi"
+        }
+      ]
+    },
+    {
+      "number": 78,
+      "type": "explanation",
+      "file": "ekstremite-morfoloji/index.html",
+      "count": 42,
+      "min": 13,
+      "median": 18,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Birden fazla nokta uyarılıyorsa pozisyon sabit kalmalı"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        }
+      ]
+    },
+    {
+      "number": 79,
+      "type": "animation",
+      "file": "ekstremite-morfoloji/animasyon-1-pozisyon-tutarliligi.html",
+      "count": 66,
+      "min": 9,
+      "median": 12,
+      "under10": 7,
+      "under11": 24,
+      "under12": 30,
+      "smallest": [
+        {
+          "size": 9,
+          "text": "ULNAR MOTOR · ADM · ÖĞRETİM MODELİ"
+        },
+        {
+          "size": 9,
+          "text": "negatif ↑ · 2 mV/div · 2 ms/div"
+        },
+        {
+          "size": 9,
+          "text": "aynı-pozisyon referansı"
+        },
+        {
+          "size": 9,
+          "text": "bu oturum"
+        },
+        {
+          "size": 9,
+          "text": "Dirsek-altı BKAP"
+        },
+        {
+          "size": 9,
+          "text": "Dirsek-üstü BKAP"
+        },
+        {
+          "size": 9,
+          "text": "Okunan dirsek İH"
+        },
+        {
+          "size": 10,
+          "text": "TUTARLI"
+        }
+      ]
+    },
+    {
+      "number": 80,
+      "type": "topic_entry",
+      "file": "sweep-sensitivite/konu-girisi.html",
+      "count": 9,
+      "min": 13,
+      "median": 15,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "NON-FİZYOLOJİK FAKTÖRLER"
+        },
+        {
+          "size": 15,
+          "text": "F1"
+        },
+        {
+          "size": 15,
+          "text": "F2"
+        },
+        {
+          "size": 15,
+          "text": "F3"
+        },
+        {
+          "size": 81.6,
+          "text": "Sensitivite ve Sweep Hızı"
+        }
+      ]
+    },
+    {
+      "number": 81,
+      "type": "explanation",
+      "file": "sweep-sensitivite/index.html",
+      "count": 39,
+      "min": 13,
+      "median": 18,
+      "under10": 0,
+      "under11": 0,
+      "under12": 0,
+      "smallest": [
+        {
+          "size": 13,
+          "text": "Konu"
+        },
+        {
+          "size": 13,
+          "text": "Grup"
+        },
+        {
+          "size": 13,
+          "text": "Önceki"
+        },
+        {
+          "size": 13,
+          "text": "İçindekiler"
+        },
+        {
+          "size": 13,
+          "text": "Sonraki"
+        },
+        {
+          "size": 15,
+          "text": "SİM"
+        },
+        {
+          "size": 15,
+          "text": "EDX"
+        },
+        {
+          "size": 15,
+          "text": "Latans Ölçümü: Sweep Hızı ve Sensitivite"
+        }
+      ]
+    },
+    {
+      "number": 82,
+      "type": "animation",
+      "file": "sweep-sensitivite/animasyon-1-sensitivite.html",
+      "count": 53,
+      "min": 9,
+      "median": 12,
+      "under10": 4,
+      "under11": 10,
+      "under12": 21,
+      "smallest": [
+        {
+          "size": 9,
+          "text": "Dikey ölçek"
+        },
+        {
+          "size": 9,
+          "text": "Kitaptaki ölçüm"
+        },
+        {
+          "size": 9,
+          "text": "Fizyolojik başlangıç"
+        },
+        {
+          "size": 9,
+          "text": "Negatif peak latansı"
+        },
+        {
+          "size": 10,
+          "text": "5 mV/div"
+        },
+        {
+          "size": 10,
+          "text": "1 mV/div"
+        },
+        {
+          "size": 10,
+          "text": "0,1 mV/div"
+        },
+        {
+          "size": 10,
+          "text": "MEDIAN MOTOR · APB · BİLEK UYARIMI"
+        }
+      ]
+    },
+    {
+      "number": 83,
+      "type": "animation",
+      "file": "sweep-sensitivite/animasyon-2-sweep-hizi.html",
+      "count": 53,
+      "min": 9,
+      "median": 12,
+      "under10": 4,
+      "under11": 10,
+      "under12": 21,
+      "smallest": [
+        {
+          "size": 9,
+          "text": "Yatay ölçek"
+        },
+        {
+          "size": 9,
+          "text": "Kitaptaki ölçüm"
+        },
+        {
+          "size": 9,
+          "text": "Kaydedilmiş yanıt"
+        },
+        {
+          "size": 9,
+          "text": "Negatif peak latansı"
+        },
+        {
+          "size": 10,
+          "text": "2 ms/div"
+        },
+        {
+          "size": 10,
+          "text": "1 ms/div"
+        },
+        {
+          "size": 10,
+          "text": "0,8 ms/div"
+        },
+        {
+          "size": 10,
+          "text": "MEDIAN MOTOR · APB · BİLEK UYARIMI"
+        }
+      ]
+    }
+  ]
+}
