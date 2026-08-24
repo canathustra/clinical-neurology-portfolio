@@ -1,19 +1,27 @@
 const filters = document.querySelectorAll('.filter');
-const projects = document.querySelectorAll('.project-card');
+const resources = document.querySelectorAll('.resource-card');
 
 filters.forEach((filter) => {
   filter.addEventListener('click', () => {
-    filters.forEach((item) => item.classList.remove('active'));
-    filter.classList.add('active');
-    projects.forEach((project) => {
-      project.classList.toggle('hidden', filter.dataset.filter !== 'all' && project.dataset.type !== filter.dataset.filter);
+    const selected = filter.dataset.filter;
+    filters.forEach((item) => item.classList.toggle('active', item === filter));
+    resources.forEach((resource) => {
+      resource.classList.toggle('hidden', selected !== 'all' && resource.dataset.type !== selected);
     });
   });
 });
 
 const menuButton = document.querySelector('.menu-button');
 const navigation = document.querySelector('#navigation');
+
 menuButton.addEventListener('click', () => {
-  const open = navigation.classList.toggle('open');
-  menuButton.setAttribute('aria-expanded', open);
+  const isOpen = navigation.classList.toggle('open');
+  menuButton.setAttribute('aria-expanded', String(isOpen));
+});
+
+navigation.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', () => {
+    navigation.classList.remove('open');
+    menuButton.setAttribute('aria-expanded', 'false');
+  });
 });
