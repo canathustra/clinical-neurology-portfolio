@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boy — F/H Yanıtı ve Boy</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#4a5964;flex-wrap:wrap;}
+.toggles{display:flex;gap:8px;flex-wrap:wrap;}
+.modetoggle{display:flex;border:1px solid var(--line2);border-radius:6px;overflow:hidden;}
+.mbtn{appearance:none;border:none;background:#fff;color:var(--muted);padding:6px 11px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;text-transform:none;letter-spacing:0;white-space:nowrap;}
+.mbtn.active{background:var(--cyan);color:#fff;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:12px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:15px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:17px;font-variant-numeric:tabular-nums;}
+.badge-row{display:flex;flex-direction:column;gap:6px;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);}
+.badge-row .lbl{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;}
+.badge-row b{font-size:15px;font-weight:800;}
+.badge-row b.ok{color:var(--green);}
+.badge-row b.bad{color:var(--red);}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+.hidden{display:none;}
+
+footer{flex:none;display:flex;align-items:center;gap:16px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+.slider-row span{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+input[type="range"]{flex:1;accent-color:var(--cyan);}
+.h-readout{font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:74px;text-align:right;}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Boy</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">3 / 3 — F/H Yanıtı ve Boy</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head">
+<span>Geç Yanıt Latansı vs Boy</span>
+<div class="toggles">
+<div class="modetoggle" id="respToggle">
+<button class="mbtn active" data-resp="F" type="button">F Yanıtı</button>
+<button class="mbtn" data-resp="H" type="button">H Refleksi</button>
+</div>
+<div class="modetoggle" id="cmpToggle">
+<button class="mbtn active" data-cmp="single" type="button">Mutlak Değer</button>
+<button class="mbtn" data-cmp="bilateral" type="button">İki Taraf</button>
+</div>
+</div>
+</div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Okuma</span></div>
+<div class="side-body">
+<div id="singleBlock">
+<div class="stat-row"><span>Boy</span><b id="hOut">170 cm</b></div>
+<div class="stat-row"><span>Ölçülen latans</span><b id="latOut">28.2 ms</b></div>
+<div class="badge-row"><span class="lbl">Sabit ÜSN ile (boy körü)</span><b id="fixedVerdict" class="ok">NORMAL</b></div>
+<div class="badge-row"><span class="lbl">Boya göre ÜSN ile</span><b id="adjVerdict" class="ok">NORMAL</b></div>
+<div class="note-box" id="mechNote">Boyu kaydır. Sabit üst sınır boyu hesaba katmaz.</div>
+</div>
+<div id="biBlock" class="hidden">
+<div class="stat-row"><span>Semptomatik taraf</span><b id="latR">28.2 ms</b></div>
+<div class="stat-row"><span>Asemptomatik taraf</span><b id="latL">27.7 ms</b></div>
+<div class="stat-row"><span>Taraf farkı</span><b id="diffOut">0.5 ms</b></div>
+<div class="note-box" id="biNote">İki taraf aynı boyda olduğu için boy etkisi <b>iptal olur</b>; sağ-sol farkı boydan bağımsızdır.</div>
+</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="slider-row">
+<span>150 cm</span>
+<input id="hSlider" type="range" min="150" max="210" step="1" value="170" aria-label="Boy">
+<span>210 cm</span>
+</div>
+<div class="h-readout" id="hReadout">170 cm</div>
+</footer>
+
+<div class="bottom-bar">
+<a class="fkey" href="gec-yanit-ve-boy.html">F1<b>Önceki: Geç Yanıtlar ve Boy</b></a>
+<a class="fkey" href="../index.html">F2<b>İçindekiler</b></a>
+<a class="fkey" href="../proksimal-distal/index.html">F3<b>Sıradaki: Proksimal ve Distal Segmentler</b></a>
+</div>
+
+</div>
+
+<script>
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const respToggle=document.getElementById("respToggle");
+const cmpToggle=document.getElementById("cmpToggle");
+const singleBlock=document.getElementById("singleBlock");
+const biBlock=document.getElementById("biBlock");
+const hOut=document.getElementById("hOut");
+const latOut=document.getElementById("latOut");
+const fixedVerdict=document.getElementById("fixedVerdict");
+const adjVerdict=document.getElementById("adjVerdict");
+const mechNote=document.getElementById("mechNote");
+const latR=document.getElementById("latR");
+const latL=document.getElementById("latL");
+const diffOut=document.getElementById("diffOut");
+const hSlider=document.getElementById("hSlider");
+const hReadout=document.getElementById("hReadout");
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(220,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(()=>{resizeCanvas();draw();}).observe(stageWrap);
+resizeCanvas();
+
+// Illustrative model from the chapter text: late-response latency scales with limb length
+// (F loop ~ 2x limb length; H loop ~ 2x proximal lower limb). Normal upper limits must be
+// height-based; a fixed (height-blind) cutoff falsely flags tall individuals as abnormal.
+const RESP={
+  F:{ label:"F Yanıtı", k:0.44, cv:55, central:1.0, maxMs:42, margin:2.5 },
+  H:{ label:"H Refleksi", k:0.48, cv:55, central:1.0, maxMs:46, margin:2.8 }
+};
+const H_FIX=172, SIDE_DIFF=0.5;
+function latency(resp,h){ const r=RESP[resp]; return (2*h*r.k*10)/r.cv + r.central; }
+function adjustedULN(resp,h){ return latency(resp,h)+RESP[resp].margin; }
+function fixedULN(resp){ return latency(resp,H_FIX)+RESP[resp].margin; }
+
+let resp="F", cmp="single", curH=170;
+
+function updateStatics(){
+  hOut.textContent=`${curH} cm`;
+  hReadout.textContent=`${curH} cm`;
+  const meas=latency(resp,curH);
+  latOut.textContent=`${meas.toFixed(1)} ms`;
+
+  const fUln=fixedULN(resp), aUln=adjustedULN(resp,curH);
+  const fixOk=meas<=fUln;
+  fixedVerdict.textContent=fixOk?"NORMAL":"ANORMAL — yanlış (boy düzeltmesi yok)";
+  fixedVerdict.className=fixOk?"ok":"bad";
+  adjVerdict.textContent="NORMAL";
+  adjVerdict.className="ok";
+
+  if(!fixOk){
+    mechNote.innerHTML=`<b>Yanlış etiket:</b> ${curH} cm boyda latans ${meas.toFixed(1)} ms; sabit üst sınırı (${fUln.toFixed(1)} ms) aşıyor. Ama boya göre sınır ${aUln.toFixed(1)} ms — kişi aslında <b>normal</b>.`;
+  } else {
+    mechNote.innerHTML=`Latans ${meas.toFixed(1)} ms, sabit üst sınırın (${fUln.toFixed(1)} ms) altında. Boyu artırınca sabit sınır <b>yanıltıcı</b> olur.`;
+  }
+
+  const rr=meas, ll=meas-SIDE_DIFF;
+  latR.textContent=`${rr.toFixed(1)} ms`;
+  latL.textContent=`${ll.toFixed(1)} ms`;
+  diffOut.textContent=`${SIDE_DIFF.toFixed(1)} ms`;
+}
+
+function limbLenPx(h){ return (cssH*0.30)+(cssH*0.34)*((h-150)/60); }
+
+function drawLimb(cx,topY,lenPx){
+  // limb line
+  ctx.strokeStyle="#c3ceda"; ctx.lineWidth=Math.max(10,cssW*0.02); ctx.lineCap="round";
+  ctx.beginPath(); ctx.moveTo(cx,topY); ctx.lineTo(cx,topY+lenPx); ctx.stroke();
+  ctx.lineCap="butt";
+  // up path (afferent/antidromic)
+  ctx.strokeStyle="#2f6fbd"; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.moveTo(cx-7,topY+lenPx-6); ctx.lineTo(cx-7,topY+6); ctx.stroke();
+  ctx.fillStyle="#2f6fbd";
+  ctx.beginPath(); ctx.moveTo(cx-7,topY+2); ctx.lineTo(cx-11,topY+12); ctx.lineTo(cx-3,topY+12); ctx.closePath(); ctx.fill();
+  // down path (efferent/orthodromic)
+  ctx.strokeStyle="#c97a2a"; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.moveTo(cx+7,topY+6); ctx.lineTo(cx+7,topY+lenPx-6); ctx.stroke();
+  ctx.fillStyle="#c97a2a";
+  ctx.beginPath(); ctx.moveTo(cx+7,topY+lenPx-2); ctx.lineTo(cx+3,topY+lenPx-12); ctx.lineTo(cx+11,topY+lenPx-12); ctx.closePath(); ctx.fill();
+  // distal stim marker
+  ctx.fillStyle="#2f7d52";
+  ctx.beginPath(); ctx.arc(cx,topY+lenPx,6,0,Math.PI*2); ctx.fill();
+}
+
+function drawSchematic(x0,w){
+  const cordY=cssH*0.16;
+  // spinal cord bar
+  ctx.fillStyle="#8fa0ad";
+  const cordX=x0+w*0.5;
+  roundRect(cordX-w*0.34,cordY-10,w*0.68,16,6); ctx.fill();
+  ctx.fillStyle="#45525c"; ctx.font="800 "+Math.max(11,cssW*0.013)+"px Inter, sans-serif";
+  ctx.textAlign="center"; ctx.fillText("Omurilik",cordX,cordY-16); ctx.textAlign="left";
+
+  const topY=cordY+8;
+  if(cmp==="single"){
+    drawLimb(cordX,topY,limbLenPx(curH));
+    ctx.fillStyle="#5c6b78"; ctx.font="700 "+Math.max(10,cssW*0.012)+"px Inter, sans-serif";
+    ctx.textAlign="center";
+    ctx.fillText(RESP[resp].label+" devresi",cordX,topY+limbLenPx(curH)+24);
+    ctx.fillText("≈ 2 × ekstremite yolu",cordX,topY+limbLenPx(curH)+40);
+    ctx.textAlign="left";
+  } else {
+    drawLimb(x0+w*0.32,topY,limbLenPx(curH));
+    drawLimb(x0+w*0.68,topY,limbLenPx(curH));
+    ctx.fillStyle="#5c6b78"; ctx.font="700 "+Math.max(10,cssW*0.012)+"px Inter, sans-serif";
+    ctx.textAlign="center";
+    ctx.fillText("Semptomatik",x0+w*0.32,topY+limbLenPx(curH)+24);
+    ctx.fillText("Asemptomatik",x0+w*0.68,topY+limbLenPx(curH)+24);
+    ctx.fillText("Aynı boy → boy etkisi iptal",cordX,topY+limbLenPx(curH)+42);
+    ctx.textAlign="left";
+  }
+}
+
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+function drawGauge(x0,y0,w){
+  const r=RESP[resp], maxMs=r.maxMs;
+  const barTop=y0, barH=32;
+  const msToX=ms=>x0+w*(ms/maxMs);
+
+  // axis
+  ctx.strokeStyle="#8a97a3"; ctx.lineWidth=1.4;
+  ctx.beginPath(); ctx.moveTo(x0,barTop+barH+10); ctx.lineTo(x0+w,barTop+barH+10); ctx.stroke();
+  ctx.fillStyle="#45525c"; ctx.font="700 "+Math.max(9,cssW*0.011)+"px Inter, sans-serif";
+  ctx.textAlign="center";
+  for(let ms=0;ms<=maxMs;ms+=10){ const x=msToX(ms); ctx.beginPath();ctx.moveTo(x,barTop+barH+10);ctx.lineTo(x,barTop+barH+15);ctx.stroke(); ctx.fillText(`${ms}`,x,barTop+barH+28); }
+  ctx.fillText("ms",msToX(maxMs)+2,barTop+barH+28);
+
+  const meas=latency(resp,curH);
+
+  if(cmp==="single"){
+    const fUln=fixedULN(resp), aUln=adjustedULN(resp,curH);
+    // measured bar
+    const over=meas>fUln;
+    ctx.fillStyle=over?"#d98c93":"#9dc0e8";
+    ctx.fillRect(x0,barTop,msToX(meas)-x0,barH);
+    ctx.fillStyle=over?"#b43b47":"#2f6fbd";
+    ctx.fillRect(msToX(meas)-3,barTop,3,barH);
+    // fixed ULN
+    ctx.strokeStyle="#b43b47"; ctx.lineWidth=2; ctx.setLineDash([5,4]);
+    ctx.beginPath(); ctx.moveTo(msToX(fUln),barTop-14); ctx.lineTo(msToX(fUln),barTop+barH+4); ctx.stroke();
+    // adjusted ULN
+    ctx.strokeStyle="#2f7d52";
+    ctx.beginPath(); ctx.moveTo(msToX(aUln),barTop-14); ctx.lineTo(msToX(aUln),barTop+barH+4); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font="800 "+Math.max(10,cssW*0.012)+"px Inter, sans-serif";
+    ctx.textAlign="center";
+    ctx.fillStyle="#b43b47"; ctx.fillText("Sabit ÜSN",msToX(fUln),barTop-18);
+    ctx.fillStyle="#2f7d52"; ctx.fillText("Boya göre ÜSN",msToX(aUln),barTop+barH+44);
+    ctx.fillStyle="#16232c"; ctx.fillText(`Latans ${meas.toFixed(1)} ms`,msToX(meas),barTop-18+ (Math.abs(msToX(meas)-msToX(fUln))<70?36:0));
+    ctx.textAlign="left";
+  } else {
+    const rr=meas, ll=meas-SIDE_DIFF;
+    ctx.fillStyle="#9dc0e8"; ctx.fillRect(x0,barTop,msToX(rr)-x0,barH*0.44);
+    ctx.fillStyle="#2f6fbd"; ctx.fillRect(msToX(rr)-3,barTop,3,barH*0.44);
+    ctx.fillStyle="#bcd2b0"; ctx.fillRect(x0,barTop+barH*0.56,msToX(ll)-x0,barH*0.44);
+    ctx.fillStyle="#2f7d52"; ctx.fillRect(msToX(ll)-3,barTop+barH*0.56,3,barH*0.44);
+    ctx.font="800 "+Math.max(10,cssW*0.012)+"px Inter, sans-serif"; ctx.textAlign="left";
+    ctx.fillStyle="#2f6fbd"; ctx.fillText(`Semptomatik ${rr.toFixed(1)} ms`,x0+6,barTop-6);
+    ctx.fillStyle="#2f7d52"; ctx.fillText(`Asemptomatik ${ll.toFixed(1)} ms`,x0+6,barTop+barH+16);
+    ctx.fillStyle="#16232c"; ctx.textAlign="center";
+    ctx.fillText(`Fark ${SIDE_DIFF.toFixed(1)} ms — boydan bağımsız`,x0+w*0.5,barTop+barH+44);
+    ctx.textAlign="left";
+  }
+}
+
+function draw(){
+  const W=cssW,H=cssH;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fcfdfe"; ctx.fillRect(0,0,W,H);
+  drawSchematic(W*0.02,W*0.40);
+  drawGauge(W*0.50,H*0.42,W*0.46);
+}
+
+function setH(v){
+  curH=Math.max(150,Math.min(210,Math.round(Number(v))));
+  hSlider.value=curH;
+  updateStatics(); draw();
+}
+hSlider.addEventListener("input",e=>{ setH(e.target.value); });
+respToggle.addEventListener("click",e=>{
+  const b=e.target.closest(".mbtn"); if(!b) return;
+  resp=b.dataset.resp;
+  [...respToggle.querySelectorAll(".mbtn")].forEach(x=>x.classList.toggle("active",x===b));
+  updateStatics(); draw();
+});
+cmpToggle.addEventListener("click",e=>{
+  const b=e.target.closest(".mbtn"); if(!b) return;
+  cmp=b.dataset.cmp;
+  [...cmpToggle.querySelectorAll(".mbtn")].forEach(x=>x.classList.toggle("active",x===b));
+  singleBlock.classList.toggle("hidden",cmp!=="single");
+  biBlock.classList.toggle("hidden",cmp!=="bilateral");
+  updateStatics(); draw();
+});
+
+setH(170);
+</script>
+</body>
+</html>

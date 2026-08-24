@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fibula başında peroneal tuzak NCS örneği</title>
+<link rel="stylesheet" href="assets/ncs-lab.css">
+<style>
+.workspace{grid-template-columns:minmax(0,1fr) 375px}.measure{padding:6px 9px}.measure span,.measure b{font-size:12.5px}.note{font-size:13px}.micro{font-size:11.5px}.scope-wrap:after{bottom:3px}.segment-ok{border-left:5px solid var(--green)}.segment-bad{border-left:5px solid var(--red)}
+</style>
+</head>
+<body>
+<main class="app">
+ <div class="titlebar"><div class="tb-left"><span class="dot"></span>GBS / AIDP · Ayırıcı NCS</div><div class="tb-right"><b>CADWELL</b>FIBULAR MOTOR</div></div>
+ <div class="toolbar"><strong>Fibula başında fokal blok: tek başına GBS'yi desteklemez</strong><span class="badge" id="stateBadge">0 / 3 KAYIT</span></div>
+ <div class="controls">
+  <div class="control"><span class="control-label">Seçili iz</span><div class="seg" id="traceSeg"><button class="active" data-trace="ankle">Ayak bileği</button><button data-trace="below">Fibula başı altı</button><button data-trace="pop">Popliteal fossa</button></div></div>
+  <button class="stim" id="stimBtn" type="button">⚡ UYAR VE KAYDET</button>
+ </div>
+ <section class="workspace">
+  <div class="scope-panel"><div class="panel-head"><span>Sağ fibular (peroneal) motor - EDB · üç uyarı noktası</span><span id="phaseLabel">Ayak bileği uyarısı hazır</span></div><div class="scope-wrap" id="scopeWrap" data-scale="2 mV/div · 2 ms/div · aynı G1/G2 ve kazanç"><canvas id="scope" aria-label="Ayak bileği, fibula başı altı ve popliteal fossa uyarımlarıyla fibula başında fokal iletim bloğunu gösteren motor NCS izleri"></canvas></div></div>
+  <aside class="side"><div class="panel-head"><span>Segmenti lokalize et</span></div><div class="side-body">
+   <div class="measure"><span>Seçili CMAP</span><b id="siteOut">Ayak bileği</b></div>
+   <div class="measure"><span>Başlangıç latansı</span><b id="latOut">—</b></div>
+   <div class="measure"><span>Negatif tepe amplitüdü</span><b id="ampOut">—</b></div>
+   <div class="measure segment-ok"><span>Bilek → fibula altı</span><b id="distalCvOut">—</b></div>
+   <div class="measure segment-bad"><span>Fibula başı segmenti</span><b id="headCvOut">—</b></div>
+   <div class="measure hot"><span>Fibula başında amp. kaybı</span><b id="ampDropOut">—</b></div>
+   <div class="measure hot"><span>Fibula başında alan kaybı</span><b id="areaDropOut">—</b></div>
+   <div class="note" id="note"><b>Başlat:</b> Ayak bileğini uyarın; sonra fibula başı altı ve popliteal fossa kayıtlarını ekleyin.</div>
+   <div class="micro"><b>GBS yorumu:</b> Tek sinirde, klasik tuzak segmentiyle sınırlı anormallik polinöropati kanıtı değildir ve GBS'yi desteklemez. GBS'yi dışlamaz; diğer sinirleri, tuzak dışı segmentleri ve geç yanıtları inceleyin.</div>
+   <div class="micro"><b>Teknik kontrol:</b> Supramaksimal uyarı, doğru mesafe ve elektrot yerleşimi; aksesuar derin fibular sinir ve EDB atrofisini kontrol edin. Kaynak: EAN/PNS GBS 2023; Preston &amp; Shapiro 2020.</div>
+  </div></aside>
+ </section>
+ <nav class="bottom-bar"><a class="fkey" href="iletim-blogu-ncs-ornegi.html">F1<b>Önceki: İletim Bloğu Örneği</b></a><a class="fkey" href="../index.html">F2<b>İçindekiler</b></a><a class="fkey" href="animasyon-ncs-zaman-cizelgesi.html">F3<b>Sıradaki: Motor NCS Laboratuvarı</b></a></nav>
+</main>
+<script src="assets/peroneal-entrapment-ncs-engine.js"></script>
+<script src="assets/deck-nav.js"></script>
+</body>
+</html>

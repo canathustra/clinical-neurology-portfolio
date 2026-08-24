@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Temporal dispersiyon ve iletim bloğu fizyolojisi</title>
+<link rel="stylesheet" href="assets/ncs-lab.css">
+<style>
+.workspace{grid-template-columns:minmax(0,1fr) 350px}.scope-wrap{background:#f7fafc!important}.scope-wrap:after{display:none}.measure{padding:8px 10px}.measure span,.measure b{font-size:13px}.note{font-size:13.5px}.micro{font-size:11.8px}
+</style>
+</head>
+<body>
+<main class="app">
+ <div class="titlebar"><div class="tb-left"><span class="dot"></span>GBS / AIDP · Segmental Demiyelinizasyon</div><div class="tb-right"><b>CLINICAL NCS</b>PHYSIOLOGY LAB</div></div>
+ <div class="toolbar"><strong>Temporal dispersiyon ≠ iletim bloğu: kasta ne değişir?</strong><span class="badge" id="stateBadge">TEMPORAL DİSPERSİYON</span></div>
+ <div class="controls">
+  <div class="control"><span class="control-label">Mekanizma</span><div class="seg" id="modeSeg"><button class="active" data-mode="td">Temporal dispersiyon</button><button data-mode="cb">İletim bloğu</button></div></div>
+  <div class="control"><span class="control-label">Uyarım</span><div class="seg" id="siteSeg"><button data-site="distal">Distal</button><button class="active" data-site="proximal">Proksimal</button></div></div>
+  <button class="utility" id="playBtn" type="button">BAŞLAT</button><button class="utility" id="restartBtn" type="button">BAŞTAN</button>
+ </div>
+ <section class="workspace">
+  <div class="scope-panel"><div class="panel-head"><span id="sceneTitle">Lezyon öncesi birlikte; segment içinde farklı derecede yavaş</span><span id="phaseLabel">Proksimal uyarı</span></div><div class="scope-wrap" id="scopeWrap"><canvas id="scope" aria-label="Temporal dispersiyon ile iletim bloğunda motor aksonların kasa ulaşmasını ve oluşan CMAP biçimini karşılaştıran animasyon"></canvas></div></div>
+  <aside class="side"><div class="panel-head"><span>Mekanizmayı oku</span></div><div class="side-body">
+   <div class="measure"><span>Kasa ulaşan akson</span><b id="arriveOut">8 / 8</b></div>
+   <div class="measure"><span>Varış penceresi</span><b id="windowOut">Geniş</b></div>
+   <div class="measure"><span>Proksimal/distal alan</span><b id="areaOut">Yaklaşık korunur</b></div>
+   <div class="measure hot"><span>NCS imzası</span><b id="signatureOut">Süre ↑</b></div>
+   <div class="note" id="note"><b>Temporal dispersiyon:</b> Aksonlar lezyona birlikte ulaşır. Segmentteki farklı demiyelinizasyon dereceleri iletimi eşit olmayan biçimde yavaşlatır.</div>
+   <div class="micro" id="micro"><b>Sonuç:</b> Lezyon sonrası biriken gecikme yanıtları zamana yayar; CMAP genişler ve faz iptaliyle tepe amplitüdü düşer.</div>
+   <div class="micro"><b>Kaynak:</b> Preston &amp; Shapiro, 2020, Bölüm 3, Şekil 3.21-3.22; EAN/PNS CIDP Kılavuzu, 2021.</div>
+  </div></aside>
+ </section>
+ <nav class="bottom-bar"><a class="fkey" href="motor-ncs-segmental-demiyelinizasyon.html">F1<b>Önceki: Motor NCS Demiyelinizasyon</b></a><a class="fkey" href="../index.html">F2<b>İçindekiler</b></a><a class="fkey" href="iletim-blogu-ncs-ornegi.html">F3<b>Sıradaki: İletim Bloğu NCS Örneği</b></a></nav>
+</main>
+<script src="assets/td-cb-physiology-engine.js"></script>
+<script src="assets/deck-nav.js"></script>
+</body>
+</html>

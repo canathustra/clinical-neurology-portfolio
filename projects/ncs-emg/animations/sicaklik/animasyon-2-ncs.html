@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sıcaklık — Canlı NCS Demonstrasyonu</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.badge{display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border-radius:999px;background:#e6f7ec;color:var(--green);border:1px solid #c8e8d3;font-size:13px;font-weight:700;text-transform:none;letter-spacing:0;}
+.badge.cold{background:#e9f1fb;color:var(--blue);border-color:#cddef4;}
+.modetoggle{display:flex;border:1px solid var(--line2);border-radius:6px;overflow:hidden;}
+.mbtn{appearance:none;border:none;background:#fff;color:var(--muted);padding:6px 12px;font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;text-transform:none;letter-spacing:0;}
+.mbtn.active{background:var(--cyan);color:#fff;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#071a12;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+.scope-calibration{position:absolute;right:12px;top:10px;z-index:3;padding:5px 8px;border:1px solid #315347;border-radius:3px;background:rgba(6,23,16,.88);color:#cde6dc;font:800 10px/1.2 Consolas,"Courier New",monospace;letter-spacing:.04em;pointer-events:none;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:14px;align-content:start;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);}
+.stat{background:#f3f6f8;padding:11px;}
+.stat label{display:block;color:var(--muted);font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;}
+.stat strong{display:block;margin-top:4px;font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14.5px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;align-items:center;gap:18px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+.slider-row span{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+input[type="range"]{flex:1;max-width:420px;accent-color:var(--cyan);}
+.temp-readout{font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:64px;text-align:right;}
+button{appearance:none;border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:6px;min-height:34px;padding:0 14px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;}
+button:hover{border-color:var(--cyan);}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Sıcaklık</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">2 / 9 — Canlı NCS</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>NCS+ Osiloskop</span><div style="display:flex;align-items:center;gap:10px;"><div class="modetoggle" id="modeToggle"><button class="mbtn active" data-mode="snap" type="button">DSAP</button><button class="mbtn" data-mode="cmap" type="button">BKAP</button></div><span class="badge" id="stateBadge">34°C · sıcak</span></div></div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas><div class="scope-calibration" id="scopeCalibration">Sensitivite 25 µV/div · Sweep 1 ms/div</div></div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Ölçümler</span></div>
+<div class="side-body">
+<div class="stat-grid">
+<div class="stat"><label>Distal Latans</label><strong id="dlOut">2.5 ms</strong></div>
+<div class="stat"><label>İletim Hızı</label><strong id="cvOut">52 m/s</strong></div>
+<div class="stat"><label>Amplitüd</label><strong id="ampOut">34 µV</strong></div>
+<div class="stat"><label>Süre</label><strong id="durOut">1.6 ms</strong></div>
+</div>
+<div class="note-box" id="mechNote">Sıcaklık düştükçe iletim hızı ve latans doğrusal olarak değişir: her 1°C'de İH 1.5–2.5 m/s yavaşlar, DL ~0.2 ms uzar.</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="slider-row">
+<span>21°C soğuk</span>
+<input id="tempSlider" type="range" min="21" max="34" step="0.5" value="34" aria-label="Ekstremite sıcaklığı">
+<span>34°C sıcak</span>
+</div>
+<div class="temp-readout" id="tempReadout">34°C</div>
+<button id="autoBtn" type="button">Otomatik oynat</button>
+</footer>
+
+<div class="bottom-bar">
+<a class="fkey" href="animasyon-1-nod.html">F1<b>Önceki: Nod Animasyonu</b></a>
+<a class="fkey" href="../index.html">F2<b>İçindekiler</b></a>
+<a class="fkey" href="animasyon-3-faz-iptali.html">F3<b>Sıradaki: Tek Lif Toplamı</b></a>
+</div>
+
+</div>
+
+<script>
+const stageWrap=document.getElementById("stageWrap");
+const scopeCalibration=document.getElementById("scopeCalibration");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const stateBadge=document.getElementById("stateBadge");
+const dlOut=document.getElementById("dlOut");
+const cvOut=document.getElementById("cvOut");
+const ampOut=document.getElementById("ampOut");
+const durOut=document.getElementById("durOut");
+const mechNote=document.getElementById("mechNote");
+const slider=document.getElementById("tempSlider");
+const tempReadout=document.getElementById("tempReadout");
+const autoBtn=document.getElementById("autoBtn");
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(160,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(resizeCanvas).observe(stageWrap);
+resizeCanvas();
+
+// A single fiber action potential (SFAP) model as a triphasic waveform.
+// This function is tuned to create a realistic shape.
+function sfapShape(dt) {
+    if (dt < 0) return 0;
+    // Parameters: [rise, decay, peak_normalization, time_shift, amplitude_scale]
+    const pre =   [0.04, 0.08, 0.5, -0.1,  0.15];
+    const main =  [0.1,  0.25, 0.6,  0.0,  -1.0];
+    const after = [0.2,  0.6,  0.6,  0.5,   0.4];
+
+    let value = 0;
+    for (const [r, d, p, shift, scale] of [pre, main, after]) {
+        const t = dt - shift;
+        if (t >= 0) {
+            value += scale * (Math.exp(-t / d) - Math.exp(-t / r)) / p;
+        }
+    }
+    return value;
+}
+
+// Generates the compound potential by summing SFAPs. This models temporal dispersion
+// more realistically, which was the core of the user's request.
+function snapWave(msAfterOnset, sfapAmp, dur, dispersion) {
+    let total = 0;
+    const numFibers = 15; // Simulate 15 fiber groups for a smooth result.
+
+    for (let i = 0; i < numFibers; i++) {
+        // Distribute fiber latencies based on the dispersion factor.
+        // Cold reduces dispersion, making fibers fire more in sync.
+        const latencyOffset = (i / (numFibers - 1) - 0.5) * dispersion;
+        // Calculate time for this fiber's waveform, scaling by duration.
+        const timeIntoWave = (msAfterOnset - latencyOffset) / dur;
+        total += sfapShape(timeIntoWave);
+    }
+    // Average the contributions and scale by the single-fiber amplitude.
+    return sfapAmp * (total / numFibers);
+}
+function stimArtifact(ms){ if(ms<0) return 0; return -19*Math.exp(-ms/.045)+8*Math.exp(-ms/.13); }
+function noiseTexture(ms,tSec,level){ return level*(Math.sin(ms*41+tSec*9)*.5+Math.sin(ms*97+tSec*17)*.3+Math.sin(ms*13+tSec*3.3)*.25); }
+
+function sfapWavePeak(dur,dispersion){
+  let m=0;
+  for(let dt=-0.5; dt<=8; dt+=0.03){ const v=-snapWave(dt,1,dur,dispersion); if(v>m) m=v; }
+  return m||1;
+}
+const DIVISION={snap:25,cmap:3}; // grid scale: µV/div (DSAP) or mV/div (BKAP)
+
+function metrics(T,mode){
+  const drop=34-T;
+  const dl=2.5+.2*drop, cv=52-2*drop;
+
+  // Dispersion models how synchronized nerve fibers are. In cold, fibers slow
+  // down but become more synchronized (less dispersion), causing potentials to
+  // summate more effectively and increasing the final amplitude.
+  const dispersion = 0.6 - 0.4 * (drop / 13); // Ranges from 0.6 (warm) to 0.2 (cold).
+
+  if(mode==="cmap"){
+    const ampDisplay=5.0+0.10*drop, dur=3.0+0.25*drop, disp2=dispersion*0.8;
+    return { dl, cv, ampDisplay, ampUnit:"mV", dur, ampPct:Math.round((ampDisplay-5.0)/5.0*100), dispersion:disp2, peakRef:sfapWavePeak(dur,disp2) };
+  }
+  // For SNAP, the effect of dispersion on amplitude is more pronounced.
+  const ampDisplay=34+1.7*drop, dur=1.6+.22*drop;
+  return { dl, cv, ampDisplay, ampUnit:"µV", dur, ampPct:Math.round((ampDisplay-34)/34*100), dispersion, peakRef:sfapWavePeak(dur,dispersion) };
+}
+function coldFactor(T){ return (34-T)/13; }
+
+let temp=34, mode="snap", auto=false, autoDir=-1, last=performance.now();
+const AXIS_L=0.06, AXIS_R=0.965, AXIS_MS=8;
+
+function updateStatics(){
+  const m=metrics(temp,mode), cf=coldFactor(temp);
+  dlOut.textContent=`${m.dl.toFixed(1)} ms`;
+  cvOut.textContent=`${m.cv.toFixed(0)} m/s`;
+  ampOut.textContent=`${m.ampDisplay.toFixed(mode==="cmap"?1:0)} ${m.ampUnit}`;
+  durOut.textContent=`${m.dur.toFixed(1)} ms`;
+  tempReadout.textContent=`${temp.toFixed(0)}°C`;
+  stateBadge.textContent = cf<.15?`${temp.toFixed(0)}°C · sıcak`:cf<.6?`${temp.toFixed(0)}°C · soğuyor`:`${temp.toFixed(0)}°C · soğuk`;
+  stateBadge.classList.toggle("cold",cf>=.15);
+  const fiberWord = mode==="cmap" ? "BKAP" : "DSAP";
+  if(cf<.15) mechNote.innerHTML=`<b>Sıcakta:</b> Kanal hızla inaktive olur; DL kısa, İH hızlı, amplitüd düşük. (${fiberWord})`;
+  else if(cf<.6) mechNote.innerHTML=`<b>Soğuma ilerlerken:</b> DL uzamaya, İH yavaşlamaya başlar. (${fiberWord})`;
+  else mechNote.innerHTML=`<b>Soğukta (${fiberWord}):</b> DL uzun, İH yavaş — amplitüd %${m.ampPct} arttı. ${mode==="cmap"?"Motor etkisi daha hafiftir.":"Duysalda etki daha belirgindir."}`;
+}
+
+function draw(now){
+  const m=metrics(temp,mode), cf=coldFactor(temp);
+  const tSec=now/1000;
+  const W=cssW,H=cssH;
+  const left=W*AXIS_L, right=W*AXIS_R, top=H*0.1, bottom=H*0.84, mid=(top+bottom)/2;
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#071a12"; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle="rgba(255,255,255,.013)";
+  for(let y=top;y<bottom;y+=3) ctx.fillRect(left,y,right-left,1);
+
+  ctx.strokeStyle="rgba(126,168,154,.16)"; ctx.lineWidth=1;
+  for(let i=0;i<=10;i+=1){const x=left+(right-left)*i/10;ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke();}
+  const rowH=(bottom-top)/6;
+  for(let j=-2;j<=2;j+=1){const y=mid+j*rowH;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(right,y);ctx.stroke();}
+  ctx.strokeStyle="rgba(126,168,154,.4)"; ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.moveTo(left,mid);ctx.lineTo(right,mid);ctx.stroke();
+
+  const div=DIVISION[mode];
+  ctx.fillStyle="#5c7d70"; ctx.font="700 "+Math.max(9,W*0.0095)+"px 'Courier New', monospace";
+  for(let j=-2;j<=2;j+=1){
+    const y=mid+j*rowH;
+    const val=Math.abs(j)*div;
+    ctx.fillText(j===0?"0":(mode==="cmap"?val.toFixed(1):val.toFixed(0)), left+6, y-3);
+  }
+  ctx.fillStyle="#7fa89a";
+
+  const pxPerUnit=rowH/div;
+  function waveAt(ms){
+    const art=stimArtifact(ms);
+    const snapRaw=snapWave(ms-m.dl,1,m.dur,m.dispersion);
+    const snap=(snapRaw*m.ampDisplay/m.peakRef)*pxPerUnit;
+    const noise=noiseTexture(ms,tSec,cf>.55?1.3:.55);
+    return art*.55+snap+noise;
+  }
+  const traceColor=cf>.6?"94,157,255":"94,234,141";
+  ctx.strokeStyle=`rgba(${traceColor},.95)`; ctx.lineWidth=2.6;
+  ctx.shadowColor=`rgba(${traceColor},.6)`; ctx.shadowBlur=4;
+  ctx.beginPath(); let started=false;
+  for(let px=left; px<=right; px+=1.1){
+    const ms=(px-left)/(right-left)*AXIS_MS;
+    const y=mid+waveAt(ms);
+    if(!started){ctx.moveTo(px,y);started=true;} else ctx.lineTo(px,y);
+  }
+  ctx.stroke(); ctx.shadowBlur=0;
+
+  ctx.fillStyle="#5c7d70"; ctx.font="700 "+Math.max(9,W*0.011)+"px 'Courier New', monospace";
+  ctx.fillText("0 ms",left-2,bottom+18);
+  ctx.fillText("8 ms",right-24,bottom+18);
+  ctx.fillStyle="#e0a15e";
+  ctx.fillText("↑ uyarı artefaktı",left+4,top+12);
+}
+
+function frame(now){
+  const dt=Math.min((now-last)/1000,.05); last=now;
+  if(auto){
+    const next=temp+autoDir*dt*3.0;
+    if(next<=21){autoDir=1;setTemp(21);}
+    else if(next>=34){autoDir=-1;setTemp(34);}
+    else setTemp(next,false);
+  }
+  draw(now);
+  requestAnimationFrame(frame);
+}
+function setTemp(value,syncSlider=true){
+  temp=Math.max(21,Math.min(34,Number(value)));
+  if(syncSlider) slider.value=temp.toFixed(1);
+  updateStatics();
+}
+slider.addEventListener("input",e=>{auto=false;autoBtn.textContent="Otomatik oynat";setTemp(e.target.value,false);});
+autoBtn.addEventListener("click",()=>{auto=!auto;autoBtn.textContent=auto?"Durdur":"Otomatik oynat";});
+
+const modeBtns=[...document.querySelectorAll(".mbtn")];
+modeBtns.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+mode=btn.dataset.mode;
+scopeCalibration.textContent=mode==="cmap"?"Sensitivite 3 mV/div · Sweep 1 ms/div":"Sensitivite 25 µV/div · Sweep 1 ms/div";
+    modeBtns.forEach(b=>b.classList.toggle("active",b===btn));
+    updateStatics();
+  });
+});
+
+setTemp(34);
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

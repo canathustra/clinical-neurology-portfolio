@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICPI İlişkili GBS — Mekanizma ve BOS Pleositozu</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+.titlebar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}.tb-right b{color:var(--cyan);}
+.toolbar{display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}.tf strong{font-size:15px;color:var(--ink);font-weight:800;}
+.workspace{min-height:0;padding:12px;}
+.panel{height:100%;min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:grid;grid-template-rows:auto 1fr auto;overflow:hidden;}
+.panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.065em;text-transform:uppercase;color:#4a5964;}
+.badge{display:inline-flex;align-items:center;min-height:24px;padding:2px 11px;border-radius:999px;background:#f3edf8;color:#5b3a8e;border:1px solid #d8c9e7;font-size:12.5px;font-weight:800;text-transform:none;letter-spacing:0;white-space:nowrap;}
+.stage-wrap{min-height:0;position:relative;background:#fcfdfe;overflow:hidden;}#mechanismCanvas{display:block;width:100%;height:100%;}
+.control-deck{display:grid;grid-template-columns:auto 1fr;align-items:stretch;border-top:1px solid var(--line);background:#f3f6f8;min-height:58px;}
+.transport{display:flex;align-items:center;gap:7px;padding:8px 10px;border-right:1px solid var(--line);}
+.status{min-width:180px;padding-right:8px;font-size:13px;font-weight:850;color:var(--ink);}.status b{color:var(--cyan);}
+.transport button,.phase-btn{appearance:none;border:1px solid var(--line2);background:#fff;color:var(--ink);font:inherit;font-weight:800;cursor:pointer;}
+.transport button{min-height:34px;padding:0 12px;border-radius:5px;font-size:12.5px;}.transport button:hover,.phase-btn:hover{border-color:var(--cyan);}
+.phase-nav{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);}
+.phase-btn{min-width:0;border:none;padding:7px 6px;font-size:11.5px;line-height:1.15;display:flex;align-items:center;justify-content:center;gap:6px;text-align:left;}
+.phase-btn span{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#e4ebf0;color:var(--muted);font-size:11px;flex:none;}
+.phase-btn.active{background:#e9f5f8;color:var(--cyan);}.phase-btn.active span{background:var(--cyan);color:#fff;}
+.bottom-bar{display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;background:var(--panel-head);color:var(--ink);padding:13px 10px;font-size:16px;font-weight:800;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}.fkey b{color:var(--cyan);font-size:14px;}.fkey:hover{background:#dce8f0;}
+@media(max-width:980px){body{padding:0;}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}.control-deck{grid-template-columns:1fr;}.transport{border-right:none;border-bottom:1px solid var(--line);flex-wrap:wrap;}.phase-nav{grid-template-columns:1fr 1fr;}.bottom-bar{flex-wrap:wrap;}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="titlebar"><div class="tb-left"><span class="dot"></span> NCS/EMG Eğitim Serisi — Polinöropati</div><div class="tb-right"><b>CADWELL</b>SIERRA SUMMIT · EMG/NCS</div></div>
+<div class="toolbar"><div class="tf"><label>Konu</label><strong>Genel Bakış ve Etyoloji</strong></div><div class="tf"><label>Bölüm</label><strong>ICPI İlişkili GBS · Mekanizma ve BOS</strong></div></div>
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>ICPI blokajı T-hücre aracılı radikülomeningeal inflamasyonu artırır</span><span class="badge" id="stateBadge">ICPI blokajı</span></div>
+<div class="stage-wrap" id="stageWrap"><canvas id="mechanismCanvas" role="img" aria-label="ICPI kontrol noktası blokajından sinir kökü inflamasyonu ve hafif BOS pleositozuna uzanan beş aşamalı animasyon"></canvas></div>
+<div class="control-deck">
+<div class="transport"><div class="status"><b id="phaseIndex">1/5</b> · <span id="phaseText">ICPI kontrol noktasına ulaşır</span></div><button id="playPauseBtn" type="button">Başlat</button><button id="replayBtn" type="button">Baştan</button></div>
+<div class="phase-nav" aria-label="Mekanizma aşamaları">
+<button class="phase-btn active" type="button" data-phase="0"><span>1</span>ICPI blokajı</button>
+<button class="phase-btn" type="button" data-phase="1"><span>2</span>T-hücresi aktive</button>
+<button class="phase-btn" type="button" data-phase="2"><span>3</span>Kök inflamasyonu</button>
+<button class="phase-btn" type="button" data-phase="3"><span>4</span>Bariyer geçirgenliği artar</button>
+<button class="phase-btn" type="button" data-phase="4"><span>5</span>Hafif pleositoz</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bottom-bar"><a class="fkey" href="etyoloji-tetikleyiciler.html">F1<b>Önceki: Etyoloji ve Tetikleyiciler</b></a><a class="fkey" href="../index.html">F2<b>İçindekiler</b></a><a class="fkey" href="bos-protein-zamanlama.html">F3<b>Sıradaki: BOS Protein Zamanlaması</b></a></div>
+</div>
+<script src="assets/icpi-gbs-merged-engine.js"></script>
+<script src="assets/deck-nav.js"></script>
+</body>
+</html>

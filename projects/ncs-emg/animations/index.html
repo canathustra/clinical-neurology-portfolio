@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDX Öğrenim İstasyonu — Bölüm 8: Artifacts and Technical Factors</title>
+<style>
+:root{
+  --bg:#eef1f4;--bg2:#e4e9ee;
+  --panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+  --mono:"Consolas","Courier New",monospace;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;font-variant-numeric:tabular-nums;}
+.searchwrap{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.searchwrap input{background:#ffffff;border:1px solid var(--line2);color:var(--ink);border-radius:4px;padding:9px 13px;font:inherit;font-size:16px;width:240px;}
+.searchwrap input:focus{outline:none;border-color:var(--cyan);}
+.searchwrap input::placeholder{color:var(--dim);}
+
+.workspace{min-height:0;display:grid;grid-template-columns:1fr 300px;gap:12px;padding:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.panel-head-sub{font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:none;color:var(--dim);}
+
+.tree{flex:1;min-height:0;overflow-y:auto;padding:6px 0;}
+.tree-group{margin:16px 20px 7px;font-size:14.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--cyan);border-bottom:1px solid var(--line);padding-bottom:7px;}
+.tree-group:first-child{margin-top:6px;}
+.tree-item{display:flex;align-items:center;gap:13px;padding:11px 20px 11px 36px;font-size:19px;font-weight:600;color:var(--ink);text-decoration:none;border-left:4px solid transparent;}
+.tree-item .num{color:var(--dim);font-family:var(--mono);font-size:14px;font-weight:700;min-width:28px;}
+.tree-item i{width:10px;height:10px;border-radius:2px;background:var(--blue);flex:none;}
+.tree-item:hover,.tree-item:focus-visible{background:#eaf4f7;border-left-color:var(--blue);}
+.tree-item.active{background:#d9f0f5;border-left-color:var(--cyan);color:var(--ink);}
+.tree-item.active i{background:var(--cyan);}
+.tree-item.giris i{background:var(--amber);}
+.tree-item.oturum{background:#e6f7ec;border-left-color:var(--green);font-weight:800;}
+.tree-item.oturum i{background:var(--green);}
+.tree-item.oturum:hover{background:#d3f0dc;}
+.tree-item.disabled{color:var(--dim);cursor:default;}
+.tree-item.disabled i{background:var(--dim);}
+.tree-item.disabled em{font-style:normal;color:var(--dim);font-size:11.5px;}
+.tree-item.disabled:hover{background:none;border-left-color:transparent;}
+
+.stats{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:16px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:15.5px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--green);font-size:18px;font-variant-numeric:tabular-nums;}
+.source-box{padding:14px 15px;background:#f3f6f8;border:1px solid var(--line);font-size:14.5px;line-height:1.48;color:var(--muted);}
+.source-box b{display:block;color:var(--ink);font-size:16px;margin-bottom:6px;}
+.legend{display:grid;gap:10px;font-size:14.5px;color:var(--muted);}
+.legend div{display:flex;align-items:center;gap:9px;}
+.legend i{width:10px;height:10px;border-radius:2px;flex:none;}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+.fkey.active{background:#d9f0f5;color:var(--ink);}
+.fkey.active b{color:var(--cyan);}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .toolbar{gap:12px;}
+  .searchwrap{margin-left:0;width:100%;}
+  .searchwrap input{flex:1;width:auto;}
+  .bottom-bar{flex-wrap:wrap;}
+  .fkey{min-width:33%;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Bölüm</label><strong>8</strong></div>
+<div class="tf"><label>Başlık</label><strong style="font-size:13px;color:var(--ink);">Artifacts and Technical Factors</strong></div>
+<div class="tf"><label>Konu Sayısı</label><strong id="topicCount">19</strong></div>
+<div class="searchwrap">
+<input id="searchBox" type="text" placeholder="Konu ara…" aria-label="Konu ara">
+</div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>İçindekiler</span><span class="panel-head-sub">Preston &amp; Shapiro — Chapter 8</span></div>
+<div class="tree" id="tree">
+
+<div class="tree-group" data-group="oturum">Oturum</div>
+<a class="tree-item oturum" data-group="oturum" href="kurallar.html"><span class="num">—</span><i></i>Oturum Kuralları: Nasıl Oynanır?</a>
+
+<div class="tree-group" data-group="giris">Giriş</div>
+<a class="tree-item giris" data-group="giris" href="giris/index.html"><span class="num">00</span><i></i>Veri Toplama ve Yorumlama</a>
+
+<div class="tree-group" data-group="fizyo">Fizyolojik Faktörler</div>
+<a class="tree-item" data-group="fizyo" href="sicaklik/index.html"><span class="num">01</span><i></i>Sıcaklık</a>
+<a class="tree-item" data-group="fizyo" href="yas/index.html"><span class="num">02</span><i></i>Yaş</a>
+<a class="tree-item" data-group="fizyo" href="boy/index.html"><span class="num">03</span><i></i>Boy</a>
+<a class="tree-item" data-group="fizyo" href="proksimal-distal/index.html"><span class="num">04</span><i></i>Proksimal ve Distal Sinir Segmentleri</a>
+<div class="tree-item disabled" data-group="fizyo"><span class="num">—</span><i></i>Anomal İnervasyonlar <em>&nbsp;(Bkz. Bölüm 7)</em></div>
+
+<div class="tree-group" data-group="nonfizyo">Nonfizyolojik Faktörler</div>
+<a class="tree-item" data-group="nonfizyo" href="impedans-gurultu/konu-girisi.html"><span class="num">05</span><i></i>Elektrot İmpedansı ve Gürültü</a>
+<a class="tree-item" data-group="nonfizyo" href="filtreler/konu-girisi.html"><span class="num">06</span><i></i>Filtreler</a>
+<a class="tree-item" data-group="nonfizyo" href="elektronik-ortalama/konu-girisi.html"><span class="num">07</span><i></i>Elektronik Ortalama</a>
+<a class="tree-item" data-group="nonfizyo" href="stimulus-artefakti/konu-girisi.html"><span class="num">08</span><i></i>Stimulus Artefaktı</a>
+<a class="tree-item" data-group="nonfizyo" href="katot-polarite/konu-girisi.html"><span class="num">09</span><i></i>Katot Pozisyonu ve Polarite Tersliği</a>
+<a class="tree-item" data-group="nonfizyo" href="supramaksimal/konu-girisi.html"><span class="num">10</span><i></i>Supramaksimal Uyarım</a>
+<a class="tree-item" data-group="nonfizyo" href="kostimulasyon/konu-girisi.html"><span class="num">11</span><i></i>Komşu Sinirlerin Birlikte Uyarılması</a>
+<a class="tree-item" data-group="nonfizyo" href="motor-elektrot-yerlesimi/konu-girisi.html"><span class="num">12</span><i></i>Motor Elektrot Yerleşimi</a>
+<a class="tree-item" data-group="nonfizyo" href="antidromik-ortodromik/konu-girisi.html"><span class="num">13</span><i></i>Antidromik ve Ortodromik Kayıt</a>
+<a class="tree-item" data-group="nonfizyo" href="elektrot-sinir-mesafesi/konu-girisi.html"><span class="num">14</span><i></i>Elektrot-Sinir Mesafesi</a>
+<a class="tree-item" data-group="nonfizyo" href="aktif-referans-mesafesi/konu-girisi.html"><span class="num">15</span><i></i>Aktif-Referans Elektrot Mesafesi</a>
+<a class="tree-item" data-group="nonfizyo" href="ekstremite-mesafe/konu-girisi.html"><span class="num">16</span><i></i>Ekstremite Pozisyonu ve Mesafe Ölçümü</a>
+<a class="tree-item" data-group="nonfizyo" href="ekstremite-morfoloji/konu-girisi.html"><span class="num">17</span><i></i>Ekstremite Pozisyonu ve Dalga Morfolojisi</a>
+<a class="tree-item" data-group="nonfizyo" href="sweep-sensitivite/konu-girisi.html"><span class="num">18</span><i></i>Latans Ölçümü: Sweep Hızı ve Sensitivite</a>
+
+</div>
+</div>
+
+<div class="panel">
+<div class="panel-head"><span>Genel Bakış</span></div>
+<div class="stats">
+<div class="stat-row"><span>Giriş</span><b>1</b></div>
+<div class="stat-row"><span>Fizyolojik Faktörler</span><b>4</b></div>
+<div class="stat-row"><span>Nonfizyolojik Faktörler</span><b>14</b></div>
+<div class="stat-row"><span>Toplam konu</span><b id="totalTopics">19</b></div>
+<div class="source-box"><b>Kaynak</b>Preston &amp; Shapiro, Electromyography and Neuromuscular Disorders, Bölüm 8 — "Artifacts and Technical Factors". Başlıklar kitabın kendi bölüm başlıklarıdır.</div>
+<div class="legend">
+<div><i style="background:var(--amber);"></i> Giriş</div>
+<div><i style="background:var(--blue);"></i> Konu (tıklayın)</div>
+<div><i style="background:var(--dim);"></i> Bu bölümde işlenmiyor</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="bottom-bar">
+<button class="fkey active" data-filter="all">F1<b>Tümü</b></button>
+<button class="fkey" data-filter="giris">F2<b>Giriş</b></button>
+<button class="fkey" data-filter="fizyo">F3<b>Fizyolojik</b></button>
+<button class="fkey" data-filter="nonfizyo">F4<b>Nonfizyolojik</b></button>
+</div>
+
+</div>
+
+<script>
+const fkeys=[...document.querySelectorAll(".fkey")];
+const groups=[...document.querySelectorAll(".tree-group")];
+const items=[...document.querySelectorAll(".tree-item")];
+const searchBox=document.getElementById("searchBox");
+
+function applyFilter(filter){
+  groups.forEach(g=>{ g.style.display = (filter==="all"||g.dataset.group===filter) ? "" : "none"; });
+  items.forEach(it=>{ it.style.display = (filter==="all"||it.dataset.group===filter) ? "" : "none"; });
+}
+fkeys.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    fkeys.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    searchBox.value="";
+    applyFilter(btn.dataset.filter);
+  });
+});
+
+searchBox.addEventListener("input",()=>{
+  const q=searchBox.value.trim().toLocaleLowerCase("tr");
+  if(!q){ applyFilter(fkeys.find(b=>b.classList.contains("active")).dataset.filter); return; }
+  fkeys.forEach(b=>b.classList.remove("active"));
+  groups.forEach(g=>g.style.display="none");
+  items.forEach(it=>{
+    const match = it.textContent.toLocaleLowerCase("tr").includes(q);
+    it.style.display = match ? "" : "none";
+  });
+});
+
+const realTopics = items.filter(it=>!it.classList.contains("disabled")).length;
+document.getElementById("totalTopics").textContent = realTopics;
+document.getElementById("topicCount").textContent = realTopics;
+</script>
+<!-- nonphys-status-v4 -->
+<aside style="position:fixed;right:18px;bottom:18px;z-index:999;max-width:560px;padding:12px 15px;background:#fff;color:#16232c;border:1px solid #c3ceda;border-left:4px solid #2f7d52;box-shadow:0 10px 28px rgba(20,33,43,.18);font:650 13px/1.35 'Segoe UI',Arial,sans-serif">
+Nonfizyolojik faktörler: ayrıntılı açıklamalar + <b style="color:#2f7d52">yalnız serbest laboratuvar</b>. Örtüşen eski animasyonlar farklı klinik sorulara göre yeniden tasarlandı; standart F1/F2/F3 akışı korundu.
+</aside>
+<!-- /nonphys-status-v4 -->
+</body>
+</html>

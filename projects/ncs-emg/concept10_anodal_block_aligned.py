@@ -1,0 +1,141 @@
+from pathlib import Path
+from PIL import Image
+
+ROOT = Path(r"C:\Users\uugur\OneDrive\Desktop\Second_Brain\10_Projects\presentations\artifacts_of_ncs_emg\animations")
+OUT = ROOT / "katot-polarite" / "animasyon-0-depolarizasyon-anodal-blok.html"
+FIG_IN = ROOT / "figures" / "source-v3" / "fig_8_14_15_cathode_anode.png"
+FIG_OUT = ROOT / "figures" / "source-v3" / "fig_8_15_anodal_block.png"
+
+with Image.open(FIG_IN) as im:
+    # Existing source-v3 asset: Figure 8.14 is upper half; Figure 8.15 is lower half.
+    w, h = im.size
+    crop = im.crop((0, int(h * 0.44), w, h))
+    crop.save(FIG_OUT)
+
+HTML = r'''<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anodal Blok — Mekanizma Modeli</title>
+<style>
+:root{--paper:#f7f8f9;--panel:#fff;--head:#e7edf3;--line:#d5dde4;--ink:#15232d;--muted:#60707d;--teal:#0f7a95;--cyan:#36c9d7;--green:#5eea8d;--amber:#ffc857;--red:#eb5a65;--blue:#64a7ff;--scope:#06140f;--grid:#143326}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;background:#fff;color:var(--ink);font-family:"Segoe UI",Inter,Arial,sans-serif}body{display:grid;place-items:center;padding:12px}
+.app{width:min(calc(100vw - 24px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 24px);background:var(--paper);border:1px solid #c8d1d9;box-shadow:0 18px 48px #23313b24;display:grid;grid-template-rows:42px 48px 1fr 70px 56px;overflow:hidden}
+.titlebar,.toolbar{display:flex;align-items:center;padding:0 18px;border-bottom:1px solid var(--line)}.titlebar{justify-content:space-between;background:linear-gradient(#fff,#f0f3f5);font-size:14px;color:#43515c}.session{display:flex;align-items:center;gap:9px;font-weight:700}.dot{width:9px;height:9px;border-radius:50%;background:#2f7d52;box-shadow:0 0 7px #2f7d5270}.brand{font-weight:900;letter-spacing:.12em;color:#73808b}.brand b{color:var(--teal)}
+.toolbar{gap:20px;background:var(--head)}.label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:900}.toolbar strong{font-size:15px}.mode{margin-left:auto;color:var(--teal);font-weight:900}
+.workspace{min-height:0;padding:10px;display:grid;grid-template-columns:minmax(0,1fr) 326px;gap:10px}.panel{background:#fff;border:1px solid var(--line);min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column}.panel-head{height:39px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 13px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px;font-weight:900;letter-spacing:.055em;text-transform:uppercase;color:#4a5964}
+.state{padding:4px 10px;border-radius:999px;background:#e6f7ec;color:#28744a;border:1px solid #c8e8d3;text-transform:none;letter-spacing:0}.state.partial{background:#fff4d9;color:#8b5c00;border-color:#ead39a}.state.blocked{background:#fde8ea;color:#a6313d;border-color:#f0c3c8}
+.lab{flex:1;min-height:0;display:grid;grid-template-rows:49% 51%}.geometry{position:relative;min-height:0;background:#101d24;border-bottom:4px solid #d5dde4}.scope{position:relative;min-height:0;background:var(--scope)}#geoCanvas,#scopeCanvas{position:absolute;inset:0;width:100%;height:100%}
+.scope-legend{position:absolute;right:12px;top:8px;display:flex;gap:12px;padding:5px 8px;background:#06140fdb;border:1px solid #2b493a;color:#b8c8bf;font-size:11px;font-weight:800}.key{display:inline-flex;align-items:center;gap:5px}.sw{width:18px;height:3px;background:var(--green)}.sw.ref{height:0;border-top:2px dashed var(--amber)}
+.formula{position:absolute;left:12px;bottom:8px;padding:5px 8px;background:#071118e8;border:1px solid #4c626f;color:#d9e7ec;font:800 10px Consolas,monospace}.formula b{color:var(--cyan)}
+.side-body{padding:10px;display:grid;gap:7px;align-content:start;overflow:auto}.invariant{display:grid;grid-template-columns:1fr auto;gap:4px 9px;padding:8px 10px;border:1px solid #d6e2ea;background:#f2f7fa}.invariant span{font-size:11px;color:var(--muted);font-weight:800}.invariant b{font-size:11px;color:#256744}
+.readout{display:grid;grid-template-columns:1fr auto;padding:7px 9px;border:1px solid var(--line);font-size:11px}.readout span{color:var(--muted);font-weight:800}.readout b{font-variant-numeric:tabular-nums}.readout.changed{background:#fff4d9;border-color:#ead39a}.readout.blocked{background:#fde8ea;border-color:#f0c3c8}.readout.blocked b{color:#a6313d}
+.lesson{padding:8px 9px;border-left:4px solid var(--teal);background:#edf6f8;font-size:11px;line-height:1.34;font-weight:650}.lesson b{color:var(--teal)}.warning{padding:7px 9px;border-left:4px solid var(--red);background:#fff1f2;font-size:10px;line-height:1.32;color:#6f3339;font-weight:650}
+.source{height:132px;border:1px solid var(--line);background:#fff;display:grid;grid-template-columns:112px 1fr;overflow:hidden}.source img{width:100%;height:100%;object-fit:contain;border-right:1px solid var(--line)}.source div{padding:7px;font-size:10px;line-height:1.25;color:var(--muted)}.source b{display:block;color:var(--ink);margin-bottom:3px}
+.controls{display:flex;align-items:center;justify-content:center;gap:9px;padding:9px 16px;background:#fff;border-top:1px solid var(--line)}button{appearance:none;border:1px solid #b8c5cf;background:#f2f5f7;color:var(--ink);font:800 12px "Segoe UI",sans-serif;padding:9px 14px;cursor:pointer;border-radius:3px}button:hover,button:focus-visible{background:#e2edf2;outline:2px solid #8ac4d1;outline-offset:1px}button.active{background:#dceef2;border-color:#62aaba;color:#0b6075}.stim{margin-left:20px;background:#172b24;color:#dfffea;border-color:#315a48}.stim:hover{background:#234436}.model-note{font-size:10px;color:var(--muted);font-weight:800;margin-right:4px}
+.bottom-bar{height:56px;display:flex!important;align-items:stretch!important;gap:1px!important;background:#d5dde4!important;border-top:1px solid #d5dde4!important}.bottom-bar .fkey{flex:1!important;background:#e7edf3!important;color:#16232c!important;text-decoration:none!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;padding:0 12px!important;font:800 13px/1 "Segoe UI",Arial,sans-serif!important}.bottom-bar .fkey span{color:#0f7a95!important;font-size:15px!important}.bottom-bar .fkey b{color:#16232c!important;font-size:13px!important}.bottom-bar .fkey:hover,.bottom-bar .fkey:focus-visible{background:#dce8f0!important;outline:none!important}
+@media(max-width:980px){body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;grid-template-rows:42px auto minmax(760px,1fr) auto 56px}.toolbar{padding:8px 12px;flex-wrap:wrap}.workspace{grid-template-columns:1fr}.source{height:160px}.controls{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<main class="app">
+  <div class="titlebar"><div class="session"><span class="dot"></span>EDX Öğrenim İstasyonu — Bölüm 8</div><div class="brand"><b>EDX</b>SİM</div></div>
+  <div class="toolbar"><span class="label">Konu</span><strong>Anodal blok</strong><span class="label">Tek değişken</span><strong>Anot altında bloklanan lif oranı</strong><span class="mode">SERBEST LABORATUVAR</span></div>
+  <section class="workspace">
+    <div class="panel">
+      <div class="panel-head"><span>Ters polarite ve uyarı sabit · yalnız anot altındaki geçiş değişir</span><span id="stateBadge" class="state">İletim geçiyor</span></div>
+      <div class="lab">
+        <div class="geometry" id="geometry"><canvas id="geoCanvas"></canvas><div class="formula"><b>Yanıt amplitüdü</b> ≈ referans × anot bölgesini geçen lif oranı</div></div>
+        <div class="scope" id="scope"><canvas id="scopeCanvas"></canvas><div class="scope-legend"><span class="key"><i class="sw"></i>Model yanıtı</span><span class="key"><i class="sw ref"></i>Bloksuz referans · 38 µV</span></div></div>
+      </div>
+    </div>
+    <aside class="panel">
+      <div class="panel-head"><span>Şekil 8.15 mekanizması</span></div>
+      <div class="side-body">
+        <div class="invariant"><span>Katodal aktivasyon</span><b>SABİT</b><span>Elektrot polaritesi</span><b>TERS · SABİT</b><span>Gerçek iletim hızı</span><b>SABİT</b></div>
+        <div id="fiberRow" class="readout"><span>Anotta bloklanan lif</span><b id="fiberOut">%0</b></div>
+        <div id="arrivalRow" class="readout"><span>G1'e ulaşan volü</span><b id="arrivalOut">TAM</b></div>
+        <div id="ampRow" class="readout"><span>Beklenen amplitüd</span><b id="ampOut">38 µV</b></div>
+        <div class="readout"><span>Geçen liflerin onseti</span><b>2,5 ms · SABİT</b></div>
+        <div class="lesson" id="lesson"><b>Blok yok:</b> Katot altında başlayan volü anot bölgesini geçer; liflerin tamamı G1'e ulaşır.</div>
+        <div class="source"><img src="../figures/source-v3/fig_8_15_anodal_block.png" alt="Şekil 8.15 teorik anodal blok"><div><b>Şekil 8.15 · kitap sırası</b>Depolarizasyon katot altında başlar ve iki yöne yayılır. Anot altındaki hiperpolarize segment, geçen aksiyon potansiyelini teorik olarak bloke edebilir.</div></div>
+        <div class="warning"><b>Klinik sınır:</b> Rutin kısa-puls bipolar NCS'de anodal blok nadirdir; anodal/virtual-cathode eksitasyon da görülebilir. Düşük amplitüd tek başına anodal blok kanıtı değildir.</div>
+      </div>
+    </aside>
+  </section>
+  <div class="controls"><span class="model-note">MEKANİZMA MODELİ · klinik olasılık değildir</span><button id="passBtn" class="active">0% · İletim geçiyor</button><button id="partialBtn">50% · Kısmi blok</button><button id="blockBtn">100% · Tam blok</button><button id="stimBtn" class="stim">Uyarıyı göster</button></div>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi"><a class="fkey" href="index.html"><span>F1</span><b>Önceki</b></a><a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a><a class="fkey" href="latans-hatasi.html"><span>F3</span><b>Sonraki</b></a></nav>
+</main>
+<script>
+const geo=document.getElementById("geoCanvas"),gc=geo.getContext("2d"),geometry=document.getElementById("geometry");
+const scope=document.getElementById("scopeCanvas"),sc=scope.getContext("2d"),scopeWrap=document.getElementById("scope");
+const buttons=[document.getElementById("passBtn"),document.getElementById("partialBtn"),document.getElementById("blockBtn")];
+const stateBadge=document.getElementById("stateBadge"),fiberOut=document.getElementById("fiberOut"),arrivalOut=document.getElementById("arrivalOut"),ampOut=document.getElementById("ampOut"),lesson=document.getElementById("lesson");
+let blockedFraction=0,stimStart=-1,raf=0,dpr=Math.max(1,window.devicePixelRatio||1);
+const REFERENCE_AMP=38,LATENCY=2.5,FIBERS=12;
+function fit(canvas,wrap){const r=wrap.getBoundingClientRect(),w=Math.max(320,Math.round(r.width)),h=Math.max(130,Math.round(r.height));canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);canvas.style.width=w+"px";canvas.style.height=h+"px";canvas.getContext("2d").setTransform(dpr,0,0,dpr,0,0);return{w,h}}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function line(c,pts,color,width=2,dash=[]){c.save();c.strokeStyle=color;c.lineWidth=width;c.setLineDash(dash);c.beginPath();pts.forEach((p,i)=>i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]));c.stroke();c.restore()}
+function label(c,text,x,y,color="#dce8ed",size=11,align="left"){c.fillStyle=color;c.font=`800 ${size}px Segoe UI`;c.textAlign=align;c.fillText(text,x,y);c.textAlign="left"}
+function dot(c,x,y,r,fill,stroke="#fff",width=2){c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fillStyle=fill;c.fill();c.strokeStyle=stroke;c.lineWidth=width;c.stroke()}
+function roundRect(c,x,y,w,h,r,fill,stroke){c.beginPath();c.roundRect(x,y,w,h,r);if(fill){c.fillStyle=fill;c.fill()}if(stroke){c.strokeStyle=stroke;c.lineWidth=1.5;c.stroke()}}
+function snapAt(t,on,amp){return amp*(-1.0*Math.exp(-Math.pow((t-on-.35)/.20,2))+.76*Math.exp(-Math.pow((t-on-.84)/.33,2))-.13*Math.exp(-Math.pow((t-on-1.65)/.55,2)))}
+function noise(t){return .35*Math.sin(t*30.3)+.16*Math.sin(t*71.7+.9)+.08*Math.sin(t*118.2)}
+function fiberBlocked(i){if(blockedFraction===0)return false;if(blockedFraction===1)return true;return i%2===0}
+function drawElectrode(c,x,y,kind){line(c,[[x,y-38],[x,y-9]],"#d7e4e9",3);if(kind==="cathode"){dot(c,x,y,11,"#111820","#ffc857");label(c,"KATOT (−)",x,y-20,"#ffc857",11,"center")}else{dot(c,x,y,10,"#fff","#eb5a65");label(c,"ANOT (+)",x,y-20,"#ff9aa2",11,"center")}}
+function drawGeometry(now){
+  const {w,h}=fit(geo,geometry);gc.clearRect(0,0,w,h);gc.fillStyle="#101d24";gc.fillRect(0,0,w,h);
+  const cathX=w*.19,anodeX=w*.48,g1X=w*.82,g2X=w*.91,electrodeY=h*.26,top=h*.48,gap=Math.min(8,(h*.34)/FIBERS);
+  roundRect(gc,anodeX-34,top-15,68,gap*(FIBERS-1)+30,10,"rgba(60,120,205,.19)","rgba(100,167,255,.85)");
+  label(gc,"HİPERPOLARİZE",anodeX,top-23,"#8fc2ff",10,"center");label(gc,"ANOT SEGMENTİ",anodeX,top-11,"#8fc2ff",9,"center");
+  drawElectrode(gc,cathX,electrodeY,"cathode");drawElectrode(gc,anodeX,electrodeY,"anode");dot(gc,g1X,electrodeY,9,"#64a7ff");dot(gc,g2X,electrodeY,9,"#fff","#64a7ff");
+  label(gc,"G1",g1X,electrodeY-20,"#8fc2ff",11,"center");label(gc,"G2",g2X,electrodeY-20,"#8fc2ff",11,"center");
+  line(gc,[[cathX,electrodeY+12],[cathX,top-8]],"#ffc857",2,[4,3]);label(gc,"katodal aktivasyon",cathX,top-15,"#ffc857",10,"center");
+  for(let i=0;i<FIBERS;i++){const y=top+i*gap;line(gc,[[w*.06,y],[w*.94,y]],"#7f683e",1.6);if(fiberBlocked(i)){line(gc,[[anodeX-23,y],[anodeX+23,y]],"#466997",3)}}
+  label(gc,"SİNİR LİFLERİ",w*.06,top-20,"#d7bc83",10);label(gc,"TERS POLARİTE SABİT",w*.94,top-20,"#a7b8c1",10,"right");
+  if(stimStart>=0){
+    const e=(now-stimStart)/1000;
+    for(let i=0;i<FIBERS;i++){
+      const y=top+i*gap,blocked=fiberBlocked(i),forward=clamp((e-.12-i*.006)/1.38,0,1),target=blocked?anodeX-8:g1X,px=cathX+(target-cathX)*forward;
+      if(forward>0&&forward<1)dot(gc,px,y,3.6,"#ffc857","rgba(255,255,255,.9)",1);
+      if(blocked&&forward>=.98&&e<1.95){const a=clamp(1-(e-1.45)/.5,0,1);gc.strokeStyle=`rgba(235,90,101,${a})`;gc.lineWidth=2;gc.beginPath();gc.moveTo(anodeX-7,y-5);gc.lineTo(anodeX+7,y+5);gc.moveTo(anodeX+7,y-5);gc.lineTo(anodeX-7,y+5);gc.stroke()}
+      const backward=clamp((e-.12-i*.006)/.48,0,1),bx=cathX-(cathX-w*.08)*backward;if(backward>0&&backward<1)dot(gc,bx,y,2.7,"#ffc857","rgba(255,255,255,.75)",1);
+    }
+    if(e<.35){const a=1-e/.35;gc.beginPath();gc.arc(cathX,electrodeY,17+25*(1-a),0,Math.PI*2);gc.strokeStyle=`rgba(255,200,87,${a})`;gc.lineWidth=4;gc.stroke()}
+    if(e>2.15)stimStart=-1;
+  }
+}
+function drawScope(now){
+  const {w,h}=fit(scope,scopeWrap);sc.clearRect(0,0,w,h);sc.fillStyle="#06140f";sc.fillRect(0,0,w,h);
+  const L=50,R=w-22,T=24,B=h-30,mid=(T+B)/2,windowMs=7,halfUv=52,on=LATENCY,amp=REFERENCE_AMP*(1-blockedFraction);
+  const x=t=>L+(R-L)*t/windowMs,y=v=>mid+(v/halfUv)*(B-T)/2;
+  sc.strokeStyle="#143326";sc.lineWidth=1;for(let i=0;i<=7;i++){sc.beginPath();sc.moveTo(x(i),T);sc.lineTo(x(i),B);sc.stroke()}for(let i=0;i<=6;i++){const yy=T+(B-T)*i/6;sc.beginPath();sc.moveTo(L,yy);sc.lineTo(R,yy);sc.stroke()}
+  sc.strokeStyle="#27533e";sc.beginPath();sc.moveTo(L,mid);sc.lineTo(R,mid);sc.stroke();sc.fillStyle="#789486";sc.font="700 10px Segoe UI";sc.textAlign="center";for(let i=0;i<=7;i++)sc.fillText(i+" ms",x(i),B+16);sc.textAlign="left";sc.fillText("20 µV/div",L,T-8);
+  const elapsed=stimStart>=0?(now-stimStart)/1000:99,progress=Math.min(1,Math.max(.02,elapsed/1.85));
+  function plot(fn,color,width,dash=[]){sc.strokeStyle=color;sc.lineWidth=width;sc.setLineDash(dash);sc.beginPath();const n=Math.floor(720*progress);for(let i=0;i<=n;i++){const t=windowMs*i/720,v=clamp(fn(t),-halfUv,halfUv);i?sc.lineTo(x(t),y(v)):sc.moveTo(x(t),y(v))}sc.stroke();sc.setLineDash([])}
+  plot(t=>snapAt(t,on,REFERENCE_AMP),"#ffc857",1.5,[6,4]);sc.save();sc.shadowColor="#5eea8d";sc.shadowBlur=5;plot(t=>snapAt(t,on,amp)+noise(t),"#5eea8d",2.2);sc.restore();
+  if(amp>0){sc.strokeStyle="#5eea8d";sc.setLineDash([3,4]);sc.beginPath();sc.moveTo(x(on),T);sc.lineTo(x(on),B);sc.stroke();sc.setLineDash([]);sc.fillStyle="#83f0a6";sc.font="800 10px Segoe UI";sc.fillText("onset 2,5 ms · değişmez",x(on)+6,B-7)}
+  else{sc.fillStyle="#ff9aa2";sc.font="900 12px Segoe UI";sc.fillText("UYARILMIŞ YANIT YOK — modelde tüm lifler anotta bloke",L+16,T+25)}
+}
+function updateUI(){
+  const amp=REFERENCE_AMP*(1-blockedFraction),arrival=blockedFraction===0?"TAM":blockedFraction===.5?"KISMİ":"YOK",labels=["İletim geçiyor","Kısmi blok modeli","Tam blok modeli"];
+  const idx=blockedFraction===0?0:blockedFraction===.5?1:2;buttons.forEach((b,i)=>b.classList.toggle("active",i===idx));
+  stateBadge.textContent=labels[idx];stateBadge.className=idx===0?"state":idx===1?"state partial":"state blocked";
+  fiberOut.textContent="%"+Math.round(blockedFraction*100);arrivalOut.textContent=arrival;ampOut.textContent=Math.round(amp)+" µV";
+  const dynamic=[document.getElementById("fiberRow"),document.getElementById("arrivalRow"),document.getElementById("ampRow")];dynamic.forEach(el=>{el.classList.toggle("changed",idx===1);el.classList.toggle("blocked",idx===2)});
+  lesson.innerHTML=idx===0?"<b>Blok yok:</b> Katot altında başlayan volü anot bölgesini geçer; liflerin tamamı G1'e ulaşır.":idx===1?"<b>Kısmi blok modeli:</b> Liflerin yarısı hiperpolarize segmenti geçemez; ulaşan lif sayısı azaldığı için amplitüd yarıya iner, geçen liflerin onseti değişmez.":"<b>Tam blok modeli:</b> Volü katotta oluşur fakat hiçbir lif anot bölgesini geçemez; G1'de uyarılmış yanıt kaydedilmez.";
+  window.__anodalBlockState={blockedFraction,stimulusFixed:true,polarity:"reversed",cathodeX:.19,anodeX:.48,latency:LATENCY,referenceAmp:REFERENCE_AMP,liveAmp:amp,arrival};
+}
+function setBlocked(v){blockedFraction=v;updateUI();draw(performance.now())}
+buttons[0].addEventListener("click",()=>setBlocked(0));buttons[1].addEventListener("click",()=>setBlocked(.5));buttons[2].addEventListener("click",()=>setBlocked(1));document.getElementById("stimBtn").addEventListener("click",()=>{stimStart=performance.now();if(!raf)raf=requestAnimationFrame(loop)});
+function draw(now){drawGeometry(now);drawScope(now)}function loop(now){draw(now);if(stimStart>=0)raf=requestAnimationFrame(loop);else raf=0}
+new ResizeObserver(()=>draw(performance.now())).observe(document.querySelector(".app"));setBlocked(0);
+</script>
+<script data-standard-nav-v3>document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase();const a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});</script>
+</body>
+</html>'''
+
+OUT.write_text(HTML, encoding="utf-8")
+print(OUT)
+print(FIG_OUT)

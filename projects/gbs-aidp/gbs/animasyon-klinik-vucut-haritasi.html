@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klinik Özellikler — Klasik Tablo Vücut Haritası</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+.titlebar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}.tb-right b{color:var(--cyan);}
+.toolbar{display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}.tf strong{font-size:21px;color:var(--amber);font-weight:800;}
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 345px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.badge{display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border-radius:999px;background:#e8f2fb;color:var(--blue);border:1px solid #c7dcf0;font-size:13px;font-weight:750;text-transform:none;letter-spacing:0;}
+.stage-wrap{flex:1;min-height:0;position:relative;background:linear-gradient(180deg,#fcfdfe,#f4f7f9);}#sceneCanvas{display:block;width:100%;height:100%;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:12px;display:grid;gap:9px;align-content:start;}
+.symptom-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.symptom-btn{appearance:none;border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:5px;min-height:46px;padding:7px 9px;font:inherit;font-size:12.5px;font-weight:800;cursor:pointer;text-align:left;line-height:1.25;display:flex;align-items:center;gap:7px;}
+.symptom-btn::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--dot,var(--blue));box-shadow:0 0 0 3px color-mix(in srgb,var(--dot,var(--blue)) 15%,transparent);flex:none;}
+.symptom-btn:hover{border-color:var(--cyan);}.symptom-btn.active{border-color:var(--dot,var(--blue));background:#f2f7fb;box-shadow:inset 3px 0 0 var(--dot,var(--blue));}
+.stat-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;background:#f3f6f8;border:1px solid var(--line);font-size:13.5px;}.stat-row span{color:var(--muted);font-weight:700;}.stat-row b{color:var(--ink);font-size:14px;text-align:right;}
+.note-box{padding:11px 12px;background:#f3f6f8;border:1px solid var(--line);font-size:13.5px;line-height:1.45;color:var(--ink);font-weight:600;}.note-box b{color:var(--cyan);}
+footer{display:flex;align-items:center;gap:12px;padding:11px 18px;border-top:1px solid var(--line);background:var(--panel-head);}.footer-hint{flex:1;color:var(--muted);font-size:13px;font-weight:750;}.footer-hint b{color:var(--cyan);}
+button.utility{appearance:none;border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:6px;min-height:36px;padding:0 14px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;}button.utility:hover{border-color:var(--cyan);}
+.bottom-bar{display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}.fkey{flex:1;background:var(--panel-head);color:var(--ink);padding:13px 10px;font-size:16px;font-weight:800;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}.fkey b{color:var(--cyan);font-size:14px;}.fkey:hover{background:#dce8f0;}
+@media(max-width:980px){body{padding:0;}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}.workspace{grid-template-columns:1fr;}.bottom-bar{flex-wrap:wrap;}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="titlebar"><div class="tb-left"><span class="dot"></span> NCS/EMG Eğitim Serisi — Polinöropati</div><div class="tb-right"><b>CADWELL</b>SIERRA SUMMIT · EMG/NCS</div></div>
+<div class="toolbar"><div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Klinik Özellikler</strong></div><div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">1 / 3 — Klasik Tablo Vücut Haritası</strong></div></div>
+<div class="workspace">
+<div class="panel"><div class="panel-head"><span>Semptoma tıkla — bulgunun anatomik dağılımını gör</span><span class="badge" id="stateBadge">Asendan Paralizi</span></div><div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div></div>
+<div class="panel side"><div class="panel-head"><span>Semptomlar</span></div><div class="side-body">
+<div class="symptom-grid" id="symptomGrid">
+<button class="symptom-btn" style="--dot:#2f6fbd" data-key="ascending" type="button">Asendan paralizi</button>
+<button class="symptom-btn" style="--dot:#c97a2a" data-key="variants" type="button">Proksimal / desendan güçsüzlük</button>
+<button class="symptom-btn" style="--dot:#5b3a8e" data-key="mfs" type="button">Miller-Fisher triadı</button>
+<button class="symptom-btn" style="--dot:#2f7d52" data-key="gait" type="button">Yürüyüş ataksisi</button>
+<button class="symptom-btn" style="--dot:#0f7a95" data-key="paresthesia" type="button">Distal paresteziler</button>
+<button class="symptom-btn" style="--dot:#b43b47" data-key="reflex" type="button">Hiporefleksi / arefleksi</button>
+</div>
+<div class="stat-row"><span>Anatomik Alan</span><b id="regionOut">Alt ekstremiteler → yukarı</b></div>
+<div class="stat-row"><span>Klinik İpucu</span><b id="clueOut">Hızlı yükselen güçsüzlük</b></div>
+<div class="note-box" id="mechNote"><b>Klasik GBS:</b> Güçsüzlük ayak ve bacaklardan başlayıp gövde ve üst ekstremitelere doğru yükselir.</div>
+</div></div>
+</div>
+<footer><span class="footer-hint"><b>Etkileşim:</b> Semptomu seç; hareketli anatomik dağılımı izle.</span><button class="utility" id="playBtn" type="button">Başlat</button><button class="utility" id="prevBtn" type="button">← Önceki</button><button class="utility" id="nextBtn" type="button">Sonraki →</button><button class="utility" id="resetBtn" type="button">↻ Baştan Oynat</button></footer>
+<div class="bottom-bar"><a class="fkey" href="klinik-motor-refleks.html">F1<b>Önceki: Motor Bulgular ve Refleksler</b></a><a class="fkey" href="../index.html">F2<b>İçindekiler</b></a><a class="fkey" href="klinik-duyusal-agrili-bulgular.html">F3<b>Sıradaki: Duyusal ve Ağrılı Bulgular</b></a></div>
+</div>
+<script type="text/plain" id="legacy-clinical-engine">
+const stageWrap=document.getElementById("stageWrap"),canvas=document.getElementById("sceneCanvas"),ctx=canvas.getContext("2d");
+const stateBadge=document.getElementById("stateBadge"),regionOut=document.getElementById("regionOut"),clueOut=document.getElementById("clueOut"),mechNote=document.getElementById("mechNote"),symptomGrid=document.getElementById("symptomGrid");
+const prevBtn=document.getElementById("prevBtn"),nextBtn=document.getElementById("nextBtn"),resetBtn=document.getElementById("resetBtn");
+const SYMPTOMS=[
+ {key:"ascending",label:"Asendan Paralizi",region:"Alt ekstremiteler → yukarı",clue:"Hızlı yükselen güçsüzlük",color:"#2f6fbd",note:"<b>Klasik GBS:</b> Güçsüzlük ayak ve bacaklardan başlayıp gövde ve üst ekstremitelere doğru yükselir."},
+ {key:"variants",label:"Proksimal / Desendan",region:"Omuz-kuşak / kalça veya kranialden aşağı",clue:"Klasik olmayan başlangıç",color:"#c97a2a",note:"<b>Varyantlar:</b> Güçsüzlük bazen omuz ve kalça kuşağında belirgindir; nadiren yukarıdan aşağıya ilerler."},
+ {key:"mfs",label:"Miller-Fisher",region:"Göz hareketleri + denge + refleksler",clue:"Oftalmopleji · ataksi · arefleksi",color:"#5b3a8e",note:"<b>Miller-Fisher triadı:</b> Göz hareket kısıtlılığı, ataksi ve arefleksi birlikte görülür; klasik asendan paralizi şart değildir."},
+ {key:"gait",label:"Yürüyüş Ataksisi",region:"Denge sistemi ve alt ekstremiteler",clue:"Erken, hafif ama önemli",color:"#2f7d52",note:"<b>Erken ipucu:</b> Dengesizlik veya koordinasyon bozukluğu belirgin güçsüzlükten önce başlar."},
+ {key:"paresthesia",label:"Distal Paresteziler",region:"El ve ayak parmakları",clue:"Eş zamanlı distal yakınma",color:"#0f7a95",note:"<b>Duyusal yakınma:</b> El ve ayak parestezisi eş zamanlıdır; objektif duyu kaybı azdır, duyu seviyesi beklenmez."},
+ {key:"reflex",label:"Hiporefleksi / Arefleksi",region:"Dirsek ve diz refleks arkları",clue:"Erken refleks kaybı",color:"#b43b47",note:"<b>Refleksler:</b> Hiporefleksi veya arefleksi erken gelişir. Zayıf bir ekstremitede reflekslerin korunması GBS tanısını sorgulatmalıdır."}
+];
+let selectedKey="ascending",cssW=0,cssH=0,dpr=Math.max(1,window.devicePixelRatio||1),pulse=0;
+function resizeCanvas(){const r=stageWrap.getBoundingClientRect();cssW=Math.max(520,Math.round(r.width));cssH=Math.max(380,Math.round(r.height));canvas.width=Math.round(cssW*dpr);canvas.height=Math.round(cssH*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw();}
+new ResizeObserver(resizeCanvas).observe(stageWrap);
+function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function metrics(){const H=cssH,cx=cssW*.48,top=H*.055,headR=H*.065,headY=top+headR,shoulderY=top+headR*2.35,hipY=H*.53,kneeY=H*.73,ankleY=H*.91;return{cx,top,headR,headY,shoulderY,hipY,kneeY,ankleY,handY:H*.51,armX:H*.23,footX:H*.07};}
+function drawHuman(m){
+ ctx.lineCap="round";ctx.lineJoin="round";
+ ctx.beginPath();ctx.arc(m.cx,m.headY,m.headR,0,Math.PI*2);ctx.fillStyle="#dfe6eb";ctx.fill();ctx.lineWidth=2;ctx.strokeStyle="#8797a3";ctx.stroke();
+ roundRect(m.cx-m.headR*.28,m.headY+m.headR*.85,m.headR*.56,m.headR*.58,6);ctx.fillStyle="#dfe6eb";ctx.fill();ctx.stroke();
+ ctx.beginPath();ctx.moveTo(m.cx-m.headR*.95,m.shoulderY);ctx.quadraticCurveTo(m.cx-m.headR*.75,m.hipY,m.cx-m.headR*.52,m.hipY);ctx.lineTo(m.cx+m.headR*.52,m.hipY);ctx.quadraticCurveTo(m.cx+m.headR*.75,m.hipY,m.cx+m.headR*.95,m.shoulderY);ctx.closePath();ctx.fillStyle="#dfe6eb";ctx.fill();ctx.stroke();
+ ctx.strokeStyle="#8797a3";ctx.lineWidth=m.headR*.45;
+ ctx.beginPath();ctx.moveTo(m.cx-m.headR*.8,m.shoulderY+m.headR*.15);ctx.lineTo(m.cx-m.armX,m.handY);ctx.stroke();ctx.beginPath();ctx.moveTo(m.cx+m.headR*.8,m.shoulderY+m.headR*.15);ctx.lineTo(m.cx+m.armX,m.handY);ctx.stroke();
+ ctx.lineWidth=m.headR*.52;ctx.beginPath();ctx.moveTo(m.cx-m.headR*.42,m.hipY);ctx.lineTo(m.cx-m.headR*.52,m.kneeY);ctx.lineTo(m.cx-m.headR*.62,m.ankleY);ctx.stroke();ctx.beginPath();ctx.moveTo(m.cx+m.headR*.42,m.hipY);ctx.lineTo(m.cx+m.headR*.52,m.kneeY);ctx.lineTo(m.cx+m.headR*.62,m.ankleY);ctx.stroke();
+ ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(m.cx-m.headR*.62,m.ankleY);ctx.lineTo(m.cx-m.headR*.62-m.footX,m.ankleY);ctx.stroke();ctx.beginPath();ctx.moveTo(m.cx+m.headR*.62,m.ankleY);ctx.lineTo(m.cx+m.headR*.62+m.footX,m.ankleY);ctx.stroke();
+ ctx.fillStyle="#60717d";ctx.beginPath();ctx.arc(m.cx-m.headR*.33,m.headY-m.headR*.1,2.4,0,Math.PI*2);ctx.arc(m.cx+m.headR*.33,m.headY-m.headR*.1,2.4,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#60717d";ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(m.cx,m.headY+m.headR*.18,m.headR*.25,.15*Math.PI,.85*Math.PI);ctx.stroke();
+}
+function arrow(x1,y1,x2,y2,color){ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();const a=Math.atan2(y2-y1,x2-x1);ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-11*Math.cos(a-.55),y2-11*Math.sin(a-.55));ctx.lineTo(x2-11*Math.cos(a+.55),y2-11*Math.sin(a+.55));ctx.closePath();ctx.fill();}
+function glowCircle(x,y,r,color){const p=.78+.22*Math.sin(pulse);ctx.globalAlpha=.18*p;ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,r*1.35,0,Math.PI*2);ctx.fill();ctx.globalAlpha=.9;ctx.strokeStyle=color;ctx.lineWidth=3;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;}
+function sparkle(x,y,color){ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x-6,y);ctx.lineTo(x+6,y);ctx.moveTo(x,y-6);ctx.lineTo(x,y+6);ctx.moveTo(x-4,y-4);ctx.lineTo(x+4,y+4);ctx.moveTo(x+4,y-4);ctx.lineTo(x-4,y+4);ctx.stroke();}
+function drawOverlay(item,m){
+ const c=item.color,p=.72+.18*Math.sin(pulse);
+ if(item.key==="ascending"){
+  ctx.globalAlpha=.22*p;ctx.strokeStyle=c;ctx.lineWidth=m.headR*.7;ctx.beginPath();ctx.moveTo(m.cx-m.headR*.62,m.ankleY);ctx.lineTo(m.cx-m.headR*.52,m.kneeY);ctx.lineTo(m.cx-m.headR*.42,m.hipY);ctx.stroke();ctx.beginPath();ctx.moveTo(m.cx+m.headR*.62,m.ankleY);ctx.lineTo(m.cx+m.headR*.52,m.kneeY);ctx.lineTo(m.cx+m.headR*.42,m.hipY);ctx.stroke();ctx.globalAlpha=1;
+  arrow(m.cx-m.headR*1.25,m.ankleY,m.cx-m.headR*1.25,m.shoulderY,c);arrow(m.cx+m.headR*1.25,m.ankleY,m.cx+m.headR*1.25,m.shoulderY,c);
+ }else if(item.key==="variants"){
+  glowCircle(m.cx-m.headR*.78,m.shoulderY,m.headR*.42,c);glowCircle(m.cx+m.headR*.78,m.shoulderY,m.headR*.42,c);glowCircle(m.cx-m.headR*.42,m.hipY,m.headR*.38,c);glowCircle(m.cx+m.headR*.42,m.hipY,m.headR*.38,c);arrow(m.cx,m.headY+m.headR*1.2,m.cx,m.hipY-m.headR*.35,c);
+ }else if(item.key==="mfs"){
+  glowCircle(m.cx-m.headR*.33,m.headY-m.headR*.1,m.headR*.22,c);glowCircle(m.cx+m.headR*.33,m.headY-m.headR*.1,m.headR*.22,c);glowCircle(m.cx-m.headR*.52,m.kneeY,m.headR*.28,c);glowCircle(m.cx+m.headR*.52,m.kneeY,m.headR*.28,c);ctx.strokeStyle=c;ctx.lineWidth=3;ctx.beginPath();for(let i=0;i<=80;i++){const x=m.cx-m.headR*1.8+i*m.headR*3.6/80,y=m.ankleY+m.headR*.45+Math.sin(i*.28)*5;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();
+ }else if(item.key==="gait"){
+  ctx.strokeStyle=c;ctx.lineWidth=4;ctx.setLineDash([8,7]);ctx.beginPath();ctx.moveTo(m.cx-m.headR*1.8,m.ankleY+m.headR*.48);ctx.bezierCurveTo(m.cx-m.headR*.6,m.ankleY+m.headR*.15,m.cx+m.headR*.55,m.ankleY+m.headR*.75,m.cx+m.headR*1.8,m.ankleY+m.headR*.42);ctx.stroke();ctx.setLineDash([]);arrow(m.cx-m.headR*.8,m.hipY,m.cx-m.headR*1.3,m.hipY-m.headR*.15,c);arrow(m.cx+m.headR*.8,m.hipY,m.cx+m.headR*1.3,m.hipY+m.headR*.15,c);
+ }else if(item.key==="paresthesia"){
+  const pts=[[m.cx-m.armX,m.handY],[m.cx+m.armX,m.handY],[m.cx-m.headR*.62-m.footX,m.ankleY],[m.cx+m.headR*.62+m.footX,m.ankleY]];for(const [x,y] of pts){glowCircle(x,y,m.headR*.25,c);sparkle(x,y,c);}
+ }else if(item.key==="reflex"){
+  const elbowY=(m.shoulderY+m.handY)*.55,knee=m.kneeY;glowCircle(m.cx-m.armX*.55,elbowY,m.headR*.22,c);glowCircle(m.cx+m.armX*.55,elbowY,m.headR*.22,c);glowCircle(m.cx-m.headR*.52,knee,m.headR*.26,c);glowCircle(m.cx+m.headR*.52,knee,m.headR*.26,c);ctx.fillStyle=c;ctx.font="850 13px Inter, sans-serif";ctx.fillText("REFLEKS ↓",m.cx,m.kneeY+m.headR*.72);
+ }
+}
+function draw(){const W=cssW,H=cssH;if(!W||!H)return;ctx.clearRect(0,0,W,H);const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,"#fcfdfe");g.addColorStop(1,"#f4f7f9");ctx.fillStyle=g;ctx.fillRect(0,0,W,H);const item=SYMPTOMS.find(x=>x.key===selectedKey),m=metrics();ctx.textAlign="center";ctx.textBaseline="middle";drawHuman(m);drawOverlay(item,m);ctx.fillStyle="#8797a3";ctx.font="700 11px Inter, sans-serif";ctx.fillText("ÖNDEN GÖRÜNÜM",m.cx,H*.025);ctx.fillStyle=item.color;ctx.font="850 14px Inter, sans-serif";ctx.fillText(item.label,m.cx,H*.975);}
+function select(key){selectedKey=key;const item=SYMPTOMS.find(x=>x.key===key);stateBadge.textContent=item.label;regionOut.textContent=item.region;clueOut.textContent=item.clue;mechNote.innerHTML=item.note;for(const b of symptomGrid.querySelectorAll(".symptom-btn"))b.classList.toggle("active",b.dataset.key===key);draw();}
+function step(delta){const i=SYMPTOMS.findIndex(x=>x.key===selectedKey);select(SYMPTOMS[(i+delta+SYMPTOMS.length)%SYMPTOMS.length].key);}
+symptomGrid.addEventListener("click",e=>{const b=e.target.closest(".symptom-btn");if(b)select(b.dataset.key);});prevBtn.addEventListener("click",()=>step(-1));nextBtn.addEventListener("click",()=>step(1));resetBtn.addEventListener("click",()=>select("ascending"));
+function animate(t){pulse=t/420;draw();requestAnimationFrame(animate);}resizeCanvas();select("ascending");requestAnimationFrame(animate);
+</script>
+<script>
+window.CLINICAL_ANIMATION_CONFIG={
+  startKey:"ascending",
+  bodyAsset:"assets/clinical-nervous-system.svg",
+  symptoms:[
+    {key:"ascending",label:"Asendan Paralizi",region:"Alt ekstremiteler → yukarı",clue:"Hızlı yükselen güçsüzlük",color:"#2f6fbd",note:"<b>Klasik GBS:</b> Güçsüzlük ayaklardan başlar; bacak, gövde ve solunum kaslarına doğru yükselir."},
+    {key:"variants",label:"Proksimal / Desendan",region:"Omuz-kuşak / kalça veya kranialden aşağı",clue:"Klasik olmayan başlangıç",color:"#c97a2a",note:"<b>Varyant:</b> Zaaf proksimal başlar; nadiren kranialden aşağı ilerler."},
+    {key:"mfs",label:"Miller–Fisher",region:"Göz hareketleri + denge + refleksler",clue:"Oftalmopleji · ataksi · arefleksi",color:"#5b3a8e",note:"<b>Miller–Fisher:</b> Oftalmopleji, ataksi ve arefleksi birlikte görülür."},
+    {key:"gait",label:"Yürüyüş Ataksisi",region:"Denge sistemi ve alt ekstremiteler",clue:"Erken, hafif ama önemli",color:"#2f7d52",note:"<b>Erken ipucu:</b> Dengesizlik belirgin güçsüzlükten önce başlar."},
+    {key:"paresthesia",label:"Distal Paresteziler",region:"El ve ayak parmakları",clue:"Eş zamanlı distal yakınma",color:"#0f7a95",note:"<b>Duyusal yakınma:</b> Parestezi belirgindir; objektif duyu kaybı azdır."},
+    {key:"reflex",label:"Hiporefleksi / Arefleksi",region:"Dirsek ve diz refleks arkları",clue:"Erken refleks kaybı",color:"#b43b47",note:"<b>Refleksler:</b> Hiporefleksi veya arefleksi erken gelişir."}
+  ]
+};
+</script>
+<script src="assets/clinical-body-engine.js"></script>
+<script src="assets/deck-nav.js"></script>
+</body>
+</html>

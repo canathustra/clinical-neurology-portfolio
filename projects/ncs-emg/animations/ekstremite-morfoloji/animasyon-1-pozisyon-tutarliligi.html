@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ekstremite Pozisyonu ve BKAP Morfolojisi</title>
+<style>
+:root{
+  --paper:#fff;--bg:#eef2f5;--ink:#14232d;--muted:#62717c;--line:#d3dce3;
+  --teal:#087f8c;--green:#2e8a5b;--amber:#d68a25;--red:#b9404b;--blue:#3779bd;
+  --screen:#071a17;--grid:#153a30;--trace:#63e7a4;--reference:#9fb5ae;--nerve:#e7b744;
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0}
+body{display:grid;place-items:center;padding:12px;background:#cfd7dd;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+.app{width:min(calc(100vw - 24px),1536px);max-height:calc(100vh - 24px);aspect-ratio:16/9;display:grid;grid-template-rows:44px 54px 1fr 78px 56px;overflow:hidden;background:#fff;border:1px solid #c8d1d8;border-radius:7px;box-shadow:0 22px 60px #22323c38}
+.titlebar,.topicbar,.controls,.bottom-bar{display:flex;align-items:center}
+.titlebar{justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);font-size:15px;font-weight:650}
+.titlebar .left{display:flex;align-items:center;gap:10px}.status-dot{width:10px;height:10px;border-radius:50%;background:#2e9462;box-shadow:0 0 7px #2e946277}
+.brand{font-weight:900;letter-spacing:.16em;color:#77848e}.brand b{color:var(--teal)}
+.topicbar{justify-content:space-between;gap:18px;padding:0 18px;background:#edf2f6;border-bottom:1px solid var(--line)}
+.topic{display:flex;align-items:baseline;gap:12px;min-width:0}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.08em;color:#687681;text-transform:uppercase}.topic h1{margin:0;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chips{display:flex;gap:8px}.chip{padding:6px 10px;border:1px solid #cbd7df;border-radius:999px;background:#fff;color:#49616f;font-size:12px;font-weight:800}.chip.key{border-color:#b7dfe3;color:#08737e;background:#f2fbfc}
+.workspace{min-height:0;display:grid;grid-template-columns:.94fr .92fr 1.14fr;gap:10px;padding:10px;background:var(--bg)}
+.card{min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line)}
+.card-head{height:43px;flex:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 13px;background:#f4f7f9;border-bottom:1px solid var(--line);font-size:12px;font-weight:900;letter-spacing:.055em;text-transform:uppercase;color:#50616d}
+.step{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;color:#fff;background:var(--teal);font-size:12px}
+.state{padding:4px 8px;border-radius:999px;background:#e8f6ed;color:var(--green);border:1px solid #c8e5d2;font-size:10px;letter-spacing:0}.state.warn{background:#fff3e2;color:#986018;border-color:#efd6ae}
+
+.protocol{flex:1;min-height:0;display:grid;grid-template-rows:auto auto 1fr;background:#fff}
+.sequence{padding:12px 12px 5px;display:grid;grid-template-columns:1fr 22px 1fr 22px 1fr;align-items:center}
+.arrow{color:#9aa9b3;text-align:center;font-size:18px;font-weight:900}
+.site{height:126px;border:1px solid #d7e0e6;background:#fafcfd;display:grid;grid-template-rows:26px 1fr 24px;overflow:hidden}
+.site-name{display:flex;align-items:center;justify-content:center;background:#eef3f6;border-bottom:1px solid #dde5ea;font-size:11px;font-weight:900}
+.site svg{width:100%;height:100%}.site-foot{display:flex;align-items:center;justify-content:center;border-top:1px solid #e0e6ea;font-size:10px;font-weight:850;color:#51626d}
+.upper{stroke:#d09a77;stroke-width:17;stroke-linecap:round}.fore{stroke:#d09a77;stroke-width:14;stroke-linecap:round}.joint{fill:#ad704e}.nerve{fill:none;stroke:var(--nerve);stroke-width:3;stroke-linecap:round}.stim{fill:#fff;stroke:var(--red);stroke-width:2}.electrode{fill:var(--teal);stroke:#fff;stroke-width:1.5}.ghost{opacity:.27}
+.timeline-rule{margin:5px 12px 7px;padding:9px 11px;border-left:4px solid var(--green);background:#edf8f1;font-size:12px;line-height:1.38;font-weight:750}.timeline-rule.warn{border-color:var(--amber);background:#fff7e9}
+.why{min-height:0;margin:0 12px 12px;padding:10px;background:#f4f7f9;border:1px solid #d7e0e6;display:grid;align-content:center;gap:7px}
+.cause{display:grid;grid-template-columns:24px 79px 1fr;align-items:center;gap:7px;min-height:43px;padding:6px 8px;background:#fff;border:1px solid #d9e1e6;color:#566671;font-size:10.5px;line-height:1.25}.cause span{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#e7f4f5;color:var(--teal);font-weight:900}.cause b{color:var(--ink);font-size:10px;text-transform:uppercase;letter-spacing:.04em}.cause em{font-style:normal;font-weight:700}.cause em.warn{color:#a36317}
+
+.mechanism{flex:1;min-height:0;display:grid;grid-template-rows:1fr 148px}
+.hand-stage{position:relative;min-height:0;background:linear-gradient(#fff,#f8fafb)}
+#handSvg{width:100%;height:100%;display:block}.skin{fill:#d4a181;stroke:#aa7355;stroke-width:2}.muscle{fill:#c9786c;stroke:#9b5149;stroke-width:1.5}.tendon{fill:none;stroke:#e8d6b3;stroke-width:10;stroke-linecap:round}.e-pad{stroke:#fff;stroke-width:2}.e1{fill:#27ad80}.e2{fill:#559de1}.farfield{fill:none;stroke:var(--amber);stroke-width:3;stroke-dasharray:6 4}.shift{fill:none;stroke:var(--red);stroke-width:2;marker-end:url(#arrowhead)}.label{font-size:11px;font-weight:850;fill:#40515c}.small{font-size:9px;fill:#65747f}
+.equation{position:absolute;left:10px;right:10px;bottom:8px;padding:7px 9px;border:1px solid #d3dde3;background:#ffffffed;text-align:center;font:800 12px Consolas,"Courier New",monospace}.equation b{color:var(--teal)}
+.book-row{display:grid;grid-template-columns:126px 1fr;gap:8px;padding:8px;border-top:1px solid var(--line);background:#f7f9fa}
+.book-figure{min-width:0;background:#fff;border:1px solid #d4dde3;overflow:hidden}.book-figure img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.book-note{padding:8px 9px;border:1px solid #d4dde3;background:#fff;font-size:10.5px;line-height:1.35;color:#52636e}.book-note strong{display:block;margin-bottom:5px;color:var(--ink);font-size:11px}.book-note b{color:var(--teal)}
+
+.monitor-body{flex:1;min-height:0;display:grid;grid-template-rows:1fr auto auto;background:#fff}
+.screen{position:relative;margin:9px 9px 6px;min-height:0;border:1px solid #29433b;border-radius:4px;background:var(--screen);overflow:hidden;box-shadow:inset 0 0 24px #0009}
+.screen:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:30px 23px;opacity:.62}
+.screen-top{position:absolute;z-index:2;left:10px;right:10px;top:7px;display:flex;justify-content:space-between;color:#a9c6bb;font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+#traceSvg{position:absolute;left:7px;right:7px;top:23px;bottom:7px;width:calc(100% - 14px);height:calc(100% - 30px)}
+.baseline{stroke:#315147;stroke-width:1}.reference{fill:none;stroke:var(--reference);stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:5 4;opacity:.78;vector-effect:non-scaling-stroke}.measured{fill:none;stroke:var(--trace);stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.cursor{stroke:#f1c95d;stroke-width:1.3;stroke-dasharray:4 3}.trace-name{fill:#d4e7df;font-size:11px;font-weight:900}.trace-value{fill:#9fc0b4;font-size:9px;font-weight:750}.delta{fill:#f1c95d;font-size:9px;font-weight:850}
+.screen-legend{position:absolute;z-index:2;right:10px;bottom:6px;display:flex;gap:12px;color:#a9c2ba;font-size:9px;font-weight:800}.screen-legend i{display:inline-block;width:20px;margin-right:4px;vertical-align:middle;border-top:2px solid var(--trace)}.screen-legend .ref i{border-top:2px dashed var(--reference)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:0 9px 6px}.metric{padding:7px 8px;border:1px solid #d7e0e6;background:#f4f7f9}.metric span{display:block;margin-bottom:2px;color:#6a7883;font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}.metric b{font-size:14px;font-variant-numeric:tabular-nums}.metric b.changed{color:var(--red)}
+.decision{margin:0 9px 9px;padding:8px 10px;border-left:4px solid var(--green);background:#edf8f1;font-size:11px;line-height:1.36;font-weight:750}.decision.warn{border-color:var(--amber);background:#fff7e9}.decision strong{display:block;margin-bottom:2px;color:var(--ink)}
+
+.controls{gap:13px;padding:0 18px;border-top:1px solid var(--line);background:#f7f9fa}
+.control-label{min-width:178px}.control-label small{display:block;color:#687681;font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}.control-label b{font-size:16px}
+input[type=range]{flex:1;min-width:120px;accent-color:var(--teal)}
+.preset{height:36px;min-width:64px;padding:0 10px;border:1px solid #bfcbd3;background:#fff;color:#304550;font:800 12px "Segoe UI";cursor:pointer}.preset:hover,.preset.active{border-color:var(--teal);background:#e9f7f8;color:#066c76}.play{min-width:110px}.read{min-width:48px;text-align:right;font-size:20px;font-weight:900;color:var(--teal);font-variant-numeric:tabular-nums}
+.bottom-bar{align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line)}
+.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:#e7edf3;color:var(--ink);text-decoration:none;font-size:13px;font-weight:800}.fkey span{color:var(--teal);font-size:15px}.fkey:hover,.fkey:focus-visible{background:#dce8f0;outline:none}
+@media(max-width:1050px){body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:auto auto auto auto 56px}.workspace{grid-template-columns:1fr}.card{min-height:430px}.chips{display:none}.controls{min-height:96px;flex-wrap:wrap}.preset[data-value]{display:none}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="titlebar">
+    <div class="left"><span class="status-dot"></span><span>EDX Öğrenim İstasyonu — Bölüm 8</span></div>
+    <div class="brand"><b>EDX</b>&nbsp; SİM</div>
+  </header>
+  <section class="topicbar">
+    <div class="topic"><span class="eyebrow">Ekstremite pozisyonu</span><h1>Aynı sinir, farklı kayıt geometrisi</h1></div>
+    <div class="chips"><span class="chip key">Tek değişken: uyarımlar arasında pozisyon farkı</span><span class="chip">Kitap s.95–96</span></div>
+  </section>
+
+  <section class="workspace">
+    <article class="card">
+      <div class="card-head"><span class="step">1</span><span>Üç uyarımda kol aynı mı?</span><span id="protocolState" class="state">TUTARLI</span></div>
+      <div class="protocol">
+        <div class="sequence">
+          <div class="site"><div class="site-name">BİLEK</div><svg id="armW" viewBox="0 0 110 76" aria-label="Bilek uyarımındaki kol pozisyonu"></svg><div id="footW" class="site-foot">70° fleksiyon</div></div>
+          <div class="arrow">→</div>
+          <div class="site"><div class="site-name">DİRSEK-ALTI</div><svg id="armBE" viewBox="0 0 110 76" aria-label="Dirsek altı uyarımındaki kol pozisyonu"></svg><div class="site-foot">70° fleksiyon</div></div>
+          <div class="arrow">→</div>
+          <div class="site"><div class="site-name">DİRSEK-ÜSTÜ</div><svg id="armAE" viewBox="0 0 110 76" aria-label="Dirsek üstü uyarımındaki kol pozisyonu"></svg><div class="site-foot">70° fleksiyon</div></div>
+        </div>
+        <div id="timelineRule" class="timeline-rule">Üç kayıt da aynı fleksiyonda: cilt, G1 ve G2 kas/tendonla aynı ilişkide kalır.</div>
+        <div class="why" aria-label="Nedensel ayrım">
+          <div class="cause"><span>1</span><b>Sinir-kas</b><em>Uyarılan aksonlar ve gerçek iletim sabit</em></div>
+          <div class="cause"><span>2</span><b>Kayıt</b><em id="geometryFact">G1/G2 geometrisi siteler arasında aynı</em></div>
+          <div class="cause"><span>3</span><b>Sonuç</b><em id="resultFact">BKAP’lar doğrudan karşılaştırılır</em></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="step">2</span><span>Pozisyon kaydı nasıl değiştirir?</span><span>G1 − G2</span></div>
+      <div class="mechanism">
+        <div class="hand-stage">
+          <svg id="handSvg" viewBox="0 0 360 250" role="img" aria-label="Pozisyon değişiminde kayıt elektrotlarının kas ve tendon üzerindeki göreli kayması">
+            <defs><marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#b9404b"/></marker></defs>
+            <path class="skin" d="M72 220 C58 180 64 128 84 100 C100 78 126 70 161 70 L260 70 C283 72 298 88 298 110 L294 153 C290 173 279 185 258 194 L206 216 C159 237 98 239 72 220Z"/>
+            <path class="muscle" d="M92 190 C96 142 121 103 161 95 C196 88 223 107 232 138 C211 175 170 198 112 207Z"/>
+            <path class="tendon" d="M231 139 C254 141 271 150 286 164"/>
+            <path id="farField" class="farfield" d="M124 157 C172 117 224 118 273 157"/>
+            <circle id="g1Ghost" class="e-pad e1 ghost" cx="145" cy="125" r="12"/><circle id="g2Ghost" class="e-pad e2 ghost" cx="274" cy="159" r="12"/>
+            <circle id="g1" class="e-pad e1" cx="145" cy="125" r="12"/><circle id="g2" class="e-pad e2" cx="274" cy="159" r="12"/>
+            <path id="g1Shift" class="shift" d="M145 107 L145 107"/><path id="g2Shift" class="shift" d="M274 141 L274 141"/>
+            <text id="g1Label" class="label" x="126" y="94">G1 · kas karnı</text><text id="g2Label" class="label" x="238" y="132">G2 · tendon</text>
+            <text class="small" x="90" y="228">cilt ve elektrotlar ekstremiteyle birlikte yer değiştirir</text>
+          </svg>
+          <div class="equation">Ekrandaki BKAP = <b>G1</b> − <b>G2</b> &nbsp;·&nbsp; pozisyon değişirse her iki katkının ağırlığı değişir</div>
+        </div>
+        <div class="book-row">
+          <div class="book-figure"><img src="../figures/source-v3/fig_8_24_g1_minus_g2.png" alt="Kitaptaki : G1 ve eksi G2 bileşenlerinin ulnar BKAP'ı oluşturması"></div>
+          <div class="book-note"><strong>Kitap mekanizması · </strong>Kesikli iz <b>−G2</b> tendon katkısıdır; ulnar BKAP’ın bifid biçimine belirgin katılır. Bu animasyonda G2 konumu bağımsızca değiştirilmez: yalnızca <b>uyarımlar arasında ekstremite pozisyonu</b> değişir.</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="step">3</span><span>Aynı-pozisyon referansına karşı kayıt</span><span id="screenState">ÜST ÜSTE</span></div>
+      <div class="monitor-body">
+        <div class="screen">
+          <div class="screen-top"><span>ULNAR MOTOR · ADM · ŞEKİL 8.24’TEN SAYISALLAŞTIRILMIŞ</span><span>negatif ↑ · 2 mV/div · 2 ms/div</span></div>
+          <svg id="traceSvg" viewBox="0 0 430 286" preserveAspectRatio="none" aria-label="Bilek, dirsek altı ve dirsek üstü uyarımlarındaki BKAP karşılaştırması">
+            <g id="traceRows"></g>
+          </svg>
+          <div class="screen-legend"><span class="ref"><i></i>aynı-pozisyon referansı</span><span><i></i>bu oturum</span></div>
+        </div>
+        <div class="metrics">
+          <div class="metric"><span>Dirsek-altı BKAP</span><b id="beAmp">8,8 mV</b></div>
+          <div class="metric"><span>Dirsek-üstü BKAP</span><b id="aeAmp">8,4 mV</b></div>
+          <div class="metric"><span>Okunan dirsek İH</span><b id="cvRead">54,1 m/s</b></div>
+        </div>
+        <div id="decision" class="decision"><strong>Geçerli karşılaştırma</strong>Tüm uyarım noktalarında kayıt geometrisi aynı kaldı; izler referansla üst üste.</div>
+      </div>
+    </article>
+  </section>
+
+  <section class="controls" aria-label="Uyarımlar arasında ekstremite pozisyon farkı kontrolü">
+    <div class="control-label"><small>Uyarımlar arasında pozisyon farkı</small><b id="controlText">Yok · hepsi fleksiyonda</b></div>
+    <input id="mismatch" type="range" min="0" max="100" step="1" value="0" aria-label="Pozisyon tutarsızlığı yüzdesi">
+    <div id="read" class="read">0%</div>
+    <button class="preset active" data-value="0">Aynı</button>
+    <button class="preset" data-value="50">Kısmi</button>
+    <button class="preset" data-value="100">Farklı</button>
+    <button id="play" class="preset play">▶ Karşılaştır</button>
+  </section>
+
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="index.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="../sweep-sensitivite/konu-girisi.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const slider=document.getElementById("mismatch");
+const read=document.getElementById("read");
+const controlText=document.getElementById("controlText");
+const protocolState=document.getElementById("protocolState");
+const timelineRule=document.getElementById("timelineRule");
+const geometryFact=document.getElementById("geometryFact");
+const resultFact=document.getElementById("resultFact");
+const screenState=document.getElementById("screenState");
+const rows=document.getElementById("traceRows");
+const beAmp=document.getElementById("beAmp");
+const aeAmp=document.getElementById("aeAmp");
+const cvRead=document.getElementById("cvRead");
+const decision=document.getElementById("decision");
+const play=document.getElementById("play");
+const g1=document.getElementById("g1"),g2=document.getElementById("g2");
+const g1Ghost=document.getElementById("g1Ghost"),g2Ghost=document.getElementById("g2Ghost");
+const g1Shift=document.getElementById("g1Shift"),g2Shift=document.getElementById("g2Shift");
+const g1Label=document.getElementById("g1Label"),g2Label=document.getElementById("g2Label");
+const farField=document.getElementById("farField");
+let mismatch=0,playing=false,raf=0;
+const SITES=[
+  {key:"W",name:"Bilek",lat:2.65,amp:9.2},
+  {key:"BE",name:"Dirsek-altı",lat:6.85,amp:8.8},
+  {key:"AE",name:"Dirsek-üstü",lat:8.70,amp:8.4}
+];
+const fmt=n=>n.toFixed(1).replace(".",",");
+function armIcon(svg,site,angle,ghostAngle=null){
+  const cx=48,cy=34,L=37,rad=angle*Math.PI/180;
+  const ex=cx+Math.cos(rad)*L,ey=cy+Math.sin(rad)*L;
+  let ghost="";
+  if(ghostAngle!==null){const gr=ghostAngle*Math.PI/180,gx=cx+Math.cos(gr)*L,gy=cy+Math.sin(gr)*L;ghost=`<line class="fore ghost" x1="${cx}" y1="${cy}" x2="${gx}" y2="${gy}"/>`;}
+  const stim=site==="W"?{x:ex-4,y:ey-1}:site==="BE"?{x:cx+8,y:cy+8}:{x:cx-10,y:cy-8};
+  svg.innerHTML=`<path class="nerve" d="M15 19 C30 22 39 27 ${cx} ${cy} L ${ex} ${ey}"/><line class="upper" x1="13" y1="19" x2="${cx}" y2="${cy}"/>${ghost}<line class="fore" x1="${cx}" y1="${cy}" x2="${ex}" y2="${ey}"/><circle class="joint" cx="${cx}" cy="${cy}" r="5"/><circle class="stim" cx="${stim.x}" cy="${stim.y}" r="5"/><circle class="electrode" cx="${ex+5}" cy="${ey-4}" r="4"/>`;
+}
+function gauss(x,mu,s){const z=(x-mu)/s;return Math.exp(-.5*z*z)}
+const ULNAR_BOOK_Y=[39,39,39,39,39,39,38.2,32.3,25.6,23.2,21.8,19.5,15.1,11.6,12.9,22.2,29.7,34.5,38.8,46.4,52.3,53.5,50.3,48.4,47.6,47.6,49.9,54.2,59.7,63.6,63.6,60.1,55.4,51.1,46.8,43.7,42.1,41.7,41.6,41.4,41.1,40.8,40.5,40.2,39.9,39.6,39.3,39.1,39,39];
+function bookUlnarShape(q){
+  const index=(q+.77)/.154;
+  if(index<0||index>=ULNAR_BOOK_Y.length-1)return 0;
+  const lo=Math.floor(index),mix=index-lo,y=ULNAR_BOOK_Y[lo]+(ULNAR_BOOK_Y[lo+1]-ULNAR_BOOK_Y[lo])*mix;
+  return (39-y)/52;
+}
+function cmap(t,p){
+  const q=t-p.lat;
+  const bookTrace=p.amp*bookUlnarShape(q);
+  const tendonGeometry=p.amp*(p.geometry||0)*(.16*gauss(q,1.15,.26)+.22*gauss(q,1.82,.36)-.20*gauss(q,3.05,.58));
+  const stimulusArtifact=p.amp*.022*(gauss(t,.28,.025)-.78*gauss(t,.39,.055));
+  return stimulusArtifact+bookTrace+tendonGeometry;
+}
+function model(site,m){
+  const shifts={W:{lat:.04,amp:.02,geometry:.08},BE:{lat:.12,amp:.10,geometry:.18},AE:{lat:.22,amp:.14,geometry:.25}}[site.key];
+  return {lat:site.lat+shifts.lat*m,amp:site.amp*(1-shifts.amp*m),geometry:shifts.geometry*m};
+}
+function pathFor(p,baseY){
+  const x0=66,x1=421,windowMs=13,scale=5.6;
+  let d="";
+  for(let i=0;i<=390;i++){const t=windowMs*i/390,x=x0+(x1-x0)*i/390,y=baseY-cmap(t,p)*scale;d+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1)+" ";}
+  return d;
+}
+function drawTraces(m){
+  const bases=[62,149,236];
+  rows.innerHTML=SITES.map((s,i)=>{
+    const p=model(s,m),delta=(p.amp-s.amp);
+    const position=i===0?(m>.95?"0° · kol düz":m>.04?`${Math.round(70*(1-m))}° kol pozisyonu`:"70° fleksiyon"):"70° fleksiyon";
+    return `<g><line class="baseline" x1="66" y1="${bases[i]}" x2="421" y2="${bases[i]}"/><text class="trace-name" x="7" y="${bases[i]-21}">${s.name} · ${position}</text><text class="trace-value" x="7" y="${bases[i]-7}">${fmt(p.amp)} mV · ${p.lat.toFixed(2).replace(".",",")} ms</text><path class="reference" d="${pathFor({...s,geometry:0},bases[i])}"/><path class="measured" d="${pathFor(p,bases[i])}"/><line class="cursor" x1="${66+(355/13)*p.lat}" y1="${bases[i]-57}" x2="${66+(355/13)*p.lat}" y2="${bases[i]+24}"/>${m>.05?`<text class="delta" x="331" y="${bases[i]+22}">${delta.toFixed(1).replace(".",",")} mV</text>`:""}</g>`;
+  }).join("");
+}
+function updateArms(m){
+  const wristAngle=70*(1-m);
+  armIcon(document.getElementById("armW"),"W",wristAngle,m>.02?70:null);
+  armIcon(document.getElementById("armBE"),"BE",70);
+  armIcon(document.getElementById("armAE"),"AE",70);
+  document.getElementById("footW").textContent=m<.04?"70° fleksiyon":`${Math.round(wristAngle)}° · sonra fleksiyon`;
+}
+function updateMechanism(m){
+  const x1=145+10*m,y1=125+7*m,x2=274-13*m,y2=159+9*m;
+  [g1,g1Label].forEach(()=>{});
+  g1.setAttribute("cx",x1);g1.setAttribute("cy",y1);g2.setAttribute("cx",x2);g2.setAttribute("cy",y2);
+  g1Ghost.setAttribute("opacity",m>.03?.27:0);g2Ghost.setAttribute("opacity",m>.03?.27:0);
+  g1Shift.setAttribute("d",`M145 107 L${x1} ${y1-17}`);g2Shift.setAttribute("d",`M274 141 L${x2} ${y2-17}`);
+  g1Shift.style.opacity=m>.03?1:0;g2Shift.style.opacity=m>.03?1:0;
+  g1Label.setAttribute("x",112+10*m);g1Label.setAttribute("y",94+7*m);g2Label.setAttribute("x",238-13*m);g2Label.setAttribute("y",132+9*m);
+  farField.style.strokeWidth=(3+2*m).toFixed(1);farField.style.opacity=(.68+.32*m).toFixed(2);
+}
+function update(value){
+  mismatch=Math.max(0,Math.min(100,Number(value)));slider.value=mismatch;
+  const m=mismatch/100,consistent=mismatch<4;
+  read.textContent=`${Math.round(mismatch)}%`;
+  controlText.textContent=consistent?"Yok · hepsi fleksiyonda":mismatch>95?"Bilek düz · dirsek siteleri fleksiyonda":"Pozisyon farkı artıyor";
+  protocolState.textContent=consistent?"TUTARLI":"TUTARSIZ";protocolState.className=consistent?"state":"state warn";
+  timelineRule.className=consistent?"timeline-rule":"timeline-rule warn";
+  timelineRule.textContent=consistent?"Üç kayıt da aynı fleksiyonda: cilt, G1 ve G2 kas/tendonla aynı ilişkide kalır.":"Bilek düz kola doğru kaydı; dirsek-altı ve dirsek-üstü fleksiyonda kaydedildi. Kayıt geometrisi artık siteler arasında aynı değil.";
+  geometryFact.textContent=consistent?"G1/G2 geometrisi siteler arasında aynı":"Cilt, G1 ve G2 kas/tendona göre kaydı";
+  resultFact.textContent=consistent?"BKAP’lar doğrudan karşılaştırılır":"Morfoloji farkı patoloji gibi görünür";
+  geometryFact.className=consistent?"":"warn";resultFact.className=consistent?"":"warn";
+  screenState.textContent=consistent?"ÜST ÜSTE":"MORFOLOJİ AYRILIYOR";
+  updateArms(m);updateMechanism(m);drawTraces(m);
+  const be=model(SITES[1],m),ae=model(SITES[2],m),cv=10/(ae.lat-be.lat)*10;
+  beAmp.textContent=`${fmt(be.amp)} mV`;aeAmp.textContent=`${fmt(ae.amp)} mV`;cvRead.textContent=`${fmt(cv)} m/s`;
+  [beAmp,aeAmp,cvRead].forEach(el=>el.classList.toggle("changed",!consistent));
+  decision.className=consistent?"decision":"decision warn";
+  decision.innerHTML=consistent?"<strong>Geçerli karşılaştırma</strong>Tüm uyarım noktalarında kayıt geometrisi aynı kaldı; izler referansla üst üste.":"<strong>Gerçek iletim değişmedi; ölçüm değişti</strong>G1/G2 katkısı ve görünen başlangıç kaydığı için amplitüd, biçim ve hesaplanan İH hafifçe farklı görünür.";
+  document.querySelectorAll(".preset[data-value]").forEach(b=>b.classList.toggle("active",Math.abs(Number(b.dataset.value)-mismatch)<3));
+  window.__positionConsistencyState={mismatchPercent:mismatch,wristAngleDeg:70*(1-m),belowElbowAngleDeg:70,aboveElbowAngleDeg:70,trueNeuralConduction:"fixed",belowElbowAmplitudeMv:be.amp,aboveElbowAmplitudeMv:ae.amp,apparentElbowCvMps:cv,traceMorphology:"ulnar_adm_bifid",traceProvenance:"digitized_from_book_fig_8_24_panel_B",extendedArmTrace:m>.95,causalOnset:true,stimulationsAreSeparate:true,playing};
+}
+slider.addEventListener("input",e=>{playing=false;cancelAnimationFrame(raf);play.textContent="▶ Karşılaştır";update(e.target.value)});
+document.querySelectorAll(".preset[data-value]").forEach(b=>b.addEventListener("click",()=>{playing=false;cancelAnimationFrame(raf);play.textContent="▶ Karşılaştır";update(b.dataset.value)}));
+play.addEventListener("click",()=>{
+  if(playing){playing=false;cancelAnimationFrame(raf);play.textContent="▶ Karşılaştır";update(mismatch);return}
+  playing=true;play.textContent="■ Durdur";const start=performance.now(),from=mismatch>95?0:mismatch;
+  function tick(now){if(!playing)return;const p=Math.min(1,(now-start)/2300),ease=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;update(from+(100-from)*ease);if(p<1)raf=requestAnimationFrame(tick);else{playing=false;play.textContent="↺ Tekrar";update(100)}}
+  raf=requestAnimationFrame(tick);
+});
+update(Number(new URLSearchParams(location.search).get("mismatch")||0));
+document.addEventListener("keydown",e=>{
+  if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;
+  const k=e.key.toUpperCase();
+  const a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;
+  if(a){e.preventDefault();location.href=a.href}
+});
+</script>
+</body>
+</html>

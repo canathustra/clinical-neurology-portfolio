@@ -1,0 +1,1341 @@
+
+===== PDF PAGE 94 / BOOK PAGE 81 =====
+SECTION III   Electrodiagnostic Sources of Error: Anomalies, Artifacts, Technical Factors, and Statistics
+82
+All signals recorded during the nerve conduction study 
+and needle EMG are the result of differential amplifica -
+tion (Fig. 8.4). With differential amplification, the differ -
+ence between the signals at the active (G1) and reference 
+(G2) electrodes is amplified and then displayed. Thus, if 
+the same electrical noise is present at both the active and 
+reference electrodes, it will be subtracted out, and only the 
+signal of interest will be amplified (this is known as common 
+mode rejection). However, if the electrical noise is larger at 
+one of the electrodes than the other, the noise will not be 
+subtracted out. When the electrical noise is amplified, it 
+frequently is so large that it saturates the amplifier, result -
+ing in a repeating waveform consisting of large vertical lines 
+(Fig. 8.5, top). This waveform makes little sense until one 
+changes the sensitivity to a much lower level (e.g., from 20 
+μ V/div to 10 mV/div), which discloses the source of the 
+waveform: a 60-Hz sinusoidal waveform (Fig. 8.5, bottom). 
+60 Hz is the standard alternating current used in nearly all 
+electrical devices in the United States; many other coun -
+tries use 50 Hz.
+The best way to achieve identical electrical noise at each 
+electrode is to ensure that the impedance at each electrode 
+is the same (i.e., to prevent electrode impedance mismatch). 
+Impedance is an electrical term that combines the effects of 
+resistance to flow for a direct current (DC) and capacitance 
+and inductance for an alternating current. One will recall 
+from Ohm’s law that E = IR. The voltage (E), in this case the 
+voltage from electrical noise, equals the current (I) induced 
+from the electrical noise multiplied by the resistance ( R), 
+or impedance. If the resistance, or impedance, is different 
+at the two electrodes, the same electrical noise will induce 
+a different voltage at each electrode input. This difference 
+will then be amplified and displayed, often obscuring the 
+signal of interest.
+The best way to eliminate 60-Hz interference is to 
+ensure that each electrode appears identical to the amplifier 
+(Box 8.3). This can be accomplished by several steps. First, 
+ensure that the electrodes are intact, without any frayed 
+or broken connections ( Fig. 8.6). Next, the skin prepara -
+tion should be thorough, using either alcohol or acetone 
+to remove dirt and oil. Conducting electrode jelly is then 
+applied to the electrode before it is attached to the skin. 
+5 5
+5 5
+55
+*
++]
++]
+*
+* *
+* *
+
+
+
+
+
+
+Fig. 8.4 Differential amplification and electrode impedance 
+mismatch. All signals recorded in nerve conduction studies and 
+electromyography result from differential amplification. Top, The 
+signal present at the reference electrode (G2) is subtracted from 
+the signal seen at the active electrode (G1) and amplified. Each 
+recording electrode has its own impedance or resistance, modeled 
+as R1 and R2, for the active and reference electrodes, respectively. 
+Middle, If R1 and R2 are identical, any 60-  Hz interference will 
+induce a similar electrical noise at both inputs. The noise will then 
+be subtracted out, and only the signal of interest will be amplified. 
+Bottom, If electrode impedances are mismatched (R1 < R2), the 
+amount of electrical noise will be different at the two inputs. Some 
+of the electrical noise will then be amplified, often obliterating or 
+obscuring the signal of interest.
+&9VHQVRU\
+X9
+PV
+5LJKWUDGLDO
+&9VHQVRU\
+P9
+PV
+5LJKWUDGLDO
+Fig. 8.5 Electrode impedance mismatch. Radial sensory study. Elec-
+trical noise is present but different at the two recording electrodes. 
+This occurs due to electrode impedance mismatch. In this example, 
+the resistance at one electrode is higher because of insufficient 
+electrode gel. Because the electrical noise is not the same at the two 
+electrodes, it will not be subtracted out when amplified. Sometimes, 
+the resulting artifact is so large that it saturates the amplifier, resulting 
+in a repeating waveform consisting of large vertical lines (top). This 
+waveform is not recognizable until one changes the sensitivity to a 
+much lower level (from 20 μ V/div [top] to 10 mV/div [bottom]), which 
+discloses the source of the waveform: a 60- Hz sinusoidal alternating 
+current waveform.
+
+===== PDF PAGE 95 / BOOK PAGE 82 =====
+Chapter 8 • Artifacts and Technical Factors
+83
+The recording electrodes should be held firmly against the 
+skin with tape or a Velcro band. Finally, the closer the elec-
+trodes are to each other, the more likely any associated elec-
+trical noise will appear identical to a differential amplifier. 
+Filters
+Every potential recorded during nerve conduction studies 
+and needle EMG passes through both a low-   and a high-  
+frequency filter before being displayed. The role of the filters 
+is to faithfully reproduce the signal of interest while trying 
+to exclude both low-   and high-  frequency electrical noise. 
+Low- frequency (high- pass) filters exclude signals below a 
+set frequency while allowing higher- frequency signals to pass 
+through. High- frequency (low- pass) filters exclude signals 
+above a certain frequency while allowing lower-  frequency 
+signals to pass through. Low-  frequency noise (<10 Hz) 
+results in wandering of the baseline (close to DC), whereas 
+high- frequency noise (>10 kHz) commonly obscures high-  
+frequency potentials (e.g., SNAPs or fibrillation potentials).
+By allowing the signal to pass through a certain “pass -
+band,” some unwanted electrical noise can be excluded 
+(Fig. 8.7). The passband varies for different EDX studies. 
+For motor conduction studies, the low-  and high- frequency 
+filters typically are set at 10 and  10 kHz, respectively. For 
+sensory conduction studies, the low-   and high-  frequency 
+filters typically are set at 20 and 2 kHz, respectively. Note 
+that the high-  frequency filter is set lower for sensory than 
+for motor nerve conduction studies. This is done to reduce 
+high- frequency noise, which more easily interferes with the 
+recording of SNAPs, which contain higher-  frequency com-
+ponents compared with motor potentials (Fig. 8.8).
+The use of filters always involves some tradeoff. No fil -
+ter, whether analog or digital, results in a sharp cutoff with 
+complete exclusion of all signals above the high-  frequency 
+settings or below the low-  frequency settings. It is essen -
+tial to recognize that filtering also results in some loss or 
+alteration of the signal of interest. For instance, as the low-  
+frequency filter is reduced, more low- frequency signals pass 
+through. This results in the duration of the recorded poten-
+tial increasing slightly because the duration is primarily a 
+lower frequency response. Likewise, as the high-  frequency 
+filter is lowered, more high- frequency signals are excluded. 
+This results in the amplitude of the recorded potential 
+usually decreasing because amplitude is primarily a higher 
+frequency response ( Fig. 8.9 ). Accordingly, all potentials 
+should be obtained with standardized filter settings and 
+should be compared only with normal values based on stud-
+ies using the same filter settings. 
+Fig. 8.6 Frayed electrode cable. It is often assumed that the elec-
+trodes and their connections are in working order. However, with 
+prolonged use, wires and connections may fray and break, especially 
+at points where cables end. This can result in a host of technical 
+artifacts. To add to the confusion, frayed wires can lead to intermit-
+tent artifacts depending on the position of the wire and whether the 
+connection is temporarily intact, partially broken, or completely 
+separated.
+/RZFXWRII
++]
+
+
+N+]
++LJKFXWRII
+)UHTXHQF\
+3DVVEDQG
+6LJQDOVWUHQJWK
+Fig. 8.7 Filtering and the passband. All waveforms recorded in 
+electrodiagnostics are composed of a spectrum of frequencies. By 
+allowing the signal to pass through a certain “passband,” some un-
+wanted electrical noise can be attenuated. In this example for motor 
+conduction studies, the low-  and high- frequency filters typically are 
+set at 10 and 10 kHz, respectively. Frequencies lower than 10 Hz 
+and greater than 10 kHz are attenuated. This improves the quality of 
+the recorded waveform by excluding low-  and high- frequency noise. 
+However, there is a tradeoff as some of the actual response is attenu-
+ated as well. For more information, see Chapter 42.
+Box 8.3 Methods to Reduce Electrode Impedance 
+Mismatch and 60-Hz Interference
+Active and reference recording electrodes should be the same 
+type.
+Ensure all contacts are intact without any frayed or broken 
+connections.
+Clean all dirt and oil from the skin using alcohol or acetone.
+Apply conducting electrode jelly between the skin and 
+electrodes.
+Secure electrodes firmly to the skin with tape or Velcro straps.
+Place ground between stimulator and recording electrodes.
+Use coaxial recording cables.
+
+===== PDF PAGE 96 / BOOK PAGE 83 =====
+SECTION III   Electrodiagnostic Sources of Error: Anomalies, Artifacts, Technical Factors, and Statistics
+84
+Electronic Averaging
+Electrical noise occasionally may contaminate a potential 
+despite filtering and one’s best efforts to eliminate electrode 
+impedance mismatch. Most often this occurs when record -
+ing small potentials in the microvolt range, typically during 
+sensory and mixed nerve studies. In this situation, the elec-
+trical noise can be reduced or eliminated by using electronic 
+averaging. With electronic averaging, serial stimulations are 
+digitized and then mathematically averaged. Because electri-
+cal noise is random, the positive and negative phases of elec-
+trical noise will cancel each other out as a greater number of 
+stimulations are averaged, thereby leaving the potential of 
+interest. Electronic averaging is especially helpful in clarify-
+ing the electrical baseline so that onset latency and ampli -
+tude can be correctly measured (Fig. 8.10). 
+Stimulus Artifact
+During routine nerve conduction studies, the current from 
+the stimulator depolarizes the underlying nerve, but it also 
+spreads via volume conduction through the tissues within 
+the limb and is seen at the recording electrodes. This stimu-
+lus artifact occurs in every nerve conduction study and serves 
+a useful purpose by indicating when the shock occurred and 
+from which point latencies should be measured. The stim -
+ulus artifact becomes problematic, however, if its trailing 
+edge overlaps with the potential being recorded. This occurs 
+most commonly when recording small potentials (i.e., sen -
+sory potentials) or when stimulating at very short distances. 
+In those situations, the onset of the recorded potential may 
+9
+PV
++LJKIUHTXHQF\
+ILOWHU
+N+]
+N+]
+N+]
+N+]
+N+]
+Fig. 8.8 High- frequency filter and sensory nerve action poten-
+tials. Ulnar sensory study, stimulating elbow, recording digit 5, with 
+varying high- frequency filters. As the high- frequency filter is reduced 
+from 20 kHz to 1 kHz, high- frequency noise is reduced and the sen-
+sory nerve action potential (SNAP) is better visualized. Note that the 
+SNAP amplitude also decreases slightly.
+PV'9'
+$PSOLWXGH 9
+$PSOLWXGH 9
++LJKIUHTXHQF\ILOWHU N+]
++LJKIUHTXHQF\ILOWHU N+]
+Fig. 8.9 High- frequency filter and sensory nerve action poten-
+tials. Median sensory study, stimulating the wrist, recording digit 2. 
+Top trace, High- frequency filter is set at 2 kHz. Bottom trace, High- 
+frequency filter is set at 0.5 kHz. Note that as the higher frequencies 
+are filtered out (bottom trace), the amplitude of the sensory potential 
+markedly decreases.
+PV'9'
+6LQJOHLQSXW
+$YHUDJLQJ 
+Fig. 8.10 Electronic averaging. Median sensory study, recording digit 
+2, stimulating the wrist. Top trace, Single stimulation. Note that the 
+potential is present but that there is significant baseline noise. Bottom 
+trace, Electronic averaging of ten stimulations. With the averaged 
+trace, the noise is much improved, and the signal of the sensory 
+response is more clearly seen, allowing the onset latency and ampli-
+tude to be more accurately measured.
+
+===== PDF PAGE 97 / BOOK PAGE 84 =====
+Chapter 8 • Artifacts and Technical Factors
+85
+be obscured, possibly leading to inaccurate measurements 
+of both amplitude and latency (Fig. 8.11).
+There are several ways to reduce the trailing edge of 
+the stimulus artifact ( Box 8.4 ). First, the optimal posi -
+tion for the ground electrode is between the stimulator 
+and the recording electrodes to reduce stimulus artifact. 
+Next, reducing electrode impedance mismatch between 
+the recording electrodes will help reduce any electri -
+cal interference, including stimulus artifact. Coaxial 
+recording cables are especially useful in this regard 
+(Fig. 8.12 ). Lowering the stimulus intensity also helps 
+diminish the effects of the stimulus artifact. This is best 
+accomplished by ensuring the stimulator is optimally 
+placed on the nerve (see Chapter 3 ). The effect of the 
+stimulus artifact also can be reduced by increasing the 
+distance between the stimulator and the recording elec -
+trodes if possible.
+Another very useful way to reduce the effect of the 
+stimulus artifact is to slightly rotate the anode of the stim -
+ulator one way or another while maintaining the position 
+of the cathode (known as walking the anode) ( Fig. 8.13). 
+Since the cathode position is unchanged, the depolariza -
+tion still occurs at the same location. However, the geo -
+metric relationship between the axis of the cathode-  anode 
+and the recording electrodes can dramatically affect the 
+direction and influence of the volume conducted stimulus 
+artifact potential.
+Finally, ensuring that the stimulator and recording 
+electrode cables do not overlap and are kept as far apart 
+as possible will help reduce the influence of the stimulus 
+artifact. As will be discussed in Chapter 42  “Basics of 
+Electricity and Electronics for Electrodiagnostic Studies,” 
+overlapping cables can much more easily allow a stimulus 
+artifact to occur in the recording electrode cables from 
+the electrical property of induction. Keeping the stimu -
+lator cable away from the recording electrode cables is 
+one of the simplest and most effective ways of reducing 
+stimulus artifact.  
+PV
+9
+9
+PV
+9
+PV
+9
+PV
+Fig. 8.11 Stimulus artifact and measurement error. Median anti-
+dromic sensory study, stimulating the wrist, recording second digit. 
+Stimulus artifact can be influenced by rotating the anode while main-
+taining the cathode in place. Large negative stimulus artifacts (top 
+trace) may result in artifactually low amplitudes and prolonged onset 
+latencies. Conversely, large positive stimulus artifacts (bottom trace) 
+may result in artifactually large amplitudes and short onset latencies.
+Box 8.4 Methods to Reduce Stimulus Artifact
+Place ground between stimulator and recording electrodes.
+Reduce electrode impedance mismatch between the 
+recording electrodes.
+Use coaxial recording cables.
+Ensure stimulator position is optimized directly over the nerve.
+Lower the stimulus intensity.
+Rotate anode of the stimulator while maintaining the cathode.
+Increase the distance between the stimulator and recording 
+electrodes.
+Ensure that the stimulator and recording electrode cables do 
+not overlap.
+9
+PV
+&RD[LDOFDEOH
+)UHHZLUHV
+Fig. 8.12 Electrical noise and recording cables. Median antidro-
+mic sensory study, stimulating the wrist, recording digit 2 with ring 
+electrodes, using different recording cables. Coaxial cable (top trace) 
+and separate free wires (bottom trace). The closer the active and 
+reference recording leads are to each other (coaxial cable closer than 
+free wires), the less the chance that the stimulus artifact or any other 
+electrical noise will be induced in the recorded trace.
+
+===== PDF PAGE 98 / BOOK PAGE 85 =====
+SECTION III   Electrodiagnostic Sources of Error: Anomalies, Artifacts, Technical Factors, and Statistics
+86
+Cathode Position: Reversing Stimulator 
+Polarity
+When a nerve is stimulated, depolarization first occurs 
+beneath the cathode. Accordingly, distance measurements 
+should always be made between the cathode of the stimula-
+tor, where depolarization first occurs, and the active record-
+ing electrode ( Fig. 8.14 ). For nerve conduction studies, 
+the proper position of the stimulating cathode is facing the 
+active recording electrode (remember: black to black). If 
+the cathode and anode of the stimulator are inadvertently 
+reversed, two effects are possible. First, although depolar -
+ization occurs under the cathode, hyperpolarization theoret-
+ically occurs at the anode (Fig. 8.15). This hyperpolarization 
+may create a block, preventing the depolarization that 
+occurs under the cathode from proceeding past the anode 
+to the recording electrode (i.e., anodal block). The resultant 
+sensory or motor potential may then be reduced or absent. 
+The issue of anodal block is more of a theoretic concern and 
+is rarely seen in practice.
+Second, and more common than a reduced or absent 
+potential, is a predictable error in latency measurement 
+when the cathode and anode are inadvertently reversed 
+(Fig. 8.16). In such cases, the distal latency will prolong by 
+approximately 0.3–0.4 ms. This represents the approximate 
+time it takes for a normal nerve to traverse 2.5–3.0 cm, the 
+typical distance between the cathode and anode of a stimu-
+lator. Failure to recognize this error results in an unusual 
+set of findings. First, all the distal sensory nerve latencies 
+will be prolonged by 0.3–0.4 ms, resulting in a slowing in 
+sensory conduction velocities of about 10 m/s. Second, dis-
+tal motor latencies will be similarly prolonged, but motor 
+conduction velocities, which are calculated between a dis -
+tal and a proximal site, will remain unchanged. The motor 
+
+
+$QRGHSRVLWLRQ
+$QRGHSRVLWLRQ
+Fig. 8.13 Stimulus artifact and rotating the anode. Stimulus artifact often interferes with the potential of interest. One effective method to 
+reduce stimulus artifact and obtain a clear baseline is to slightly rotate the anode of the stimulator one way or another while maintaining the 
+position of the cathode (known as walking the anode). In this example, the superficial peroneal sensory nerve is stimulated in the lateral leg and 
+recorded over the ankle. Note how the waveform changes as the anode is rotated between position 1 and position 2 while the cathode position 
+is kept constant. In position 2, the waveform has a much improved baseline, which increases the accuracy of the onset latency and amplitude 
+measurements. The stimulus artifact is a so called far- field potential. These potentials can be influenced by the geometry of the source in relation 
+to the recording electrode.
+6WLPXODWRU
+$QRGH &DWKRGH
+**
+'LVWDQFH
+Fig. 8.14 Positions of the stimulator cathode and active recording 
+electrode. With nerve stimulation, depolarization first occurs be-
+neath the cathode and travels in both directions. The cathode should 
+always face the active recording electrode (G1) (remember: black 
+to black). To calculate a conduction velocity, distance is measured 
+between the cathode and the active recording electrode.
+6WLPXODWRU
+$QRGH&DWKRGH
+ ±
+**
+Fig. 8.15 Anodal block. If the cathode and anode are reversed, anod-
+al block may occur. With stimulation, the nerve depolarizes beneath 
+the cathode and travels in both directions, and the segment under 
+the anode may hyperpolarize. This hyperpolarization may block the 
+action potential that originates at the cathode and prevent it from pro-
+ceeding past the anode.
+
+===== PDF PAGE 99 / BOOK PAGE 86 =====
+Chapter 8 • Artifacts and Technical Factors
+87
+conduction velocities do not change because the distal laten-
+cies are subtracted out in the calculations. If the electro -
+myographer does not recognize that the stimulating cathode 
+and anode have been inadvertently reversed, these findings 
+on the nerve conduction studies may easily be interpreted 
+as consistent with a polyneuropathy or a distal entrapment 
+neuropathy.
+Inadvertently reversing the cathode and anode is not an 
+uncommon mistake. It happens to junior as well as very 
+senior electromyographers. Close attention to proper ori -
+entation of the cathode and anode is something that needs 
+attention for every stimulation site. 
+Supramaximal Stimulation
+Supramaximal stimulation is one of the most important 
+concepts to understand when performing nerve conduc -
+tion studies. All measurements made in nerve conduction 
+studies are based on the assumption that all of the axons 
+of the nerve have been depolarized. Different degrees 
+of current intensity are required in different anatomic 
+locations and in different individuals to depolarize all 
+nerve fibers. For example, the current intensity needed 
+to stimulate the median nerve at the wrist is much less 
+than the current needed to stimulate the tibial nerve at 
+the popliteal fossa.
+T o ensure that all axons have been depolarized, supra -
+maximal stimulation must be performed. T o achieve supra-
+maximal stimulation, one must slowly increase current 
+intensity until a point is reached where the amplitude of 
+the recorded potential no longer increases. At that point, 
+one increases the current an additional 25% to ensure that 
+the potential will not change further. If it does not, then 
+it can be assumed that supramaximal stimulation has been 
+achieved ( Fig. 8.17 ). Note that the latency decreases as 
+supramaximal stimulation is approached.
+If a nerve is not supramaximally stimulated at a distal 
+site, a mistaken impression of axonal loss may result. If 
+supramaximal stimulation is not achieved at a proximal 
+stimulation site where it had been achieved with a distal 
+stimulation site, the mistaken impression of a conduction 
+block may occur ( Fig. 8.18). In either case, depending on 
+the nerve being stimulated, one might also mistakenly con -
+clude that there is an anomalous innervation (see Chapter 
+7). Finally, a true conduction velocity cannot be obtained 
+unless supramaximal stimulation is achieved at all stimu -
+lation sites. Conduction velocity measurements assume 
+that the same fibers (including the fastest) are stimulated 
+at distal and proximal sites. Without supramaximal stimu -
+lation, one may be measuring different fibers at different 
+sites, resulting in invalid measurements of nerve conduction 
+velocity. One of the most common errors made in the EDX 
+laboratory is to stop increasing the current once the ampli -
+tude of the potential falls within the “normal range.” In this 
+case, the potential may be within the normal range, but 
+P9
+&XUUHQW
+P$P9PV
+PV
+PV
+PV
+PV
+P9
+P9
+P9
+P9
+P$
+P$
+P$
+P$
+$PSOLWXGH/DWHQF\PV
+Fig. 8.17 Supramaximal stimulation. Median motor study, stimulat-
+ing the wrist, recording the abductor pollicis brevis with increasing 
+stimulator currents. To ensure that all axons are stimulated, su-
+pramaximal stimulation is required for all nerve conduction studies. 
+Supramaximal stimulation is achieved by increasing the stimulator 
+current until the recorded potential has reached maximal amplitude. 
+To ensure supramaximal stimulation, the current should then be 
+increased by an additional 25% to ensure that the amplitude does not 
+increase further (bottom trace). Note that the latency also decreases 
+as supramaximal stimulation is approached.
+6WLPXODWRU
+&DWKRGHDQGDQRGHUHYHUVHG
+PV
+PV
+9
+PV
+&DWKRGHDQGDQRGHFRUUHFWSRVLWLRQ
+$QRGH&DWKRGH
+**
+0HDVXUHGGLVWDQFH
+7UXHGLVWDQFH
+Fig. 8.16 Stimulator cathode and anode reversed. Top, Median sensory 
+study, stimulating the wrist, recording digit 2. Top trace reflects the 
+correct position with the cathode facing the active recording electrode. 
+Bottom trace reflects the cathode and anode reversed with the cathode 
+facing away from the active recording electrode. Bottom, If the cathode 
+and anode are inadvertently reversed, artifactual slowing of latency and 
+conduction velocity occurs. This error usually prolongs the latency by 
+0.3–0.4 ms and slows the sensory conduction velocity by approximately 
+10 m/s. The slowed conduction velocity is a result of the measured 
+distance being shorter than the true distance traveled. The true distance is 
+the measured distance plus the distance between the cathode and anode.
+
+===== PDF PAGE 100 / BOOK PAGE 87 =====
+SECTION III   Electrodiagnostic Sources of Error: Anomalies, Artifacts, Technical Factors, and Statistics
+88
+because it is not achieved with supramaximal stimulation, it 
+may not be normal for the particular patient being studied.
+Note that if one does not go through the meticulous 
+process of incrementally increasing the stimulus current, 
+one can never be certain that supramaximal stimulation 
+has been achieved, no matter how high the stimulus cur -
+rent intensity! Thus, the electromyographer should never 
+assume that the maximum stimulus machine output is the 
+same as supramaximal stimulation without going through 
+this process. 
+Co- Stimulation of Adjacent Nerves
+Although it is imperative to ensure that supramaximal stim-
+ulation has been achieved at all stimulation sites, prevent -
+ing co- stimulation of adjacent nerves is equally important. 
+In individuals with normal nerves and normal stimulation 
+thresholds, co-  stimulation is not a common problem. In 
+pathologic situations, however, nerves often require higher 
+currents to achieve supramaximal stimulation. As the 
+stimulus current is increased, the current may spread to 
+excite nearby nerves. As nearby nerves are excited, spuri -
+ously large amplitude potentials may result, caused by the 
+inadvertent co-  recording of additional nerve or muscle 
+potentials beyond the potential of interest. Co-  stimulation 
+occurs most commonly in motor studies of the upper 
+extremity when the median and ulnar nerves are stimulated 
+at the wrist, elbow, and axilla. In the lower extremity, co-  
+stimulation of the peroneal and tibial nerves may occur at 
+the knee.
+Co- stimulation of adjacent nerves is unavoidable when 
+stimulating very proximal nerves and nerve roots. In the 
+upper extremity, stimulation at Erb’s point or at the C8–
+T1 nerve roots always results in co-  stimulation of both the 
+ulnar and median nerves. In this situation, the effects of 
+co- stimulation can only be eliminated by the use of collision 
+studies (see Chapter 33).
+Inadvertent co- stimulation of adjacent nerves can create 
+a host of problems, even in routine nerve conduction studies 
+(Figs. 8.18 and 8.19). First, a low- amplitude potential due to 
+axonal loss may reach the normal range if an adjacent nerve 
+is co- stimulated. Next, if co- stimulation occurs distally but 
+not proximally, there may be the mistaken impression of a 
+conduction block proximally (see Fig. 8.20, top). In some 
+nerves, such as the ulnar motor nerve, this pattern can also 
+mimic an anomalous innervation. On the other hand, if co-  
+stimulation occurs proximally but not distally, this pattern 
+also can mimic an anomalous innervation in certain nerves, 
+such as the peroneal motor nerve (see Chapter 7). Finally, 
+if there is a true conduction block between the distal and 
+proximal stimulation sites, co-  stimulation at the proximal 
+site will result in an inappropriately high amplitude proxi -
+mally, which may obscure a true conduction block (see Fig. 
+8.20, bottom).
+$
+%
+P9:ULVW
+%HORZHOERZ
+:ULVW
+%HORZHOERZ P9
+P9
+P9
+P9
+PV
+P9
+PV
+Fig. 8.18 Difference in compound muscle action potential (CMAP) 
+amplitude between proximal and distal stimulations. Ulnar motor 
+study, stimulating the wrist and below- elbow sites, recording hypoth-
+enar muscles. (A) CMAP amplitude is lower at the below- elbow site 
+than at the wrist. This pattern may be seen with the following: (1) 
+conduction block, (2) co- stimulation of the median and ulnar nerves 
+at the wrist, (3) submaximal stimulation of the ulnar nerve at the 
+below- elbow site, or (4) anomalous innervation (see Chapter 7). (B) 
+CMAP amplitude is higher at the below- elbow site than at the wrist. 
+This pattern may be seen with the following: (1) submaximal stimula-
+tion of the ulnar nerve at the wrist or (2) co- stimulation of the median 
+and ulnar nerves at the below- elbow site. If this was a median motor 
+study recording the abductor pollicis brevis, this pattern also could 
+represent an anomalous innervation.
+P9' PV'
+$PSOLWXGH P9
+$PSOLWXGH P9P$
+P$
+Fig. 8.19 Co- stimulation. Ulnar motor study, stimulating the wrist 
+(top trace) and below- elbow (bottom trace) sites, recording the first 
+dorsal interosseous muscle. Stimulus current intensities noted at the 
+beginning of each trace. Note that the amplitude at the wrist site is 
+significantly higher than at the below- elbow site. In this case, an error 
+is caused by excessive current at the wrist that stimulates the ulnar 
+nerve as well as the adjacent median nerve (i.e., co- stimulation). 
+In general, for normal individuals, currents exceeding 50 mA with 
+a duration of 0.2 ms often will result in co- stimulation of adjacent 
+nerves. If not recognized and corrected, co- stimulation at a distal site 
+may result in the mistaken impression of a partial conduction block 
+at the proximal site or, in the case of the ulnar nerve, may mimic a 
+Martin- Gruber anastomosis.
+
+===== PDF PAGE 101 / BOOK PAGE 88 =====
+Chapter 8 • Artifacts and Technical Factors
+89
+There are several ways to prevent co- stimulation of adja-
+cent nerves ( Box 8.5 ). First, co-  stimulation often can be 
+prevented by ensuring that the stimulator is placed directly 
+over the nerve. By doing so, much less current is required 
+to achieve supramaximal stimulation, and co-  stimulation is 
+easily prevented. The stimulator is placed over a site where 
+the nerve is expected to run, based on anatomic landmarks. 
+The stimulus intensity is slowly increased until the first 
+small submaximal potential is recorded. At this point, the 
+stimulus current is held constant, and the stimulator is 
+moved parallel to the initial stimulation site, both slightly 
+laterally and then slightly medially. The position that yields 
+the highest- amplitude response is the position closest to the 
+nerve. Once the optimal position is determined, the cur -
+rent is increased to supramaximal. It is often surprising how 
+little current is required to obtain supramaximal stimula -
+tion using this technique, which also improves efficiency 
+and patient tolerance of the procedure. Second, while 
+watching the amplitude of the waveform increase as the 
+stimulus intensity is increased, the shape of the waveform 
+will often change abruptly when co-  stimulation occurs. 
+For instance, the normal dome shape of the median motor 
+response may abruptly develop a bifid morphology, signify-
+ing that the ulnar nerve now is being co-  stimulated. Third, 
+co- stimulation often can be prevented if attention is paid to 
+the muscle twitch during stimulation. For example, stimula-
+tion of the median nerve at the wrist results in contraction 
+of the thenar eminence and first two lumbricals. In contrast, 
+ulnar nerve stimulation results in a more widespread flexion 
+contraction of the hand as the ulnar nerve innervates most 
+of the intrinsic hand muscles. Thus, as the current inten -
+sity increases and co- stimulation of median and ulnar inner-
+vated muscles begins, the observer will witness a change 
+in the muscle twitch. At this point, the stimulus intensity 
+should be decreased until the point that only the median 
+innervated muscles contract. This also applies to the lower 
+extremities, especially at the popliteal fossa where the tibial 
+nerve is in close proximity to the peroneal nerve. Stimula -
+tion of the peroneal nerve results in ankle dorsiflexion and 
+eversion, whereas stimulation of the tibial nerve results in 
+ankle plantar flexion and inversion. Thus when stimulat -
+ing the peroneal nerve at the knee, the normal twitch of 
+ankle dorsiflexion will change to plantar flexion and inver -
+sion when the tibial nerve is co- stimulated. Finally, for most 
+normal individuals, co- stimulation of the median and ulnar 
+nerves at the wrist and elbow, and of the peroneal and tibial 
+nerves at the lateral popliteal fossa, often occurs at stimu -
+lus intensities >50 mA (0.2 ms pulse duration). Thus once 
+stimulus intensities are increased beyond this point, the 
+electromyographer needs to appreciate the increased pos -
+sibility of co- stimulation.
+If there is still a question of co-  stimulation after taking 
+into account the previous suggestions, one should simul -
+taneously record muscles innervated by adjacent nerves, 
+watching for a potential from the unintended muscle. If 
+such a potential occurs, the stimulus intensity should be 
+Fig. 8.20 Co- stimulation and interpretation of 
+conduction block. During motor nerve con-
+duction studies, conduction block is recognized 
+by a marked drop of amplitude or area on proxi-
+mal stimulation as compared to distal stimula-
+tion. However, if the nerve is co- stimulated at 
+the distal or proximal sites, different problems 
+occur. Top, (left) If the amplitude is truly re-
+duced at the distal (wrist) and proximal (elbow) 
+stimulation sites, the pattern is one of axonal 
+loss. However, if the distal site is inadvertently 
+co- stimulated (and not the proximal site) (right), 
+then a spuriously higher amplitude response 
+will be present distally, and one will erroneous-
+ly make the electrical diagnosis of conduction 
+block. Bottom, (left) If there is a true conduction 
+block between distal and proximal stimulation 
+sites, there will be a tendency to overstimulate 
+the proximal site to get the amplitude “nor-
+mal.” In this case, if the nerve is inadvertently 
+co- stimulated at the proximal site (and not at 
+the distal site) (right), the true conduction block 
+pattern will be obscured, and the mistaken 
+electrical diagnosis of a normal nerve conduc-
+tion will be made.
+&RVWLPXODWHGDWWKHZULVW
+&RVWLPXODWHGDWWKHHOERZ&RUUHFW
+&RUUHFW
+:ULVW
+(OERZ
+:ULVW
+(OERZ
+:ULVW
+(OERZ
+:ULVW
+(OERZ
+P9
+P9
+PV
+PV
+Box 8.5 Methods to Avoid Co- Stimulation of Adjacent 
+Nerves
+Ensure stimulator position is optimized directly over the nerve.
+Watch for abrupt change in waveform morphology.
+Watch for a change in the resultant muscle twitch.
+Avoid excessive stimulation currents.
+If necessary, co- record muscles simultaneously from adjacent 
+nerves.
+Always consider possible distal co- stimulation when a 
+conduction block is seen.
+
+===== PDF PAGE 102 / BOOK PAGE 89 =====
+SECTION III   Electrodiagnostic Sources of Error: Anomalies, Artifacts, Technical Factors, and Statistics
+90
+lowered until the unintended potential is no longer seen. 
+For instance, when stimulating the median nerve at the 
+wrist, if there is a question of ulnar co-  stimulation, the 
+abductor pollicis brevis (median innervated) and abductor 
+digiti minimi (ulnar innervated) should be simultaneously 
+recorded. If median nerve stimulation is done correctly, 
+no potential should be recorded from the abductor digiti 
+minimi. 
+Electrode Placement for Motor Studies
+The preferred montage for recording motor conduction 
+studies is the belly-  tendon method. The active electrode 
+(G1) is placed over the motor point, typically located in the 
+center of the muscle belly, while the reference electrode 
+(G2) is placed over the muscle’s distal tendon. When this 
+montage is used, the muscle tendon site presumably repre -
+sents an electrically inert point, and only the signal at G1 is 
+amplified.
+Muscle depolarization occurs first at the motor end -
+plate zone (motor point). If the active recording electrode 
+is not placed over the motor point, the volume-  conducted 
+depolarization potential first occurs at a distance from the 
+recording electrode and is seen as an initial positive deflec -
+tion. When the depolarization subsequently travels under 
+the electrode, the potential then becomes negative ( Fig. 
+8.21). T wo problems may occur with such an incorrect 
+placement. First, the CMAP may not be maximized, giv -
+ing the mistaken impression of a reduced amplitude ( Fig. 
+8.22). Second, if an initial positive deflection occurs, the 
+latency is difficult to measure ( Fig. 8.23 ). Whenever an 
+initial positive deflection is seen on a motor conduction 
+study, the active electrode has most likely been placed off 
+*
+*
+Fig. 8.21 Compound muscle action potential morphology and site 
+of depolarization. Depolarization occurs first at the motor endplate 
+(motor point), with the depolarization subsequently spreading away 
+from that site. With the active recording electrode (G1) placed over 
+the motor point, the corresponding waveform has an initial negative 
+deflection without any initial positivity (top). If the active recording 
+electrode is not placed over the motor point, depolarization begins 
+at a distance from and then travels beneath and past the active elec-
+trode, resulting in an initial positive deflection (bottom).
+Fig. 8.22 Effect of active recording 
+electrode position on amplitude in 
+motor studies. Ulnar motor study 
+recording the hypothenar muscles, 
+stimulating the wrist. The optimal posi-
+tion to evoke the maximal amplitude 
+is over the motor point (top trace). 
+When the active recording electrode 
+(G1) is off the motor point, a positive 
+initial deflection often is noted, alerting 
+the examiner to the incorrect place-
+ment. However, this may not occur, 
+especially when nearby muscles also 
+are depolarized (bottom trace). Repo-
+sitioning the active recording electrode 
+often may result in a higher amplitude. 
+This is especially important when com-
+paring potentials from side to side.
+*
+*
+$PSOLWXGH P9
+$PSOLWXGH P9
+PV'P9'
+*
+*
+
+===== PDF PAGE 103 / BOOK PAGE 90 =====
+Chapter 8 • Artifacts and Technical Factors
+91
+the motor point and should be moved until the positive 
+deflection is no longer seen.
+Not as well appreciated is the possibility of techni -
+cal errors if the G2 electrode is misplaced. In the belly-  
+tendon montage, it is generally assumed that the tendon is 
+electrically inactive. Although this is true for most nerves, 
+it is not so for all nerves, especially the ulnar and tibial 
+nerves, where the reference electrode placed over the ten -
+don is usually (and surprisingly) electrically active. Because 
+there is no muscle over the tendon, this “tendon poten -
+tial” is likely a volume-  conducted far-  field potential from 
+nearby or proximal depolarizing muscles. In some cases, 
+much of the CMAP amplitude is actually generated from 
+the tendon potential ( Fig. 8.24). These tendon potentials 
+are predominantly positive. Thus, the depolarization from 
+G1 (which is negative) minus the tendon potential from 
+G2 (which is positive) usually creates a larger negative 
+potential. The key to avoiding errors from different G2 
+locations is consistency. For instance, if the right ulnar 
+nerve is studied with G2 placed at the base of the fifth 
+digit but the left ulnar nerve is studied with G2 placed dis-
+tally on the fifth digit, then different, asymmetric ampli -
+tudes may result, based solely on the difference in the 
+position of G2 ( Fig. 8.25). 
+Antidromic Versus Orthodromic Recording
+For sensory conduction studies, either antidromic or ortho-
+dromic methods can be used. When a nerve is stimulated, 
+conduction occurs equally well in both directions. Latencies 
+and conduction velocities are identical using either method. 
+However, each method has its advantages and disadvantages 
+1RUPDO
+*RIIPRWRUSRLQW
+P9
+PV
+Fig. 8.23 Active recording electrode placement and motor stud-
+ies. Ulnar motor study, recording the abductor digiti minimi, 
+stimulating the wrist. The active recording electrode (G1) is properly 
+placed over the motor point of the muscle, and the reference elec-
+trode (G2) is placed over the distal tendon (top trace). If G1 is placed 
+off the motor point, the morphology of the compound muscle action 
+potential changes, usually to show an initial positive deflection and a 
+lower amplitude potential.
+%%
+&&$$
+Fig. 8.24 Effect of the reference electrode on the compound muscle action potential (CMAP) configuration. Recording electrodes for mo-
+tor studies are placed using the “belly- tendon” montage. The depolarization occurs under the muscle belly, where the active electrode (G1) is 
+placed. However, the tendon may be electrically active, especially when studying the ulnar and tibial nerves. In this case, a tendon potential 
+occurs as a result of volume conduction of proximal and other nearby potentials. In the case of the ulnar nerve, this gives the motor response its 
+characteristic bifid morphology. To demonstrate this, look at all the waveforms in panel A. Each trace displays the ulnar CMAP when recording at 
+a different active electrode site with the reference electrode on the contralateral hand. Note that position 3 (red circle) corresponds to the usual 
+G1 site, and position 5 (green circle) to the usual G2 site for ulnar motor studies. Normally, G2 is subtracted from G1 and amplified to produce 
+the final waveform. This is the same as adding the negative of G2 to G1. In panel C, the waveform with the solid line is from the standard G1 
+recording site; the waveform with the dashed line is the negative of the standard G2 or tendon site. When the two are added together, the final 
+waveform is created in panel B. Note that most of the standard ulnar CMAP is actually created from the tendon potential.  (Adapted from Kincaid 
+JC, Brashear A, Markand ON. The influence of the reference electrode on CMAP configuration. Muscle Nerve. 1993;16(4):392–396.)
+
+===== PDF PAGE 104 / BOOK PAGE 91 =====
+SECTION III   Electrodiagnostic Sources of Error: Anomalies, Artifacts, Technical Factors, and Statistics
+92
+(Fig. 8.26). First, amplitude is higher with antidromic than 
+with orthodromic recordings. SNAP amplitude is directly 
+proportional to the distance between the recording elec -
+trodes and the nerve. For most antidromic potentials, the 
+active recording electrodes are closer to the nerve. For 
+example, consider the antidromic median sensory study 
+stimulating the wrist and recording the second digit. Using 
+the antidromic method, recording ring electrodes are placed 
+over the second digit. The ring electrodes are very close to 
+the underlying digital nerves, which lie just beneath the 
+skin. When the montage is reversed for orthodromic record-
+ing, the recording bar or disk electrodes are placed over the 
+wrist. The thick transverse carpal ligament and other sup -
+porting connective tissue lie between the nerve and the 
+recording electrodes. The recorded sensory response conse-
+quently is attenuated by the intervening tissue and results in 
+a much lower amplitude. The major advantage of antidromic 
+recording is the higher amplitude potentials obtained with 
+this method. Not only is it easier to find the potential, but 
+also larger amplitude potentials can be especially helpful in 
+making side-  to- side comparisons, following nerve injuries 
+over time, or recording potentials from pathologic nerves, 
+which can be quite small.
+The antidromic method, however, does have its disad -
+vantages. Although only sensory fibers are recorded, both 
+motor and sensory fibers are stimulated. This often results 
+in a volume- conducted motor potential following the SNAP 
+(Fig. 8.26 , and see Fig. 3.9 ). Because the SNAP usually 
+occurs before the volume-  conducted motor potential, it is 
+not difficult to differentiate the two. However, if the two 
+Fig. 8.25 Effect of reference electrode 
+position on amplitude in ulnar motor 
+studies. Standard ulnar motor studies 
+with the G1 active electrode over the 
+abductor digiti minimi while vary-
+ing the position of the G2 reference 
+electrode. The G2 reference electrode 
+over the tendon is, in theory, electri-
+cally neutral. However, the tendon may 
+be electrically active, especially when 
+studying the ulnar and tibial nerves. 
+Note in the three traces how the mor-
+phology and amplitude of the motor 
+response change as the placement of 
+the reference electrode is changed. This 
+underscores the need for consistency in 
+placing both the reference and active 
+recording electrodes when performing 
+motor studies.
+*
+$PSOLWXGH P9
+$PSOLWXGH P9
+$PSOLWXGH P9
+PV'P9'
+*
+*
+*
+*
+*
+9
+PV
+9
+PV
+9
+PV
+Fig. 8.26 Comparison of antidromic and orthodromic median 
+sensory studies. Top trace, Antidromic study, stimulating the wrist, 
+recording digit 2. Bottom trace, Orthodromic study, stimulating digit 
+2, recording the wrist, same distance. Latencies and conduction 
+velocities are identical. The antidromic method has the advantage 
+of a higher amplitude, but the sensory nerve action potential (SNAP) 
+may be followed by a large volume- conducted motor potential. 
+If the SNAP is absent in an antidromic study, one must be careful 
+not to mistake the volume- conducted motor potential for a sensory 
+potential.
+
+===== PDF PAGE 105 / BOOK PAGE 92 =====
+Chapter 8 • Artifacts and Technical Factors
+93
+9' PV'
+5HFRUGLQJHOHFWURGH
+0HGLDQQHUYH
+5HFRUGLQJHOHFWURGH
+0HGLDQQHUYH
+5HFRUGLQJHOHFWURGH
+0HGLDQQHUYH
+$PSOLWXGH 9
+$PSOLWXGH 9
+$PSOLWXGH 9
+potentials have a similar latency or, more importantly, if the 
+sensory potential is absent, one might mistake the first com-
+ponent of the volume-  conducted motor potential for the 
+SNAP where none truly exists. 
+Distance Between Recording Electrodes 
+and Nerve
+In sensory or mixed nerve studies, the amount of interven -
+ing tissue and the distance separating the recording elec -
+trodes and the underlying nerve can markedly influence 
+the amplitude of the recorded potential. As a potential 
+is recorded at an increasing distance from the nerve, the 
+amplitude decreases dramatically (Fig. 8.27). This accounts 
+for the lower amplitude potentials seen with orthodromic 
+sensory studies. In most orthodromic studies, the nerve lies 
+deeper to the recording electrodes than it does in the cor -
+responding antidromic study.
+This situation is often encountered when performing 
+lower extremity sensory studies (especially the sural and 
+superficial peroneal sensory nerve studies) in a patient who 
+has edema ( Fig. 8.28 ). Regardless of the cause of edema 
+(venous insufficiency and congestive heart failure being 
+the most common), the edema results in a greater distance 
+between the surface recording electrodes and the nerves 
+than is normally seen. This then results in an attenuation 
+of the amplitude. Thus, in this situation, caution must be 
+exercised before interpreting any low or absent response, 
+especially a sensory response, as abnormal. Indeed, in such 
+a situation, it is only the presence of a normal response that 
+is helpful. An absent or reduced response, in the presence 
+of marked edema, should be noted in the report as possi -
+bly due to technical factors from the edema and should be 
+appropriately incorporated into the final impression.
+Lower amplitude potentials may be seen not only 
+when the nerve lies deep but also when the recording 
+Fig. 8.28 Effect of increased distance between 
+recording electrodes and nerve on amplitude. When 
+performing sensory and mixed nerve conduction 
+studies, the nerve is assumed to lie just under the skin 
+(top). However, if edema is present, there will be a 
+greater distance between the surface recording elec-
+trodes and the nerve (bottom). This results in a marked 
+attenuation of the amplitude of the potential, and if the 
+distance is great enough, the response can even be ab-
+sent. In addition, the potential is dispersed in duration, 
+the onset latency may be slightly shortened, and the 
+peak latency may be slightly prolonged. This occurs 
+because tissue acts as a high- frequency filter, attenuat-
+ing the amplitude, which is predominantly a high- 
+frequency response. The other changes occur from 
+effects of volume conduction over a longer distance. 
+Thus, caution must be exercised before interpreting 
+any low or absent response as abnormal in the setting 
+of marked edema, especially a sensory response.
+G1
+Edema
+G2
+G1 G2
+Fig. 8.27 Effect of distance between recording 
+electrodes and nerve on amplitude. Median 
+mixed nerve study, stimulating the palm, record-
+ing over the wrist. Top trace, Recording electrodes 
+placed directly over the median nerve. Middle 
+trace, Recording electrodes placed 0.5 cm laterally. 
+Bottom trace, Recording electrodes placed 1.0 cm 
+laterally. If the recording electrodes are moved off 
+the nerve (middle and bottom traces), maintaining 
+the same distance and stimulus current, the ampli-
+tude drops markedly. In nerve conduction studies, 
+side- to- side comparisons between amplitudes are 
+often made, looking for asymmetry. One can eas-
+ily appreciate that if the recording electrodes are 
+placed lateral or medial to the nerve on one side 
+and directly over the nerve on the other side, one 
+might be left with the mistaken impression of a sig-
+nificant asymmetry in amplitude. When the location 
+of the underlying nerve is not certain, it is impor-
+tant to try several recording electrode positions to 
+ensure that the maximal amplitude is obtained.
+
+===== PDF PAGE 106 / BOOK PAGE 93 =====
+SECTION III   Electrodiagnostic Sources of Error: Anomalies, Artifacts, Technical Factors, and Statistics
+94
+electrodes are inadvertently placed lateral or medial to, 
+and not directly over, the nerve. Because most nerves can -
+not be seen or palpated, recording electrodes for sensory 
+and mixed nerve studies generally are placed based on 
+anatomic landmarks and initially may not be placed in the 
+optimal position directly over the nerve of interest. This 
+situation occurs most frequently with sensory studies 
+in which the position of the underlying nerve is slightly 
+variable (e.g., palmar mixed studies, lateral antebrachial, 
+medial antebrachial, sural, saphenous, and superficial 
+peroneal sensory nerves). T o avoid this pitfall, it is impor -
+tant to move the recording electrodes from the initial 
+position slightly medially and then slightly laterally, with 
+the stimulus current held constant, to determine which 
+position yields the largest amplitude response. It often is 
+surprising how minimal movement of the recording elec -
+trodes can greatly affect the amplitude of the response 
+(Fig. 8.29 ). Failure to do so often can result in technical 
+errors, especially when comparing amplitudes from side 
+to side. The median and ulnar antidromic studies are an 
+exception, as the recording electrodes are placed over the 
+digits and one can always be assured that the recording 
+electrodes are placed as close to the nerve as possible 
+(i.e., directly over the digital nerves). The other excep -
+tion is the superficial radial nerve, which can often be 
+palpated as it runs over the extensor pollicis longus ten -
+don. If one can palpate the nerve, the recording electrode 
+can then be placed directly over it.
+In addition to its effect on amplitude, the placement of 
+the recording electrodes also affects the latency measure -
+ments. If the recording electrodes are placed lateral or 
+medial to the nerve, the onset latency shortens while the 
+peak latency remains relatively unchanged. Although not 
+intuitively obvious, these changes are due to the effects of 
+volume conduction through tissue. The end result of the 
+placement of recording electrodes at a distance from the 
+nerve (because of intervening tissue, inaccurate placement 
+of the electrodes, or both) is that the recorded electrical 
+potential will be lower in amplitude and possibly spuriously 
+fast (Fig. 8.29). The closer the recording electrodes are to 
+the nerve, the higher the amplitude and the more accurate 
+the onset latency. 
+Distance Between Active and Reference 
+Recording Electrodes
+Every potential recorded in a nerve conduction study is 
+the result of the difference in electrical activity between 
+the active and reference recording electrodes. For sensory 
+and mixed nerve studies, the active and reference elec -
+trodes typically are placed in a straight line over the nerve 
+to be recorded. Accordingly, the segment of nerve that is 
+depolarized proceeds first under the active electrode and 
+then passes distally to travel under the reference elec -
+trode. If the active and reference electrodes are too close 
+together, they may briefly become electrically active at 
+the same time, resulting in a lower amplitude potential 
+due to a cancellation effect ( Figs. 8.30 and 8.31 ). For this 
+reason, the preferred inter-  electrode distance between 
+the active and reference recording electrodes for sen -
+sory and mixed nerve recordings is 3–4 cm. For the usual 
+range of nerve conduction velocities, this distance ensures 
+that depolarization will not occur under both electrodes 
+simultaneously.  
+Limb Position and Distance Measurements
+T o compute a conduction velocity accurately, one must cor-
+rectly measure the distance along the nerve. It usually is 
+assumed that the surface distance accurately represents the 
+true underlying length of the nerve, and in most circum -
+stances that assumption is correct. There are several nota -
+ble exceptions, however, the most important being that of 
+the ulnar nerve across the elbow ( Fig. 8.32). Surgical and 
+cadaver dissection studies have shown that the ulnar nerve 
+is slack and redundant when the arm is in the extended 
+(i.e., straight) position. If surface distance measurements 
+of the ulnar nerve are made with the arm extended, the 
+true length of the underlying nerve is underestimated. Thus, 
+ulnar nerve conduction studies performed with the elbow 
+extended often result in artifactual slowing of conduc -
+tion velocity across the elbow segment. When the elbow 
+assumes a flexed position, the measured surface distance of 
+the nerve across the elbow better reflects the true underly-
+ing length of the nerve, and a more valid measurement of 
+nerve conduction velocity is made.
+Surface distance measurements of several other nerves 
+often are inaccurate. These include the radial nerve as it 
+spirals around the humerus and the median and ulnar nerves 
+'LUHFWO\RYHUQHUYH
+9
+PV
+FPODWHUDO
+FPODWHUDO
+FPODWHUDO
+Fig. 8.29 Effect of distance between recording electrodes and nerve 
+on latency. Median mixed nerve study, stimulating wrist, record-
+ing antecubital fossa. In addition to the effect on amplitude, if the 
+recording electrodes are moved off the nerve while maintaining the 
+same distance and stimulus current, the onset latency shifts to the left. 
+This results in a spuriously fast conduction velocity.  (Reprinted from 
+Raynor EM, Preston DC, Logigian EL. Influence of surface record-
+ing electrode placement on nerve action potentials. Muscle Nerve. 
+1997;20:361, with permission of Wiley.)
+
+===== PDF PAGE 107 / BOOK PAGE 94 =====
+Chapter 8 • Artifacts and Technical Factors
+95
+between the axilla and Erb’s point. In these situations, 
+obstetric calipers can be used to more accurately approxi -
+mate the true length of the underlying nerve. 
+Limb Position and Waveform Morphology
+During any nerve conduction study where more than one 
+site is stimulated (typically motor studies), it is essential 
+that the limb remains in the same position for all stimula -
+tion sites. If this is not done, slightly different responses 
+may result with different limb postures. This may occur due 
+to slight movement of the skin (and recording electrodes) 
+in relation to the underlying muscle or nerve. In addition, 
+there is the complicated issue of the “tendon potential” as 
+discussed earlier. In the belly-  tendon montage, it is gener -
+ally assumed that the tendon is electrically inactive. How -
+ever, this is not so for all nerves, especially the ulnar and 
+tibial nerves, where the reference electrode placed over 
+the tendon is often electrically active. Because there is no 
+muscle over the tendon, this “tendon potential” is a volume- 
+conducted far-  field potential from proximal depolarizing 
+muscles. These volume conducted potentials can change in 
+shape and latency as the limb position changes. Thus take 
+this example:
+$
+&
+%
+'
+(
+$
+&
+%
+'
+(
+* *
+* *
+* *
+* *
+*
+*
+*
+*
+*
+* *
+*
+*
+*
+*
+*
+5HFRUGHGVHQVRU\SRWHQWLDO
+*±*
+FP
+5HFRUGHGVHQVRU\SRWHQWLDO
+*±*
+FP
+Fig. 8.30 Influence of distance between active and reference recording electrodes on sensory studies. The distance between the active (G1) 
+and reference (G2) recording electrodes influences the morphology of the sensory nerve action potential (SNAP). The SNAP is the result of the 
+difference in electrical activity between the active and reference recording electrodes. The segment of depolarized nerve proceeds first under the 
+active electrode and then travels distally beneath the reference electrode (left side, inter- electrode distance of 4 cm). If the active and reference 
+electrodes are too close (e.g., inter- electrode distance of 1 cm), they may briefly become electrically active at the same time, resulting in a lower- 
+amplitude potential (right side, third trace). For the usual range of nerve conduction velocities in sensory and mixed nerve studies, separating the 
+active and reference recording electrodes by 3–4 cm will ensure that depolarization does not occur under both electrodes simultaneously. Sites (A) 
+to (E) show the progressive travel of the segment of nerve that is depolarized as it moves toward, under, and away from the recording electrodes.
+
+===== PDF PAGE 108 / BOOK PAGE 95 =====
+SECTION III   Electrodiagnostic Sources of Error: Anomalies, Artifacts, Technical Factors, and Statistics
+96
+Fig. 8.31 Influence of distance between active and refer-
+ence recording electrodes on sensory studies. Median 
+sensory studies, stimulating the wrist, recording digit 2. The 
+distance between the active (G1) and reference (G2) record-
+ing electrodes is 1.0 cm (top), 2.5 cm (middle), and 4.0 cm 
+(bottom). Note the much smaller- amplitude potential when 
+the recording electrodes are 1.0 cm apart. In this case, the 
+active and reference electrodes are so close that the segment 
+of depolarized nerve may occur simultaneously at both elec-
+trodes, resulting in a lower amplitude potential.
+9' PV'
+$PSOLWXGH 9
+$PSOLWXGH 9
+$PSOLWXGH 9
+**GLVWDQFH
+FP
+FP
+FP
+9 cm
+10 cm
+Fig. 8.32 Limb position and nerve length of the ulnar nerve. At the elbow, the ulnar nerve is slack and redundant when the arm is in the 
+extended position. If surface distance measurements of the ulnar nerve are made with the arm in this position, the true length of the underlying 
+nerve is underestimated. Left, With the elbow in extension, a surface distance of 9 cm is measured between the below-  and above- elbow sites 
+(note: the ulnar nerve runs between the medial epicondyle and olecranon marked by the red circles on the photos). Right, With the elbow in 
+flexion, the same two marks now measure 10 cm apart, which more accurately reflects the true length of the ulnar nerve. If ulnar conduction 
+studies are performed with the elbow extended, artifactual slowing of conduction velocity occurs across the elbow segment. When the elbow as-
+sumes a flexed position, the measured surface distance of the nerve across the elbow better reflects the true underlying length of the nerve, and a 
+more valid measurement of nerve conduction velocity can be made.
+	 •		The	ulnar	nerve	motor	study	is	performed,	stimulating	the	
+wrist, below- elbow, and above- elbow sites, with the arm in 
+the bent (i.e., flexed) position for all three stimulation sites
+vs.
+	 •		The	ulnar	nerve	motor	study	is	performed,	stimulating	
+the wrist, below- elbow, and above- elbow sites. How-
+ever, the ulnar nerve is stimulated at the wrist with the 
+arm straight; then the elbow is flexed and the stimula-
+tions are done at the below- elbow and above- elbow sites
+In this example, one would obtain slightly different 
+amplitudes (especially at the below- elbow and above- elbow 
+sites) and slightly different conduction velocities in the sec-
+ond scenario versus the first.
+Although the physiology of volume conduction is  
+complex and not intuitive, the bottom line is the fol -
+lowing: if at all possible, during a nerve conduction  
+study, stimulate all sites with the limb in the same 
+position.  
+
+===== PDF PAGE 109 / BOOK PAGE 96 =====
+Chapter 8 • Artifacts and Technical Factors
+97
+Latency Measurements: Sweep Speed and 
+Sensitivity
+Both the sweep speed and sensitivity can markedly influence 
+the recorded latency of both sensory and motor potentials. 
+As the sensitivity is increased, the onset latency measure -
+ment tends to decrease (Fig. 8.33). Conversely, as the sweep 
+speed is decreased, latency measurements usually increase 
+(Fig. 8.34). For this reason, all latency measurements for each 
+nerve conduction study should be made using the same sensi-
+tivity and the same sweep speed. This is especially true within 
+nerves in which potentials obtained with different sweep 
+speeds or sensitivities at distal and proximal stimulation 
+sites along the nerve can easily result in the calculation of a 
+faulty conduction velocity. This is one potential advantage of 
+using peak latency as opposed to onset latency in sensory and 
+mixed nerve studies, because peak latency is not affected by 
+changes in either sweep speed or sensitivity (N.B., one cannot 
+obtain a conduction velocity using peak latencies).
+Suggested Readings
+Barkhaus PE, Kincaid JC, Nandedkar SD. Tibial motor nerve 
+conduction studies: an investigation into the mechanism for 
+amplitude drop of the proximal evoked response. Muscle 
+Nerve. 2011;44(5):776–782.
+Barry DT. AAEM mimeograph #36: basic concepts of 
+electricity and electronics in clinical electromyography. 
+Muscle Nerve. 1991;14:937–946.
+Brashear A, Kincaid JC. The influence of the reference 
+electrode on CMAP configuration: leg nerve observations 
+and an alternative reference site. Muscle Nerve. 1996;9:63–
+67.
+Brown WF. The Physiological and T echnical Basis of 
+Electromyography. Boston: Butterworth; 1984.
+Campbell WW, Pridgeon RM, Riaz G, et al. Variations in 
+anatomy of the ulnar nerve at the cubital tunnel: pitfalls 
+in the diagnosis of ulnar neuropathy at the elbow. Muscle 
+Nerve. 1991;14:733–738.
+Campbell Jr WW, Ward LC, Swift TR. Nerve conduction 
+velocity varies inversely with height. Muscle Nerve. 
+1981;4:520–523.
+De Jesus PV, Hausmanowa- Petrusewicz I, Barchi RL. The 
+effect of cold on nerve conduction of human slow and fast 
+nerve fibers. Neurology. 1973;23:1182–1189.
+Denys EH. The influence of temperature in clinical 
+neurophysiology. Muscle Nerve. 1991;14:795.
+Dumitru D, Delisa HA. AAEM minimonograph #10: volume 
+conduction. Muscle Nerve. 1991;14:605–624.
+PV
+P9
+PV
+P9
+PV
+PV
+PV
+PV
+9
+Fig. 8.33 Latency measurement and sensitivity. Median motor study, 
+stimulating wrist, recording the abductor pollicis brevis, using varying 
+sensitivities, with sweep speed held constant. Latency measurements 
+should always be made using the same sensitivity. Note that as sensi-
+tivity is increased, latency measurement usually decreases.
+P9
+PV
+P9
+PV
+P9
+PV
+PV
+PV
+PV
+Fig. 8.34 Latency measurement and sweep speed. Median mo-
+tor study, stimulating wrist, recording the abductor pollicis brevis, 
+using varying sweep speeds, with sensitivity held constant. Latency 
+measurements should always be made using the same sweep speed. 
+Note that as sweep speed decreases, latency measurement usually 
+increases.
+
+===== PDF PAGE 110 / BOOK PAGE 97 =====
+SECTION III   Electrodiagnostic Sources of Error: Anomalies, Artifacts, Technical Factors, and Statistics
+98
+Franssen H, Wieneke GH. Nerve conduction and 
+temperature: necessary warming time. Muscle Nerve. 
+1994;17:336–344.
+Halar EM, Delisa JA, Brozovich FV. Nerve conduction 
+velocity: relationship of skin, subcutaneous and 
+intramuscular temperatures. Arch Phys Med Rehabil. 
+1980;61:199–203.
+Halar EM, Delisa JA, Soine TL. Nerve conduction studies in 
+upper extremities: skin temperature corrections. Arch Phys 
+Med Rehabil. 1983;64:412–416.
+Kimura J. Electrodiagnosis in Diseases of Nerve and Muscle. 
+2nd ed. Philadelphia: FA Davis; 1989.
+Kincaid JC, Brashear A, Markand ON. The influence of the 
+reference electrode on CMAP configuration. Muscle Nerve. 
+1993;16(4):392–396.
+Kornfield MJ, Cerra J, Simons DG. Stimulus artifact 
+reduction in nerve conduction. Arch Phys Med Rehabil. 
+1985;66:232–235.
+Rivner MH, Swift TR, Malik K. Influence of age and height on 
+nerve conduction. Muscle Nerve. 2001;24:1134–1141.
+Wee AS, Leis AA, Kuhn AR, et al. Anodal block: can this 
+occur during routine nerve conduction studies? Electromyogr 
+Clin Neurophysiol. 2000;40:387–391.

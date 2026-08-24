@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>İlk Maksimal Yanıtta Durma — Platoyu Ek Akımla Kanıtla</title>
+<style>
+:root{--paper:#f7f8f9;--panel:#fff;--head:#e7edf3;--line:#d5dde4;--ink:#15232d;--muted:#60707d;--teal:#0f7a95;--cyan:#36c9d7;--green:#5eea8d;--amber:#ffc857;--red:#eb5a65;--blue:#64a7ff;--scope:#06140f;--grid:#143326}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;background:#fff;color:var(--ink);font-family:"Segoe UI",Inter,Arial,sans-serif}body{display:grid;place-items:center;padding:12px}
+.app{width:min(calc(100vw - 24px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 24px);background:var(--paper);border:1px solid #c8d1d9;box-shadow:0 18px 48px #23313b24;display:grid;grid-template-rows:42px 48px 1fr 70px 56px;overflow:hidden}
+.titlebar,.toolbar{display:flex;align-items:center;padding:0 18px;border-bottom:1px solid var(--line)}.titlebar{justify-content:space-between;background:linear-gradient(#fff,#f0f3f5);font-size:14px;color:#43515c}.session{display:flex;align-items:center;gap:9px;font-weight:700}.dot{width:9px;height:9px;border-radius:50%;background:#2f7d52;box-shadow:0 0 7px #2f7d5270}.brand{font-weight:900;letter-spacing:.12em;color:#73808b}.brand b{color:var(--teal)}
+.toolbar{gap:20px;background:var(--head)}.label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:900}.toolbar strong{font-size:15px}.mode{margin-left:auto;color:var(--teal);font-weight:900}
+.workspace{min-height:0;padding:10px;display:grid;grid-template-columns:minmax(0,1fr) 326px;gap:10px}.panel{background:#fff;border:1px solid var(--line);min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column}.panel-head{height:39px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 13px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px;font-weight:900;letter-spacing:.055em;text-transform:uppercase;color:#4a5964}
+.state{padding:4px 10px;border-radius:999px;background:#fff4d9;color:#8b5c00;border:1px solid #ead39a;text-transform:none;letter-spacing:0}.state.candidate{background:#fff0e5;color:#a4561e;border-color:#edc59e}.state.confirmed{background:#e6f7ec;color:#28744a;border-color:#c8e8d3}
+.lab{flex:1;min-height:0;display:grid;grid-template-rows:61% 39%}.curve{position:relative;min-height:0;background:#101d24;border-bottom:4px solid #d5dde4}.scope{position:relative;min-height:0;background:var(--scope)}#curveCanvas,#scopeCanvas{position:absolute;inset:0;width:100%;height:100%}
+.scope-legend{position:absolute;right:12px;top:8px;display:flex;gap:12px;padding:5px 8px;background:#06140fdb;border:1px solid #2b493a;color:#b8c8bf;font-size:11px;font-weight:800}.key{display:inline-flex;align-items:center;gap:5px}.sw{width:18px;height:3px;background:var(--green)}.sw.prev{height:0;border-top:2px dashed var(--amber)}
+.formula{position:absolute;left:12px;bottom:8px;padding:5px 8px;background:#071118e8;border:1px solid #4c626f;color:#d9e7ec;font:800 10px Consolas,monospace}.formula b{color:var(--cyan)}
+.side-body{padding:10px;display:grid;gap:7px;align-content:start;overflow:auto}.readout{display:grid;grid-template-columns:1fr auto;padding:7px 9px;border:1px solid var(--line);font-size:11px}.readout span{color:var(--muted);font-weight:800}.readout b{font-variant-numeric:tabular-nums}.readout.yes{background:#fff4d9;border-color:#ead39a}.readout.no{background:#e7f1ff;border-color:#b7d0ee}.readout.confirmed{background:#e6f7ec;border-color:#c8e8d3}.readout.confirmed b{color:#28744a}
+.decision{padding:9px 10px;border-left:4px solid var(--amber);background:#fff7e7;font-size:11px;line-height:1.34;font-weight:700}.decision.candidate{border-color:#eb8d48;background:#fff0e5}.decision.confirmed{border-color:#2f8b58;background:#eaf8ef}.decision b{color:var(--teal)}
+.source{height:146px;border:1px solid var(--line);background:#fff;display:grid;grid-template-columns:122px 1fr;overflow:hidden}.source img{width:100%;height:100%;object-fit:contain;border-right:1px solid var(--line)}.source div{padding:7px;font-size:10px;line-height:1.25;color:var(--muted)}.source b{display:block;color:var(--ink);margin-bottom:3px}.source a{color:var(--teal);text-decoration:none;font-weight:800}
+.caveat{font-size:9.5px;line-height:1.28;color:var(--muted);padding:0 2px}
+.controls{display:flex;align-items:center;justify-content:center;gap:10px;padding:9px 16px;background:#fff;border-top:1px solid var(--line)}button{appearance:none;border:1px solid #b8c5cf;background:#f2f5f7;color:var(--ink);font:800 12px "Segoe UI",sans-serif;padding:9px 15px;cursor:pointer;border-radius:3px}button:hover,button:focus-visible{background:#e2edf2;outline:2px solid #8ac4d1;outline-offset:1px}.next{background:#172b24;color:#dfffea;border-color:#315a48;min-width:190px}.next:hover{background:#234436}.next:disabled{background:#d9e3de;color:#658075;border-color:#c3d0ca;cursor:default}.reset{background:#fff}.stage-text{font-size:11px;color:var(--muted);font-weight:900;min-width:260px;text-align:right}.stage-text b{color:var(--teal)}
+.bottom-bar{height:56px;display:flex!important;align-items:stretch!important;gap:1px!important;background:#d5dde4!important;border-top:1px solid #d5dde4!important}.bottom-bar .fkey{flex:1!important;background:#e7edf3!important;color:#16232c!important;text-decoration:none!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;padding:0 12px!important;font:800 13px/1 "Segoe UI",Arial,sans-serif!important}.bottom-bar .fkey span{color:#0f7a95!important;font-size:15px!important}.bottom-bar .fkey b{color:#16232c!important;font-size:13px!important}.bottom-bar .fkey:hover,.bottom-bar .fkey:focus-visible{background:#dce8f0!important;outline:none!important}
+@media(max-width:980px){body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;grid-template-rows:42px auto minmax(760px,1fr) auto 56px}.toolbar{padding:8px 12px;flex-wrap:wrap}.workspace{grid-template-columns:1fr}.source{height:160px}.controls{flex-wrap:wrap}.stage-text{text-align:center}}
+</style>
+</head>
+<body>
+<main class="app">
+  <div class="titlebar"><div class="session"><span class="dot"></span>EDX Öğrenim İstasyonu — Bölüm 8</div><div class="brand"><b>EDX</b>SİM</div></div>
+  <div class="toolbar"><span class="label">Konu</span><strong>Plato doğrulama protokolü</strong><span class="label">Tek değişken</span><strong>Kademeli uyarım basamağı</strong><span class="mode">SERBEST LABORATUVAR</span></div>
+  <section class="workspace">
+    <div class="panel">
+      <div class="panel-head"><span>Yanıt büyümeyi bıraktığında durma · ek akımla yeniden test et</span><span id="stateBadge" class="state">Beş basamaklık protokol</span></div>
+      <div class="lab">
+        <div class="curve" id="curve"><canvas id="curveCanvas"></canvas><div class="formula"><b>Maksimal:</b> ilk plato adayı · <b>Supramaksimal:</b> ek akımda değişmeyen amplitüd</div></div>
+        <div class="scope" id="scope"><canvas id="scopeCanvas"></canvas><div class="scope-legend"><span class="key"><i class="sw"></i>Son kayıt</span><span class="key"><i class="sw prev"></i>Önceki kayıt</span></div></div>
+      </div>
+    </div>
+    <aside class="panel">
+      <div class="panel-head"><span>Karar kontrolü</span></div>
+      <div class="side-body">
+        <div class="readout"><span>Son uyarım</span><b id="currentOut">—</b></div>
+        <div class="readout"><span>BKAP amplitüdü</span><b id="ampOut">—</b></div>
+        <div id="changeRow" class="readout yes"><span>Önceki basamağa göre büyüdü mü?</span><b id="changeOut">BEKLENİYOR</b></div>
+        <div id="plateauRow" class="readout"><span>Amplitüd platosu</span><b id="plateauOut">HAYIR</b></div>
+        <div id="marginRow" class="readout"><span>Plato üstü ek akım</span><b id="marginOut">UYGULANMADI</b></div>
+        <div id="decision" class="decision"><b>Karar:</b> Akımı artır; yanıt henüz platoda değildir.</div>
+        <div class="source"><img src="../figures/source-v3/fig_8_17_supramaximal.png" alt=" amplitüd platosu ve ek akım"><div><b>Kitap protokolü</b>11 mA'da 10,5 mV; 14 mA'da yine 10,5 mV. Son basamak 11 mA'nın %27 üzeridir ve kitabın “yaklaşık %25” güvenlik adımını temsil eder.</div></div>
+        <div class="caveat">Kitap protokolü: amplitüd artık artmadığında akımı yaklaşık %25 yükselt; amplitüd yine değişmiyorsa supramaksimal uyarımı doğrula.</div>
+      </div>
+    </aside>
+  </section>
+  <div class="controls"><span id="stageText" class="stage-text"><b>0/5</b> · Uyarı bekleniyor</span><button id="nextBtn" class="next">1. uyarıyı ver</button><button id="resetBtn" class="reset">Başa al</button></div>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi"><a class="fkey" href="nasil-yapilir.html"><span>F1</span><b>Önceki</b></a><a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a><a class="fkey" href="yanlis-yorumlar.html"><span>F3</span><b>Sonraki</b></a></nav>
+</main>
+<script>
+const DATA=[
+  {current:6.0,amp:4.5,latency:3.6},
+  {current:7.2,amp:6.8,latency:3.5},
+  {current:9.0,amp:9.3,latency:3.5},
+  {current:11.0,amp:10.5,latency:3.2},
+  {current:14.0,amp:10.5,latency:3.1}
+];
+const curve=document.getElementById("curveCanvas"),cc=curve.getContext("2d"),curveWrap=document.getElementById("curve");
+const scope=document.getElementById("scopeCanvas"),sc=scope.getContext("2d"),scopeWrap=document.getElementById("scope");
+const badge=document.getElementById("stateBadge"),currentOut=document.getElementById("currentOut"),ampOut=document.getElementById("ampOut"),changeOut=document.getElementById("changeOut"),plateauOut=document.getElementById("plateauOut"),marginOut=document.getElementById("marginOut"),decision=document.getElementById("decision"),stageText=document.getElementById("stageText"),nextBtn=document.getElementById("nextBtn");
+let stage=-1,transitionStart=-1,raf=0,dpr=Math.max(1,window.devicePixelRatio||1);
+function fit(canvas,wrap){const r=wrap.getBoundingClientRect(),w=Math.max(320,Math.round(r.width)),h=Math.max(130,Math.round(r.height));canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);canvas.style.width=w+"px";canvas.style.height=h+"px";canvas.getContext("2d").setTransform(dpr,0,0,dpr,0,0);return{w,h}}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function line(c,pts,color,width=2,dash=[]){c.save();c.strokeStyle=color;c.lineWidth=width;c.setLineDash(dash);c.beginPath();pts.forEach((p,i)=>i?c.lineTo(p[0],p[1]):c.moveTo(p[0],p[1]));c.stroke();c.restore()}
+function label(c,text,x,y,color="#dce8ed",size=11,align="left"){c.fillStyle=color;c.font=`800 ${size}px Segoe UI`;c.textAlign=align;c.fillText(text,x,y);c.textAlign="left"}
+function dot(c,x,y,r,fill,stroke="#fff",width=2){c.beginPath();c.arc(x,y,r,0,Math.PI*2);c.fillStyle=fill;c.fill();c.strokeStyle=stroke;c.lineWidth=width;c.stroke()}
+function wave(t,on,amp){
+  const artifact=1.3*Math.exp(-Math.pow((t-.18)/.025,2))-.75*Math.exp(-Math.pow((t-.24)/.045,2));
+  if(t<=on)return artifact;
+  const gate=1-Math.exp(-Math.pow((t-on)/.08,2));
+  const cm=gate*(-1.05*Math.exp(-Math.pow((t-on-.46)/.35,2))+.79*Math.exp(-Math.pow((t-on-1.22)/.52,2))-.10*Math.exp(-Math.pow((t-on-2.30)/.82,2)));
+  return artifact+amp*cm;
+}
+function drawCurve(now){
+  const {w,h}=fit(curve,curveWrap);cc.clearRect(0,0,w,h);cc.fillStyle="#101d24";cc.fillRect(0,0,w,h);
+  const L=68,R=w-35,T=35,B=h-48,x=v=>L+(R-L)*(v-5)/10,y=v=>B-(B-T)*v/12;
+  cc.strokeStyle="#263b45";cc.lineWidth=1;for(let m=6;m<=14;m+=2){cc.beginPath();cc.moveTo(x(m),T);cc.lineTo(x(m),B);cc.stroke()}for(let a=0;a<=12;a+=2){cc.beginPath();cc.moveTo(L,y(a));cc.lineTo(R,y(a));cc.stroke()}
+  line(cc,[[L,T],[L,B],[R,B]],"#78909c",1.4);for(let m=6;m<=14;m+=2)label(cc,m+" mA",x(m),B+20,"#8da2ad",10,"center");for(let a=0;a<=12;a+=2)label(cc,a+"",L-12,y(a)+3,"#8da2ad",10,"right");
+  label(cc,"BKAP amplitüdü (mV)",L,T-12,"#c1d0d7",10);label(cc,"Uyarım akımı",R,B+20,"#c1d0d7",10,"right");
+  if(stage>=3){cc.fillStyle="rgba(47,139,88,.12)";cc.fillRect(x(10.7),T,x(14.4)-x(10.7),B-T);label(cc,"PLATO SINAMA BÖLGESİ",x(12.55),T+17,"#7ce6a2",10,"center")}
+  const reveal=transitionStart>=0?clamp((now-transitionStart)/650,0,1):1,pts=[];
+  for(let i=0;i<=stage;i++){const d=DATA[i];if(i===stage&&stage>0&&reveal<1){const p=DATA[i-1];pts.push([x(p.current+(d.current-p.current)*reveal),y(p.amp+(d.amp-p.amp)*reveal)])}else pts.push([x(d.current),y(d.amp)])}
+  if(pts.length>1)line(cc,pts,"#5eea8d",3);
+  pts.forEach((p,i)=>dot(cc,p[0],p[1],i===pts.length-1?7:5,i===pts.length-1?"#ffc857":"#5eea8d","#eafff2",1.5));
+  if(stage===3){label(cc,"PLATO ADAYI · henüz doğrulanmadı",x(11),y(10.5)-18,"#ffc857",10,"center")}
+  if(stage===4){line(cc,[[x(11),y(10.5)-22],[x(14),y(10.5)-22]],"#ffc857",2);label(cc,"+3 mA · +%27 ≈ kitapta %25",x(12.5),y(10.5)-30,"#ffc857",10,"center");label(cc,"AMPLİTÜD DEĞİŞMEDİ",x(12.5),y(10.5)+25,"#7ce6a2",10,"center")}
+  if(transitionStart>=0&&reveal>=1)transitionStart=-1;
+}
+function drawScope(now){
+  const {w,h}=fit(scope,scopeWrap);sc.clearRect(0,0,w,h);sc.fillStyle="#06140f";sc.fillRect(0,0,w,h);
+  const L=50,R=w-22,T=24,B=h-29,mid=(T+B)/2,windowMs=9,halfMv=13,x=t=>L+(R-L)*t/windowMs,y=v=>mid+(v/halfMv)*(B-T)/2;
+  sc.strokeStyle="#143326";sc.lineWidth=1;for(let i=0;i<=9;i++){sc.beginPath();sc.moveTo(x(i),T);sc.lineTo(x(i),B);sc.stroke()}for(let i=0;i<=4;i++){const yy=T+(B-T)*i/4;sc.beginPath();sc.moveTo(L,yy);sc.lineTo(R,yy);sc.stroke()}
+  sc.strokeStyle="#27533e";sc.beginPath();sc.moveTo(L,mid);sc.lineTo(R,mid);sc.stroke();sc.fillStyle="#789486";sc.font="700 10px Segoe UI";sc.fillText("5 mV/div",L,T-8);
+  if(stage<0){label(sc,"İlk uyarı verilmedi · supramaksimale ulaşmak için 5 uyarı uygula",(L+R)/2,mid,"#a7c4b8",13,"center");return}
+  const d=DATA[stage],p=DATA[Math.max(0,stage-1)];
+  const reveal=transitionStart>=0?clamp((now-transitionStart)/900,0,1):1;
+  function plot(data,color,width,dash=[],progress=1){sc.strokeStyle=color;sc.lineWidth=width;sc.setLineDash(dash);sc.beginPath();const n=Math.floor(720*progress);for(let i=0;i<=n;i++){const t=windowMs*i/720,v=clamp(wave(t,data.latency,data.amp),-halfMv,halfMv);i?sc.lineTo(x(t),y(v)):sc.moveTo(x(t),y(v))}sc.stroke();sc.setLineDash([])}
+  if(stage>0)plot(p,"#ffc857",1.5,[6,4],1);sc.save();sc.shadowColor="#5eea8d";sc.shadowBlur=5;plot(d,"#5eea8d",2.3,[],reveal);sc.restore();
+  label(sc,stage===0?"İLK KAYIT":`ÖNCEKİ ${p.current.toFixed(1).replace(".",",")} mA  ↔  SON ${d.current.toFixed(1).replace(".",",")} mA`,L+8,T+18,"#d9ebe1",11);
+}
+function updateUI(){
+  if(stage<0){
+    currentOut.textContent="—";ampOut.textContent="—";changeOut.textContent="BEKLENİYOR";plateauOut.textContent="HAYIR";marginOut.textContent="UYGULANMADI";
+    document.getElementById("changeRow").className="readout";document.getElementById("plateauRow").className="readout";document.getElementById("marginRow").className="readout";
+    badge.textContent="Beş basamaklık protokol";badge.className="state";decision.className="decision";decision.innerHTML="<b>Karar:</b> İlk uyarıyı ver; supramaksimal düzeye beş gerçek uyarım basamağında ulaş.";
+    stageText.innerHTML="<b>0/5</b> · Uyarı bekleniyor";nextBtn.disabled=false;nextBtn.textContent="1. uyarıyı ver";
+    window.__supramaxProtocolState={stage:-1,impulsesDelivered:0,totalImpulses:5,current:null,amplitude:null,plateau:"no",verdict:"awaiting_first_stimulus"};return;
+  }
+  const d=DATA[stage],prev=stage?DATA[stage-1]:null,changed=prev?d.amp>prev.amp+.05:null,isCandidate=stage===3,isConfirmed=stage===4;
+  currentOut.textContent=d.current.toFixed(1).replace(".",",")+" mA";ampOut.textContent=d.amp.toFixed(1).replace(".",",")+" mV";
+  changeOut.textContent=changed===null?"BAŞLANGIÇ":changed?"EVET":"HAYIR";plateauOut.textContent=isCandidate?"ADAY":isConfirmed?"DOĞRULANDI":"HAYIR";marginOut.textContent=isConfirmed?"+%27 · ≈%25":"UYGULANMADI";
+  document.getElementById("changeRow").className=changed===false?"readout no":"readout yes";document.getElementById("plateauRow").className=isConfirmed?"readout confirmed":isCandidate?"readout yes":"readout";document.getElementById("marginRow").className=isConfirmed?"readout confirmed":"readout";
+  if(stage<3){badge.textContent="Rekruitman sürüyor";badge.className="state";decision.className="decision";decision.innerHTML="<b>Karar:</b> Akımı artır; amplitüd hâlâ yükseliyor."}
+  else if(isCandidate){badge.textContent="Plato adayı · durma";badge.className="state candidate";decision.className="decision candidate";decision.innerHTML="<b>Karar:</b> 10,5 mV ilk maksimal yanıt adayıdır. Supramaksimal demek için akımı yaklaşık %25 artır."}
+  else{badge.textContent="Supramaksimal doğrulandı";badge.className="state confirmed";decision.className="decision confirmed";decision.innerHTML="<b>Karar:</b> Ek akım amplitüdü büyütmedi;  protokolünde supramaksimal uyarım doğrulandı."}
+  stageText.innerHTML=`<b>${stage+1}/5</b> · ${stage===0?"İlk kayıt":isCandidate?"İlk maksimal yanıt adayı":isConfirmed?"Plato ek akımda korundu":"Yanıt hâlâ büyüyor"}`;nextBtn.disabled=isConfirmed;nextBtn.textContent=isCandidate?"Yaklaşık %25 ek akım uygula":"Bir sonraki uyarıyı ver";
+  window.__supramaxProtocolState={stage,impulsesDelivered:stage+1,totalImpulses:5,current:d.current,amplitude:d.amp,latency:d.latency,previousAmplitude:prev?prev.amp:null,amplitudeChanged:changed,plateau:isCandidate?"candidate":isConfirmed?"confirmed":"no",marginPct:isConfirmed?+((14/11-1)*100).toFixed(3):0,bookTargetPct:25,verdict:isConfirmed?"supramaximal_confirmed":isCandidate?"needs_margin":"increase_current"};
+}
+function setStage(v,animate=true){stage=clamp(v,-1,4);transitionStart=animate?performance.now():-1;updateUI();if(!raf)raf=requestAnimationFrame(loop)}
+nextBtn.addEventListener("click",()=>{if(stage<4)setStage(stage+1)});document.getElementById("resetBtn").addEventListener("click",()=>setStage(-1,false));
+function draw(now){drawCurve(now);drawScope(now)}function loop(now){draw(now);if(transitionStart>=0)raf=requestAnimationFrame(loop);else raf=0}
+new ResizeObserver(()=>draw(performance.now())).observe(document.querySelector(".app"));setStage(-1,false);
+</script>
+<script data-standard-nav-v3>document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase();const a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});</script>
+</body>
+</html>

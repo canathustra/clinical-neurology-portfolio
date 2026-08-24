@@ -1,0 +1,1519 @@
+﻿<title>Kuantal Deplesyon — Nöromusküler Kavşak</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #05070F; }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+    color: #D5DAF2;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #stage {
+    position: relative;
+    background: #0B0F22;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(167,139,250,.10), 0 30px 120px -40px rgba(0,0,0,.9);
+  }
+  #cv { display: block; width: 100%; height: 100%; }
+
+  /* ---- oynatma kontrolleri ---- */
+  #ui {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 0 3.2% 2.6%;
+    display: flex; flex-direction: column; gap: 1.2vh;
+    font-size: max(9px, 1.95vh);
+    background: linear-gradient(to top, rgba(5,7,15,.92) 12%, rgba(5,7,15,.55) 60%, rgba(5,7,15,0) 100%);
+    transition: opacity .45s ease;
+    padding-top: 7vh;
+  }
+  #ui.hidden { opacity: 0; pointer-events: none; }
+
+  #chapters { display: flex; gap: .5em; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  #chapters::-webkit-scrollbar { display: none; }
+  .chap {
+    flex: 0 0 auto;
+    font-family: Consolas, "Cascadia Mono", Menlo, monospace;
+    font-size: .78em; letter-spacing: .06em;
+    padding: .42em .8em; border-radius: 999px;
+    color: #828BC0; background: rgba(255,255,255,.045);
+    border: 1px solid rgba(167,139,250,.14);
+    cursor: pointer; white-space: nowrap;
+    transition: color .2s, background .2s, border-color .2s;
+  }
+  .chap:hover { color: #D5DAF2; background: rgba(167,139,250,.14); }
+  .chap[aria-current="true"] { color: #0B0F22; background: #FFC24B; border-color: #FFC24B; font-weight: 600; }
+
+  #bar { display: flex; align-items: center; gap: .9em; }
+
+  button.ctl {
+    flex: 0 0 auto;
+    display: inline-flex; align-items: center; justify-content: center; gap: .45em;
+    height: 2.5em; min-width: 2.5em; padding: 0 .7em;
+    border-radius: .6em; cursor: pointer;
+    color: #D5DAF2; background: rgba(255,255,255,.06);
+    border: 1px solid rgba(167,139,250,.18);
+    font: inherit; font-size: .92em;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  button.ctl:hover { background: rgba(167,139,250,.18); border-color: rgba(167,139,250,.4); }
+  button.ctl:focus-visible { outline: 2px solid #FFC24B; outline-offset: 2px; }
+  button.ctl svg { width: 1.15em; height: 1.15em; fill: currentColor; }
+  button.ctl.rec[data-on="1"] { background: #FF5E7A; border-color: #FF5E7A; color: #0B0F22; font-weight: 600; }
+
+  #seek { position: relative; flex: 1 1 auto; height: 2.5em; display: flex; align-items: center; cursor: pointer; }
+  #track { position: relative; width: 100%; height: .32em; border-radius: 99px; background: rgba(255,255,255,.13); overflow: visible; }
+  #fill { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 99px; background: linear-gradient(90deg, #FF6B9D, #FFC24B); }
+  #knob { position: absolute; top: 50%; left: 0; width: .95em; height: .95em; margin: -.475em 0 0 -.475em; border-radius: 50%; background: #FFC24B; box-shadow: 0 0 0 .25em rgba(255,194,75,.22); }
+  .tick { position: absolute; top: -.18em; width: 1px; height: .68em; background: rgba(11,15,34,.75); }
+
+  select.ctl {
+    flex: 0 0 auto; height: 2.5em; padding: 0 .5em;
+    border-radius: .6em; cursor: pointer;
+    color: #D5DAF2; background: rgba(255,255,255,.06);
+    border: 1px solid rgba(167,139,250,.18);
+    font: inherit; font-size: .82em;
+    font-family: Consolas, "Cascadia Mono", Menlo, monospace;
+  }
+  select.ctl option { background: #131A38; color: #D5DAF2; }
+
+  #clock {
+    flex: 0 0 auto;
+    font-family: Consolas, "Cascadia Mono", Menlo, monospace;
+    font-variant-numeric: tabular-nums; letter-spacing: .04em;
+    font-size: .86em; color: #828BC0;
+  }
+
+  #splash {
+    position: absolute; inset: 0; display: none;
+    align-items: center; justify-content: center; flex-direction: column; gap: 2vh;
+    background: rgba(11,15,34,.72); backdrop-filter: blur(3px); cursor: pointer;
+  }
+  #splash.on { display: flex; }
+  #splash .play { width: 9vh; height: 9vh; border-radius: 50%; background: #FFC24B; display: flex; align-items: center; justify-content: center; }
+  #splash .play svg { width: 3.6vh; height: 3.6vh; fill: #0B0F22; margin-left: .5vh; }
+  #splash p { margin: 0; font-size: max(11px, 2.1vh); color: #D5DAF2; letter-spacing: .02em; }
+
+  #toast {
+    position: absolute; left: 50%; top: 4%; transform: translateX(-50%);
+    font-family: Consolas, "Cascadia Mono", Menlo, monospace;
+    font-size: max(9px, 1.8vh); padding: .5em 1em; border-radius: .5em;
+    background: rgba(11,15,34,.92); border: 1px solid rgba(255,94,122,.5); color: #FF5E7A;
+    opacity: 0; transition: opacity .3s; pointer-events: none;
+  }
+  #toast.on { opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) { #ui { transition: none; } }
+</style>
+
+<div id="stage">
+  <canvas id="cv"></canvas>
+
+  <div id="splash">
+    <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    <p>Oynatmak için dokunun</p>
+  </div>
+
+  <div id="toast"></div>
+
+  <div id="ui">
+    <div id="chapters"></div>
+    <div id="bar">
+      <button class="ctl" id="btnPlay" aria-label="Oynat / Duraklat">
+        <svg id="icPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="icPause" viewBox="0 0 24 24" style="display:none"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+      </button>
+      <button class="ctl" id="btnBack" aria-label="5 saniye geri">
+        <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"/></svg>
+      </button>
+      <div id="seek" role="slider" aria-label="Zaman çizelgesi" tabindex="0">
+        <div id="track"><div id="fill"></div><div id="knob"></div></div>
+      </div>
+      <div id="clock">0:00 / 0:00</div>
+      <select class="ctl" id="preset" aria-label="Kayıt çözünürlüğü">
+        <option value="phone" selected>Telefon 19.5:9 · 3120×1440</option>
+        <option value="wide">Sunum 16:9 · 2560×1440</option>
+      </select>
+      <button class="ctl rec" id="btnRec" data-on="0">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/></svg>
+        <span id="recTxt">Video kaydet</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+"use strict";
+
+/* ══════════════════════════════════════════════════════════════
+   1 · TEMEL: renk, tipografi, tuval, kamera
+   ══════════════════════════════════════════════════════════════ */
+
+const K = {
+  bg:    "#0B0F22",
+  bg2:   "#131A38",
+  line:  "#2B3466",
+  txt:   "#D5DAF2",
+  mut:   "#828BC0",
+  dim:   "#5A6394",
+  ca:    "#FFC24B",   // kalsiyum
+  ach:   "#FF6B9D",   // asetilkolin · vezikül
+  mem:   "#5AD9E8",   // membran · elektriksel olay
+  prot:  "#A78BFA",   // SNARE ve yardımcı proteinler
+  musc:  "#E3A76F",   // kas
+  ok:    "#6EE7A0",
+  bad:   "#FF5E7A"
+};
+
+const F = {
+  disp: '"Palatino Linotype", Palatino, "Iowan Old Style", Georgia, serif',
+  ui:   '"Segoe UI", system-ui, -apple-system, "Helvetica Neue", sans-serif',
+  mono: 'Consolas, "Cascadia Mono", Menlo, monospace'
+};
+
+const cv  = document.getElementById("cv");
+const ctx = cv.getContext("2d");
+const stage = document.getElementById("stage");
+
+const H = 720;            // sabit mantıksal yükseklik
+let VW = 1280, CX = 640;  // görünüm oranına göre genişleyen mantıksal genişlik
+let L = 20, R = 1260;     // içerik güvenli sınırları
+
+/** kayıt sırasında tuval ölçüsünü sabitler: {arc, dpr} — H.264 için çift piksel şart */
+let lockAR = null;
+
+function resize() {
+  const vw = innerWidth, vh = innerHeight;
+  const arc = lockAR ? lockAR.arc : Math.max(16 / 9, Math.min(2.24, vw / vh));
+  VW = Math.round(H * arc);
+  CX = VW / 2;
+  L = CX - 620; R = CX + 620;
+
+  let sw = vw, sh = sw / arc;
+  if (sh > vh) { sh = vh; sw = sh * arc; }
+  stage.style.width  = Math.round(sw) + "px";
+  stage.style.height = Math.round(sh) + "px";
+
+  const dpr = lockAR ? lockAR.dpr : Math.min(window.devicePixelRatio || 1, 2.5);
+  cv.width  = Math.round(VW * dpr / 2) * 2;
+  cv.height = Math.round(H * dpr / 2) * 2;
+  ctx.setTransform(cv.width / VW, 0, 0, cv.height / H, 0, 0);
+}
+addEventListener("resize", resize);
+
+/* ── küçük yardımcılar ─────────────────────────────────────── */
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const c01   = v => clamp(v, 0, 1);
+const lerp  = (a, b, t) => a + (b - a) * t;
+const ease  = t => (t = c01(t)) < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+const eout  = t => 1 - Math.pow(1 - c01(t), 3);
+const ein   = t => c01(t) * c01(t);
+/** t anında [s, s+d] aralığında 0→1 yumuşak giriş */
+const inAt  = (t, s, d = .7) => ease(c01((t - s) / d));
+/** giriş + çıkış zarfı */
+const win   = (t, s, e, f = .6) => Math.min(inAt(t, s, f), 1 - ease(c01((t - e) / f)));
+
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = a + 0x6D2B79F5 | 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+const DISK = (() => {
+  const r = mulberry32(7), a = [];
+  for (let i = 0; i < 600; i++) {
+    const th = r() * 6.28318, u = Math.sqrt(r());
+    a.push([Math.cos(th) * u, Math.sin(th) * u]);
+  }
+  return a;
+})();
+
+function rr(x, y, w, h, r) {
+  r = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function txt(s, x, y, o = {}) {
+  const { f = F.ui, size = 18, w = "400", c = K.txt, al = "left", bl = "alphabetic", a = 1, ls = 0, mw } = o;
+  if (a <= .003) return;
+  ctx.save();
+  ctx.globalAlpha *= c01(a);
+  ctx.font = `${w} ${size}px ${f}`;
+  ctx.fillStyle = c; ctx.textAlign = al; ctx.textBaseline = bl;
+  if (ls) { try { ctx.letterSpacing = ls + "px"; } catch (e) {} }
+  ctx.fillText(s, x, y, mw);
+  ctx.restore();
+}
+function tw(s, o = {}) {   // metin genişliği
+  ctx.save();
+  ctx.font = `${o.w || "400"} ${o.size || 18}px ${o.f || F.ui}`;
+  if (o.ls) { try { ctx.letterSpacing = o.ls + "px"; } catch (e) {} }
+  const m = ctx.measureText(s).width;
+  ctx.restore(); return m;
+}
+function lines(arr, x, y, lh, o = {}) {
+  arr.forEach((s, i) => txt(s, x, y + i * lh, o));
+}
+
+function arrow(x1, y1, x2, y2, o = {}) {
+  const { c = K.mut, w = 2, head = 9, dash = null, a = 1, curve = 0 } = o;
+  if (a <= .003) return;
+  ctx.save(); ctx.globalAlpha *= c01(a);
+  ctx.strokeStyle = c; ctx.lineWidth = w; ctx.lineCap = "round";
+  if (dash) ctx.setLineDash(dash);
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+  const dx = x2 - x1, dy = y2 - y1, len = Math.hypot(dx, dy) || 1;
+  const nx = -dy / len, ny = dx / len;
+  ctx.beginPath(); ctx.moveTo(x1, y1);
+  ctx.quadraticCurveTo(mx + nx * curve, my + ny * curve, x2, y2);
+  ctx.stroke(); ctx.setLineDash([]);
+  if (head) {
+    const cxp = curve ? mx + nx * curve : x1, cyp = curve ? my + ny * curve : y1;
+    const ang = Math.atan2(y2 - cyp, x2 - cxp);
+    ctx.beginPath();
+    ctx.moveTo(x2, y2);
+    ctx.lineTo(x2 - head * Math.cos(ang - .42), y2 - head * Math.sin(ang - .42));
+    ctx.lineTo(x2 - head * Math.cos(ang + .42), y2 - head * Math.sin(ang + .42));
+    ctx.closePath(); ctx.fillStyle = c; ctx.fill();
+  }
+  ctx.restore();
+}
+
+function glow(x, y, r, c, a = .5) {
+  if (a <= .003 || r <= 0) return;
+  const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+  g.addColorStop(0, c); g.addColorStop(1, "transparent");
+  ctx.save(); ctx.globalAlpha *= c01(a); ctx.globalCompositeOperation = "lighter";
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+  ctx.restore();
+}
+
+/** yatay lipit çift tabaka; gap = [x0,x1] aralığında membran açık (füzyon gözeneği) */
+function membrane(x0, x1, y, o = {}) {
+  const { th = 15, c = K.mem, a = 1, gap = null, pitch = 12 } = o;
+  if (a <= .003) return;
+  ctx.save(); ctx.globalAlpha *= c01(a);
+  ctx.strokeStyle = c; ctx.lineWidth = 1.4; ctx.globalAlpha *= .85;
+  for (let x = x0; x <= x1; x += pitch) {
+    if (gap && x > gap[0] && x < gap[1]) continue;
+    ctx.beginPath(); ctx.moveTo(x, y - th / 2 + 3); ctx.lineTo(x, y + th / 2 - 3); ctx.stroke();
+  }
+  ctx.globalAlpha /= .85;
+  ctx.fillStyle = c;
+  for (let x = x0; x <= x1; x += pitch) {
+    if (gap && x > gap[0] && x < gap[1]) continue;
+    ctx.beginPath(); ctx.arc(x, y - th / 2, 3.4, 0, 6.2832); ctx.fill();
+    ctx.beginPath(); ctx.arc(x, y + th / 2, 3.4, 0, 6.2832); ctx.fill();
+  }
+  ctx.restore();
+}
+
+function vesicle(x, y, r, o = {}) {
+  const { a = 1, seed = 0, c = K.ach, dots = true, ghost = false } = o;
+  if (a <= .003 || r <= .4) return;
+  ctx.save(); ctx.globalAlpha *= c01(a);
+  if (!ghost) {
+    const g = ctx.createRadialGradient(x - r * .3, y - r * .35, r * .1, x, y, r);
+    g.addColorStop(0, "rgba(255,255,255,.28)");
+    g.addColorStop(.45, c + "44");
+    g.addColorStop(1, c + "1A");
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+  }
+  ctx.strokeStyle = c; ctx.lineWidth = Math.max(1, r * .09);
+  if (ghost) ctx.setLineDash([r * .35, r * .3]);
+  ctx.globalAlpha *= ghost ? .6 : 1;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.stroke(); ctx.setLineDash([]);
+  if (dots && r > 9 && !ghost) {
+    ctx.fillStyle = c;
+    const n = Math.min(46, Math.round(r * .55));
+    for (let i = 0; i < n; i++) {
+      const p = DISK[(seed * 37 + i) % DISK.length];
+      ctx.beginPath();
+      ctx.arc(x + p[0] * r * .74, y + p[1] * r * .74, Math.max(.9, r * .045), 0, 6.2832);
+      ctx.fill();
+    }
+  }
+  ctx.restore();
+}
+
+function ion(x, y, r, c, label) {
+  ctx.save();
+  ctx.fillStyle = c; ctx.globalAlpha *= .95;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, 6.2832); ctx.fill();
+  ctx.restore();
+  if (label && r >= 7) txt(label, x, y + r * .38, { size: r * 1.05, w: "700", c: "#0B0F22", al: "center", f: F.ui });
+}
+
+function box(x, y, w, h, o = {}) {
+  const { a = 1, fill = "rgba(255,255,255,.035)", stroke = "rgba(167,139,250,.16)", r = 14 } = o;
+  if (a <= .003) return;
+  ctx.save(); ctx.globalAlpha *= c01(a);
+  rr(x, y, w, h, r);
+  ctx.fillStyle = fill; ctx.fill();
+  ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke();
+  ctx.restore();
+}
+
+/** Türkçe büyütme: i → İ (toUpperCase tek başına "I" üretir) */
+const trUp = s => s.replace(/i/g, "İ").toUpperCase();
+
+function eyebrow(s, x, y, o = {}) {
+  txt(trUp(s), x, y, { f: F.mono, size: 12, c: o.c || K.dim, ls: 2.4, a: o.a, al: o.al });
+}
+
+function legend(items, x, y, a = 1) {
+  let cx = x;
+  items.forEach(([c, s]) => {
+    ctx.save(); ctx.globalAlpha *= c01(a);
+    ctx.fillStyle = c; ctx.beginPath(); ctx.arc(cx + 5, y - 4, 5, 0, 6.2832); ctx.fill();
+    ctx.restore();
+    txt(s, cx + 16, y, { size: 13, c: K.mut, a });
+    cx += 16 + tw(s, { size: 13 }) + 22;
+  });
+}
+
+/* uzun metni sar */
+function wrap(s, maxw, o = {}) {
+  const words = s.split(" "), out = []; let cur = "";
+  for (const w of words) {
+    const t = cur ? cur + " " + w : w;
+    if (tw(t, o) > maxw && cur) { out.push(cur); cur = w; } else cur = t;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+
+/* alt açıklama bandı — her sahnede aynı yerde */
+function caption(s, t, s0, e0, o = {}) {
+  const a = win(t, s0, e0, .5);
+  if (a <= .01) return;
+  const size = o.size || 21;
+  const ls = wrap(s, o.maxw || 1120, { size, f: F.ui });
+  const bw = Math.max(...ls.map(x => tw(x, { size, f: F.ui }))) + 56;
+  const bh = ls.length * (size + 9) + 26;
+  const y = o.y || H - 92;
+  box(CX - bw / 2, y - bh / 2, bw, bh, { a: a * .9, fill: "rgba(11,15,34,.86)", stroke: "rgba(167,139,250,.2)", r: 12 });
+  ls.forEach((line, i) =>
+    txt(line, CX, y - bh / 2 + 22 + i * (size + 9), { size, al: "center", bl: "middle", a, c: o.c || K.txt, w: o.w || "400" }));
+}
+
+/* ══════════════════════════════════════════════════════════════
+   2 · SAHNELER
+   ══════════════════════════════════════════════════════════════ */
+
+const SC = [];
+const scene = (id, title, dur, draw, init) => SC.push({ id, title, dur, draw, init });
+
+/* ── 1 · Sinir–kas kavşağı ────────────────────────────────── */
+scene("nmj", "Sinir–kas kavşağı", 14, t => {
+  const termY = 300, memY = 402, mmY = 470;
+  const tx0 = CX - 300, tx1 = CX + 300;
+
+  // akson
+  const ap = inAt(t, .4, 1.6);
+  ctx.save();
+  ctx.strokeStyle = "rgba(90,217,232,.35)"; ctx.lineWidth = 34; ctx.lineCap = "round";
+  ctx.beginPath(); ctx.moveTo(L + 30, 150);
+  ctx.lineTo(lerp(L + 30, tx0 + 60, ap), lerp(150, 150, ap));
+  ctx.stroke();
+  ctx.strokeStyle = "rgba(90,217,232,.16)"; ctx.lineWidth = 46;
+  for (let i = 0; i < 4; i++) {
+    const a0 = L + 40 + i * 120, a1 = a0 + 92;
+    if (a1 > lerp(L + 30, tx0 + 60, ap)) break;
+    ctx.beginPath(); ctx.moveTo(a0, 150); ctx.lineTo(a1, 150); ctx.stroke();
+  }
+  ctx.restore();
+  txt("miyelinli akson", L + 40, 108, { size: 15, c: K.mem, a: inAt(t, 1.6) });
+
+  // terminal (bouton)
+  const ta = inAt(t, 1.9, 1);
+  ctx.save(); ctx.globalAlpha = ta;
+  const g = ctx.createLinearGradient(0, 180, 0, memY);
+  g.addColorStop(0, "rgba(90,217,232,.13)"); g.addColorStop(1, "rgba(90,217,232,.05)");
+  ctx.beginPath();
+  ctx.moveTo(tx0 + 40, 150 - 20);
+  ctx.bezierCurveTo(tx0 - 40, 170, tx0 - 30, memY - 40, tx0 + 10, memY);
+  ctx.lineTo(tx1 - 10, memY);
+  ctx.bezierCurveTo(tx1 + 30, memY - 40, tx1 + 20, 190, tx0 + 130, 150 - 22);
+  ctx.closePath();
+  ctx.fillStyle = g; ctx.fill();
+  ctx.strokeStyle = "rgba(90,217,232,.5)"; ctx.lineWidth = 2.5; ctx.stroke();
+  ctx.restore();
+  membrane(tx0 + 8, tx1 - 8, memY, { a: ta, th: 13 });
+  txt("akson terminali", tx0 + 30, 218, { size: 17, c: K.mem, a: inAt(t, 2.4), w: "600" });
+
+  // veziküller
+  const va = inAt(t, 2.8, 1.4);
+  for (let i = 0; i < 34; i++) {
+    const p = DISK[i * 3 + 5];
+    const vx = CX + p[0] * 250, vy = termY - 20 + p[1] * 78;
+    const d = inAt(t, 2.8 + i * .035, .5);
+    vesicle(vx, vy + (1 - d) * 14, 11 * d, { seed: i, a: va });
+  }
+  txt("sinaptik veziküller", tx1 - 190, 250, { size: 15, c: K.ach, a: inAt(t, 3.6) });
+
+  // sinaptik yarık ölçüsü
+  const ca = inAt(t, 4.2, .9);
+  arrow(CX + 250, memY + 6, CX + 250, mmY - 6, { c: K.mut, w: 1.4, head: 6, a: ca });
+  arrow(CX + 250, mmY - 6, CX + 250, memY + 6, { c: K.mut, w: 1.4, head: 6, a: ca });
+  txt("sinaptik yarık ≈ 50 nm", CX + 264, (memY + mmY) / 2 + 5, { size: 14, c: K.mut, a: ca, f: F.mono });
+
+  // kas membranı + bağlantı katlantıları
+  const ma = inAt(t, 5, 1.2);
+  ctx.save(); ctx.globalAlpha = ma;
+  ctx.beginPath(); ctx.moveTo(L + 20, mmY);
+  for (let x = L + 20; x <= R - 20; x += 4) {
+    let y = mmY;
+    if (x > tx0 - 20 && x < tx1 + 20) {
+      const ph = ((x - tx0) % 56) / 56;
+      y = mmY + (ph < .12 || ph > .88 ? 0 : 1) * 0;
+    }
+    ctx.lineTo(x, y);
+  }
+  ctx.strokeStyle = K.musc; ctx.lineWidth = 2.5; ctx.stroke();
+  // katlantılar
+  for (let x = tx0; x <= tx1; x += 56) {
+    ctx.beginPath();
+    ctx.moveTo(x, mmY); ctx.lineTo(x + 6, mmY + 42); ctx.lineTo(x + 16, mmY + 42); ctx.lineTo(x + 22, mmY);
+    ctx.stroke();
+    // AChR yoğunlaşması (katlantı tepesinde)
+    ctx.fillStyle = K.ok;
+    for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.arc(x + 26 + k * 9, mmY - 5, 3, 0, 6.2832); ctx.fill(); }
+  }
+  // kas gövdesi
+  ctx.fillStyle = "rgba(227,167,111,.07)";
+  ctx.fillRect(L + 20, mmY + 42, (R - L) - 40, 150);
+  ctx.strokeStyle = "rgba(227,167,111,.16)"; ctx.lineWidth = 1.2;
+  for (let y = mmY + 62; y < mmY + 190; y += 22) {
+    ctx.beginPath(); ctx.moveTo(L + 20, y); ctx.lineTo(R - 20, y); ctx.stroke();
+  }
+  ctx.restore();
+  txt("bağlantı katlantıları", tx0 - 30, mmY + 74, { size: 15, c: K.musc, a: inAt(t, 5.8), al: "right" });
+  txt("AChR — asetilkolin reseptörleri", tx1 + 34, mmY - 16, { size: 15, c: K.ok, a: inAt(t, 6.4) });
+  txt("kas lifi", L + 40, mmY + 96, { size: 17, c: K.musc, a: inAt(t, 6), w: "600" });
+
+  // aksiyon potansiyeli geçişi
+  if (t > 7.2) {
+    const p = c01((t - 7.2) / 2.2);
+    const px = lerp(L + 30, tx0 + 60, p);
+    glow(px, 150, 60, "rgba(90,217,232,.75)", 1 - p * .3);
+    if (p > .95) glow(CX, termY, 260, "rgba(90,217,232,.28)", (t - 9.3) < .8 ? 1 - (t - 9.3) : 0);
+  }
+
+  caption("Her sinir uyaranı bu terminale ulaşır ve buradan kuantumlar — vezikül dolusu asetilkolin — salıverilir.", t, 9.6, 14);
+}, null);
+
+/* ── 2 · Üç vezikül havuzu ───────────────────────────────── */
+scene("pools", "Üç vezikül havuzu", 13, t => {
+  const bx = CX - 470, bw = 940;
+  const rows = [
+    { y: 118, h: 116, name: "TERSİYER · REZERV",    n: 100000, pre: "> ", note: "aksonda ve hücre gövdesinde, NMJ'den uzakta", c: K.dim, n0: 78, r: 7 },
+    { y: 258, h: 106, name: "SEKONDER · MOBİLİZASYON", n: 10000, pre: "≈ ", note: "birincil havuzu 1–2 saniyede yeniden doldurur", c: K.mut, n0: 40, r: 8.5 },
+    { y: 388, h: 100, name: "PRİMER · HEMEN KULLANILABİLİR", n: 1000, pre: "≈ ", note: "presinaptik terminal membranının hemen altında", c: K.ach, n0: 18, r: 11 }
+  ];
+
+  rows.forEach((r, i) => {
+    const a = inAt(t, .3 + i * .9, .8);
+    box(bx, r.y, bw, r.h, { a, fill: i === 2 ? "rgba(255,107,157,.055)" : "rgba(255,255,255,.03)",
+                            stroke: i === 2 ? "rgba(255,107,157,.35)" : "rgba(167,139,250,.14)" });
+    eyebrow(r.name, bx + 22, r.y + 28, { a, c: r.c });
+    txt(r.note, bx + 22, r.y + 50, { size: 14, c: K.dim, a });
+
+    // sayaç
+    const cnt = Math.round(r.n * eout(c01((t - (.5 + i * .9)) / 1.4)));
+    txt(r.pre + cnt.toLocaleString("tr-TR"), bx + bw - 22, r.y + 44, { f: F.mono, size: 30, c: r.c, al: "right", a, w: "600" });
+    txt("kuantum", bx + bw - 22, r.y + 66, { size: 13, c: K.dim, al: "right", a });
+
+    // veziküller — alt havuz membran boyunca eşit aralıklı, üstteki ikisi bulut hâlinde
+    for (let k = 0; k < r.n0; k++) {
+      if (i === 2) {
+        vesicle(bx + 250 + (k + .5) * ((bw - 470) / r.n0), r.y + r.h - 26, r.r,
+                { seed: k + 14, a, c: K.ach });
+      } else {
+        const p = DISK[(k * 5 + i * 61) % DISK.length];
+        vesicle(bx + 250 + (k / r.n0) * (bw - 470) + p[0] * 14,
+                r.y + r.h / 2 + 8 + p[1] * (r.h / 2 - 26), r.r,
+                { seed: k + i * 7, a: a * .75, c: "#9AA3D6", dots: false });
+      }
+    }
+  });
+
+  membrane(bx + 16, bx + bw - 16, 388 + 100, { a: inAt(t, 2.1), th: 12 });
+  txt("aktif zon — presinaptik membran", bx + 16, 388 + 100 + 34, { size: 14, c: K.mem, a: inAt(t, 2.4) });
+
+  // akış okları
+  const fa = inAt(t, 4.2, .8);
+  arrow(bx + 120, 234, bx + 120, 258, { c: K.dim, w: 2.2, a: fa });
+  txt("yavaş", bx + 132, 252, { size: 13, c: K.dim, a: fa, f: F.mono });
+  const fb = inAt(t, 4.8, .8);
+  arrow(bx + 120, 364, bx + 120, 388, { c: K.mut, w: 2.2, a: fb });
+  txt("1–2 saniye", bx + 132, 382, { size: 13, c: K.ca, a: fb, f: F.mono });
+
+  // tüketim oku
+  const fc = inAt(t, 5.6, .8);
+  arrow(bx + bw - 300, 496, bx + bw - 300, 526, { c: K.ach, w: 2.6, a: fc });
+  txt("her uyaranda ≈ 200 kuantum çıkar", bx + bw - 286, 530, { size: 15, c: K.ach, a: fc, w: "600" });
+
+  caption("3 Hz'de uyaranlar 333 ms arayla gelir; mobilizasyon ise 1–2 saniye ister. İlk uyaranlar boyunca primer havuz kendi başınadır.",
+          t, 7, 13, { maxw: 720 });
+}, null);
+
+/* ── 3 · Aksiyon potansiyeli → Ca²⁺ girişi ───────────────── */
+let ca3 = [];
+scene("ca", "Aksiyon potansiyeli → Ca²⁺", 16, t => {
+  const memY = 350, tx0 = L + 40, tx1 = R - 40;
+  const chX = [CX - 150, CX, CX + 150];
+
+  // terminal gövdesi
+  ctx.save();
+  ctx.fillStyle = "rgba(90,217,232,.06)";
+  rr(tx0, 100, tx1 - tx0, memY - 100, 26); ctx.fill();
+  ctx.restore();
+  // rezerv bulutu — terminal içi
+  for (let i = 0; i < 30; i++) {
+    const p = DISK[(i * 11 + 3) % DISK.length];
+    vesicle(CX + p[0] * (tx1 - tx0) * .44, 190 + p[1] * 58, 10, { seed: i, a: .5, c: "#9AA3D6", dots: false });
+  }
+  membrane(tx0, tx1, memY, { th: 15 });
+  txt("presinaptik terminal", tx0 + 16, 132, { size: 15, c: K.mem });
+  txt("hücre dışı  ·  Ca²⁺ deposu", tx0 + 16, memY + 46, { size: 14, c: K.ca, a: .8 });
+
+  // aksiyon potansiyeli süpürmesi
+  const apT = c01((t - .4) / 1.8);
+  if (t > .4 && t < 2.6) {
+    const px = lerp(tx0, tx1, apT);
+    glow(px, memY, 130, "rgba(90,217,232,.6)", .9);
+    ctx.save(); ctx.globalAlpha = .9;
+    ctx.strokeStyle = K.mem; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(px, memY - 40); ctx.lineTo(px, memY + 40); ctx.stroke();
+    ctx.restore();
+    txt("aksiyon potansiyeli", px + 14, memY - 56, { size: 15, c: K.mem, w: "600" });
+  }
+
+  // voltaj kapılı Ca²⁺ kanalları
+  const open = c01((t - 2.2) / .6) * (1 - c01((t - 9.5) / .8));
+  chX.forEach((x, i) => {
+    ctx.save();
+    ctx.fillStyle = K.prot;
+    const spread = 5 + open * 11;
+    [[-1], [1]].forEach(([s]) => {
+      ctx.save();
+      ctx.translate(x + s * spread, memY);
+      ctx.rotate(s * open * .3);
+      rr(-9, -20, 18, 40, 7); ctx.fill();
+      ctx.restore();
+    });
+    ctx.restore();
+    if (open > .05) glow(x, memY - 6, 46 * open, "rgba(255,194,75,.5)", open * .8);
+  });
+  const kl = inAt(t, 2.4);
+  arrow(chX[2] + 18, memY - 14, CX + 300, memY - 40, { c: K.prot, w: 1.4, head: 0, a: kl * .7 });
+  txt("voltaj kapılı Ca²⁺ kanalı", tx1 - 16, memY - 36, { size: 15, c: K.prot, a: kl, al: "right" });
+
+  // Ca²⁺ parçacıkları
+  if (t < .2) ca3 = [];
+  if (open > .5 && ca3.length < 140 && Math.random() < .85) {
+    const x = chX[(Math.random() * 3) | 0];
+    ca3.push({ x: x + (Math.random() - .5) * 12, y: memY + 60 + Math.random() * 40,
+               vx: (Math.random() - .5) * 22, vy: -110 - Math.random() * 70, life: 0, inside: false });
+  }
+  const decay = c01((t - 9.4) / 2.6);
+  ca3 = ca3.filter(p => {
+    p.life += DT;
+    p.x += p.vx * DT; p.y += p.vy * DT;
+    if (p.y < memY - 6 && !p.inside) { p.inside = true; p.vy *= .32; }
+    if (p.inside) { p.vx += (Math.random() - .5) * 26; p.vy += (Math.random() - .5) * 26 + 8; p.vx *= .93; p.vy *= .93; }
+    const a = (1 - decay) * c01(2 - p.life * (p.inside ? .55 : 2));
+    if (a > .02 && p.y > 150) { ion(p.x, p.y, 6.5, K.ca, "Ca"); return true; }
+    return p.life < 6 && p.y > 150 && decay < 1;
+  });
+  if (open > .3) glow(CX, memY - 30, 190, "rgba(255,194,75,.35)", (1 - decay) * .8);
+
+  // yerleşmiş veziküller
+  chX.forEach((x, i) => {
+    [-52, 0, 52].forEach((d, k) => {
+      if (i === 1 && k === 1) return;
+      vesicle(x + d, memY - 44, 17, { seed: i * 3 + k, a: .9 });
+    });
+  });
+  const yl = inAt(t, 3.4);
+  arrow(CX - 292, memY - 82, CX - 218, memY - 54, { c: K.ach, w: 1.4, head: 0, a: yl * .7 });
+  txt("yerleşmiş veziküller", CX - 300, memY - 78, { size: 15, c: K.ach, a: yl, al: "right" });
+
+  // mini izlemeler
+  const ia = inAt(t, 5.4, .9);
+  if (ia > .01) {
+    const py = 420, pw = 400, ph = 130;
+    [{ x: CX - 430, c: K.mem, lab: "Membran potansiyeli", sub: "~1 ms",
+       fn: u => u < .32 ? 0 : u < .38 ? (u - .32) / .06 : Math.exp(-(u - .38) * 16) },
+     { x: CX + 30, c: K.ca, lab: "Terminal içi [Ca²⁺]", sub: "≈ 100 ms'de pompalanır",
+       fn: u => u < .35 ? 0 : (1 - Math.exp(-(u - .35) * 40)) * Math.exp(-(u - .35) * 4.2) }
+    ].forEach(p => {
+      box(p.x, py, pw, ph, { a: ia });
+      eyebrow(p.lab, p.x + 16, py + 24, { a: ia, c: p.c });
+      txt(p.sub, p.x + pw - 16, py + 24, { size: 13, c: K.dim, al: "right", a: ia, f: F.mono });
+      ctx.save(); ctx.globalAlpha = ia;
+      ctx.strokeStyle = "rgba(255,255,255,.09)"; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(p.x + 16, py + ph - 24); ctx.lineTo(p.x + pw - 16, py + ph - 24); ctx.stroke();
+      ctx.strokeStyle = p.c; ctx.lineWidth = 2.4; ctx.beginPath();
+      const prog = c01((t - 5.6) / 5.5);
+      for (let i = 0; i <= 200; i++) {
+        const u = i / 200; if (u > prog) break;
+        const X = p.x + 16 + u * (pw - 32), Y = py + ph - 24 - p.fn(u) * (ph - 58);
+        i === 0 ? ctx.moveTo(X, Y) : ctx.lineTo(X, Y);
+      }
+      ctx.stroke(); ctx.restore();
+    });
+  }
+
+  caption("Ca²⁺ ≈ 100 ms'de dışarı pompalanır. 3 Hz'de bir sonraki uyaran 333 ms sonra geldiği için birikme olmaz → p ≈ 0,2 sabit kalır.", t, 11.4, 16, { c: K.ca, maxw: 780 });
+  legend([[K.ca, "Ca²⁺"], [K.ach, "vezikül · ACh"], [K.prot, "protein"], [K.mem, "membran"]], L + 20, H - 26, inAt(t, 6));
+}, () => { ca3 = []; });
+
+/* ── 4 · Salıverim makinesi ──────────────────────────────── */
+const STEPS = [
+  ["Yerleşme", "docking", 0, 4],
+  ["Hazırlanma", "priming · SNARE zipperlenmesi", 4, 9.5],
+  ["Ca²⁺ · Sinaptotagmin-1", "kalsiyum sensörü", 9.5, 14],
+  ["Füzyon gözeneği", "fusion pore", 14, 18],
+  ["Boşalma ve artık", "bölge artık dolu değil", 18, 24]
+];
+let ach4 = [];
+scene("machine", "Salıverim makinesi", 24, t => {
+  const memY = 500, vx = CX + 60;
+  const step = STEPS.findIndex(s => t >= s[2] && t < s[3]);
+
+  // adım rayı
+  STEPS.forEach((s, i) => {
+    const on = i === step, done = t >= s[3];
+    const y = 150 + i * 62, a = inAt(t, .2 + i * .12, .5);
+    ctx.save(); ctx.globalAlpha = a * (on ? 1 : done ? .55 : .3);
+    ctx.fillStyle = on ? K.ca : done ? K.ok : K.dim;
+    ctx.beginPath(); ctx.arc(L + 34, y - 6, on ? 8 : 5, 0, 6.2832); ctx.fill();
+    if (i < 4) { ctx.strokeStyle = "rgba(255,255,255,.14)"; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(L + 34, y + 6); ctx.lineTo(L + 34, y + 44); ctx.stroke(); }
+    ctx.restore();
+    txt(s[0], L + 56, y, { size: on ? 20 : 17, w: on ? "700" : "400", c: on ? K.txt : K.dim, a });
+    txt(s[1], L + 56, y + 19, { size: 13, c: on ? K.mut : "rgba(90,99,148,.7)", a });
+  });
+
+  // membran + SNARE ortamı
+  const pore = step >= 3 ? c01((t - 14.2) / 1.6) * 70 : 0;
+  membrane(L + 150, R - 150, memY, { th: 18, gap: pore > 2 ? [vx - pore, vx + pore] : null });
+  txt("presinaptik membran", R - 150, memY + 48, { size: 14, c: K.mem, al: "right" });
+
+  // vezikül konumu — priming membranı gerçekten yaklaştırır
+  let vy = 280, vr = 78;
+  if (t < 4)            vy = lerp(280, 320, ease(t / 4));
+  else if (t < 9.5)     vy = lerp(320, 384, ease((t - 4) / 5.5));
+  else if (t < 14)      vy = 384;
+  else if (t < 18)      { const u = ease((t - 14) / 4); vy = lerp(384, 438, u); vr = lerp(78, 64, u); }
+  else                  { const u = ease((t - 18) / 4); vy = lerp(438, memY - 6, u); vr = lerp(64, 22, u); }
+  const vAlpha = t > 21 ? 1 - c01((t - 21) / 1.6) : 1;
+
+  // vezikül önce çizilir; SNARE ve sinaptotagmin üstünde kalmalı
+  vesicle(vx, vy, vr, { seed: 3, a: vAlpha });
+
+  // SNARE demeti
+  if (t > 3.2) {
+    const zip = c01((t - 4.2) / 4.4);
+    const base = memY - 9, top = vy + vr - 26;
+    const helices = [
+      { x: -26, c: K.prot,   lab: "sintaksin-1" },
+      { x:  -9, c: "#C4B5FD", lab: "SNAP-25" },
+      { x:   9, c: "#C4B5FD", lab: "" },
+      { x:  26, c: K.ach,    lab: "VAMP2 / sinaptobrevin", vesSide: true }
+    ];
+    ctx.save(); ctx.lineCap = "round";
+    helices.forEach((hl, i) => {
+      ctx.strokeStyle = hl.c; ctx.lineWidth = 8; ctx.globalAlpha = .92;
+      ctx.beginPath();
+      const spread = lerp(1, .12, zip);
+      for (let k = 0; k <= 40; k++) {
+        const u = k / 40;
+        const y = hl.vesSide ? lerp(top, lerp(top, base, .62), u) : lerp(base, lerp(base, top, .62), u);
+        const wob = Math.sin(u * 9 + i) * 4 * (1 - zip * .7);
+        const x = vx + hl.x * lerp(1, .58, zip) * (1 + (1 - u) * spread * .8) + wob;
+        k === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    });
+    ctx.restore();
+    const la = inAt(t, 4.6, .8) * (1 - c01((t - 13.6) / 1));
+    txt("sintaksin-1 · SNAP-25 · VAMP2", vx + 120, memY - 96, { size: 15, c: K.prot, a: la });
+    txt("SNARE demeti zipperlenir → vezikül membrana çekilir", vx + 120, memY - 74, { size: 13, c: K.mut, a: la });
+    // Munc18 / Munc13
+    const ma = win(t, 4.6, 9.4, .6);
+    ctx.save(); ctx.globalAlpha = ma * .9; ctx.fillStyle = "#8B7BE8";
+    rr(vx - 148, memY - 42, 30, 34, 9); ctx.fill();
+    rr(vx + 118, memY - 42, 30, 34, 9); ctx.fill();
+    ctx.restore();
+    txt("Munc18", vx - 133, memY - 52, { size: 12, c: "#B9AEF5", al: "center", a: ma, f: F.mono });
+    txt("Munc13", vx + 133, memY - 52, { size: 12, c: "#B9AEF5", al: "center", a: ma, f: F.mono });
+  }
+
+  // sinaptotagmin-1 + Ca²⁺ bağlanması
+  if (t > 8.6) {
+    const sa = inAt(t, 8.6, .6) * (1 - c01((t - 18.4) / 1.4));
+    const bind = c01((t - 10) / 2);
+    const ly = vy + vr - 12 + bind * 12;
+    ctx.save(); ctx.globalAlpha = sa;
+    ctx.fillStyle = bind > .5 ? K.ca : "#7C6FD6";
+    [-44, 44].forEach(dx => {
+      ctx.beginPath();
+      ctx.ellipse(vx + dx, ly, 16, 21, dx > 0 ? .3 : -.3, 0, 6.2832);
+      ctx.fill();
+    });
+    // bağlanmış Ca²⁺ — C2 ceplerinin içinde
+    if (bind > .15) {
+      ctx.fillStyle = "#7A4E00"; ctx.globalAlpha = sa * bind;
+      [-44, 44].forEach(dx => [[-5, -6], [5, -2], [0, 7]].forEach(([ox, oy]) => {
+        ctx.beginPath(); ctx.arc(vx + dx + ox, ly + oy, 3.4, 0, 6.2832); ctx.fill();
+      }));
+    }
+    ctx.restore();
+    txt("Sinaptotagmin-1  (C2 domainleri)", vx + 120, ly + 6, { size: 15, c: bind > .5 ? K.ca : "#9C90E8", a: sa });
+    // yaklaşan serbest Ca²⁺
+    if (bind > .04 && bind < .98) {
+      for (let i = 0; i < 6; i++) {
+        const ang = i * 1.05, d = lerp(130, 30, ease(bind));
+        ion(vx + (i < 3 ? -44 : 44) + Math.cos(ang) * d, ly + Math.sin(ang) * d * .55, 6.5, K.ca, "Ca");
+      }
+    }
+    if (bind > .05) glow(vx, ly, 90 * bind, "rgba(255,194,75,.45)", bind * sa * .8);
+  }
+
+  // füzyon gözeneği + ACh çıkışı
+  if (t < 14) ach4 = [];
+  if (pore > 6 && ach4.length < 260) {
+    for (let i = 0; i < 5; i++)
+      ach4.push({ x: vx + (Math.random() - .5) * pore * 1.2, y: memY,
+                  vx: (Math.random() - .5) * 150, vy: 60 + Math.random() * 190, life: 0 });
+  }
+  ach4 = ach4.filter(p => {
+    p.life += DT; p.x += p.vx * DT; p.y += p.vy * DT; p.vy *= .985;
+    const a = c01(2.6 - p.life * 1.1);
+    if (a > .03 && p.y < H) {
+      ctx.save(); ctx.globalAlpha = a * .95; ctx.fillStyle = K.ach;
+      ctx.beginPath(); ctx.arc(p.x, p.y, 3.4, 0, 6.2832); ctx.fill(); ctx.restore();
+      return true;
+    }
+    return false;
+  });
+  if (pore > 3) {
+    const pa = win(t, 14.4, 18.4, .5);
+    arrow(vx + pore + 10, memY + 6, vx + 150, memY + 54, { c: K.ca, w: 1.4, head: 0, a: pa * .7 });
+    txt("füzyon gözeneği", vx + 158, memY + 60, { size: 15, c: K.ca, a: pa });
+    glow(vx, memY, pore * 2.4, "rgba(255,107,157,.4)", .8);
+  }
+
+  // artık / boşalmış bölge
+  if (t > 20) {
+    const a = inAt(t, 20.4, .8);
+    ctx.save(); ctx.globalAlpha = a * .8;
+    ctx.strokeStyle = K.bad; ctx.lineWidth = 2.4; ctx.setLineDash([7, 6]);
+    ctx.beginPath(); ctx.ellipse(vx, memY - 4, 62, 26, 0, Math.PI, 0); ctx.stroke();
+    ctx.restore();
+    txt("boşalmış bölge — füzyon artığı temizlenmeden", vx + 96, memY - 44, { size: 16, c: K.bad, a, w: "600" });
+    txt("buraya yeni vezikül yerleşemez", vx + 96, memY - 22, { size: 14, c: K.mut, a });
+  }
+
+  caption("Füzyondan sonra o salıverim bölgesi hemen yeniden kullanılamaz: önce temizlenmeli, sonra yeni bir vezikül yerleşip hazırlanmalı.", t, 21, 24, { c: K.bad });
+}, () => { ach4 = []; });
+
+/* ── 5 · Bir kuantum ─────────────────────────────────────── */
+scene("quantum", "Bir kuantum", 13, t => {
+  const vx = CX - 430, vy = 290;
+
+  vesicle(vx, vy, 84, { seed: 11, a: inAt(t, .2, .7) });
+  txt("1 vezikül", vx, vy + 122, { size: 20, al: "center", c: K.ach, w: "600", a: inAt(t, .4) });
+  txt("≈ 10.000 ACh molekülü", vx, vy + 148, { size: 16, al: "center", c: K.mut, a: inAt(t, .8), f: F.mono });
+  txt("= 1 KUANTUM", vx, vy + 182, { size: 22, al: "center", c: K.ca, w: "700", a: inAt(t, 1.2), ls: 2 });
+
+  // yarık + reseptör
+  const memY = 336, mmY = 404;
+  const a2 = inAt(t, 1.8, .8);
+  membrane(CX - 250, R - 40, memY, { a: a2, th: 14 });
+  ctx.save(); ctx.globalAlpha = a2;
+  ctx.strokeStyle = K.musc; ctx.lineWidth = 2.5;
+  ctx.beginPath(); ctx.moveTo(CX - 250, mmY); ctx.lineTo(R - 40, mmY); ctx.stroke();
+  ctx.restore();
+
+  // AChR'ler — huni biçimli iyon kanalı, ortada gözenek
+  const recX = [CX - 120, CX + 20, CX + 160, CX + 300];
+  recX.forEach((x, i) => {
+    const bound = t > 3.2 + i * .12 && t < 9.4;
+    ctx.save(); ctx.globalAlpha = a2;
+    ctx.fillStyle = bound ? K.ok : "#4E7F63";
+    [-1, 1].forEach(s => {
+      ctx.beginPath();
+      ctx.moveTo(x + s * 24, mmY - 24); ctx.lineTo(x + s * 15, mmY - 24);
+      ctx.lineTo(x + s * 6, mmY + 18);  ctx.lineTo(x + s * 15, mmY + 18);
+      ctx.closePath(); ctx.fill();
+    });
+    ctx.restore();
+    if (bound) glow(x, mmY - 14, 36, "rgba(110,231,160,.6)", .7);
+  });
+  txt("AChR — ligand kapılı iyon kanalı", recX[3] + 46, mmY - 6, { size: 15, c: K.ok, a: inAt(t, 2.6) });
+
+  // ACh geçişi
+  if (t > 2.4 && t < 9.4) {
+    const p = c01((t - 2.4) / 1.1);
+    for (let i = 0; i < 46; i++) {
+      const d = DISK[i * 7 % DISK.length];
+      const u = ease(c01(p - i * .01));
+      ctx.save(); ctx.globalAlpha = .9; ctx.fillStyle = K.ach;
+      ctx.beginPath();
+      ctx.arc(lerp(vx + 40, recX[i % 4] + d[0] * 24, u),
+              lerp(vy, mmY - 30 + d[1] * 6, u), 3.6, 0, 6.2832);
+      ctx.fill(); ctx.restore();
+    }
+  }
+
+  // MEPP izlemesi
+  const ta = inAt(t, 4.4, .8);
+  const py = 466, pw = 860, px = CX - 250;
+  box(px, py, pw, 112, { a: ta });
+  eyebrow("MEPP · minyatür uç plak potansiyeli", px + 18, py + 26, { a: ta, c: K.ok });
+  txt("her biri ≈ 1 mV", px + pw - 18, py + 26, { f: F.mono, size: 15, c: K.ok, al: "right", a: ta });
+  ctx.save(); ctx.globalAlpha = ta;
+  ctx.strokeStyle = "rgba(255,255,255,.10)"; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(px + 18, py + 88); ctx.lineTo(px + pw - 18, py + 88); ctx.stroke();
+  ctx.strokeStyle = K.ok; ctx.lineWidth = 2.4; ctx.beginPath();
+  ctx.moveTo(px + 18, py + 88);
+  for (let i = 0; i < 6; i++) {
+    const bx0 = px + 60 + i * 130;
+    if (t < 5 + i * .5) break;
+    ctx.lineTo(bx0, py + 88);
+    ctx.quadraticCurveTo(bx0 + 10, py + 42, bx0 + 24, py + 48);
+    ctx.quadraticCurveTo(bx0 + 46, py + 56, bx0 + 78, py + 88);
+  }
+  ctx.lineTo(px + pw - 18, py + 88);
+  ctx.stroke(); ctx.restore();
+
+  txt("Kuantum boyutu hiç değişmez", CX, 128, { size: 30, al: "center", f: F.disp, c: K.txt, a: inAt(t, 6.6), w: "600" });
+  txt("Her vezikül aynı miktarda ACh boşaltır; MEPP genliği sabit kalır.", CX, 158,
+      { size: 17, al: "center", c: K.mut, a: inAt(t, 7) });
+
+  caption("Azalan şey kuantum boyutu değil, kuantal içerik: impuls başına salıverilen vezikül sayısı.", t, 9.4, 13, { c: K.ca, w: "600" });
+}, null);
+
+/* ── 6 · m = n × p ───────────────────────────────────────── */
+scene("mnp", "Kuantal içerik", 10, t => {
+  const a0 = inAt(t, .2, .8);
+  txt("m", CX - 190, 250, { size: 96, f: F.disp, c: K.txt, al: "center", a: a0, w: "600" });
+  txt("=", CX - 110, 250, { size: 62, f: F.disp, c: K.mut, al: "center", a: a0 });
+  txt("n", CX - 20,  250, { size: 96, f: F.disp, c: K.ach, al: "center", a: inAt(t, 1, .6), w: "600" });
+  txt("×", CX + 60,  250, { size: 56, f: F.disp, c: K.mut, al: "center", a: inAt(t, 1.6, .6) });
+  txt("p", CX + 150, 250, { size: 96, f: F.disp, c: K.ca,  al: "center", a: inAt(t, 2.2, .6), w: "600" });
+
+  txt("kuantal içerik", CX - 190, 292, { size: 15, c: K.mut, al: "center", a: a0 });
+
+  const cards = [
+    { x: CX - 470, c: K.ach, k: "n", h: "hemen kullanılabilir havuzdaki kuantum",
+      d: "başlangıçta ≈ 1000 kuantum", s: 3 },
+    { x: CX + 30,  c: K.ca,  k: "p", h: "salıverilme olasılığı",
+      d: "Ca²⁺ yoğunluğuyla orantılı — normalde ≈ 0,2", s: 3.6 }
+  ];
+  cards.forEach(cd => {
+    const a = inAt(t, cd.s, .8);
+    box(cd.x, 350, 440, 168, { a, stroke: cd.c + "3A", fill: cd.c + "0D" });
+    txt(cd.k, cd.x + 26, 412, { size: 48, f: F.disp, c: cd.c, a, w: "600" });
+    txt(cd.h, cd.x + 84, 400, { size: 18, c: K.txt, a, w: "600" });
+    txt(cd.d, cd.x + 84, 426, { size: 14, c: K.mut, a });
+    // görsel
+    if (cd.k === "n") {
+      for (let i = 0; i < 22; i++)
+        vesicle(cd.x + 30 + (i % 11) * 37, 470 + ((i / 11) | 0) * 30, 12, { seed: i, a: a * .95 });
+    } else {
+      const w2 = 380, x2 = cd.x + 30;
+      txt("p ≈ 0,2", x2 + w2 * .2, 462, { size: 15, f: F.mono, c: K.ca, al: "center", a });
+      ctx.save(); ctx.globalAlpha = a;
+      rr(x2, 472, w2, 16, 8); ctx.fillStyle = "rgba(255,255,255,.1)"; ctx.fill();
+      rr(x2, 472, w2 * .2, 16, 8); ctx.fillStyle = K.ca; ctx.fill();
+      ctx.restore();
+      txt("0", x2, 504, { size: 12, f: F.mono, c: K.dim, a: a * .7 });
+      txt("1", x2 + w2, 504, { size: 12, f: F.mono, c: K.dim, al: "right", a: a * .7 });
+    }
+  });
+
+  caption("m = 0,2 × 1000 = 200 kuantum. İlk uyaranın en büyük olmasının nedeni: n yalnızca bir kez maksimumdur.",
+          t, 5.4, 10, { size: 23, w: "600", c: K.ca, maxw: 900 });
+}, null);
+
+/* ── 7 · 3 Hz'de deplesyon ───────────────────────────────── */
+/* Preston & Shapiro, Böl. 6 — 3 Hz RNS, normal denek.
+   Her nokta 10 kuantum; n satırı doğrudan kitabın tablosu.
+   1.–4. uyaran arasında yeniden dolum yok (n − m). 5. uyarandan önce
+   mobilizasyon devreye girer (1–2 sn) ve n'yi 640'a çıkarır. */
+const TRAIN = [
+  { t: 1.4,  n: 1000, fire: 20, m: 200, epp: 40 },
+  { t: 5.2,  n: 800,  fire: 16, m: 160, epp: 32 },
+  { t: 9.0,  n: 640,  fire: 13, m: 128, epp: 26 },
+  { t: 12.8, n: 512,  fire: 10, m: 102, epp: 20 },
+  { t: 16.6, n: 640,  fire: 13, m: 128, epp: 26 }
+];
+let sites = null;
+function buildSites() {
+  const rnd = mulberry32(99);
+  sites = Array.from({ length: 100 }, () => ({ ev: [] }));
+  const order = [...Array(100).keys()].sort(() => rnd() - .5);
+  const dots = st => Math.round(st.n / 10);   // 1 nokta = 10 kuantum
+  let full = new Set(order), empt = [];
+  TRAIN.forEach((st, k) => {
+    // karışık sırayla, tekrarsız: tam olarak st.fire nokta ateşler
+    const pool = order.filter(i => full.has(i));
+    for (let i = 0; i < st.fire && i < pool.length; i++) {
+      const idx = pool[i];
+      full.delete(idx);
+      sites[idx].ev.push({ t0: st.t + (i % 9) * .012, t1: Infinity });
+      empt.push(idx);
+    }
+    // yeniden dolum yalnızca mobilizasyon devreye girdiğinde (5. uyarandan önce)
+    const next = TRAIN[k + 1];
+    const gap = (next ? next.t : st.t + 3.8) - st.t;
+    const need = next ? dots(next) - (dots(st) - st.fire) : 13;
+    for (let i = 0; i < need && empt.length; i++) {
+      const idx = empt.shift();
+      const ev = sites[idx].ev[sites[idx].ev.length - 1];
+      ev.t1 = st.t + gap * (.30 + .62 * (i / Math.max(1, need)));
+      full.add(idx);
+    }
+  });
+}
+scene("depl", "3 Hz'de deplesyon", 27, t => {
+  if (!sites) buildSites();
+  const gx = CX - 610, gy = 160, pitch = 26, cols = 20;
+
+  // — aktif zon ızgarası
+  eyebrow("Hemen kullanılabilir havuz · her nokta = 10 kuantum", gx, gy - 26, { c: K.mem });
+  let nFull = 0;
+  for (let i = 0; i < 100; i++) {
+    const x = gx + 13 + (i % cols) * pitch, y = gy + 14 + ((i / cols) | 0) * pitch;
+    const ev = sites[i].ev.find(e => t >= e.t0 && t < e.t1);
+    if (!ev) {
+      // dolu — geri gelme animasyonu
+      const last = sites[i].ev.filter(e => e.t1 <= t).pop();
+      const fade = last && isFinite(last.t1) ? c01((t - last.t1 + .55) / .55) : 1;
+      vesicle(x, y, 9 * (.5 + .5 * fade), { seed: i, a: fade, dots: false });
+      if (fade < 1) glow(x, y, 16, "rgba(255,107,157,.6)", (1 - fade) * .8);
+      nFull++;
+    } else {
+      ctx.save(); ctx.globalAlpha = .5;
+      ctx.strokeStyle = "rgba(255,94,122,.55)"; ctx.lineWidth = 1.4; ctx.setLineDash([2.6, 2.4]);
+      ctx.beginPath(); ctx.arc(x, y, 8, 0, 6.2832); ctx.stroke(); ctx.restore();
+    }
+  }
+  membrane(gx + 6, gx + 13 + (cols - 1) * pitch + 8, gy + 14 + 4 * pitch + 26, { th: 11, pitch: 13 });
+
+  // uyaran flaşı
+  const last = TRAIN.filter(s => t >= s.t).pop();
+  const idxNow = last ? TRAIN.indexOf(last) : -1;
+  if (last && t - last.t < .45) {
+    const a = 1 - (t - last.t) / .45;
+    glow(gx + 270, gy + 66, 420, "rgba(255,194,75,.4)", a * .9);
+    ctx.save(); ctx.globalAlpha = a * .7; ctx.strokeStyle = K.ca; ctx.lineWidth = 3;
+    rr(gx - 6, gy - 8, 560, 160, 12); ctx.stroke(); ctx.restore();
+  }
+
+  // — okuma paneli
+  const rx = CX + 20, ry = 150;
+  box(rx, ry, 590, 178, { a: inAt(t, .3) });
+  eyebrow("Uyaran " + (idxNow + 1 > 0 ? (idxNow + 1) + " / 5" : "—"), rx + 20, ry + 28, { c: K.ca });
+  txt("3 Hz · uyaranlar arası 333 ms", rx + 570, ry + 28, { size: 13, f: F.mono, c: K.dim, al: "right" });
+
+  const nShow = last ? last.n : 1000, mShow = last ? last.m : 0;
+  txt("p", rx + 30, ry + 96, { size: 22, f: F.disp, c: K.ca });
+  txt("0,2", rx + 56, ry + 100, { size: 46, f: F.mono, c: K.ca, w: "600" });
+  txt("×", rx + 158, ry + 96, { size: 24, c: K.mut });
+  txt("n", rx + 192, ry + 96, { size: 22, f: F.disp, c: K.ach });
+  txt(String(nShow), rx + 218, ry + 100, { size: 46, f: F.mono, c: K.ach, w: "600" });
+  txt("=", rx + 350, ry + 96, { size: 24, c: K.mut });
+  txt("m", rx + 384, ry + 96, { size: 22, f: F.disp, c: K.txt });
+  txt(String(mShow), rx + 418, ry + 100, { size: 46, f: F.mono, c: K.txt, w: "700" });
+  txt("kuantum", rx + 512, ry + 100, { size: 15, c: K.mut });
+  txt("p değişmiyor", rx + 30, ry + 126, { size: 12, c: K.dim });
+  txt("havuzda kalan", rx + 192, ry + 126, { size: 12, c: K.dim });
+  txt("salıverilen", rx + 384, ry + 126, { size: 12, c: K.dim });
+
+  // — çubuk grafik
+  const bx0 = rx, by0 = 352, bw = 590, bh = 160, base0 = by0 + bh - 32;
+  box(bx0, by0, bw, bh, { a: inAt(t, .8) });
+  eyebrow("İmpuls başına kuantum", bx0 + 20, by0 + 26, { c: K.mut });
+  TRAIN.forEach((s, i) => {
+    if (t < s.t) return;
+    const a = inAt(t, s.t, .4);
+    const w = 74, x = bx0 + 40 + i * 108, hgt = (s.m / 200) * 80;
+    ctx.save(); ctx.globalAlpha = a;
+    rr(x, base0 - hgt, w, hgt, 4);
+    ctx.fillStyle = i === 0 ? K.ach : i === 4 ? "rgba(110,231,160,.6)" : "rgba(255,107,157,.55)"; ctx.fill();
+    ctx.restore();
+    txt(String(s.m), x + w / 2, base0 - hgt - 10, { size: 20, f: F.mono, c: K.txt, al: "center", a, w: "600" });
+    txt(String(i + 1), x + w / 2, base0 + 20, { size: 13, f: F.mono, c: K.dim, al: "center", a });
+  });
+
+  // — zaman ölçeği karşılaştırması (asıl vurucu görsel)
+  const za = inAt(t, 17.6, 1);
+  if (za > .01) {
+    const zx = L + 20, zy = 536, zw = (R - 20) - (L + 20), zh = 130;
+    box(zx, zy, zw, zh, { a: za, fill: "rgba(11,15,34,.9)", stroke: "rgba(255,194,75,.28)" });
+    eyebrow("Neden yetişemiyor? — logaritmik zaman ölçeği", zx + 20, zy + 22, { a: za, c: K.ca });
+    const px0 = zx + 280, px1 = zx + zw - 150;
+    const lg = v => (Math.log10(v) - 1.7) / 2.7;        // 50 ms → 25 s
+    const bars = [
+      ["Ca²⁺ dışarı pompalanır",     80,   120, K.ca],
+      ["Bölge temizliği",           100,   300, K.prot],
+      ["Yerleşme + hazırlanma",     500,  3000, K.prot],
+      ["Mobilizasyon devreye girer", 1000, 2000, K.ok],
+      ["Endositoz + ACh yükleme",  10000, 20000, K.ach]
+    ];
+    bars.forEach((b, i) => {
+      const y = zy + 46 + i * 16, a = za * inAt(t, 18 + i * .25, .5);
+      const on = i === 3;
+      txt(b[0], px0 - 14, y + 4, { size: 12.5, c: on ? K.ok : K.mut, al: "right", a, w: on ? "700" : "400" });
+      const x1 = px0 + lg(b[1]) * (px1 - px0), x2 = px0 + lg(b[2]) * (px1 - px0);
+      ctx.save(); ctx.globalAlpha = a * (on ? 1 : .8);
+      rr(x1, y - 4, Math.max(4, x2 - x1), on ? 11 : 9, 4); ctx.fillStyle = b[3]; ctx.fill(); ctx.restore();
+    });
+    // 333 ms çizgisi
+    const xs = px0 + lg(333) * (px1 - px0);
+    ctx.save(); ctx.globalAlpha = za; ctx.strokeStyle = K.bad; ctx.lineWidth = 2; ctx.setLineDash([5, 4]);
+    ctx.beginPath(); ctx.moveTo(xs, zy + 34); ctx.lineTo(xs, zy + zh - 8); ctx.stroke(); ctx.restore();
+    txt("333 ms — bir sonraki uyaran", xs + 8, zy + 30, { size: 12.5, f: F.mono, c: K.bad, a: za });
+  }
+
+  caption(t < 12.4
+      ? "Salıverilen kuantum havuzdan çıkar ve yerine yenisi gelmez: n = 1000 → 800 → 640 → 512. p sabit olduğu için m de düşer."
+      : "5. uyarandan önce mobilizasyon yetişir: n yeniden 640'a çıkar ve m 128'e onarılır — U şeklinin dönüş kolu.",
+      t, t < 12.4 ? 2.4 : 14.6, t < 12.4 ? 12.4 : 17.4, { y: 620, maxw: 1000, c: t < 12.4 ? K.txt : K.ok });
+}, () => { sites = null; buildSites(); });
+
+/* ── 8 · Plato ──────────────────────────────────────────── */
+scene("plateau", "Plato", 10, t => {
+  const cxl = CX - 470, cxr = CX - 170, y0 = 300;
+  const bal = ease(c01((t - 1.2) / 4));
+
+  const consume = 200 - 98 * bal;   // m: 200 → 102
+  const refill  = 230 * bal;        // mobilizasyon: 0 → 230 (1–2 sn sonra)
+
+  [[cxl, "Tüketim", "4. uyaranda salıverilen (m)", consume, K.ach, -1],
+   [cxr, "Mobilizasyon", "5. uyarandan önce gelen", refill, K.ok, 1]].forEach(([x, ttl, sub, v, c, dir]) => {
+    const a = inAt(t, .3, .7);
+    txt(ttl, x, 200, { size: 24, al: "center", c, a, w: "600", f: F.disp });
+    txt(sub, x, 224, { size: 14, al: "center", c: K.mut, a });
+    const h = v * 1.1;
+    ctx.save(); ctx.globalAlpha = a;
+    rr(x - 60, y0 + 220 - h, 120, h, 8); ctx.fillStyle = c + "55"; ctx.fill();
+    ctx.strokeStyle = c; ctx.lineWidth = 2; ctx.stroke(); ctx.restore();
+    txt(v.toFixed(0), x, y0 + 200 - h, { size: 30, f: F.mono, al: "center", c, a, w: "600" });
+    txt("kuantum", x, y0 + 244, { size: 13, al: "center", c: K.dim, a });
+    // akış okları
+    for (let i = 0; i < 3; i++) {
+      const p = ((t * .55 + i / 3) % 1);
+      arrow(x + dir * 86, y0 + 30 + p * 110, x + dir * 86, y0 + 58 + p * 110,
+            { c, w: 2, head: 7, a: a * (1 - Math.abs(p - .5) * 1.2) });
+    }
+  });
+
+  // karşılaştırma: gelen > giden
+  const ea = inAt(t, 4.8, .8), mx = (cxl + cxr) / 2;
+  txt("<", mx, y0 + 190, { size: 54, al: "center", c: K.ca, a: ea, w: "700", f: F.disp });
+  txt("gelen, gidenden fazla", mx, y0 + 216, { size: 13, al: "center", c: K.ca, a: ea, f: F.mono });
+  txt("n : 512 → 640", mx, 122, { size: 21, al: "center", c: K.ok, a: inAt(t, 5.4, .8), f: F.mono, w: "700" });
+  txt("m : 102 → 128", mx, 150, { size: 21, al: "center", c: K.ok, a: inAt(t, 5.8, .8), f: F.mono, w: "700" });
+
+  // U eğrisi — sağ sütun
+  const ua = inAt(t, 5.6, .9);
+  if (ua > .01) {
+    const px = CX + 40, py = 236, pw = 540, ph = 300;
+    box(px, py, pw, ph, { a: ua });
+    eyebrow("Klasik U şekli · impuls başına kuantum", px + 22, py + 30, { a: ua, c: K.mut });
+    const vals = [200, 160, 128, 102, 128], bl = py + ph - 46;
+    ctx.save(); ctx.globalAlpha = ua;
+    ctx.strokeStyle = "rgba(255,255,255,.09)"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(px + 40, bl); ctx.lineTo(px + pw - 30, bl); ctx.stroke();
+    ctx.strokeStyle = K.ach; ctx.lineWidth = 2.8;
+    ctx.beginPath();
+    vals.forEach((v, i) => {
+      const X = px + 70 + i * 100, Y = bl - (v / 200) * 160;
+      i === 0 ? ctx.moveTo(X, Y) : ctx.lineTo(X, Y);
+    });
+    ctx.stroke();
+    vals.forEach((v, i) => {
+      const X = px + 70 + i * 100, Y = bl - (v / 200) * 160;
+      ctx.fillStyle = i === 3 ? K.ca : K.ach;
+      ctx.beginPath(); ctx.arc(X, Y, i === 3 ? 7 : 4.5, 0, 6.2832); ctx.fill();
+    });
+    ctx.restore();
+    vals.forEach((v, i) =>
+      txt(String(i + 1), px + 70 + i * 100, bl + 20, { size: 13, f: F.mono, c: K.dim, al: "center", a: ua }));
+    txt("4. yanıt = nadir", px + 70 + 3 * 100, bl - (102 / 200) * 160 + 28,
+        { size: 13, f: F.mono, c: K.ca, al: "center", a: ua });
+  }
+
+  caption("Sekonder havuz 1–2 saniyede primer havuzu besler; 5. yanıt yükselir. Dekrementin bu dönüşü klasik U şeklini verir.",
+          t, 6.4, 10, { size: 22, w: "600", maxw: 760 });
+}, null);
+
+/* ── 9 · Normal vs Miyastenya ────────────────────────────── */
+function cmapWave(x, y0, amp, w, a, c) {
+  ctx.save(); ctx.globalAlpha *= c01(a);
+  ctx.strokeStyle = c; ctx.lineWidth = 2.4; ctx.lineJoin = "round";
+  ctx.beginPath();
+  ctx.moveTo(x, y0);
+  ctx.lineTo(x + w * .14, y0);
+  ctx.quadraticCurveTo(x + w * .24, y0 - amp * 1.05, x + w * .34, y0 - amp);
+  ctx.quadraticCurveTo(x + w * .46, y0 - amp * .9, x + w * .55, y0 + amp * .3);
+  ctx.quadraticCurveTo(x + w * .66, y0 + amp * .42, x + w * .78, y0);
+  ctx.lineTo(x + w, y0);
+  ctx.stroke(); ctx.restore();
+}
+scene("mg", "Normal ile miyasteni", 21, t => {
+  const cols = [
+    { x: CX - 590, ttl: "SAĞLIKLI", epp: [40, 32, 26, 20, 26], thr: 15, cmap: [100, 100, 100, 100, 100], c: K.ok,
+      note: "aynı m için EPP 40 mV — geniş güvenlik faktörü", res: "CMAP düz — dekrement yok" },
+    { x: CX + 30,  ttl: "MİYASTENİA GRAVİS", epp: [20, 16, 13, 10, 13], thr: 15, cmap: [100, 94, 80, 68, 76], c: K.bad,
+      note: "AChR azalmış → aynı m yalnızca 20 mV EPP yapar", res: "4. yanıtta nadir · U şekilli dekrement" }
+  ];
+
+  cols.forEach((col, ci) => {
+    const a = inAt(t, .3 + ci * .5, .8);
+    const w = 560;
+    txt(col.ttl, col.x + w / 2, 128, { size: 24, f: F.disp, al: "center", c: col.c, a, w: "600", ls: 1 });
+    txt(col.note, col.x + w / 2, 152, { size: 14, al: "center", c: K.mut, a });
+
+    // EPP paneli
+    const py = 172, ph = 200;
+    box(col.x, py, w, ph, { a });
+    eyebrow("Uç plak potansiyeli (EPP) · mV", col.x + 18, py + 24, { a, c: K.mut });
+    const base = py + ph - 26, scale = 2.5, bx1 = col.x + 96;
+    // eşik
+    const ty = base - col.thr * scale;
+    ctx.save(); ctx.globalAlpha = a; ctx.strokeStyle = K.ca; ctx.lineWidth = 1.6; ctx.setLineDash([6, 5]);
+    ctx.beginPath(); ctx.moveTo(col.x + 16, ty); ctx.lineTo(col.x + w - 16, ty); ctx.stroke(); ctx.restore();
+    txt("eşik 15 mV", col.x + 18, ty + 17, { size: 12, f: F.mono, c: K.ca, a });
+
+    col.epp.forEach((v, i) => {
+      const st = 2.2 + i * .85 + ci * .0;
+      if (t < st) return;
+      const aa = inAt(t, st, .35) * a;
+      const bw2 = 66, x = bx1 + i * 88, hgt = v * scale;
+      const fires = v > col.thr;
+      ctx.save(); ctx.globalAlpha = aa;
+      rr(x, base - hgt, bw2, hgt, 4);
+      ctx.fillStyle = fires ? "rgba(110,231,160,.4)" : "rgba(255,94,122,.28)"; ctx.fill();
+      ctx.strokeStyle = fires ? K.ok : K.bad; ctx.lineWidth = 1.6; ctx.stroke(); ctx.restore();
+      txt(fires ? "✓" : "✗", x + bw2 / 2, base - hgt - 30, { size: 18, al: "center", c: fires ? K.ok : K.bad, a: aa, w: "700" });
+      // eşiğin altındaki değer kesikli çizgiyle çakışmasın diye çubuğun içine
+      txt(String(v), x + bw2 / 2, fires ? base - hgt - 8 : base - hgt + 21,
+          { size: 16, f: F.mono, al: "center", c: K.txt, a: aa, w: "700" });
+      txt(String(i + 1), x + bw2 / 2, base + 18, { size: 12, f: F.mono, al: "center", c: K.dim, a: aa });
+    });
+
+    // güvenlik faktörü göstergesi (sadece 1. yanıt)
+    const sa = inAt(t, 8.6, .8) * a;
+    if (sa > .01) {
+      const hgt = col.epp[0] * scale, gap = hgt - col.thr * scale;
+      arrow(bx1 - 16, base - hgt, bx1 - 16, ty, { c: col.c, w: 1.6, head: 6, a: sa });
+      arrow(bx1 - 16, ty, bx1 - 16, base - hgt, { c: col.c, w: 1.6, head: 6, a: sa });
+      // dar aralıkta etiket okun üstüne çıkar
+      const ly2 = gap < 44 ? base - hgt - 26 : base - hgt + gap / 2 - 4;
+      txt("güvenlik", bx1 - 24, ly2, { size: 12, c: col.c, al: "right", a: sa, f: F.mono });
+      txt("faktörü",  bx1 - 24, ly2 + 14, { size: 12, c: col.c, al: "right", a: sa, f: F.mono });
+      if (gap < 44) txt("çok dar", bx1 - 24, ly2 + 28, { size: 12, c: K.bad, al: "right", a: sa, f: F.mono, w: "700" });
+    }
+
+    // CMAP paneli
+    const qy = 388, qh = 168;
+    const qa = inAt(t, 10.4, .8) * a;
+    box(col.x, qy, w, qh, { a: qa });
+    eyebrow("CMAP · birleşik kas aksiyon potansiyeli", col.x + 18, qy + 24, { a: qa, c: col.c });
+    const qb = qy + 108;
+    ctx.save(); ctx.globalAlpha = qa * .5;
+    ctx.strokeStyle = "rgba(255,255,255,.12)"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(col.x + 16, qb); ctx.lineTo(col.x + w - 16, qb); ctx.stroke(); ctx.restore();
+    col.cmap.forEach((v, i) => {
+      const st = 11 + i * .55;
+      if (t < st) return;
+      cmapWave(col.x + 34 + i * 100, qb, v * .66, 88, inAt(t, st, .3) * qa, col.c);
+    });
+    txt(col.res, col.x + w / 2, qy + qh - 12, { size: 14.5, al: "center", c: col.c, a: inAt(t, 13.6) * a, w: "600" });
+
+    if (ci === 1) {
+      const da = inAt(t, 14.4, .8);
+      txt("−32 %", col.x + w - 24, qy + 26, { size: 19, f: F.mono, c: K.bad, al: "right", a: da, w: "700" });
+    }
+  });
+
+  caption("n, m ve deplesyon ikisinde de aynı. Fark yalnızca aynı m'nin yaptığı EPP'nin eşiğe uzaklığı: güvenlik faktörü.",
+          t, 15.4, 21, { y: 620, size: 21, w: "600", maxw: 620 });
+  txt("Hızlı RNS (30–50 Hz) ya da 10 sn maksimal egzersiz: Ca²⁺ birikir → p artar → LEMS'te inkrement.",
+      CX, 690, { size: 15, al: "center", c: K.ca, a: win(t, 17.4, 21, .5) });
+}, null);
+
+/* ── 10 · Özet ───────────────────────────────────────────── */
+scene("sum", "Özet", 13, t => {
+  txt("Dört cümlede mekanizma", CX, 130, { size: 34, f: F.disp, al: "center", c: K.txt, a: inAt(t, .2), w: "600" });
+
+  const items = [
+    [K.ach,  "n bir kez maksimumdur.",   "m = p × n. İlk uyaran 1000 kuantumdan 200'ünü alır; 2.'si artık 800'den ateşler."],
+    [K.prot, "Yeniden dolum yavaştır.",  "Mobilizasyon 1–2 saniye ister; 333 ms'lik aralığa sığmaz."],
+    [K.ca,   "p sabit kalır (≈ 0,2).",   "Ca²⁺ ≈ 100 ms'de pompalanır; 3 Hz'de birikmez, saf deplesyon görülür."],
+    [K.ok,   "Kuantum boyutu değişmez.", "Azalan tek şey kuantal içerik; her kuantum hep ≈ 10.000 ACh molekülü."]
+  ];
+  items.forEach((it, i) => {
+    const a = inAt(t, 1 + i * .8, .8), y = 210 + i * 96;
+    box(CX - 520, y, 1040, 78, { a, stroke: it[0] + "2E", fill: it[0] + "0A" });
+    ctx.save(); ctx.globalAlpha = a; ctx.fillStyle = it[0];
+    rr(CX - 520, y, 5, 78, 3); ctx.fill(); ctx.restore();
+    txt(it[1], CX - 486, y + 34, { size: 21, c: it[0], w: "700", a });
+    txt(it[2], CX - 486, y + 60, { size: 16, c: K.mut, a });
+  });
+
+  const fa = inAt(t, 5.2, 1);
+  txt("Sağlıklı kavşakta bu rundown da olur — güvenlik faktörü onu CMAP'e yansıtmaz.",
+      CX, 632, { size: 20, al: "center", c: K.txt, a: fa, w: "600" });
+  txt("Miyasteni gravis'te güvenlik faktörü kaybolduğu için aynı normal fizyolojik rundown dekrement olarak görünür.",
+      CX, 662, { size: 16, al: "center", c: K.mut, a: inAt(t, 6.2) });
+}, null);
+
+/* ══════════════════════════════════════════════════════════════
+   3 · ZAMAN ÇİZELGESİ VE OYNATICI
+   ══════════════════════════════════════════════════════════════ */
+
+let T0 = 0;
+SC.forEach(s => { s.t0 = T0; T0 += s.dur; });
+const TOTAL = T0;
+
+let now = 0, playing = false, lastTS = 0, curScene = -1;
+let DT = 1 / 60;        // parçacık fiziği bu adımı kullanır
+let exporting = false;  // kare kare dışa aktarma sırasında rAF döngüsü durur
+
+function sceneAt(t) {
+  for (let i = SC.length - 1; i >= 0; i--) if (t >= SC[i].t0) return i;
+  return 0;
+}
+
+function drawChrome(i, t) {
+  const s = SC[i];
+  // üst ilerleme çizgisi
+  ctx.fillStyle = "rgba(255,255,255,.07)"; ctx.fillRect(0, 0, VW, 3);
+  const g = ctx.createLinearGradient(0, 0, VW, 0);
+  g.addColorStop(0, K.ach); g.addColorStop(1, K.ca);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, VW * (now / TOTAL), 3);
+
+  eyebrow("Bölüm " + String(i + 1).padStart(2, "0") + " / " + SC.length, L + 20, 46, { c: K.dim });
+  txt(s.title, L + 20 + tw("Bölüm " + String(i + 1).padStart(2, "0") + " / " + SC.length, { f: F.mono, size: 12, ls: 2.4 }) + 22, 48,
+      { size: 19, f: F.disp, c: K.txt, w: "600" });
+  txt("Kuantal deplesyon · nöromusküler kavşak", R - 20, 48, { size: 13, f: F.mono, c: K.dim, al: "right", ls: .6 });
+}
+
+function frame(ts) {
+  requestAnimationFrame(frame);
+  if (exporting) return;
+  const dt = lastTS ? Math.min(.05, (ts - lastTS) / 1000) : 0;
+  lastTS = ts; DT = dt || 1 / 60;
+  if (playing) {
+    now += dt;
+    if (now >= TOTAL) { now = TOTAL - .001; render(); setPlay(false); if (recording) stopRec(); return; }
+  }
+  render();
+  if (recording) recFrames++;
+}
+
+function render() {
+  // zemin
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0, "#0D1128"); bg.addColorStop(.55, K.bg); bg.addColorStop(1, "#080B1B");
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, VW, H);
+  // ince ızgara dokusu
+  ctx.save(); ctx.globalAlpha = .04; ctx.strokeStyle = K.prot; ctx.lineWidth = 1;
+  for (let x = (CX % 60); x < VW; x += 60) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+  for (let y = 0; y < H; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(VW, y); ctx.stroke(); }
+  ctx.restore();
+
+  const i = sceneAt(now);
+  if (i !== curScene) { curScene = i; if (SC[i].init) SC[i].init(); syncChips(); }
+  ctx.save();
+  SC[i].draw(now - SC[i].t0);
+  ctx.restore();
+  drawChrome(i, now - SC[i].t0);
+  syncBar();
+}
+
+/* ── kontroller ─────────────────────────────────────────── */
+const btnPlay = document.getElementById("btnPlay");
+const icPlay = document.getElementById("icPlay"), icPause = document.getElementById("icPause");
+const fill = document.getElementById("fill"), knob = document.getElementById("knob");
+const seek = document.getElementById("seek"), track = document.getElementById("track");
+const clock = document.getElementById("clock"), ui = document.getElementById("ui");
+const splash = document.getElementById("splash"), chapEl = document.getElementById("chapters");
+
+const fmt = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+
+function setPlay(v) {
+  playing = v;
+  icPlay.style.display = v ? "none" : "";
+  icPause.style.display = v ? "" : "none";
+  splash.classList.toggle("on", !v && now < .05);
+  if (v) hideUISoon(); else { ui.classList.remove("hidden"); clearTimeout(hideT); }
+}
+function seekTo(t) {
+  now = clamp(t, 0, TOTAL - .001);
+  const i = sceneAt(now);
+  curScene = i; if (SC[i].init) SC[i].init();
+  syncChips(); render();
+}
+
+function syncBar() {
+  const p = now / TOTAL;
+  fill.style.width = (p * 100) + "%";
+  knob.style.left = (p * 100) + "%";
+  clock.textContent = fmt(now) + " / " + fmt(TOTAL);
+}
+function syncChips() {
+  [...chapEl.children].forEach((c, i) => c.setAttribute("aria-current", i === curScene ? "true" : "false"));
+}
+
+SC.forEach((s, i) => {
+  const b = document.createElement("button");
+  b.className = "chap"; b.type = "button";
+  b.textContent = String(i + 1).padStart(2, "0") + "  " + s.title;
+  b.onclick = () => { seekTo(s.t0 + .02); if (!playing) setPlay(true); };
+  chapEl.appendChild(b);
+  const tk = document.createElement("div");
+  tk.className = "tick"; tk.style.left = (s.t0 / TOTAL * 100) + "%";
+  track.appendChild(tk);
+});
+
+btnPlay.onclick = () => setPlay(!playing);
+document.getElementById("btnBack").onclick = () => seekTo(now - 5);
+splash.onclick = () => setPlay(true);
+
+let dragging = false;
+const seekFromEvent = e => {
+  const r = track.getBoundingClientRect();
+  const cx = (e.touches ? e.touches[0].clientX : e.clientX);
+  seekTo(((cx - r.left) / r.width) * TOTAL);
+};
+seek.addEventListener("pointerdown", e => { dragging = true; seek.setPointerCapture(e.pointerId); seekFromEvent(e); });
+seek.addEventListener("pointermove", e => { if (dragging) seekFromEvent(e); });
+seek.addEventListener("pointerup",   e => { dragging = false; });
+seek.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight") { seekTo(now + 5); e.preventDefault(); }
+  if (e.key === "ArrowLeft")  { seekTo(now - 5); e.preventDefault(); }
+});
+
+addEventListener("keydown", e => {
+  if (e.target.tagName === "BUTTON" && e.key === " ") return;
+  if (e.key === " ") { setPlay(!playing); e.preventDefault(); }
+  else if (e.key === "ArrowRight") seekTo(now + 5);
+  else if (e.key === "ArrowLeft")  seekTo(now - 5);
+});
+
+let hideT = 0;
+function hideUISoon() { clearTimeout(hideT); hideT = setTimeout(() => { if (playing) ui.classList.add("hidden"); }, 2600); }
+["pointermove", "pointerdown"].forEach(ev =>
+  stage.addEventListener(ev, () => {
+    if (recording) return;
+    ui.classList.remove("hidden"); if (playing) hideUISoon();
+  }));
+
+/* ── .webm kaydı ────────────────────────────────────────── */
+const btnRec = document.getElementById("btnRec"), recTxt = document.getElementById("recTxt");
+const toast = document.getElementById("toast"), presetEl = document.getElementById("preset");
+let recorder = null, recording = false, chunks = [], recFrames = 0, recT0 = 0;
+
+const PRESETS = {
+  phone: { arc: 1560 / 720, dpr: 2 },   // 3120×1440 · 19.5:9
+  wide:  { arc: 16 / 9,     dpr: 2 }    // 2560×1440 · 16:9
+};
+
+function say(msg, ms = 3200) {
+  toast.textContent = msg; toast.classList.add("on");
+  setTimeout(() => toast.classList.remove("on"), ms);
+}
+function startRec() {
+  if (!cv.captureStream || typeof MediaRecorder === "undefined") { say("Bu tarayıcı kayıt desteklemiyor"); return; }
+  const mime = ["video/webm;codecs=vp9", "video/webm;codecs=vp8", "video/webm"].find(m => MediaRecorder.isTypeSupported(m));
+  if (!mime) { say("Bu tarayıcı webm kaydı desteklemiyor"); return; }
+
+  lockAR = PRESETS[presetEl.value] || PRESETS.phone;
+  resize();
+  ui.classList.add("hidden"); splash.classList.remove("on");
+  chunks = []; recFrames = 0; recT0 = performance.now();
+
+  recorder = new MediaRecorder(cv.captureStream(30), { mimeType: mime, videoBitsPerSecond: 12e6 });
+  recorder.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+  recorder.onstop = () => {
+    const secs = (performance.now() - recT0) / 1000;
+    const blob = new Blob(chunks, { type: "video/webm" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "kuantal-deplesyon.webm";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 20000);
+    const fps = recFrames / Math.max(1, secs);
+    say("İndirildi · " + cv.width + "×" + cv.height + " · çizim " + fps.toFixed(1) + " fps"
+        + (fps < 26 ? " — düşük, sekmeyi önde tutup tekrarlayın" : ""), 6500);
+  };
+  recorder.start();
+  recording = true;
+  btnRec.dataset.on = "1"; recTxt.textContent = "Kaydediliyor…";
+  seekTo(0); setPlay(true);
+  say("Kayıt başladı — " + fmt(TOTAL) + " boyunca bu sekme önde ve açık kalmalı", 5200);
+}
+function stopRec() {
+  if (!recording) return;
+  recording = false;
+  btnRec.dataset.on = "0"; recTxt.textContent = "Video kaydet";
+  try { recorder.stop(); } catch (e) {}
+  lockAR = null; resize();
+  ui.classList.remove("hidden");
+}
+btnRec.onclick = () => recording ? stopRec() : startRec();
+
+/* ── başlat ─────────────────────────────────────────────── */
+resize();
+
+// #t=95 → o saniyeye atla · #t=95&p=0 → atla ve duraklat
+const hp = new URLSearchParams(location.hash.replace(/^#/, ""));
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const wantPause = hp.get("p") === "0" || reduce;
+if (hp.has("t")) seekTo(parseFloat(hp.get("t")) || 0);
+setPlay(!wantPause);
+if (wantPause) { if (now < .05) splash.classList.add("on"); render(); }
+requestAnimationFrame(frame);
+
+/* ── kare kare dışa aktarma köprüsü (CDP ile sürülür) ────── */
+window.NMJ = {
+  total: TOTAL,
+  /** dışa aktarma kipine geç: ölçüyü kilitle, arayüzü gizle, başa sar */
+  prepare(preset) {
+    exporting = true; playing = false;
+    lockAR = PRESETS[preset] || PRESETS.phone;
+    resize();
+    ui.style.display = "none"; splash.style.display = "none";
+    now = 0; curScene = -1;
+    SC.forEach(s => { if (s.init) s.init(); });
+    render();
+    return [cv.width, cv.height, TOTAL];
+  },
+  /** zamanı dt kadar ilerlet ve çiz (sahne değişince init tetiklenir) */
+  step(dt) { DT = dt; now = Math.min(now + dt, TOTAL - .001); render(); },
+  /** o anki kareyi JPEG olarak ver */
+  grab(q) { return cv.toDataURL("image/jpeg", q || .93); }
+};
+
+})();
+</script>

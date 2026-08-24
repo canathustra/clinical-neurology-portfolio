@@ -1,0 +1,5 @@
+Asset: clinical-nervous-system.svg
+Source: https://commons.wikimedia.org/wiki/File:Human_Nervous_System_diagram_(no_text).svg
+Author: Benevolent
+License: Creative Commons Attribution-ShareAlike 4.0 International
+Changes: cropped to the body, unused label leader lines hidden, colors adapted to the presentation palette.

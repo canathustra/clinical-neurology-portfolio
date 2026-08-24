@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Elektrot sinirden uzaklaştıkça SNAP amplitüdü düşer</title>
+<style>
+:root{--bg:#eef1f4;--paper:#fff;--head:#e7edf3;--line:#d5dde4;--ink:#16232c;--muted:#5d6b76;--cyan:#0f7a95;--green:#2f7d52;--amber:#c97a2a;--red:#b43b47;--scope:#03110c;--grid:#173a2c;--trace:#68e0a3}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0}
+body{display:grid;place-items:center;padding:14px;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,Arial,sans-serif}
+.app{width:min(calc(100vw - 28px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);display:grid;grid-template-rows:50px 38px minmax(0,1fr) 106px 56px;overflow:hidden;background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25)}
+.titlebar,.topicbar{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.titlebar{padding:0 18px;background:linear-gradient(180deg,#fff,#eef1f4);border-bottom:1px solid var(--line)}
+.title-left{min-width:0;display:flex;align-items:center;gap:10px}.dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5)}
+h1{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:18px;font-weight:800}
+.lab-badge{flex:none;padding:7px 11px;border:1px solid #9bb9c6;background:#f7fbfc;color:#14576c;font:800 11px/1 Consolas,monospace;letter-spacing:.05em}
+.topicbar{padding:0 18px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px}.topicbar b{color:#0d6d87}.topicbar .fixed{color:var(--muted)}
+.workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:12px;padding:12px}
+.scope,.side{min-width:0;min-height:0;border:1px solid var(--line);overflow:hidden}
+.scope{position:relative;background:var(--scope)}canvas{width:100%;height:100%;display:block}
+.mode-badge{position:absolute;right:12px;bottom:10px;padding:6px 9px;border:1px solid #bd9b25;background:rgba(36,30,0,.92);color:#ffe38a;font:800 10px/1 Consolas,monospace;letter-spacing:.03em}
+.side{display:grid;grid-template-rows:34px 285px minmax(0,1fr);background:#fff}
+.side-head{display:flex;align-items:center;padding:0 12px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px;font-weight:850;letter-spacing:.05em;text-transform:uppercase;color:#475762}
+.book{display:grid;place-items:center;padding:7px 9px;border-bottom:1px solid var(--line);background:#fff}.book img{display:block;width:100%;height:100%;object-fit:contain}
+.readout{min-height:0;display:grid;align-content:start;gap:5px;padding:6px 10px;background:#fff}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:5px}.metric{min-height:43px;padding:5px 7px;border:1px solid #cbd6de;background:#f8fafb}.metric span{display:block;margin-bottom:2px;color:#53626d;font-size:8.5px;font-weight:850;text-transform:uppercase}.metric strong{font-size:15px;font-variant-numeric:tabular-nums}
+.verdict{padding:5px 7px;border-left:4px solid var(--green);background:#edf7f1}.verdict.warn{border-color:var(--amber);background:#fff7e9}.verdict.bad{border-color:var(--red);background:#fff0f2}.verdict span{display:block;margin-bottom:2px;color:#53626d;font-size:8.5px;font-weight:850;text-transform:uppercase}.verdict strong{font-size:11.5px;line-height:1.2}
+.logic,.source-note{margin:0;color:#43525e;font-size:9.3px;line-height:1.24}.logic b{color:#006b85}.source-note{padding-top:4px;border-top:1px solid var(--line)}.source-note a{color:#0f7a95;text-decoration:none}
+.controls{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:12px;align-items:stretch;padding:10px 18px;background:#fff;border-top:1px solid var(--line)}
+.control{display:grid;grid-template-rows:auto 1fr auto;gap:7px;padding:0 10px;border:1px solid #cbd6de;background:#f8fafb}.control label{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px;color:#34444f;font-size:12px;font-weight:800}.control output{color:#006b85;font-size:14px;font-variant-numeric:tabular-nums}.control input{width:100%;accent-color:#177b96}.marks{display:flex;justify-content:space-between;padding-bottom:7px;color:#5e6d78;font-size:9px}
+.scan{border:0;background:#174c5b;color:#fff;font:800 12px/1.25 "Segoe UI",Arial,sans-serif;cursor:pointer}.scan:hover,.scan:focus-visible{background:#0f6177;outline:2px solid #79b9cc;outline-offset:2px}
+.bottom-bar{height:56px;display:flex;align-items:stretch;gap:1px;background:#d5dde4;border-top:1px solid #d5dde4}.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:#e7edf3;color:#16232c;text-decoration:none;font:800 13px/1 "Segoe UI",Arial,sans-serif}.fkey span{color:#0f7a95;font-size:15px}.fkey:hover,.fkey:focus-visible{background:#dce8f0;outline:none}
+@media(max-width:980px){body{padding:0}.app{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:48px 34px minmax(0,1fr) 130px 52px}.workspace{grid-template-columns:1fr}.side{display:none}.controls{grid-template-columns:1fr 135px;gap:7px;padding:7px}.titlebar,.topicbar{padding-left:10px;padding-right:10px}h1{font-size:15px}.fixed{display:none}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="titlebar">
+    <div class="title-left"><span class="dot"></span><h1>Elektrot sinirden 10 mm yana kayınca yanıt 38’den 12 µV’a düşer</h1></div>
+    <div class="lab-badge">SERBEST LABORATUVAR</div>
+  </header>
+  <div class="topicbar">
+    <span><b>Şekil 8.27</b> · Median mikst palmar uyarım ve bilek kaydı</span>
+    <span class="fixed">Akım, sinir, G1–G2 aralığı ve ekran ayarları sabit</span>
+  </div>
+  <section class="workspace">
+    <div class="scope">
+      <canvas id="labCanvas" aria-label="Kayıt elektrotlarının median sinirden lateral uzaklığı arttıkça ölçülen mikst sinir potansiyel amplitüdünün azaldığını gösteren interaktif NCS laboratuvarı"></canvas>
+      <div class="mode-badge" id="modeBadge">SİNİR ÜZERİNDE · MAKSİMAL YANIT</div>
+    </div>
+    <aside class="side">
+      <div class="side-head">Kitaptaki gerçek kayıt · Şekil 8.27</div>
+      <div class="book"><img id="bookFigure" src="../figures/source-v3/fig_8_27_electrode_search.png" alt="Şekil 8.27: median mikst sinir kaydında elektrot sinir üzerinde 38 mikrovolt, 5 milimetre lateralde 31 mikrovolt ve 10 milimetre lateralde 12 mikrovolt"></div>
+      <div class="readout">
+        <div class="metrics">
+          <div class="metric"><span>Lateral sapma</span><strong id="offsetText">0,0 mm</strong></div>
+          <div class="metric"><span>Ölçülen amplitüd</span><strong id="amplitudeText">38 µV</strong></div>
+          <div class="metric"><span>Kalan amplitüd</span><strong id="remainingText">%100</strong></div>
+          <div class="metric"><span>Merkeze göre kayıp</span><strong id="lossText">%0</strong></div>
+        </div>
+        <div class="verdict" id="verdictBox"><span>Teknik karar</span><strong id="verdictText">Sinir üzerinde · maksimal amplitüd</strong></div>
+        <p class="logic" id="logicText">Uyarılan aksonlar değişmedi. G1–G2 sinirin üzerindeyken yüzeydeki yakın-alan potansiyeli en yüksek amplitüdle kaydedilir.</p>
+        <p class="source-note"><b>Resident notu:</b> Bu sayfa amplitüd etkisini izole eder. Şüpheli düşük/asimetrik yanıtı akson kaybı saymadan önce, akımı sabit tutup elektrot çiftini medial-lateral arayın. <a href="https://pubmed.ncbi.nlm.nih.gov/9052817/" target="_blank" rel="noreferrer">Raynor ve ark., 1997</a></p>
+      </div>
+    </aside>
+  </section>
+  <section class="controls">
+    <div class="control">
+      <label for="offset"><span>G1–G2 çiftinin sinirden lateral uzaklığı</span><output id="offsetOutput">0,0 mm · 38 µV</output></label>
+      <input id="offset" type="range" min="0" max="10" step="0.1" value="0">
+      <div class="marks"><span>0 mm · 38 µV</span><span>5 mm · 31 µV</span><span>10 mm · 12 µV</span></div>
+    </div>
+    <button class="scan" id="scanButton" type="button">Elektrodu yana kaydır ve geri getir</button>
+  </section>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="index.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="odem-etkisi.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const canvas=document.getElementById("labCanvas"),ctx=canvas.getContext("2d");
+const slider=document.getElementById("offset"),offsetOutput=document.getElementById("offsetOutput");
+const scanButton=document.getElementById("scanButton"),modeBadge=document.getElementById("modeBadge");
+const offsetText=document.getElementById("offsetText"),amplitudeText=document.getElementById("amplitudeText");
+const remainingText=document.getElementById("remainingText"),lossText=document.getElementById("lossText");
+const verdictBox=document.getElementById("verdictBox"),verdictText=document.getElementById("verdictText"),logicText=document.getElementById("logicText");
+let offset=0,autoScan=false,scanStart=0;
+const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function gauss(x,m,s){return Math.exp(-.5*((x-m)/s)**2)}
+function fmt1(v){return v.toFixed(1).replace(".",",")}
+function amplitudeAt(mm){return Math.max(0,38-.2*mm-.24*mm*mm)}
+function model(){
+  const amplitude=amplitudeAt(offset),remaining=amplitude/38*100,loss=100-remaining;
+  const state={
+    variable:"recording_electrode_lateral_offset_mm",
+    offsetMm:Number(offset.toFixed(1)),
+    stimulation:"fixed_median_palm_supramaximal",
+    recording:"fixed_median_mixed_wrist",
+    stimulusCurrentFixed:true,
+    g1g2DistanceFixed:true,
+    displaySettingsFixed:true,
+    underlyingAxonsFixed:true,
+    amplitudeUv:Number(amplitude.toFixed(1)),
+    remainingPercent:Number(remaining.toFixed(1)),
+    lossPercent:Number(loss.toFixed(1)),
+    calibrationUv:{mm0:38,mm5:31,mm10:12},
+    teachingScope:"amplitude_effect_only",
+    latencyEffectReservedForLaterConcept:true,
+    sourceFigure:"Preston_Shapiro_Figure_8_27"
+  };
+  window.__electrodeDistanceState=state;
+  return state;
+}
+function resize(){
+  const r=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);
+  if(canvas.width!==Math.round(r.width*dpr)||canvas.height!==Math.round(r.height*dpr)){
+    canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  return r;
+}
+function text(t,x,y,color="#d7eee4",size=11,align="left",weight=700){
+  ctx.fillStyle=color;ctx.font=`${weight} ${size}px "Segoe UI",Arial,sans-serif`;ctx.textAlign=align;ctx.textBaseline="alphabetic";ctx.fillText(t,x,y);
+}
+function line(points,color,width=1,dash=[]){
+  ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();ctx.setLineDash([]);
+}
+function roundRect(x,y,w,h,r,fill,stroke=null){
+  ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1.2;ctx.stroke()}
+}
+function rawSnap(ms){
+  return .13*gauss(ms,2.15,.10)+1.0*gauss(ms,2.72,.17)-.62*gauss(ms,3.08,.23)+.15*gauss(ms,3.62,.34)-.05*gauss(ms,4.25,.48);
+}
+function peakToPeak(fn){let lo=Infinity,hi=-Infinity;for(let i=0;i<=1200;i++){const v=fn(i/120);lo=Math.min(lo,v);hi=Math.max(hi,v)}return hi-lo}
+const snapPp=peakToPeak(rawSnap);
+function signalUv(ms,amplitude){return rawSnap(ms)*(amplitude/snapPp)}
+function baseline(ms){return .24*Math.sin(ms*18.7)+.15*Math.sin(ms*43.1+1.1)+.09*Math.sin(ms*71.5+.4)}
+function drawGeometry(W,H,now,s){
+  const nerveY=92,left=95,right=W-65,g1x=W*.68,g2x=W*.84,electrodeY=nerveY+s.offsetMm*9.2;
+  const field=ctx.createLinearGradient(0,35,0,205);
+  field.addColorStop(0,"rgba(255,196,92,0)");field.addColorStop(.34,"rgba(255,196,92,.035)");field.addColorStop(.5,"rgba(255,196,92,.16)");field.addColorStop(.66,"rgba(255,196,92,.035)");field.addColorStop(1,"rgba(255,196,92,0)");
+  ctx.fillStyle=field;ctx.fillRect(left,35,right-left,170);
+  line([[left,nerveY],[right,nerveY]],"#ffc45c",7);
+  line([[left,nerveY-18],[right,nerveY-18]],"rgba(255,196,92,.18)",1);
+  line([[left,nerveY+18],[right,nerveY+18]],"rgba(255,196,92,.18)",1);
+  ctx.fillStyle="#ff6876";ctx.beginPath();ctx.arc(left,nerveY,15,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();
+  text("PALM UYARIMI · AKIM SABİT",left,51,"#ff9ba6",10,"center",850);
+  text("MEDİAN SİNİR",W*.39,61,"#ffd887",10,"center",850);
+  const phase=reduceMotion?.45:(now/1700)%1;
+  for(let i=0;i<4;i++){const q=(phase+i/4)%1,x=left+22+(g1x-left-22)*q;ctx.fillStyle=`rgba(104,224,163,${.28+.65*(1-q)})`;ctx.beginPath();ctx.arc(x,nerveY,4.2,0,Math.PI*2);ctx.fill()}
+  const attenuation=s.amplitudeUv/38;
+  for(let j=1;j<=3;j++){
+    const yy=nerveY+(electrodeY-nerveY)*j/4;
+    line([[g1x-18-j*4,yy],[g1x+18+j*4,yy]],`rgba(104,224,163,${(.11+.16*j)*attenuation})`,1.3);
+  }
+  line([[g1x,nerveY],[g1x,electrodeY]],"#55d9e8",1.3,[5,4]);
+  if(s.offsetMm>.05)text(`${fmt1(s.offsetMm)} mm`,g1x+8,(nerveY+electrodeY)/2+4,"#77ddeb",10,"left",850);
+  line([[g1x,electrodeY],[g2x,electrodeY]],"rgba(210,225,232,.58)",2);
+  for(const [x,label] of [[g1x,"G1"],[g2x,"G2"]]){
+    ctx.fillStyle="#f5f8fa";ctx.beginPath();ctx.arc(x,electrodeY,15,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#9db0bc";ctx.lineWidth=2;ctx.stroke();
+    ctx.fillStyle="#15232c";ctx.beginPath();ctx.arc(x,electrodeY,5.2,0,Math.PI*2);ctx.fill();
+    text(label,x,electrodeY-22,"#dce8ed",10,"center",900);
+  }
+  text("G1–G2 = 4 cm · birlikte hareket eder",g1x+(g2x-g1x)/2,electrodeY-11,"#a8c0c7",9.5,"center",750);
+  text("UYARILAN AKSONLAR DEĞİŞMEDİ",left,205,"#9bb8ad",9.5,"left",800);
+  text("YALNIZ KAYIT GEOMETRİSİ DEĞİŞTİ",right,205,"#77ddeb",9.5,"right",800);
+}
+function drawGrid(x,y,w,h){
+  ctx.fillStyle="#03110c";ctx.fillRect(x,y,w,h);ctx.strokeStyle="#153a2b";ctx.lineWidth=1;
+  for(let i=0;i<=10;i++){ctx.beginPath();ctx.moveTo(x+w*i/10,y);ctx.lineTo(x+w*i/10,y+h);ctx.stroke()}
+  for(let i=0;i<=4;i++){ctx.beginPath();ctx.moveTo(x,y+h*i/4);ctx.lineTo(x+w,y+h*i/4);ctx.stroke()}
+}
+function drawTrace(W,H,s){
+  const x=22,y=232,w=W-44,h=H-y-28;drawGrid(x,y,w,h);
+  text("MEDİAN MİKST SİNİR POTANSİYELİ · PEAK-TO-PEAK AMPLİTÜD",x+10,y+18,"#aac4b9",10.5,"left",800);
+  text("Negatif ↑ · pozitif ↓ · 20 µV/div · 2 ms/div",x+w-10,y+18,"#aac4b9",10,"right",700);
+  const mid=y+h*.56,scale=h*.56/60,pts=[];
+  for(let i=0;i<=900;i++){
+    const ms=i/90,artifact=3.5*gauss(ms,.48,.035)-2.8*gauss(ms,.55,.045);
+    const uv=artifact+signalUv(ms,s.amplitudeUv)+baseline(ms);
+    pts.push([x+w*i/900,clamp(mid-uv*scale,y+3,y+h-3)]);
+  }
+  line(pts,"#68e0a3",2.25);
+  line([[x,mid],[x+w,mid]],"rgba(149,196,172,.25)",1);
+  const peakX=x+w*2.72/10,peakY=mid-signalUv(2.72,s.amplitudeUv)*scale;
+  const troughX=x+w*3.08/10,troughY=mid-signalUv(3.08,s.amplitudeUv)*scale;
+  line([[peakX,peakY],[troughX+28,peakY],[troughX+28,troughY],[troughX,troughY]],"#55d9e8",1.25,[5,3]);
+  text(`${Math.round(s.amplitudeUv)} µV p-p`,troughX+34,(peakY+troughY)/2+4,"#7ce6f0",11,"left",900);
+  text("Aynı gerçek sinir yanıtı · elektrot uzaklaştıkça yüzeyde daha küçük ölçülür",x+10,y+h-10,"#9fb9ae",10,"left",750);
+}
+function updatePanel(s){
+  offsetOutput.textContent=`${fmt1(s.offsetMm)} mm · ${Math.round(s.amplitudeUv)} µV`;
+  offsetText.textContent=`${fmt1(s.offsetMm)} mm`;amplitudeText.textContent=`${Math.round(s.amplitudeUv)} µV`;
+  remainingText.textContent=`%${Math.round(s.remainingPercent)}`;lossText.textContent=`%${Math.round(s.lossPercent)}`;
+  if(s.offsetMm<1.5){
+    verdictBox.className="verdict";verdictText.textContent="Sinir üzerinde · maksimal amplitüd";
+    logicText.innerHTML="Uyarılan aksonlar değişmedi. G1–G2 sinirin üzerindeyken yüzeydeki yakın-alan potansiyeli <b>en yüksek amplitüdle</b> kaydedilir.";
+    modeBadge.textContent="SİNİR ÜZERİNDE · MAKSİMAL YANIT";
+  }else if(s.offsetMm<7.5){
+    verdictBox.className="verdict warn";verdictText.textContent="Küçük sapma · amplitüd belirgin azalıyor";
+    logicText.innerHTML=`Aynı sinir ve aynı akımla ${fmt1(s.offsetMm)} mm sapma, ölçülen yanıtı ${Math.round(s.amplitudeUv)} µV’a düşürdü. Bu düşüş <b>akson kaybı değildir</b>.`;
+    modeBadge.textContent="KAYIT MERKEZDEN UZAKLAŞIYOR";
+  }else{
+    verdictBox.className="verdict bad";verdictText.textContent="Teknik düşük amplitüd · yalancı asimetri riski";
+    logicText.innerHTML=`10 mm’ye yaklaşan sapmada yanıtın yaklaşık <b>%${Math.round(s.lossPercent)}’i kayboldu</b>. Karşı taraf sinir üzerinde kaydedilirse yalancı amplitüd asimetrisi oluşur.`;
+    modeBadge.textContent="YALANCI DÜŞÜK AMPLİTÜD RİSKİ";
+  }
+}
+function draw(now){
+  if(autoScan){
+    const q=(now-scanStart)/5600;
+    if(q>=1){autoScan=false;offset=0;slider.value=0;scanButton.textContent="Elektrodu yana kaydır ve geri getir"}
+    else{offset=5-5*Math.cos(q*2*Math.PI);slider.value=offset.toFixed(1)}
+  }
+  const r=resize(),s=model(),W=r.width,H=r.height;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle="#03110c";ctx.fillRect(0,0,W,H);
+  text("NCS/EMG KAYIT EKRANI · ÖĞRETİM MODELİ",14,19,"#a9c4b9",10,"left",800);
+  drawGeometry(W,H,now,s);drawTrace(W,H,s);updatePanel(s);
+  requestAnimationFrame(draw);
+}
+slider.addEventListener("input",()=>{autoScan=false;offset=Number(slider.value);scanButton.textContent="Elektrodu yana kaydır ve geri getir"});
+scanButton.addEventListener("click",()=>{autoScan=true;scanStart=performance.now();scanButton.textContent="Elektrot taranıyor…"});
+document.addEventListener("keydown",event=>{
+  if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;
+  const key=event.key.toUpperCase(),link=key==="F1"?document.querySelector(".fkey:nth-child(1)"):key==="F2"?document.querySelector(".fkey:nth-child(2)"):key==="F3"?document.querySelector(".fkey:nth-child(3)"):null;
+  if(link){event.preventDefault();location.href=link.href}
+});
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

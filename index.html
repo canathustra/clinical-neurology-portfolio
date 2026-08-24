@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Sunumlar ve animasyonlardan oluşan kişisel portföy." />
+    <title>Portföy | Sunumlar & Animasyonlar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="logo" href="#top" aria-label="Ana sayfa">U.</a>
+      <button class="menu-button" aria-expanded="false" aria-controls="navigation">Menü</button>
+      <nav id="navigation" aria-label="Ana menü">
+        <a href="#projeler">Projeler</a>
+        <a href="#hakkimda">Hakkımda</a>
+        <a href="#iletisim">İletişim</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <p class="eyebrow">SUNUMLAR · ANİMASYONLAR · HİKÂYE ANLATIMI</p>
+        <h1>Fikirleri <em>harekete</em><br />geçiriyorum.</h1>
+        <p class="intro">Hazırladığım sunumları ve animasyonları burada bir araya getiriyorum.</p>
+        <a class="button" href="#projeler">Projeleri keşfet <span aria-hidden="true">↓</span></a>
+        <div class="hero-orb" aria-hidden="true"></div>
+      </section>
+
+      <section id="projeler" class="projects section">
+        <div class="section-heading">
+          <p class="eyebrow">SEÇİLMİŞ ÇALIŞMALAR</p>
+          <h2>Projeler</h2>
+          <p>Nöroloji eğitiminde kullandığım etkileşimli sunumlar ve animasyonlar.</p>
+        </div>
+        <div class="filters" aria-label="Proje filtreleri">
+          <button class="filter active" data-filter="all">Tümü</button>
+          <button class="filter" data-filter="sunum">Sunumlar</button>
+          <button class="filter" data-filter="animasyon">Animasyonlar</button>
+        </div>
+        <div class="project-grid">
+          <article class="project-card large" data-type="sunum">
+            <div class="cover cover-one"><span>01</span><strong>Strateji<br />Sunumu</strong></div>
+            <div class="project-info"><div><p>Etkileşimli sunum</p><h3>EMG/NCS artefaktları</h3></div><a href="projects/ncs-emg/animations/index.html" aria-label="EMG/NCS artefaktları sunumunu aç">↗</a></div>
+          </article>
+          <article class="project-card" data-type="animasyon">
+            <div class="cover cover-two"><span class="play">▶</span></div>
+            <div class="project-info"><div><p>Animasyon</p><h3>Kuantal deplesyon</h3></div><a href="projects/ach-animation/nmj-deplesyon.html" aria-label="Kuantal deplesyon animasyonunu aç">↗</a></div>
+          </article>
+          <article class="project-card" data-type="sunum">
+            <div class="cover cover-three"><span>FİKİRDEN<br />ETKİYE</span></div>
+            <div class="project-info"><div><p>Etkileşimli sunum</p><h3>GBS ve AIDP</h3></div><a href="projects/gbs-aidp/index.html" aria-label="GBS ve AIDP sunumunu aç">↗</a></div>
+          </article>
+          <article class="project-card wide" data-type="animasyon">
+            <div class="cover cover-four"><span class="play">▶</span><strong>Motion<br />Study</strong></div>
+            <div class="project-info"><div><p>Animasyon</p><h3>Nöromüsküler bileşke deplesyonu</h3></div><a href="projects/ach-animation/nmj-deplesyon.html" aria-label="Nöromüsküler bileşke deplesyonu animasyonunu aç">↗</a></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="hakkimda" class="about section">
+        <p class="eyebrow">HAKKIMDA</p>
+        <div><h2>Merhaba, ben <em>Uğur</em>.</h2><p>Nöroloji eğitimi için karmaşık konuları daha anlaşılır ve akılda kalıcı etkileşimli sunumlar ile animasyonlara dönüştürüyorum.</p></div>
+      </section>
+
+      <section id="iletisim" class="contact section">
+        <p class="eyebrow">BİRLİKTE ÇALIŞALIM</p>
+        <h2>Bir fikrin mi var?<br /><a href="mailto:hello@example.com">Konuşalım. ↗</a></h2>
+      </section>
+    </main>
+
+    <footer><span>© 2026 Uğur</span><span>İstanbul, Türkiye</span></footer>
+    <script src="script.js"></script>
+  </body>
+</html>

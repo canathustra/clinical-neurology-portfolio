@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Doğrusal Olmayan Segmentlerde Obstetrik Kaliper</title>
+<style>
+:root{
+  --bg:#eef2f5;--paper:#fff;--ink:#14232d;--muted:#61707b;--line:#d4dde4;
+  --teal:#087f8c;--green:#2f8758;--amber:#d88b28;--red:#be3f4b;--blue:#3575bd;
+  --navy:#071922;--grid:#16333f;--trace:#57dce0;--nerve:#f2bd42;--steel:#c8d2d8;
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0}
+body{display:grid;place-items:center;padding:12px;background:#ccd5dc;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+button,input{font:inherit}
+.app{width:min(calc(100vw - 24px),1536px);max-height:calc(100vh - 24px);aspect-ratio:16/9;display:grid;grid-template-rows:44px 54px 1fr 82px 56px;overflow:hidden;background:#fff;border:1px solid #c8d1d8;border-radius:7px;box-shadow:0 22px 60px #22323c38}
+.titlebar,.topicbar,.controls,.bottom-bar{display:flex;align-items:center}
+.titlebar{justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);font-size:15px;font-weight:650}.titlebar .left{display:flex;align-items:center;gap:10px}.status-dot{width:10px;height:10px;border-radius:50%;background:#2e9462;box-shadow:0 0 7px #2e946277}.brand{font-weight:900;letter-spacing:.16em;color:#76838d}.brand b{color:var(--teal)}
+.topicbar{justify-content:space-between;gap:18px;padding:0 18px;background:#edf2f6;border-bottom:1px solid var(--line)}
+.topic{display:flex;align-items:baseline;gap:12px;min-width:0}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.08em;color:#687681;text-transform:uppercase}.topic h1{margin:0;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lab-badge{padding:6px 10px;border:1px solid #9ec5cd;background:#f3fbfc;color:#08717b;font-size:11px;font-weight:900;letter-spacing:.06em}
+.workspace{min-height:0;display:grid;grid-template-columns:.9fr 1.15fr .95fr;gap:10px;padding:10px;background:var(--bg)}
+.card{min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line)}
+.card-head{height:43px;flex:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 13px;background:#f4f7f9;border-bottom:1px solid var(--line);font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#50616d}.step{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;color:#fff;background:var(--teal);font-size:12px}.head-title{flex:1;text-align:center}
+
+.source-body{position:relative;flex:1;min-height:0;background:#fafcfd;padding:10px;display:grid;place-items:center}
+.source-body img{width:100%;height:100%;object-fit:cover;display:block;border:1px solid #ccd5db}
+.source-overlay{position:absolute;left:18px;right:18px;bottom:18px;display:flex;align-items:flex-end;justify-content:space-between;gap:10px}.source-label{max-width:70%;padding:7px 9px;background:#0c1d26e8;color:#fff;font-size:12px;font-weight:900;line-height:1.25}.source-ref{padding:6px 8px;background:#fff;color:#52616d;border:1px solid #bfcbd3;font-size:10px;font-weight:900}
+.source-caption{min-height:56px;padding:8px 11px;border-top:1px solid var(--line);font-size:11.5px;line-height:1.38;color:#53626d}.source-caption b{color:var(--ink)}
+
+.geometry{position:relative;flex:1;min-height:0;background:linear-gradient(#fff,#f7f9fa)}
+#geometrySvg{display:block;width:100%;height:100%}
+.body-silhouette{fill:#edc8aa;stroke:#c98e6f;stroke-width:2}.body-highlight{fill:none;stroke:#f7dec9;stroke-width:18;stroke-linecap:round;opacity:.8}.bone{fill:#efe7db;stroke:#c9b9a4;stroke-width:2}.nerve{fill:none;stroke:var(--nerve);stroke-width:6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 1px #6b470c88)}.nerve-back{fill:none;stroke:#c79828;stroke-width:5;stroke-dasharray:6 5;opacity:.72}.marker{fill:#bf3d49;stroke:#fff;stroke-width:3}.marker-text{fill:#344650;font-size:12px;font-weight:900}.tape{fill:none;stroke:var(--green);stroke-width:5;stroke-linecap:round}.tape-tick{stroke:#eaffef;stroke-width:1.2}.caliper-arm{stroke:url(#steelGradient);stroke-width:12;stroke-linecap:round;filter:drop-shadow(0 2px 2px #33444d55)}.caliper-tip{fill:#eef3f5;stroke:#738690;stroke-width:2}.caliper-joint{fill:#dfe7eb;stroke:#687b85;stroke-width:3}.caliper-scale{fill:none;stroke:#8ea0aa;stroke-width:5}.caliper-tick{stroke:#526873;stroke-width:1.5}.measure-label{fill:#152b35;font-size:15px;font-weight:900}.small-label{fill:#566873;font-size:11px;font-weight:800}.pulse{fill:#fff;stroke:var(--nerve);stroke-width:4}
+.geometry-note{position:absolute;left:10px;right:10px;bottom:8px;padding:7px 9px;border-left:4px solid var(--teal);background:#ffffffed;color:#42545f;font-size:11.5px;line-height:1.35}.geometry-note b{color:var(--ink)}
+
+.right-body{flex:1;min-height:0;display:grid;grid-template-rows:1fr auto auto auto;background:#fff}
+.screen{position:relative;margin:10px 10px 7px;min-height:0;background:var(--navy);border:1px solid #263d48;border-radius:4px;overflow:hidden;box-shadow:inset 0 0 22px #0008}.screen:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 22px;opacity:.74}
+.screen-title{position:absolute;z-index:2;left:11px;right:11px;top:8px;display:flex;justify-content:space-between;color:#a9c5ce;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.screen svg{position:absolute;inset:25px 7px 7px;width:calc(100% - 14px);height:calc(100% - 32px)}.trace{fill:none;stroke:var(--trace);stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.cursor{stroke:#f3ce56;stroke-width:1.5;stroke-dasharray:4 3}.trace-label{fill:#b8d0d7;font-size:11px;font-weight:800}.lat-label{fill:#f3ce56;font-size:11px;font-weight:900}
+.formula{margin:0 10px 7px;padding:8px 10px;border:1px solid #cbd5dc;background:#f4f7f9;text-align:center;font-family:Consolas,"Courier New",monospace;font-size:15px;font-weight:800;color:#263b48}.formula .distance{color:var(--green)}.formula .fixed{color:#8a5b13}.formula .result{color:var(--red)}
+.readout{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 10px 7px}.metric{padding:7px 9px;background:#f4f7f9;border:1px solid #d8e0e6}.metric span{display:block;margin-bottom:2px;color:#6b7983;font-size:9.5px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}.metric b{font-size:15px;font-variant-numeric:tabular-nums}.metric.wide{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px}.metric.wide span{margin:0}.verdict{font-size:12px!important;color:var(--red)}.verdict.mid{color:var(--amber)}.verdict.ok{color:var(--green)}
+.evidence{margin:0 10px 10px;padding:7px 9px;border-left:4px solid var(--amber);background:#fff7e9;color:#594b37;font-size:10.5px;line-height:1.32}.evidence b{color:#392f22}
+
+.controls{gap:13px;padding:0 18px;border-top:1px solid var(--line);background:#f7f9fa}.control-label{min-width:154px}.control-label small{display:block;color:#687681;font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}.control-label b{font-size:15px}input[type=range]{flex:1;min-width:130px;accent-color:var(--teal)}
+.method-read{min-width:118px;text-align:right;font-size:15px;font-weight:900;color:var(--teal)}.preset{height:36px;padding:0 11px;border:1px solid #bfcbd3;background:#fff;color:#304550;font:800 11px "Segoe UI";cursor:pointer}.preset:hover,.preset.active{border-color:var(--teal);background:#e9f7f8;color:#066c76}.play{min-width:94px}
+.case-group{display:flex;gap:5px;padding-left:12px;border-left:1px solid #cdd6dc}
+.bottom-bar{align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line)}.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:#e7edf3;color:var(--ink);text-decoration:none;font-size:13px;font-weight:800}.fkey span{color:var(--teal);font-size:15px}.fkey:hover,.fkey:focus-visible{background:#dce8f0;outline:none}
+@media(max-width:1050px){body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:auto auto auto auto 56px}.workspace{grid-template-columns:1fr}.card{min-height:420px}.controls{min-height:112px;flex-wrap:wrap}.case-group{border:0;padding:0}.topicbar .lab-badge{display:none}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="titlebar">
+    <div class="left"><span class="status-dot"></span><span>EDX Öğrenim İstasyonu — Bölüm 8</span></div>
+    <div class="brand"><b>EDX</b>&nbsp; SİM</div>
+  </header>
+  <section class="topicbar">
+    <div class="topic"><span class="eyebrow">Mesafe ölçümü</span><h1>Doğrusal olmayan proksimal segmentte ölçüm aracı sonucu değiştirir</h1></div>
+    <div class="lab-badge">SERBEST LABORATUVAR</div>
+  </section>
+
+  <section class="workspace">
+    <article class="card">
+      <div class="card-head"><span class="step">1</span><span class="head-title">Gerçek klinik segment</span><span id="sourceFigureNo">Erb–aksilla segmenti</span></div>
+      <div class="source-body">
+        <img id="sourceImage" src="../figures/source-v3/fig_10_17a_erb_proximal_clean.png" alt="Üst ekstremite proksimal uyarım çalışması">
+        <div class="source-overlay">
+          <div id="sourceLabel" class="source-label">Erb noktası–aksilla: omuz konturu üzerindeki proksimal segment</div>
+          <div class="source-ref">Preston &amp; Shapiro</div>
+        </div>
+      </div>
+      <div id="sourceCaption" class="source-caption"><b>Kitap bağlantısı:</b> Median ve ulnar sinirlerin aksilla–Erb noktası arasındaki yüzey mesafesi çoğu kez gerçek sinir uzunluğunu doğru yansıtmaz.</div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="step">2</span><span class="head-title">Ölçüm geometrisi</span><span id="toolBadge">Yüzey mezurası</span></div>
+      <div class="geometry">
+        <svg id="geometrySvg" viewBox="0 0 480 380" role="img" aria-label="Yüzey mezurası ve obstetrik kaliper ile proksimal sinir segmenti ölçümü">
+          <defs>
+            <linearGradient id="steelGradient" x1="0" x2="1"><stop offset="0" stop-color="#73858e"/><stop offset=".28" stop-color="#e7eef1"/><stop offset=".52" stop-color="#9cabb2"/><stop offset=".78" stop-color="#f5f8f9"/><stop offset="1" stop-color="#71838c"/></linearGradient>
+          </defs>
+          <g id="erbScene">
+            <path class="body-silhouette" d="M84 71 C157 46 246 56 332 93 C401 123 443 183 441 243 C439 300 398 332 341 333 C293 334 265 313 237 296 C195 270 147 272 102 252 C55 232 36 193 43 147 C49 112 62 84 84 71Z"/>
+            <path class="body-highlight" d="M82 93 C177 67 294 84 378 145"/>
+            <path class="bone" d="M185 126 C215 111 255 119 273 145 C286 165 286 194 273 214 C257 239 222 251 194 239 C165 227 148 197 151 167 C153 148 165 133 185 126Z"/>
+            <path id="erbNerve" class="nerve" d="M103 100 C150 113 175 138 202 164 C234 195 264 218 319 238 C345 247 365 256 386 277"/>
+            <path id="erbTape" class="tape" d="M103 100 C173 65 263 79 327 124 C377 158 402 214 386 277"/>
+            <circle class="marker" cx="103" cy="100" r="8"/><circle class="marker" cx="386" cy="277" r="8"/>
+            <text class="marker-text" x="54" y="84">Erb noktası</text><text class="marker-text" x="390" y="299">Aksilla</text>
+          </g>
+          <g id="radialScene" style="display:none">
+            <path class="body-silhouette" d="M133 44 C187 26 287 28 346 51 C382 65 400 96 398 128 L386 309 C383 345 357 363 321 361 L173 354 C136 352 110 332 108 295 L98 112 C96 79 107 53 133 44Z"/>
+            <path class="body-highlight" d="M133 67 C190 50 292 52 354 75"/>
+            <rect class="bone" x="210" y="68" width="74" height="264" rx="35"/>
+            <path class="nerve-back" d="M150 95 C303 127 326 195 195 223"/>
+            <path id="radialNerve" class="nerve" d="M150 95 C65 134 76 216 195 223 C326 232 355 286 330 323"/>
+            <path id="radialTape" class="tape" d="M150 95 C91 112 78 174 105 222 C139 281 221 307 330 323"/>
+            <circle class="marker" cx="150" cy="95" r="8"/><circle class="marker" cx="330" cy="323" r="8"/>
+            <text class="marker-text" x="71" y="80">Spiral oluk üstü</text><text class="marker-text" x="334" y="345">Dirsek</text>
+          </g>
+
+          <g id="caliperGroup" opacity="0">
+            <line id="caliperLeftArm" class="caliper-arm" x1="240" y1="74" x2="103" y2="100"/>
+            <line id="caliperRightArm" class="caliper-arm" x1="240" y1="74" x2="386" y2="277"/>
+            <circle class="caliper-joint" cx="240" cy="74" r="17"/>
+            <path class="caliper-scale" d="M188 116 A70 70 0 0 1 297 121"/>
+            <line class="caliper-tick" x1="207" y1="110" x2="211" y2="123"/><line class="caliper-tick" x1="224" y1="105" x2="226" y2="119"/><line class="caliper-tick" x1="242" y1="103" x2="242" y2="117"/><line class="caliper-tick" x1="260" y1="105" x2="258" y2="119"/><line class="caliper-tick" x1="278" y1="111" x2="274" y2="124"/>
+            <circle id="caliperTipA" class="caliper-tip" cx="103" cy="100" r="9"/><circle id="caliperTipB" class="caliper-tip" cx="386" cy="277" r="9"/>
+          </g>
+          <g id="measureText">
+            <text id="measurementLabel" class="measure-label" x="240" y="32" text-anchor="middle">Yüzey ölçümü: 28.0 cm</text>
+            <text id="methodExplanation" class="small-label" x="240" y="363" text-anchor="middle">Mezura omuz konturunu izliyor</text>
+          </g>
+          <circle id="pulseDot" class="pulse" r="5"/>
+        </svg>
+        <div id="geometryNote" class="geometry-note"><b>Temel fark:</b> Mezura cilt konturunu izler; kaliper iki anatomik noktayı üç boyutlu uzayda birleştirir.</div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="step">3</span><span class="head-title">Aynı latans farkı, yeni mesafe</span><span>Δt sabit</span></div>
+      <div class="right-body">
+        <div class="screen">
+          <div class="screen-title"><span id="traceTitle">Ulnar motor · ADM · bifid BKAP</span><span>5 ms/div · 5 mV/div</span></div>
+          <svg viewBox="0 0 360 210" preserveAspectRatio="none" aria-label="Sinire özgü morfolojide, sabit latans farkını gösteren iki motor BKAP izi">
+            <text id="distalTraceLabel" class="trace-label" x="8" y="33">Aksilla uyarımı</text>
+            <path id="distalTrace" class="trace" d="M76 36 L79 36 L80 32 L81 41 L82 36 L95.4 36 L99.6 36 L103.8 36 L108 36 L112.2 36 L116.4 36 L120.6 35.2 L124.8 29.3 L129 22.6 L133.2 20.2 L137.4 18.8 L141.6 16.5 L145.8 12.1 L150 8.6 L154.2 9.9 L158.4 19.2 L162.6 26.7 L166.8 31.5 L171 35.8 L175.2 43.4 L179.4 49.3 L183.6 50.5 L187.8 47.3 L192 45.4 L196.2 44.6 L200.4 44.6 L204.6 46.9 L208.8 51.2 L213 56.7 L217.2 60.6 L221.4 60.6 L225.6 57.1 L229.8 52.4 L234 48.1 L238.2 43.8 L242.4 40.7 L246.6 39.1 L250.8 38.7 L301.2 38.7"/>
+            <text id="proximalTraceLabel" class="trace-label" x="8" y="125">Erb noktası uyarımı</text>
+            <path id="proximalTrace" class="trace" d="M76 128 L79 128 L80 124 L81 133 L82 128 L111 128 L115.3 128 L119.6 128 L123.9 128 L128.1 128 L132.4 128 L136.7 127.2 L141 121.7 L145.3 115.4 L149.6 113.1 L153.8 111.8 L158.1 109.7 L162.4 105.5 L166.7 102.3 L171 103.4 L175.3 112.2 L179.6 119.2 L183.8 123.8 L188.1 127.8 L192.4 135 L196.7 140.5 L201 141.6 L205.3 138.6 L209.5 136.8 L213.8 136.1 L218.1 136.1 L222.4 138.3 L226.7 142.3 L231 147.5 L235.2 151.1 L239.5 151.1 L243.8 147.8 L248.1 143.4 L252.4 139.4 L256.7 135.3 L260.9 132.4 L265.2 130.9 L269.5 130.6 L320.9 130.6"/>
+            <line class="cursor" x1="116" y1="9" x2="116" y2="185"/><line class="cursor" x1="132" y1="9" x2="132" y2="185"/>
+            <path class="cursor" d="M116 192 H132"/><text class="lat-label" x="139" y="207">Δt = 4,00 ms</text>
+          </svg>
+        </div>
+        <div class="formula"><span id="formulaDistance" class="distance">0.280 m</span> ÷ <span class="fixed">0.00400 s</span> = <span id="formulaCv" class="result">70.0 m/s</span></div>
+        <div class="readout">
+          <div class="metric"><span>Ölçülen mesafe</span><b id="distanceOut">28.0 cm</b></div>
+          <div class="metric"><span>Δ latans — sabit</span><b>4.00 ms</b></div>
+          <div class="metric"><span>Hesaplanan İH</span><b id="cvOut">70.0 m/s</b></div>
+          <div class="metric"><span>Modelde gerçek İH</span><b id="trueCvOut">62.5 m/s</b></div>
+          <div class="metric wide"><span>Teknik sonuç</span><b id="verdict" class="verdict">YALANCI HIZLI · +12%</b></div>
+        </div>
+        <div id="evidence" class="evidence"><b>Öğretim modeli:</b> Sayılar tanısal eşik değildir. Hatanın yönü ve büyüklüğü segment geometrisine bağlıdır.</div>
+      </div>
+    </article>
+  </section>
+
+  <section class="controls" aria-label="Ölçüm yöntemi kontrolü">
+    <div class="control-label"><small>Tek değişken: ölçüm yöntemi</small><b id="methodText">Yüzey mezurası</b></div>
+    <input id="methodSlider" type="range" min="0" max="100" step="1" value="0" aria-label="Yüzey mezurasından obstetrik kalipere geçiş">
+    <div id="methodRead" class="method-read">Mezura</div>
+    <button class="preset active" data-method="0">Yüzey</button>
+    <button class="preset" data-method="100">Kaliper</button>
+    <button id="playButton" class="preset play">▶ Karşılaştır</button>
+    <div class="case-group" aria-label="Klinik örnek">
+      <button class="preset case active" data-case="erb">Erb–aksilla</button>
+      <button class="preset case" data-case="radial">Radyal spiral</button>
+    </div>
+  </section>
+
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="diger-sinirler-caliper.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="../ekstremite-morfoloji/konu-girisi.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const cases={
+  erb:{
+    surface:28.0,caliper:25.0,trueDistance:25.0,deltaMs:4.00,
+    figure:"../figures/source-v3/fig_10_17a_erb_proximal_clean.png",
+    figureNo:"Erb–aksilla segmenti",
+    label:"Erb noktası–aksilla: omuz konturu üzerindeki proksimal segment",
+    caption:"<b>Kitap kuralı:</b> Aksilla–Erb yüzey mesafesi gerçek sinir uzunluğunu güvenilir biçimde yansıtmaz.",
+    evidence:"<b>Kitap sonucu:</b> Obstetrik kaliper, yüzey mezurasına göre gerçek sinir uzunluğunu daha doğru yaklaştırır."
+  },
+  radial:{
+    surface:28.0,caliper:24.8,trueDistance:24.0,deltaMs:4.00,
+    figure:"../figures/source-v3/fig_10_13d_radial_above_spiral_clean.png",
+    figureNo:"Radyal sinir–spiral oluk",
+    label:"Radyal sinir: humerus çevresinde spiral oluk segmenti",
+    caption:"<b>Kitap kuralı:</b> Humerus çevresinde spiralleşen radyal sinirde yüzey mesafesi güvenilir değildir.",
+    evidence:"<b>Kitap sonucu:</b> Spiral oluk altı–üstü gibi eğrisel segmentlerde mesafeyi kaliperle yaklaşıkla."
+  }
+};
+const traceModels={
+  erb:{
+    title:"Ulnar motor · ADM · bifid BKAP",distalLabel:"Aksilla uyarımı",proximalLabel:"Erb noktası uyarımı",
+    distal:"M76 36 L79 36 L80 32 L81 41 L82 36 L95.4 36 L99.6 36 L103.8 36 L108 36 L112.2 36 L116.4 36 L120.6 35.2 L124.8 29.3 L129 22.6 L133.2 20.2 L137.4 18.8 L141.6 16.5 L145.8 12.1 L150 8.6 L154.2 9.9 L158.4 19.2 L162.6 26.7 L166.8 31.5 L171 35.8 L175.2 43.4 L179.4 49.3 L183.6 50.5 L187.8 47.3 L192 45.4 L196.2 44.6 L200.4 44.6 L204.6 46.9 L208.8 51.2 L213 56.7 L217.2 60.6 L221.4 60.6 L225.6 57.1 L229.8 52.4 L234 48.1 L238.2 43.8 L242.4 40.7 L246.6 39.1 L250.8 38.7 L301.2 38.7",
+    proximal:"M76 128 L79 128 L80 124 L81 133 L82 128 L111 128 L115.3 128 L119.6 128 L123.9 128 L128.1 128 L132.4 128 L136.7 127.2 L141 121.7 L145.3 115.4 L149.6 113.1 L153.8 111.8 L158.1 109.7 L162.4 105.5 L166.7 102.3 L171 103.4 L175.3 112.2 L179.6 119.2 L183.8 123.8 L188.1 127.8 L192.4 135 L196.7 140.5 L201 141.6 L205.3 138.6 L209.5 136.8 L213.8 136.1 L218.1 136.1 L222.4 138.3 L226.7 142.3 L231 147.5 L235.2 151.1 L239.5 151.1 L243.8 147.8 L248.1 143.4 L252.4 139.4 L256.7 135.3 L260.9 132.4 L265.2 130.9 L269.5 130.6 L320.9 130.6"
+  },
+  radial:{
+    title:"Radyal motor · EIP",distalLabel:"Spiral oluk altı",proximalLabel:"Spiral oluk üstü",
+    distal:"M76 36 L79 36 L80 32 L81 41 L82 36 L116 36 C120 36 121 31 123 22 C126 9 131 6 135 14 C139 24 141 50 147 57 C153 64 158 43 163 31 C168 26 174 34 181 37 C187 39 194 36 200 36 L332 36",
+    proximal:"M76 128 L79 128 L80 124 L81 133 L82 128 L132 128 C136 128 138 123 140 115 C143 103 148 100 152 107 C157 117 159 141 165 148 C171 155 177 136 182 125 C187 120 193 127 200 130 C207 132 214 128 221 128 L332 128"
+  }
+};
+const slider=document.getElementById("methodSlider"),methodText=document.getElementById("methodText"),methodRead=document.getElementById("methodRead"),toolBadge=document.getElementById("toolBadge");
+const sourceImage=document.getElementById("sourceImage"),sourceFigureNo=document.getElementById("sourceFigureNo"),sourceLabel=document.getElementById("sourceLabel"),sourceCaption=document.getElementById("sourceCaption");
+const erbScene=document.getElementById("erbScene"),radialScene=document.getElementById("radialScene"),caliperGroup=document.getElementById("caliperGroup");
+const caliperLeftArm=document.getElementById("caliperLeftArm"),caliperRightArm=document.getElementById("caliperRightArm"),caliperTipA=document.getElementById("caliperTipA"),caliperTipB=document.getElementById("caliperTipB");
+const measurementLabel=document.getElementById("measurementLabel"),methodExplanation=document.getElementById("methodExplanation"),geometryNote=document.getElementById("geometryNote"),pulseDot=document.getElementById("pulseDot");
+const formulaDistance=document.getElementById("formulaDistance"),formulaCv=document.getElementById("formulaCv"),distanceOut=document.getElementById("distanceOut"),cvOut=document.getElementById("cvOut"),trueCvOut=document.getElementById("trueCvOut"),verdict=document.getElementById("verdict"),evidence=document.getElementById("evidence"),playButton=document.getElementById("playButton");
+const traceTitle=document.getElementById("traceTitle"),distalTraceLabel=document.getElementById("distalTraceLabel"),proximalTraceLabel=document.getElementById("proximalTraceLabel"),distalTrace=document.getElementById("distalTrace"),proximalTrace=document.getElementById("proximalTrace");
+let currentCase="erb",method=0,playing=false,raf=0,pulsePhase=0;
+
+function polylinePoint(points,t){
+  const lens=[];let total=0;
+  for(let i=1;i<points.length;i++){const d=Math.hypot(points[i].x-points[i-1].x,points[i].y-points[i-1].y);lens.push(d);total+=d}
+  let target=t*total;
+  for(let i=0;i<lens.length;i++){if(target<=lens[i]){const q=target/lens[i];return{x:points[i].x+(points[i+1].x-points[i].x)*q,y:points[i].y+(points[i+1].y-points[i].y)*q}}target-=lens[i]}
+  return points[points.length-1];
+}
+const paths={
+  erb:[{x:103,y:100},{x:150,y:113},{x:202,y:164},{x:264,y:218},{x:319,y:238},{x:386,y:277}],
+  radial:[{x:150,y:95},{x:93,y:126},{x:79,y:180},{x:107,y:218},{x:195,y:223},{x:292,y:251},{x:330,y:323}]
+};
+function setCaliper(caseName){
+  const pts=caseName==="erb"?[{x:103,y:100},{x:386,y:277}]:[{x:150,y:95},{x:330,y:323}];
+  const pivot=caseName==="erb"?{x:240,y:74}:{x:239,y:69};
+  caliperLeftArm.setAttribute("x1",pivot.x);caliperLeftArm.setAttribute("y1",pivot.y);caliperLeftArm.setAttribute("x2",pts[0].x);caliperLeftArm.setAttribute("y2",pts[0].y);
+  caliperRightArm.setAttribute("x1",pivot.x);caliperRightArm.setAttribute("y1",pivot.y);caliperRightArm.setAttribute("x2",pts[1].x);caliperRightArm.setAttribute("y2",pts[1].y);
+  caliperTipA.setAttribute("cx",pts[0].x);caliperTipA.setAttribute("cy",pts[0].y);caliperTipB.setAttribute("cx",pts[1].x);caliperTipB.setAttribute("cy",pts[1].y);
+}
+function update(){
+  const c=cases[currentCase],blend=method/100;
+  const measured=c.surface+(c.caliper-c.surface)*blend;
+  const cv=measured*10/c.deltaMs,trueCv=c.trueDistance*10/c.deltaMs,error=(cv/trueCv-1)*100;
+  slider.value=method;
+  methodText.textContent=blend<.05?"Yüzey mezurası":blend>.95?"Obstetrik kaliper":"Ölçüm yöntemi değişiyor";
+  methodRead.textContent=blend<.5?"Mezura":"Kaliper";toolBadge.textContent=methodRead.textContent;
+  caliperGroup.setAttribute("opacity",String(Math.max(0,(blend-.12)/.88)));
+  const tapeOpacity=Math.max(.12,1-blend*.88);
+  document.getElementById(currentCase==="erb"?"erbTape":"radialTape").style.opacity=tapeOpacity;
+  measurementLabel.textContent=`${blend<.5?"Yüzey":"Kaliper"} ölçümü: ${measured.toFixed(1)} cm`;
+  methodExplanation.textContent=blend<.5?"Mezura cilt konturunu izliyor":"Kaliper iki anatomik noktayı üç boyutlu uzayda birleştiriyor";
+  formulaDistance.textContent=`${(measured/100).toFixed(3)} m`;formulaCv.textContent=`${cv.toFixed(1)} m/s`;distanceOut.textContent=`${measured.toFixed(1)} cm`;cvOut.textContent=`${cv.toFixed(1)} m/s`;trueCvOut.textContent=`${trueCv.toFixed(1)} m/s`;
+  const close=Math.abs(error)<2,mid=Math.abs(error)<6;
+  verdict.textContent=close?`GERÇEĞE YAKIN · ${error>=0?"+":""}${Math.round(error)}%`:mid?`HATA AZALDI · ${error>=0?"+":""}${Math.round(error)}%`:`YALANCI ${error>0?"HIZLI":"YAVAŞ"} · ${error>=0?"+":""}${Math.round(error)}%`;
+  verdict.className=close?"verdict ok":mid?"verdict mid":"verdict";formulaCv.style.color=close?"var(--green)":mid?"var(--amber)":"var(--red)";
+  document.querySelectorAll(".preset[data-method]").forEach(b=>b.classList.toggle("active",Math.abs(Number(b.dataset.method)-method)<3));
+  window.__caliperMeasurementState={case:currentCase,methodPercent:method,measuredDistanceCm:measured,trueDistanceCm:c.trueDistance,deltaLatencyMs:c.deltaMs,calculatedCvMps:cv,trueCvMps:trueCv,percentError:error,playing,traceMorphology:currentCase==="erb"?"ulnar_adm_bifid":"radial_eip",traceProvenance:currentCase==="erb"?"digitized_from_book_fig_8_24_panel_B":"nerve_specific_teaching_model"};
+}
+function setCase(name){
+  currentCase=name;const c=cases[name],traceModel=traceModels[name];
+  erbScene.style.display=name==="erb"?"":"none";radialScene.style.display=name==="radial"?"":"none";setCaliper(name);
+  sourceImage.src=c.figure;sourceImage.alt=c.label;sourceFigureNo.textContent=c.figureNo;sourceLabel.textContent=c.label;sourceCaption.innerHTML=c.caption;evidence.innerHTML=c.evidence;
+  traceTitle.textContent=traceModel.title;distalTraceLabel.textContent=traceModel.distalLabel;proximalTraceLabel.textContent=traceModel.proximalLabel;distalTrace.setAttribute("d",traceModel.distal);proximalTrace.setAttribute("d",traceModel.proximal);
+  geometryNote.innerHTML=name==="erb"
+    ?"<b>Omuz konturu:</b> Yüzey mezurası yolu uzatır. Kaliper, Erb noktası ile aksilla arasındaki üç boyutlu uzaklığı yaklaşıklar."
+    :"<b>Spiral oluk:</b> Sinir humerus çevresinde yön değiştirir. Kaliper yüzey hatasını azaltır; gerçek anatomik uzunluğun kusursuz karşılığı değildir.";
+  document.querySelectorAll(".preset[data-case]").forEach(b=>b.classList.toggle("active",b.dataset.case===name));update();
+}
+slider.addEventListener("input",e=>{playing=false;cancelAnimationFrame(raf);playButton.textContent="▶ Karşılaştır";method=Number(e.target.value);update()});
+document.querySelectorAll(".preset[data-method]").forEach(b=>b.addEventListener("click",()=>{playing=false;cancelAnimationFrame(raf);playButton.textContent="▶ Karşılaştır";method=Number(b.dataset.method);update()}));
+document.querySelectorAll(".preset[data-case]").forEach(b=>b.addEventListener("click",()=>{playing=false;cancelAnimationFrame(raf);playButton.textContent="▶ Karşılaştır";setCase(b.dataset.case)}));
+playButton.addEventListener("click",()=>{
+  if(playing){playing=false;cancelAnimationFrame(raf);playButton.textContent="▶ Karşılaştır";update();return}
+  playing=true;playButton.textContent="■ Durdur";const start=performance.now(),from=method>95?0:method;
+  function tick(now){if(!playing)return;const p=Math.min(1,(now-start)/2000);method=from+(100-from)*(p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2);update();if(p<1)raf=requestAnimationFrame(tick);else{playing=false;method=100;playButton.textContent="↺ Tekrar";update()}}
+  raf=requestAnimationFrame(tick);
+});
+function pulse(){
+  pulsePhase=(pulsePhase+.0025)%1;const p=polylinePoint(paths[currentCase],pulsePhase);pulseDot.setAttribute("cx",p.x);pulseDot.setAttribute("cy",p.y);requestAnimationFrame(pulse);
+}
+const qs=new URLSearchParams(location.search);method=Number(qs.get("method")||0);setCase(qs.get("case")==="radial"?"radial":"erb");pulse();
+document.addEventListener("keydown",e=>{
+  if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;
+  const k=e.key.toUpperCase(),a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;
+  if(a){e.preventDefault();location.href=a.href}
+});
+</script>
+</body>
+</html>

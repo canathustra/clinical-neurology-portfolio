@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Elektrotu ara: en büyük SNAP sinirin yerini doğrular</title>
+<style>
+:root{--bg:#eef1f4;--paper:#fff;--head:#e7edf3;--line:#d5dde4;--ink:#16232c;--muted:#596a75;--cyan:#0f7a95;--blue:#6bbcff;--green:#5de1a0;--amber:#ffd05b;--red:#ff7280;--scope:#03110c;--grid:#12392b}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{display:grid;place-items:center;padding:14px;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,Arial,sans-serif}
+button,input{font:inherit}.app{width:min(calc(100vw - 28px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);display:grid;grid-template-rows:50px 38px minmax(0,1fr) 106px 56px;overflow:hidden;background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25)}
+.titlebar,.topicbar{display:flex;align-items:center;justify-content:space-between;gap:14px}.titlebar{padding:0 18px;background:linear-gradient(180deg,#fff,#eef1f4);border-bottom:1px solid var(--line)}
+.title-left{min-width:0;display:flex;align-items:center;gap:10px}.dot{width:10px;height:10px;border-radius:50%;background:#2f7d52;box-shadow:0 0 6px rgba(47,125,82,.5)}h1{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:18px;font-weight:800}.lab-badge{flex:none;padding:7px 11px;border:1px solid #9bb9c6;background:#f7fbfc;color:#14576c;font:800 11px/1 Consolas,monospace;letter-spacing:.05em}
+.topicbar{padding:0 18px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px}.topicbar b{color:#0d6d87}.topicbar .fixed{color:var(--muted)}
+.workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:12px;padding:12px}.scope{position:relative;min-width:0;min-height:0;overflow:hidden;background:var(--scope);border:1px solid #19382e}.scope canvas{width:100%;height:100%;display:block}.mode-badge{position:absolute;right:12px;bottom:10px;padding:6px 9px;border:1px solid #bd9b25;background:rgba(36,30,0,.93);color:#ffe38a;font:800 10px/1 Consolas,monospace;letter-spacing:.03em}
+.side{min-width:0;min-height:0;display:grid;grid-template-rows:34px 258px minmax(0,1fr);overflow:hidden;background:#fff;border:1px solid var(--line)}.side-head{display:flex;align-items:center;padding:0 12px;background:var(--head);border-bottom:1px solid var(--line);font-size:12px;font-weight:850;letter-spacing:.05em;text-transform:uppercase;color:#475762}
+.book{min-height:0;display:grid;place-items:center;overflow:hidden;padding:7px 9px;border-bottom:1px solid var(--line);background:#fff}.book img{display:block;width:auto;height:230px;max-width:100%;object-fit:contain}.readout{min-height:0;display:grid;align-content:start;gap:5px;padding:7px 10px;background:#fff}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:5px}.metric{min-height:42px;padding:5px 7px;border:1px solid #cbd6de;background:#f8fafb}.metric span{display:block;margin-bottom:2px;color:#53626d;font-size:8.5px;font-weight:850;text-transform:uppercase}.metric strong{font-size:13.5px;font-variant-numeric:tabular-nums}
+.verdict{padding:5px 7px;border-left:4px solid #2f7d52;background:#edf7f1}.verdict.warn{border-color:#c97a2a;background:#fff7e9}.verdict.bad{border-color:#b43b47;background:#fff0f2}.verdict span{display:block;margin-bottom:2px;color:#53626d;font-size:8.5px;font-weight:850;text-transform:uppercase}.verdict strong{font-size:11.2px;line-height:1.2}.logic,.source-note{margin:0;color:#43525e;font-size:9.15px;line-height:1.22}.logic b{color:#006b85}.source-note{padding-top:4px;border-top:1px solid var(--line)}.source-note a{color:#0f7a95;text-decoration:none}
+.controls{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:12px;align-items:stretch;padding:10px 18px;background:#fff;border-top:1px solid var(--line)}.control{display:grid;grid-template-rows:auto 1fr auto;gap:7px;padding:0 10px;border:1px solid #cbd6de;background:#f8fafb}.control label{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:8px;color:#34444f;font-size:12px;font-weight:800}.control output{color:#006b85;font-size:14px;font-variant-numeric:tabular-nums}.control input{width:100%;accent-color:#177b96}.marks{display:flex;justify-content:space-between;padding-bottom:7px;color:#5e6d78;font-size:9px}.scan{border:0;background:#174c5b;color:#fff;font:800 12px/1.25 "Segoe UI",Arial,sans-serif;cursor:pointer}.scan:hover,.scan:focus-visible{background:#0f6177;outline:2px solid #79b9cc;outline-offset:2px}
+.bottom-bar{height:56px;display:flex;align-items:stretch;gap:1px;background:#d5dde4;border-top:1px solid #d5dde4}.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:#e7edf3;color:#16232c;text-decoration:none;font:800 13px/1 "Segoe UI",Arial,sans-serif}.fkey span{color:#0f7a95;font-size:15px}.fkey:hover,.fkey:focus-visible{background:#dce8f0;outline:none}
+@media(max-width:1000px){body{padding:0}.app{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:48px 34px minmax(0,1fr) 130px 52px}.workspace{grid-template-columns:1fr;padding:8px}.side{display:none}.controls{grid-template-columns:minmax(0,1fr) 150px;padding:8px}.titlebar{padding:0 10px}h1{font-size:15px}.topicbar{padding:0 10px}.fixed{display:none}}
+</style>
+</head>
+<body>
+<main class="app" aria-labelledby="lab-title">
+  <div class="titlebar"><div class="title-left"><span class="dot"></span><h1 id="lab-title">Elektrotu ara: en büyük SNAP sinirin yerini doğrular</h1></div><div class="lab-badge">SERBEST LABORATUVAR</div></div>
+  <div class="topicbar"><div><b>Şekil 8.29</b> · Median mikst sinir, kayıt antekübital fossadan</div><div class="fixed">Sabit: stimulus · akım · G1–G2 aralığı · mesafe · ekran ayarları</div></div>
+  <section class="workspace">
+    <div class="scope"><canvas id="scopeCanvas" aria-label="G1 ve G2 elektrot çiftinin medialden laterale kaydırılarak maksimal SNAP yanıtının arandığı interaktif NCS laboratuvarı"></canvas><div class="mode-badge" id="modeBadge"></div></div>
+    <aside class="side">
+      <div class="side-head">Kitaptaki gerçek kayıt · Şekil 8.29</div>
+      <div class="book"><img id="bookFigure" src="../figures/source-v3/fig_8_29_latency_clean.png" alt="Şekil 8.29: elektrotlar sinirden 1, 2 ve 3 cm laterale taşındıkça amplitüdün küçülmesi ve onsetin sola kayması"></div>
+      <div class="readout">
+        <div class="metrics">
+          <div class="metric"><span>Elektrot konumu</span><strong id="positionText"></strong></div>
+          <div class="metric"><span>SNAP amplitüdü</span><strong id="amplitudeText"></strong></div>
+          <div class="metric"><span>Onset değişimi</span><strong id="onsetText"></strong></div>
+          <div class="metric"><span>Bulunan en iyi kayıt</span><strong id="bestText"></strong></div>
+        </div>
+        <div class="verdict" id="verdictBox"><span>Teknik karar</span><strong id="verdictText"></strong></div>
+        <p class="logic" id="logicText"></p>
+        <p class="source-note"><b>Resident notu:</b> Amplitüd modeli Şekil 8.27’nin 38/31/12 µV kalibrasyonunu, onset yönü Şekil 8.29’u izler; sayılar normatif eşik değildir. <a href="https://pubmed.ncbi.nlm.nih.gov/9052817/" target="_blank" rel="noreferrer">Raynor ve ark., 1997</a></p>
+      </div>
+    </aside>
+  </section>
+  <section class="controls">
+    <div class="control"><label for="position"><span>G1–G2 çiftini birlikte medial–lateral kaydır</span><output id="positionOutput"></output></label><input id="position" type="range" min="-30" max="30" step="1" value="0"><div class="marks"><span>30 mm medial</span><span>Anatomik işaret · 0</span><span>30 mm lateral</span></div></div>
+    <button class="scan" id="scanButton" type="button">Medial → lateral ara</button>
+  </section>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="lateral-yerlesim.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="latans-hatasi.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const canvas=document.getElementById("scopeCanvas"),ctx=canvas.getContext("2d");
+const slider=document.getElementById("position"),positionOutput=document.getElementById("positionOutput"),scanButton=document.getElementById("scanButton");
+const positionText=document.getElementById("positionText"),amplitudeText=document.getElementById("amplitudeText"),onsetText=document.getElementById("onsetText"),bestText=document.getElementById("bestText");
+const verdictBox=document.getElementById("verdictBox"),verdictText=document.getElementById("verdictText"),logicText=document.getElementById("logicText"),modeBadge=document.getElementById("modeBadge");
+const trueNerveMm=7,initialPositionMm=0,baseOnsetMs=7.60,peakLatencyMs=8.40;
+let position=0,bestPosition=0,bestAmplitude=0,autoScan=false,scanStart=0,phase=0;
+const samples=new Map(),reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function gauss(x,m,s){return Math.exp(-.5*((x-m)/s)**2)}
+function fmt1(v){return v.toFixed(1).replace(".",",")}
+function signed(v,unit=" mm"){if(Math.abs(v)<.05)return `0${unit}`;return `${v>0?"+":""}${fmt1(v)}${unit}`}
+function amplitudeAt(pos){const d=Math.abs(pos-trueNerveMm);return Math.max(.8,38*Math.exp(-.003642*Math.pow(d,2.5)))}
+function onsetShiftAt(pos){return -Math.min(.54,.018*Math.abs(pos-trueNerveMm))}
+function sample(pos){
+  const amp=amplitudeAt(pos);samples.set(Math.round(pos),amp);
+  if(amp>bestAmplitude){bestAmplitude=amp;bestPosition=pos}
+  return amp;
+}
+function model(){
+  const distance=Math.abs(position-trueNerveMm),amplitude=sample(position),onsetShift=onsetShiftAt(position),onset=baseOnsetMs+onsetShift;
+  const state={
+    variable:"paired_recording_electrode_medial_lateral_position_mm",
+    electrodePositionMm:Number(position.toFixed(1)),trueNervePositionMm:trueNerveMm,anatomicLandmarkMm:0,
+    distanceFromNerveMm:Number(distance.toFixed(1)),stimulusSiteFixed:true,stimulusCurrentFixed:true,g1g2PairMovesTogether:true,
+    g1g2DistanceFixed:true,conductionDistanceFixed:true,displaySettingsFixed:true,
+    amplitudeUv:Number(amplitude.toFixed(1)),onsetLatencyMs:Number(onset.toFixed(2)),onsetShiftMs:Number(onsetShift.toFixed(2)),peakLatencyMs:peakLatencyMs,
+    bestPositionMm:Number(bestPosition.toFixed(1)),bestAmplitudeUv:Number(bestAmplitude.toFixed(1)),
+    interpretation:distance<=1?"maximal_response_nerve_localized":distance<=10?"near_nerve_continue_search":"off_nerve_low_amplitude_spuriously_early_onset",
+    teachingModel:true,normativeThreshold:false,sourceFigure:"Preston_Shapiro_Figure_8_29"
+  };
+  window.__electrodeSearchState=state;return state;
+}
+function resize(){const r=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);if(canvas.width!==Math.round(r.width*dpr)||canvas.height!==Math.round(r.height*dpr)){canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0)}return r}
+function text(s,x,y,color="#d9e9e3",size=11,align="left",weight=650){ctx.fillStyle=color;ctx.font=`${weight} ${size}px "Segoe UI",Arial,sans-serif`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.textAlign="left"}
+function line(x1,y1,x2,y2,color,width=1,dash=[]){ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.restore()}
+function grid(x,y,w,h){ctx.fillStyle="#03110c";ctx.fillRect(x,y,w,h);ctx.strokeStyle="#12392b";ctx.lineWidth=1;for(let i=0;i<=10;i++){const xx=x+w*i/10;line(xx,y,xx,y+h,"#12392b")}for(let i=0;i<=4;i++){const yy=y+h*i/4;line(x,yy,x+w,yy,"#12392b")}line(x,y+h/2,x+w,y+h/2,"#2b6450")}
+function noise(t){return .018*Math.sin(t*137+phase)+.011*Math.sin(t*277+1.2)+.007*Math.sin(t*451+.4)}
+function snap(t,amp,onsetNorm,peakNorm){
+  const width=.014+(.030*(1-amp/38));
+  return .13*(1.6*gauss(t,.050,.003)-gauss(t,.061,.008))+
+    amp/38*(.18*gauss(t,onsetNorm-.018,width*.55)-1.08*gauss(t,peakNorm,width)+.52*gauss(t,peakNorm+.046,width*1.35)-.12*gauss(t,peakNorm+.11,width*1.8));
+}
+function drawTrace(x,y,w,h,label,pos,color){
+  const amp=amplitudeAt(pos),shift=onsetShiftAt(pos),onset=baseOnsetMs+shift;
+  const onsetNorm=.31+(onset-baseOnsetMs)*.12,peakNorm=.405;
+  grid(x,y,w,h);text(label,x+9,y+16,"#a9c5ba",9,"left",800);
+  const pts=[];for(let i=0;i<=700;i++){const t=i/700,v=snap(t,amp,onsetNorm,peakNorm)+noise(t);pts.push([x+w*t,y+h/2-v*h*.34])}
+  ctx.strokeStyle=color;ctx.lineWidth=2;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.stroke();
+  const onsetX=x+w*onsetNorm,peakX=x+w*peakNorm;line(onsetX,y+18,onsetX,y+h-7,"#45d9df",1,[4,3]);line(peakX,y+18,peakX,y+h-7,"#ffd05b",1,[4,3]);
+  text(`onset ${fmt1(onset)} ms`,onsetX+4,y+h-8,"#5fe4e8",9,"left",800);text(`peak ${fmt1(peakLatencyMs)} ms`,peakX+4,y+28,"#ffd05b",9,"left",800);
+  const bracketX=x+w*.76,half=Math.max(5,amp/38*h*.34);line(bracketX,y+h/2-half,bracketX,y+h/2+half,color);line(bracketX-5,y+h/2-half,bracketX+5,y+h/2-half,color);line(bracketX-5,y+h/2+half,bracketX+5,y+h/2+half,color);text(`${fmt1(amp)} µV p-p`,bracketX+8,y+h/2+3,color,9,"left",800);
+}
+function drawAnatomy(W,y,h,s){
+  const x=65,w=W-130,mid=y+h/2,scale=2.25;
+  ctx.fillStyle="#19302b";ctx.fillRect(x,y,w,h);ctx.fillStyle="#24443c";ctx.fillRect(x,y+7,w,h-14);
+  line(x,mid,x+w,mid,"#6b8d83",1,[5,6]);text("ANATOMİK İŞARET · İLK YERLEŞİM",x+9,mid-12,"#9eb8af",9);
+  text("MEDİAL",x+8,y+17,"#87a59b",9);text("LATERAL",x+8,y+h-8,"#87a59b",9);
+  const nerveY=mid+trueNerveMm*scale;
+  ctx.strokeStyle="#ffbf54";ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(x+48,nerveY+2);ctx.bezierCurveTo(x+w*.35,nerveY-7,x+w*.63,nerveY+7,x+w-40,nerveY-2);ctx.stroke();
+  ctx.strokeStyle="#ffe18a";ctx.lineWidth=2;ctx.stroke();
+  for(let i=0;i<5;i++){const px=x+90+((phase*50+i*160)%(w-170));ctx.fillStyle="#65e2a4";ctx.beginPath();ctx.arc(px,nerveY,4,0,Math.PI*2);ctx.fill()}
+  text("DUYSAL SİNİR · GERÇEK KONUM ANATOMİK İŞARETTEN SAPABİLİR",x+w-8,nerveY+20,"#ffd975",9,"right",800);
+  const pairY=mid+position*scale,g1x=x+w*.54,g2x=x+w*.72;
+  line(g1x,pairY,g2x,pairY,"#d7e5ea",5);for(const [px,label] of [[g1x,"G1"],[g2x,"G2"]]){ctx.fillStyle="#f3f7f9";ctx.beginPath();ctx.arc(px,pairY,14,0,Math.PI*2);ctx.fill();ctx.fillStyle="#24424f";ctx.beginPath();ctx.arc(px,pairY,5,0,Math.PI*2);ctx.fill();text(label,px,pairY-19,"#f5fbfd",10,"center",800)}
+  const stimX=x+105;ctx.fillStyle="#f4f8fa";ctx.fillRect(stimX-17,nerveY-16,34,32);text("STİM",stimX,nerveY+3,"#17332b",8,"center",800);
+  const bx=x+w*.87;line(bx,pairY,bx,nerveY,"#5ce3e9",1,[4,3]);line(bx-5,pairY,bx+5,pairY,"#5ce3e9");line(bx-5,nerveY,bx+5,nerveY,"#5ce3e9");text(`sinire uzaklık ${fmt1(s.distanceFromNerveMm)} mm`,bx-7,(pairY+nerveY)/2+3,"#68e5e9",9,"right",800);
+}
+function drawSearchStrip(W,H){
+  const x=88,y=H-32,w=W-176;line(x,y,x+w,y,"#55756a",2);text("MEDİAL",x,y-9,"#8fa99f",8);text("LATERAL",x+w,y-9,"#8fa99f",8,"right");
+  for(const [p,a] of [...samples.entries()]){const xx=x+(p+30)/60*w,bar=4+20*a/38;line(xx,y,xx,y-bar,a===bestAmplitude?"#ffd05b":"#3f9b79",2)}
+  const nerveX=x+(trueNerveMm+30)/60*w;line(nerveX,y-26,nerveX,y+4,"#ffd05b",1,[3,3]);text("maksimum",nerveX,y-29,"#ffd05b",8,"center",800);
+  const currentX=x+(position+30)/60*w;ctx.fillStyle="#5de1a0";ctx.beginPath();ctx.arc(currentX,y,5,0,Math.PI*2);ctx.fill();
+}
+function render(){
+  const r=resize(),W=r.width,H=r.height,s=model();ctx.clearRect(0,0,W,H);ctx.fillStyle="#03110c";ctx.fillRect(0,0,W,H);
+  text("NCS/EMG KAYIT EKRANI · KLİNİK ELEKTROT ARAMASI",16,18,"#9db8ad",9,"left",800);
+  drawAnatomy(W,30,150,s);
+  const traceY=198,gap=7,traceH=(H-traceY-55-gap)/2;
+  drawTrace(22,traceY,W-44,traceH,"İLK ANATOMİK YERLEŞİM · 0 mm",initialPositionMm,"#6bbcff");
+  drawTrace(22,traceY+traceH+gap,W-44,traceH,`AKTİF ARAMA · ${signed(position)}`,position,"#5de1a0");
+  drawSearchStrip(W,H);
+  positionOutput.textContent=`${signed(position)} · ${fmt1(s.amplitudeUv)} µV`;
+  positionText.textContent=position===0?"İşaret üzerinde":position<0?`${fmt1(Math.abs(position))} mm medial`:`${fmt1(position)} mm lateral`;
+  amplitudeText.textContent=`${fmt1(s.amplitudeUv)} µV`;onsetText.textContent=`${s.onsetShiftMs>0?"+":""}${fmt1(s.onsetShiftMs)} ms`;bestText.textContent=`${signed(s.bestPositionMm)} · ${fmt1(s.bestAmplitudeUv)} µV`;
+  verdictBox.className="verdict"+(s.distanceFromNerveMm<=1?"":s.distanceFromNerveMm<=10?" warn":" bad");
+  if(s.distanceFromNerveMm<=1){verdictText.textContent="Maksimum bulundu · bu konumu sabitle";logicText.innerHTML="<b>G1–G2 çifti sinirin üzerinde:</b> amplitüd maksimum, onset ölçümü en güvenilir. Taraf karşılaştırmasına bundan sonra geç."}
+  else if(s.distanceFromNerveMm<=10){verdictText.textContent="Sinire yakın · iki yönde aramaya devam";logicText.innerHTML=`Mevcut yanıt ${fmt1(s.amplitudeUv)} µV. Uyarı akımını artırma; çifti birlikte kaydırıp <b>daha büyük SNAP</b> ara.`}
+  else{verdictText.textContent="Sinir dışında · düşük amplitüd ve yalancı erken onset";logicText.innerHTML="Küçük yanıt patoloji değildir: uzak kayıt amplitüdü düşürür ve onseti sola taşır. <b>Önce elektrot konumunu düzelt.</b>"}
+  modeBadge.textContent=s.distanceFromNerveMm<=1?"MAKSİMUM SNAP · SİNİR LOKALİZE":autoScan?"MEDİAL–LATERAL TARAMA SÜRÜYOR":"ARAMA TAMAMLANMADI · AKIMI DEĞİŞTİRME";
+  phase+=reduceMotion?0:.012;requestAnimationFrame(render);
+}
+slider.addEventListener("input",()=>{autoScan=false;position=Number(slider.value);scanButton.textContent="Medial → lateral ara"});
+scanButton.addEventListener("click",()=>{samples.clear();bestAmplitude=0;bestPosition=-30;autoScan=true;scanStart=performance.now();scanButton.textContent="Arama sürüyor…"});
+function animate(now){
+  if(autoScan){const q=(now-scanStart)/7000;if(q>=1){autoScan=false;position=trueNerveMm;slider.value=String(position);sample(position);scanButton.textContent="Taramayı yeniden başlat"}else if(q<.82){position=-30+(q/.82)*60;slider.value=String(Math.round(position))}else{position=30-(q-.82)/.18*(30-trueNerveMm);slider.value=String(Math.round(position))}}
+  requestAnimationFrame(animate);
+}
+sample(0);render();requestAnimationFrame(animate);
+addEventListener("keydown",e=>{if(e.key==="F1"){e.preventDefault();location.href="lateral-yerlesim.html"}if(e.key==="F2"){e.preventDefault();location.href="../index.html"}if(e.key==="F3"){e.preventDefault();location.href="latans-hatasi.html"}});
+</script>
+</body>
+</html>

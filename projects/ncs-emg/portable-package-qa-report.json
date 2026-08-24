@@ -1,0 +1,2047 @@
+{
+  "summary": {
+    "pages": 83,
+    "explanations": 34,
+    "animations": 35,
+    "topicEntries": 14,
+    "starterReachedIndex": true,
+    "offlineChecks": {
+      "externalHttp": false,
+      "networkApi": false,
+      "absoluteWindowsPath": false
+    },
+    "failures": []
+  },
+  "pages": [
+    {
+      "number": 1,
+      "type": "topic_entry",
+      "file": "impedans-gurultu/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Elektrot Empedansı ve Gürültü",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../proksimal-distal/animasyon-1-segment-hizi.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 93
+      }
+    },
+    {
+      "number": 2,
+      "type": "explanation",
+      "file": "impedans-gurultu/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Elektrot İmpedansı ve Gürültü — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-0-gurultu-haritasi.html"
+        ],
+        "visibleTextLength": 774
+      }
+    },
+    {
+      "number": 3,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-0-gurultu-haritasi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Doymuş kayıt ekranını 50/60 Hz olarak tanıma laboratuvarı",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_5_impedance_noise.png",
+          "index.html",
+          "../index.html",
+          "diferansiyel-amplifikasyon.html"
+        ],
+        "visibleTextLength": 643
+      }
+    },
+    {
+      "number": 4,
+      "type": "explanation",
+      "file": "impedans-gurultu/diferansiyel-amplifikasyon.html",
+      "errors": [],
+      "metrics": {
+        "title": "Diferansiyel Amplifikasyon ve Ortak Mod Reddi",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-0-gurultu-haritasi.html",
+          "../index.html",
+          "animasyon-1-diferansiyel-amp.html"
+        ],
+        "visibleTextLength": 924
+      }
+    },
+    {
+      "number": 5,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-1-diferansiyel-amp.html",
+      "errors": [],
+      "metrics": {
+        "title": "G1 ve G2 eşitse ortak 50/60 Hz iptal olur",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_4_differential.png",
+          "diferansiyel-amplifikasyon.html",
+          "../index.html",
+          "impedans-uyumsuzlugu.html"
+        ],
+        "visibleTextLength": 817
+      }
+    },
+    {
+      "number": 6,
+      "type": "explanation",
+      "file": "impedans-gurultu/impedans-uyumsuzlugu.html",
+      "errors": [],
+      "metrics": {
+        "title": "Empedans Uyumsuzluğu ve Ohm Yasası",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-1-diferansiyel-amp.html",
+          "../index.html",
+          "animasyon-3-ohm-empedans.html"
+        ],
+        "visibleTextLength": 784
+      }
+    },
+    {
+      "number": 7,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-3-ohm-empedans.html",
+      "errors": [],
+      "metrics": {
+        "title": "G1 ve G2 empedans eşleşmesi laboratuvarı",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_4_differential.png",
+          "impedans-uyumsuzlugu.html",
+          "../index.html",
+          "60hz-azaltma.html"
+        ],
+        "visibleTextLength": 630
+      }
+    },
+    {
+      "number": 8,
+      "type": "explanation",
+      "file": "impedans-gurultu/60hz-azaltma.html",
+      "errors": [],
+      "metrics": {
+        "title": "60 Hz İnterferansını Azaltma — Box 8.3",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-3-ohm-empedans.html",
+          "../index.html",
+          "animasyon-2-gurultu-azaltma.html"
+        ],
+        "visibleTextLength": 964
+      }
+    },
+    {
+      "number": 9,
+      "type": "animation",
+      "file": "impedans-gurultu/animasyon-2-gurultu-azaltma.html",
+      "errors": [],
+      "metrics": {
+        "title": "Box 8.3 — Gürültüyü örüntüsüne göre azaltma",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_6_frayed_cable.png",
+          "60hz-azaltma.html",
+          "../index.html",
+          "../filtreler/konu-girisi.html"
+        ],
+        "visibleTextLength": 854
+      }
+    },
+    {
+      "number": 10,
+      "type": "topic_entry",
+      "file": "filtreler/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Filtre Ayarları",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../impedans-gurultu/animasyon-2-gurultu-azaltma.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 79
+      }
+    },
+    {
+      "number": 11,
+      "type": "explanation",
+      "file": "filtreler/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Filtreler — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-0-filtre-spektrumu.html"
+        ],
+        "visibleTextLength": 943
+      }
+    },
+    {
+      "number": 12,
+      "type": "animation",
+      "file": "filtreler/animasyon-0-filtre-spektrumu.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ham kayıt tek bir frekanstan oluşmaz",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_8_filter_stack.png",
+          "index.html",
+          "../index.html",
+          "gecirgen-bant.html"
+        ],
+        "visibleTextLength": 848
+      }
+    },
+    {
+      "number": 13,
+      "type": "explanation",
+      "file": "filtreler/gecirgen-bant.html",
+      "errors": [],
+      "metrics": {
+        "title": "Geçirgen Bant — Motor ve Duysal Filtre Ayarları",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-0-filtre-spektrumu.html",
+          "../index.html",
+          "animasyon-1-gecirgen-bant.html"
+        ],
+        "visibleTextLength": 739
+      }
+    },
+    {
+      "number": 14,
+      "type": "animation",
+      "file": "filtreler/animasyon-1-gecirgen-bant.html",
+      "errors": [],
+      "metrics": {
+        "title": "Geçirgen bant kayıt türüne göre seçilir",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_7_passband.png",
+          "gecirgen-bant.html",
+          "../index.html",
+          "filtre-odunlesimi.html"
+        ],
+        "visibleTextLength": 779
+      }
+    },
+    {
+      "number": 15,
+      "type": "explanation",
+      "file": "filtreler/filtre-odunlesimi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Filtre Ödünleşimi — Süre ve Amplitüd",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-1-gecirgen-bant.html",
+          "../index.html",
+          "animasyon-2-filtre-odunlesimi.html"
+        ],
+        "visibleTextLength": 879
+      }
+    },
+    {
+      "number": 16,
+      "type": "animation",
+      "file": "filtreler/animasyon-2-filtre-odunlesimi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Filtre değişince amplitüd ve süre de değişir",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_9_filter_tradeoff.png",
+          "filtre-odunlesimi.html",
+          "../index.html",
+          "../elektronik-ortalama/konu-girisi.html"
+        ],
+        "visibleTextLength": 604
+      }
+    },
+    {
+      "number": 17,
+      "type": "topic_entry",
+      "file": "elektronik-ortalama/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Elektronik Ortalama",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../filtreler/animasyon-2-filtre-odunlesimi.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 83
+      }
+    },
+    {
+      "number": 18,
+      "type": "explanation",
+      "file": "elektronik-ortalama/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Elektronik Ortalama — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-1-ortalama.html"
+        ],
+        "visibleTextLength": 829
+      }
+    },
+    {
+      "number": 19,
+      "type": "animation",
+      "file": "elektronik-ortalama/animasyon-1-ortalama.html",
+      "errors": [],
+      "metrics": {
+        "title": "Elektronik Ortalama — Aynı Sinyal Kalır, Rastgele Gürültü Söner",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_10_electronic_averaging.png",
+          "index.html",
+          "../index.html",
+          "../stimulus-artefakti/konu-girisi.html"
+        ],
+        "visibleTextLength": 675
+      }
+    },
+    {
+      "number": 20,
+      "type": "topic_entry",
+      "file": "stimulus-artefakti/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Stimulus Artefaktı",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../elektronik-ortalama/animasyon-1-ortalama.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 82
+      }
+    },
+    {
+      "number": 21,
+      "type": "explanation",
+      "file": "stimulus-artefakti/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Stimulus Artefaktı — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-0-mekanizma.html"
+        ],
+        "visibleTextLength": 825
+      }
+    },
+    {
+      "number": 22,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-0-mekanizma.html",
+      "errors": [],
+      "metrics": {
+        "title": "Stimulus Artefaktı — Zaman İşareti ve Örtüşen Kuyruk",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "stimulus-artifact-forearm.png",
+          "../figures/source-v3/fig_8_11_stimulus_measurement.png",
+          "index.html",
+          "../index.html",
+          "azaltma-yontemleri.html"
+        ],
+        "visibleTextLength": 1057
+      }
+    },
+    {
+      "number": 23,
+      "type": "explanation",
+      "file": "stimulus-artefakti/azaltma-yontemleri.html",
+      "errors": [],
+      "metrics": {
+        "title": "Stimulus Artefaktını Azaltma Yöntemleri",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-0-mekanizma.html",
+          "../index.html",
+          "animasyon-2-artefakt-azaltma.html"
+        ],
+        "visibleTextLength": 651
+      }
+    },
+    {
+      "number": 24,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-2-artefakt-azaltma.html",
+      "errors": [],
+      "metrics": {
+        "title": "Box 8.4 — Stimulus Artefaktını Sistematik Azaltma",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/box_8_4_reduce_stimulus_artifact.png",
+          "azaltma-yontemleri.html",
+          "../index.html",
+          "anot-dondurme.html"
+        ],
+        "visibleTextLength": 1065
+      }
+    },
+    {
+      "number": 25,
+      "type": "explanation",
+      "file": "stimulus-artefakti/anot-dondurme.html",
+      "errors": [],
+      "metrics": {
+        "title": "Anot Döndürme (Walking the Anode)",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-2-artefakt-azaltma.html",
+          "../index.html",
+          "animasyon-1-anot-rotasyon.html"
+        ],
+        "visibleTextLength": 776
+      }
+    },
+    {
+      "number": 26,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-1-anot-rotasyon.html",
+      "errors": [],
+      "metrics": {
+        "title": "Walking the Anode — Serbest Laboratuvar",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_13_walking_anode.png",
+          "../figures/source-v3/fig_8_13_walking_anode.png",
+          "anot-dondurme.html",
+          "../index.html",
+          "kablo-ayrimi.html"
+        ],
+        "visibleTextLength": 800
+      }
+    },
+    {
+      "number": 27,
+      "type": "explanation",
+      "file": "stimulus-artefakti/kablo-ayrimi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Kablo Ayrımı ve İndüksiyon",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-1-anot-rotasyon.html",
+          "../index.html",
+          "animasyon-3-kablo-induksiyonu.html"
+        ],
+        "visibleTextLength": 598
+      }
+    },
+    {
+      "number": 28,
+      "type": "animation",
+      "file": "stimulus-artefakti/animasyon-3-kablo-induksiyonu.html",
+      "errors": [],
+      "metrics": {
+        "title": "Kablo Kuplajı ve Stimulus Artefaktı — Serbest Laboratuvar",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_12_cables.png",
+          "kablo-ayrimi.html",
+          "../index.html",
+          "../katot-polarite/konu-girisi.html"
+        ],
+        "visibleTextLength": 874
+      }
+    },
+    {
+      "number": 29,
+      "type": "topic_entry",
+      "file": "katot-polarite/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Katot–Anot Polaritesi",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../stimulus-artefakti/animasyon-3-kablo-induksiyonu.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 85
+      }
+    },
+    {
+      "number": 30,
+      "type": "explanation",
+      "file": "katot-polarite/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Katot Pozisyonu ve Polarite Tersliği — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-0-depolarizasyon-anodal-blok.html"
+        ],
+        "visibleTextLength": 794
+      }
+    },
+    {
+      "number": 31,
+      "type": "animation",
+      "file": "katot-polarite/animasyon-0-depolarizasyon-anodal-blok.html",
+      "errors": [],
+      "metrics": {
+        "title": "Anodal Blok — Mekanizma Modeli",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_15_anodal_block.png",
+          "index.html",
+          "../index.html",
+          "latans-hatasi.html"
+        ],
+        "visibleTextLength": 1108
+      }
+    },
+    {
+      "number": 32,
+      "type": "explanation",
+      "file": "katot-polarite/latans-hatasi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Latans ve İletim Hızı Hatası — Ters Çevrilmiş Polarite",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-0-depolarizasyon-anodal-blok.html",
+          "../index.html",
+          "animasyon-1-polarite-tersligi.html"
+        ],
+        "visibleTextLength": 977
+      }
+    },
+    {
+      "number": 33,
+      "type": "animation",
+      "file": "katot-polarite/animasyon-1-polarite-tersligi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ters Polarite: Gerçek Yol Uzar — Serbest Laboratuvar",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_16_reversed_polarity.png",
+          "latans-hatasi.html",
+          "../index.html",
+          "../supramaksimal/konu-girisi.html"
+        ],
+        "visibleTextLength": 976
+      }
+    },
+    {
+      "number": 34,
+      "type": "topic_entry",
+      "file": "supramaksimal/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Supramaksimal Uyarım",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../katot-polarite/animasyon-1-polarite-tersligi.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 84
+      }
+    },
+    {
+      "number": 35,
+      "type": "explanation",
+      "file": "supramaksimal/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Supramaksimal Uyarım — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-0-akson-rekrutmani.html"
+        ],
+        "visibleTextLength": 737
+      }
+    },
+    {
+      "number": 36,
+      "type": "animation",
+      "file": "supramaksimal/animasyon-0-akson-rekrutmani.html",
+      "errors": [],
+      "metrics": {
+        "title": "Akım Artışı, Akson Rekruitmanı ve BKAP Platosu",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_17_supramaximal.png",
+          "index.html",
+          "../index.html",
+          "nasil-yapilir.html"
+        ],
+        "visibleTextLength": 891
+      }
+    },
+    {
+      "number": 37,
+      "type": "explanation",
+      "file": "supramaksimal/nasil-yapilir.html",
+      "errors": [],
+      "metrics": {
+        "title": "Supramaksimal Uyarım Nasıl Sağlanır?",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-0-akson-rekrutmani.html",
+          "../index.html",
+          "animasyon-1-uyari-egrisi.html"
+        ],
+        "visibleTextLength": 776
+      }
+    },
+    {
+      "number": 38,
+      "type": "animation",
+      "file": "supramaksimal/animasyon-1-uyari-egrisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "İlk Maksimal Yanıtta Durma — Platoyu Ek Akımla Kanıtla",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_17_supramaximal.png",
+          "nasil-yapilir.html",
+          "../index.html",
+          "yanlis-yorumlar.html"
+        ],
+        "visibleTextLength": 893
+      }
+    },
+    {
+      "number": 39,
+      "type": "explanation",
+      "file": "supramaksimal/yanlis-yorumlar.html",
+      "errors": [],
+      "metrics": {
+        "title": "Submaksimal Uyarımın Yol Açtığı Yanlış Yorumlar",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-1-uyari-egrisi.html",
+          "../index.html",
+          "animasyon-2-amplitud-farki.html"
+        ],
+        "visibleTextLength": 837
+      }
+    },
+    {
+      "number": 40,
+      "type": "animation",
+      "file": "supramaksimal/animasyon-2-amplitud-farki.html",
+      "errors": [],
+      "metrics": {
+        "title": "Normal Sinirde Submaksimal Uyarım — Yalancı Amplitüd Asimetrisi",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_18_amplitude_difference.png",
+          "yanlis-yorumlar.html",
+          "../index.html",
+          "../kostimulasyon/konu-girisi.html"
+        ],
+        "visibleTextLength": 1226
+      }
+    },
+    {
+      "number": 41,
+      "type": "topic_entry",
+      "file": "kostimulasyon/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Komşu Sinir Ko-stimülasyonu",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../supramaksimal/animasyon-2-amplitud-farki.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 91
+      }
+    },
+    {
+      "number": 42,
+      "type": "explanation",
+      "file": "kostimulasyon/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Komşu Sinirlerin Birlikte Uyarılması — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-0-akim-yayilimi.html"
+        ],
+        "visibleTextLength": 1022
+      }
+    },
+    {
+      "number": 43,
+      "type": "animation",
+      "file": "kostimulasyon/animasyon-0-akim-yayilimi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Akım Komşu Sinire Taşınca BKAP Hedefe Özgü Olmaktan Çıkar",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_19_costimulation_full.png",
+          "index.html",
+          "../index.html",
+          "hata-oruntuleri.html"
+        ],
+        "visibleTextLength": 1208
+      }
+    },
+    {
+      "number": 44,
+      "type": "explanation",
+      "file": "kostimulasyon/hata-oruntuleri.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ko-stimülasyonun Yol Açtığı Hata Örüntüleri",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-0-akim-yayilimi.html",
+          "../index.html",
+          "animasyon-1-tanisal-hatalar.html"
+        ],
+        "visibleTextLength": 991
+      }
+    },
+    {
+      "number": 45,
+      "type": "animation",
+      "file": "kostimulasyon/animasyon-1-tanisal-hatalar.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ko-stimülasyonun yeri: yalancı blok veya gizlenen blok",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_20_block_patterns.png",
+          "hata-oruntuleri.html",
+          "../index.html",
+          "onleme-yontemleri.html"
+        ],
+        "visibleTextLength": 1039
+      }
+    },
+    {
+      "number": 46,
+      "type": "explanation",
+      "file": "kostimulasyon/onleme-yontemleri.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ko-stimülasyonu Önleme Yöntemleri — Box 8.5",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-1-tanisal-hatalar.html",
+          "../index.html",
+          "animasyon-2-optimal-yerlesim.html"
+        ],
+        "visibleTextLength": 1110
+      }
+    },
+    {
+      "number": 47,
+      "type": "animation",
+      "file": "kostimulasyon/animasyon-2-optimal-yerlesim.html",
+      "errors": [],
+      "metrics": {
+        "title": "Optimal stimülatör yerleşimi: önce konumu bul, sonra supramaksimale çık",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/box_8_5_avoid_costimulation.png",
+          "onleme-yontemleri.html",
+          "../index.html",
+          "../motor-elektrot-yerlesimi/konu-girisi.html"
+        ],
+        "visibleTextLength": 1119
+      }
+    },
+    {
+      "number": 48,
+      "type": "topic_entry",
+      "file": "motor-elektrot-yerlesimi/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Motor Kayıt Elektrot Yerleşimi",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../kostimulasyon/animasyon-2-optimal-yerlesim.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 94
+      }
+    },
+    {
+      "number": 49,
+      "type": "explanation",
+      "file": "motor-elektrot-yerlesimi/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Motor Elektrot Yerleşimi — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-0-belly-tendon-montaj.html"
+        ],
+        "visibleTextLength": 871
+      }
+    },
+    {
+      "number": 50,
+      "type": "animation",
+      "file": "motor-elektrot-yerlesimi/animasyon-0-belly-tendon-montaj.html",
+      "errors": [],
+      "metrics": {
+        "title": "G2 sessizse, belly-tendon BKAP G1 sinyalini korur",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_22_correct_belly_tendon_source.png",
+          "index.html",
+          "../index.html",
+          "g1-yerlesimi.html"
+        ],
+        "visibleTextLength": 1055
+      }
+    },
+    {
+      "number": 51,
+      "type": "explanation",
+      "file": "motor-elektrot-yerlesimi/g1-yerlesimi.html",
+      "errors": [],
+      "metrics": {
+        "title": "G1 Yerleşimi ve İlk Pozitif Sapma",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-0-belly-tendon-montaj.html",
+          "../index.html",
+          "animasyon-1-g1-konumu.html"
+        ],
+        "visibleTextLength": 947
+      }
+    },
+    {
+      "number": 52,
+      "type": "animation",
+      "file": "motor-elektrot-yerlesimi/animasyon-1-g1-konumu.html",
+      "errors": [],
+      "metrics": {
+        "title": "G1 motor noktadan uzaklaşınca ilk pozitiflik amplitüdü ve onseti bozar",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_21_g1_motor_point_mechanism.png",
+          "g1-yerlesimi.html",
+          "../index.html",
+          "g2-yerlesimi.html"
+        ],
+        "visibleTextLength": 896
+      }
+    },
+    {
+      "number": 53,
+      "type": "explanation",
+      "file": "motor-elektrot-yerlesimi/g2-yerlesimi.html",
+      "errors": [],
+      "metrics": {
+        "title": "G2 Yerleşimi ve Tendon Potansiyeli",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-1-g1-konumu.html",
+          "../index.html",
+          "animasyon-2-g2-tendon-potansiyeli.html"
+        ],
+        "visibleTextLength": 999
+      }
+    },
+    {
+      "number": 54,
+      "type": "animation",
+      "file": "motor-elektrot-yerlesimi/animasyon-2-g2-tendon-potansiyeli.html",
+      "errors": [],
+      "metrics": {
+        "title": "G2 konumu tek başına 8,3 → 5,6 mV BKAP farkı yaratabilir",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_24_g1_minus_g2.png",
+          "../figures/source-v3/fig_8_25_g2_positions.png",
+          "g2-yerlesimi.html",
+          "../index.html",
+          "../antidromik-ortodromik/konu-girisi.html"
+        ],
+        "visibleTextLength": 992
+      }
+    },
+    {
+      "number": 55,
+      "type": "topic_entry",
+      "file": "antidromik-ortodromik/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Antidromik ve Ortodromik Kayıt",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../motor-elektrot-yerlesimi/animasyon-2-g2-tendon-potansiyeli.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 94
+      }
+    },
+    {
+      "number": 56,
+      "type": "explanation",
+      "file": "antidromik-ortodromik/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Antidromik ve Ortodromik Kayıt — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-1-antidromik-vs-ortodromik.html"
+        ],
+        "visibleTextLength": 1001
+      }
+    },
+    {
+      "number": 57,
+      "type": "animation",
+      "file": "antidromik-ortodromik/animasyon-1-antidromik-vs-ortodromik.html",
+      "errors": [],
+      "metrics": {
+        "title": "Yön değişir; 2,2 ms aynı kalır, kayıt derinliği amplitüdü değiştirir",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_26_anti_ortho_clean.png",
+          "index.html",
+          "../index.html",
+          "hacim-iletilen-motor.html"
+        ],
+        "visibleTextLength": 1002
+      }
+    },
+    {
+      "number": 58,
+      "type": "explanation",
+      "file": "antidromik-ortodromik/hacim-iletilen-motor.html",
+      "errors": [],
+      "metrics": {
+        "title": "Hacim İletilen Motor Potansiyeli ve Sahte DSAP",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-1-antidromik-vs-ortodromik.html",
+          "../index.html",
+          "animasyon-2-sahte-dsap.html"
+        ],
+        "visibleTextLength": 797
+      }
+    },
+    {
+      "number": 59,
+      "type": "animation",
+      "file": "antidromik-ortodromik/animasyon-2-sahte-dsap.html",
+      "errors": [],
+      "metrics": {
+        "title": "Gerçek DSAP kaybolsa bile geç motor bileşen kalabilir",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_26_antidromic_motor.png",
+          "hacim-iletilen-motor.html",
+          "../index.html",
+          "../elektrot-sinir-mesafesi/konu-girisi.html"
+        ],
+        "visibleTextLength": 1011
+      }
+    },
+    {
+      "number": 60,
+      "type": "topic_entry",
+      "file": "elektrot-sinir-mesafesi/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Elektrot–Sinir Mesafesi",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../antidromik-ortodromik/animasyon-2-sahte-dsap.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 87
+      }
+    },
+    {
+      "number": 61,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Elektrot-Sinir Mesafesi — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-0-derinlik-filtresi.html"
+        ],
+        "visibleTextLength": 766
+      }
+    },
+    {
+      "number": 62,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-0-derinlik-filtresi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Elektrot sinirden uzaklaştıkça SNAP amplitüdü düşer",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_27_electrode_search.png",
+          "index.html",
+          "../index.html",
+          "odem-etkisi.html"
+        ],
+        "visibleTextLength": 780
+      }
+    },
+    {
+      "number": 63,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/odem-etkisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ödem ve Amplitüd Atenüasyonu",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-0-derinlik-filtresi.html",
+          "../index.html",
+          "animasyon-1-mesafe-amplitud-latans.html"
+        ],
+        "visibleTextLength": 945
+      }
+    },
+    {
+      "number": 64,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-1-mesafe-amplitud-latans.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ödem duysal yanıtı küçültür ve yayar",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_28_depth_edema_clean.png",
+          "odem-etkisi.html",
+          "../index.html",
+          "lateral-yerlesim.html"
+        ],
+        "visibleTextLength": 771
+      }
+    },
+    {
+      "number": 65,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/lateral-yerlesim.html",
+      "errors": [],
+      "metrics": {
+        "title": "Lateral/Medial Yerleşim ve Arama Tekniği",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-1-mesafe-amplitud-latans.html",
+          "../index.html",
+          "animasyon-2-elektrot-arama.html"
+        ],
+        "visibleTextLength": 961
+      }
+    },
+    {
+      "number": 66,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-2-elektrot-arama.html",
+      "errors": [],
+      "metrics": {
+        "title": "Elektrotu ara: en büyük SNAP sinirin yerini doğrular",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_29_latency_clean.png",
+          "lateral-yerlesim.html",
+          "../index.html",
+          "latans-hatasi.html"
+        ],
+        "visibleTextLength": 812
+      }
+    },
+    {
+      "number": 67,
+      "type": "explanation",
+      "file": "elektrot-sinir-mesafesi/latans-hatasi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Latans Hatası ve Yapay Hızlı İletim Hızı",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-2-elektrot-arama.html",
+          "../index.html",
+          "animasyon-3-yanlis-hiz.html"
+        ],
+        "visibleTextLength": 766
+      }
+    },
+    {
+      "number": 68,
+      "type": "animation",
+      "file": "elektrot-sinir-mesafesi/animasyon-3-yanlis-hiz.html",
+      "errors": [],
+      "metrics": {
+        "title": "Gerçek hız değişmez; erken onset hesabı yalancı hızlandırır",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_29_latency_clean.png",
+          "latans-hatasi.html",
+          "../index.html",
+          "../aktif-referans-mesafesi/konu-girisi.html"
+        ],
+        "visibleTextLength": 775
+      }
+    },
+    {
+      "number": 69,
+      "type": "topic_entry",
+      "file": "aktif-referans-mesafesi/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Aktif–Referans Elektrot Mesafesi",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../elektrot-sinir-mesafesi/animasyon-3-yanlis-hiz.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 96
+      }
+    },
+    {
+      "number": 70,
+      "type": "explanation",
+      "file": "aktif-referans-mesafesi/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Aktif-Referans Elektrot Mesafesi — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-1-g1-g2-mesafesi.html"
+        ],
+        "visibleTextLength": 962
+      }
+    },
+    {
+      "number": 71,
+      "type": "animation",
+      "file": "aktif-referans-mesafesi/animasyon-1-g1-g2-mesafesi.html",
+      "errors": [],
+      "metrics": {
+        "title": "G1 ve G2 aynı anda aktifse çıkarma SNAP'ı iptal eder",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_31_g1_g2_distance_clean.png",
+          "index.html",
+          "../index.html",
+          "../ekstremite-mesafe/konu-girisi.html"
+        ],
+        "visibleTextLength": 758
+      }
+    },
+    {
+      "number": 72,
+      "type": "topic_entry",
+      "file": "ekstremite-mesafe/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ekstremite Pozisyonu ve Ölçüm Mesafesi",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../aktif-referans-mesafesi/animasyon-1-g1-g2-mesafesi.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 102
+      }
+    },
+    {
+      "number": 73,
+      "type": "explanation",
+      "file": "ekstremite-mesafe/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ekstremite Pozisyonu ve Mesafe Ölçümü — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-1-dirsek-pozisyonu.html"
+        ],
+        "visibleTextLength": 890
+      }
+    },
+    {
+      "number": 74,
+      "type": "animation",
+      "file": "ekstremite-mesafe/animasyon-1-dirsek-pozisyonu.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ulnar Sinir — Dirsek Pozisyonu ve Mesafe",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_32_elbow_distance_clean.png",
+          "index.html",
+          "../index.html",
+          "diger-sinirler-caliper.html"
+        ],
+        "visibleTextLength": 893
+      }
+    },
+    {
+      "number": 75,
+      "type": "explanation",
+      "file": "ekstremite-mesafe/diger-sinirler-caliper.html",
+      "errors": [],
+      "metrics": {
+        "title": "Diğer Sinirler ve Obstetrik Kaliper",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "animasyon-1-dirsek-pozisyonu.html",
+          "../index.html",
+          "animasyon-2-kaliper.html"
+        ],
+        "visibleTextLength": 700
+      }
+    },
+    {
+      "number": 76,
+      "type": "animation",
+      "file": "ekstremite-mesafe/animasyon-2-kaliper.html",
+      "errors": [],
+      "metrics": {
+        "title": "Doğrusal Olmayan Segmentlerde Obstetrik Kaliper",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_10_13d_radial_above_spiral_clean.png",
+          "diger-sinirler-caliper.html",
+          "../index.html",
+          "../ekstremite-morfoloji/konu-girisi.html"
+        ],
+        "visibleTextLength": 1140
+      }
+    },
+    {
+      "number": 77,
+      "type": "topic_entry",
+      "file": "ekstremite-morfoloji/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ekstremite Pozisyonu ve Dalga Morfolojisi",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../ekstremite-mesafe/animasyon-2-kaliper.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 105
+      }
+    },
+    {
+      "number": 78,
+      "type": "explanation",
+      "file": "ekstremite-morfoloji/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ekstremite Pozisyonu ve Dalga Morfolojisi — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-1-pozisyon-tutarliligi.html"
+        ],
+        "visibleTextLength": 1097
+      }
+    },
+    {
+      "number": 79,
+      "type": "animation",
+      "file": "ekstremite-morfoloji/animasyon-1-pozisyon-tutarliligi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Ekstremite Pozisyonu ve BKAP Morfolojisi",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_24_g1_minus_g2.png",
+          "index.html",
+          "../index.html",
+          "../sweep-sensitivite/konu-girisi.html"
+        ],
+        "visibleTextLength": 1441
+      }
+    },
+    {
+      "number": 80,
+      "type": "topic_entry",
+      "file": "sweep-sensitivite/konu-girisi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Sensitivite ve Sweep Hızı",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../ekstremite-morfoloji/animasyon-1-pozisyon-tutarliligi.html",
+          "../index.html",
+          "index.html"
+        ],
+        "visibleTextLength": 89
+      }
+    },
+    {
+      "number": 81,
+      "type": "explanation",
+      "file": "sweep-sensitivite/index.html",
+      "errors": [],
+      "metrics": {
+        "title": "Latans Ölçümü: Sweep Hızı ve Sensitivite — Bölüm 8",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "konu-girisi.html",
+          "../index.html",
+          "animasyon-1-sensitivite.html"
+        ],
+        "visibleTextLength": 1055
+      }
+    },
+    {
+      "number": 82,
+      "type": "animation",
+      "file": "sweep-sensitivite/animasyon-1-sensitivite.html",
+      "errors": [],
+      "metrics": {
+        "title": "Sensitivite ve Başlangıç Latansı",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_33_sensitivity.png",
+          "index.html",
+          "../index.html",
+          "animasyon-2-sweep-hizi.html"
+        ],
+        "visibleTextLength": 906
+      }
+    },
+    {
+      "number": 83,
+      "type": "animation",
+      "file": "sweep-sensitivite/animasyon-2-sweep-hizi.html",
+      "errors": [],
+      "metrics": {
+        "title": "Yatay Zaman Ölçeği ve Başlangıç Latansı",
+        "bodyOverflowX": false,
+        "bodyOverflowY": false,
+        "shellOverflowX": false,
+        "shellOverflowY": false,
+        "shellWithinViewport": true,
+        "navCount": 3,
+        "navBottom": 900,
+        "imageFailures": [],
+        "externalRefs": [],
+        "refs": [
+          "../figures/source-v3/fig_8_34_sweep.png",
+          "animasyon-1-sensitivite.html",
+          "../index.html",
+          "../index.html"
+        ],
+        "visibleTextLength": 902
+      }
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "aktif-referans-mesafesi/animasyon-1-g1-g2-mesafesi.html": {
+    "title": "G1–G2 çok yakınsa aynı potansiyel iki elektrotta birden görülür ve iptal olur",
+    "teaching_job": "g1g2_distance_cancel",
+    "source": "Preston & Shapiro, Bölüm 8, s. 94–95",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/2311573/"
+  },
+  "antidromik-ortodromik/animasyon-1-antidromik-vs-ortodromik.html": {
+    "title": "Antidromik mi ortodromik mi? Seçim yalnız amplitüd seçimi değildir",
+    "teaching_job": "technique_choice",
+    "source": "Preston & Shapiro, Bölüm 8, s. 92–93",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/2369294/"
+  },
+  "antidromik-ortodromik/animasyon-2-sahte-dsap.html": {
+    "title": "Antidromik kayıtta motor uzak-alan potansiyeli sahte DSAP olabilir",
+    "teaching_job": "false_snap",
+    "source": "Preston & Shapiro, Bölüm 8, s. 92-93",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/2369294/"
+  },
+  "ekstremite-mesafe/animasyon-2-kaliper.html": {
+    "title": "Düz cetvel yerine sinir yolunu izleyen kontur ölçümü",
+    "teaching_job": "caliper",
+    "source": "Preston & Shapiro, Bölüm 8, s. 94-96",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/7870113/"
+  },
+  "elektrot-sinir-mesafesi/animasyon-0-derinlik-filtresi.html": {
+    "title": "Doku mesafesi yüksek frekans filtresi gibi davranır",
+    "teaching_job": "tissue_filter",
+    "source": "Preston & Shapiro, Bölüm 8, s. 93-94",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/10627934/"
+  },
+  "elektrot-sinir-mesafesi/animasyon-1-mesafe-amplitud-latans.html": {
+    "title": "Derinlik onseti, peak latansı ve amplitüdü aynı yönde değiştirmez",
+    "teaching_job": "depth_metric_overlay",
+    "source": "Preston & Shapiro, Bölüm 8, s. 93–94",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/10627934/"
+  },
+  "elektrot-sinir-mesafesi/animasyon-2-elektrot-arama.html": {
+    "title": "Sabit akımla medial-lateral elektrot arama",
+    "teaching_job": "electrode_search",
+    "source": "Preston & Shapiro, Bölüm 8, s. 93-94",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/9052817/"
+  },
+  "elektrot-sinir-mesafesi/animasyon-3-yanlis-hiz.html": {
+    "title": "Elektrot sapması onseti sola kaydırıp yalancı hızlı İH üretebilir",
+    "teaching_job": "false_speed",
+    "source": "Preston & Shapiro, Bölüm 8, s. 94",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/9052817/"
+  },
+  "filtreler/animasyon-0-filtre-spektrumu.html": {
+    "title": "Sinyalin hangi frekans bileşenleri ekranda kalır?",
+    "teaching_job": "filter_spectrum",
+    "source": "Preston & Shapiro, Bölüm 8, s. 83-84",
+    "pubmed": ""
+  },
+  "filtreler/animasyon-1-gecirgen-bant.html": {
+    "title": "Aynı filtreyi motor ve duysal kayda uygulamak aynı hata değildir",
+    "teaching_job": "recording_preset",
+    "source": "Preston & Shapiro, Bölüm 8, s. 83–84",
+    "pubmed": ""
+  },
+  "filtreler/animasyon-2-filtre-odunlesimi.html": {
+    "title": "Filtre değişikliğinin amplitüd ve süre bedeli",
+    "teaching_job": "filter_tradeoff",
+    "source": "Preston & Shapiro, Bölüm 8, s. 84",
+    "pubmed": ""
+  },
+  "impedans-gurultu/animasyon-0-gurultu-haritasi.html": {
+    "title": "Doymuş kayıt ekranını 50/60 Hz olarak tanıma laboratuvarı",
+    "teaching_job": "noise_recognition",
+    "source": "Preston & Shapiro, Bölüm 8, s. 82",
+    "pubmed": ""
+  },
+  "impedans-gurultu/animasyon-1-diferansiyel-amp.html": {
+    "title": "Ortak gürültü ne zaman gerçekten iptal edilir?",
+    "teaching_job": "cmr_three_trace",
+    "source": "Preston & Shapiro, Bölüm 8, s. 82",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/31654663/"
+  },
+  "impedans-gurultu/animasyon-2-gurultu-azaltma.html": {
+    "title": "Gürültü kaynağını deneme-yanılma değil, örüntüyle bul",
+    "teaching_job": "noise_fault_bench",
+    "source": "Preston & Shapiro, Bölüm 8, s. 83; Box 8.3",
+    "pubmed": ""
+  },
+  "impedans-gurultu/animasyon-3-ohm-empedans.html": {
+    "title": "G1 ve G2 empedans eşleşmesi laboratuvarı",
+    "teaching_job": "impedance",
+    "source": "Preston & Shapiro, Bölüm 8, s. 82-83",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/31654663/"
+  },
+  "katot-polarite/animasyon-0-depolarizasyon-anodal-blok.html": {
+    "title": "Katot, gerçek başlangıç noktası ve anodal blok",
+    "teaching_job": "polarity_mechanism",
+    "source": "Preston & Shapiro, Bölüm 8, s. 86",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/3224657/"
+  },
+  "katot-polarite/animasyon-1-polarite-tersligi.html": {
+    "title": "Tek bir ters polarite segment hızını nasıl yalancı değiştirir?",
+    "teaching_job": "polarity_cv_case",
+    "source": "Preston & Shapiro, Bölüm 8, s. 85–87",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/3224657/"
+  },
+  "kostimulasyon/animasyon-0-akim-yayilimi.html": {
+    "title": "Ko-stimülasyonu çift kanal ve twitch ile yakalama",
+    "teaching_job": "costim_dual",
+    "source": "Preston & Shapiro, Bölüm 8, s. 88-90; Box 8.5",
+    "pubmed": ""
+  },
+  "kostimulasyon/animasyon-1-tanisal-hatalar.html": {
+    "title": "Ko-stimülasyonun yeri, yalancı tanının yönünü belirler",
+    "teaching_job": "costim_four_channel",
+    "source": "Preston & Shapiro, Bölüm 8, s. 88–90",
+    "pubmed": ""
+  },
+  "kostimulasyon/animasyon-2-optimal-yerlesim.html": {
+    "title": "En düşük eşik noktasını bulmak ko-stimülasyonu önler",
+    "teaching_job": "stim_threshold_map",
+    "source": "Preston & Shapiro, Bölüm 8, s. 88–90; Box 8.5",
+    "pubmed": ""
+  },
+  "motor-elektrot-yerlesimi/animasyon-0-belly-tendon-montaj.html": {
+    "title": "BKAP aslında G1 eksi G2'dir",
+    "teaching_job": "belly_tendon",
+    "source": "Preston & Shapiro, Bölüm 8, s. 90-92",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/8455652/"
+  },
+  "motor-elektrot-yerlesimi/animasyon-2-g2-tendon-potansiyeli.html": {
+    "title": "Sağ ve solda farklı G2 konumu yalancı amplitüd asimetrisi üretir",
+    "teaching_job": "g2_side_asymmetry",
+    "source": "Preston & Shapiro, Bölüm 8, s. 90–92",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/31794957/"
+  },
+  "stimulus-artefakti/animasyon-2-artefakt-azaltma.html": {
+    "title": "Artefaktın büyüklüğü kadar amplifikatörün toparlanma süresi de önemlidir",
+    "teaching_job": "artifact_recovery",
+    "source": "Preston & Shapiro, Bölüm 8, s. 84–85; Box 8.4",
+    "pubmed": ""
+  },
+  "stimulus-artefakti/animasyon-3-kablo-induksiyonu.html": {
+    "title": "Kayıt kablosuna indüklenen stimulus artefaktı",
+    "teaching_job": "cable",
+    "source": "Preston & Shapiro, Bölüm 8, s. 85",
+    "pubmed": ""
+  },
+  "supramaksimal/animasyon-0-akson-rekrutmani.html": {
+    "title": "Akım arttıkça BKAP rekrutmanı ve latans nasıl değişir?",
+    "teaching_job": "supramax_waterfall",
+    "source": "Preston & Shapiro, Bölüm 8, s. 87",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/27413732/"
+  },
+  "supramaksimal/animasyon-1-uyari-egrisi.html": {
+    "title": "Platoyu görmek yetmez: supramaksimal düzeyi nasıl kanıtlarsın?",
+    "teaching_job": "plateau_protocol",
+    "source": "Preston & Shapiro, Bölüm 8, s. 87",
+    "pubmed": "https://pubmed.ncbi.nlm.nih.gov/27413732/"
+  }
+}

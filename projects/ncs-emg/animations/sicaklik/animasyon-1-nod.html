@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sıcaklık — Ranvier Nodu ve İleti Animasyonu</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+  --mono:"Consolas","Courier New",monospace;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;font-variant-numeric:tabular-nums;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.panel-head-sub{font-size:13px;font-weight:700;letter-spacing:.02em;text-transform:none;color:var(--dim);}
+.badge{display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border-radius:999px;background:#e6f7ec;color:var(--green);border:1px solid #c8e8d3;font-size:13px;font-weight:700;text-transform:none;letter-spacing:0;}
+.badge.cold{background:#e9f1fb;color:var(--blue);border-color:#cddef4;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:14px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:15px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:17px;font-variant-numeric:tabular-nums;}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14.5px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;align-items:center;gap:18px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+.slider-row span{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+input[type="range"]{flex:1;max-width:420px;accent-color:var(--cyan);}
+.temp-readout{font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:64px;text-align:right;}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Sıcaklık</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">1 / 9 — Nod ve İleti</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>Ranvier Nodu · Aksiyon Potansiyeli · Sodyum Kanalı</span><span class="badge" id="stateBadge">34°C · sıcak</span></div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Okuma</span></div>
+<div class="side-body">
+<div class="stat-row"><span>Düğümler arası atlama</span><b id="jumpOut">0.15 sn</b></div>
+<div class="stat-row"><span>Kanal açık kalma</span><b id="gateOut">kısa</b></div>
+<div class="stat-row"><span>Tek lif depolarizasyonu</span><b id="fiberOut">dar + kısa</b></div>
+<div class="stat-row"><span>İletim hızı (İH)</span><b id="cvOut">52 m/s</b></div>
+<div class="stat-row"><span>Distal latans (DL)</span><b id="dlOut">2.5 ms</b></div>
+<div class="note-box" id="mechNote"><b>Sıcakta:</b> Kanal hızla inaktive olur. Düğümden düğüme atlama kısa sürer, ileti hızlıdır.</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="slider-row">
+<span>21°C soğuk</span>
+<input id="tempSlider" type="range" min="21" max="34" step="0.5" value="34" aria-label="Ekstremite sıcaklığı">
+<span>34°C sıcak</span>
+</div>
+<div class="temp-readout" id="tempReadout">34°C</div>
+</footer>
+
+<div class="bottom-bar">
+<a class="fkey" href="faz-iptali.html">F1<b>Önceki: Faz İptali</b></a>
+<a class="fkey" href="../index.html">F2<b>İçindekiler</b></a>
+<a class="fkey" href="animasyon-2-ncs.html">F3<b>Sıradaki: Canlı NCS</b></a>
+</div>
+
+</div>
+
+<script>
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const stateBadge=document.getElementById("stateBadge");
+const jumpOut=document.getElementById("jumpOut");
+const gateOut=document.getElementById("gateOut");
+const fiberOut=document.getElementById("fiberOut");
+const cvOut=document.getElementById("cvOut");
+const dlOut=document.getElementById("dlOut");
+const mechNote=document.getElementById("mechNote");
+const slider=document.getElementById("tempSlider");
+const tempReadout=document.getElementById("tempReadout");
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(220,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(resizeCanvas).observe(stageWrap);
+resizeCanvas();
+
+let temp=34;
+function coldFactor(T){ return (34-T)/13; }
+function metrics(T){
+  const drop=34-T;
+  return { cv:52-2*drop, dl:2.5+0.2*drop };
+}
+
+const NODE_COUNT=6;
+let apNode=0;          // which node the AP currently sits at (0..NODE_COUNT-1)
+let nodeTimer=0;        // seconds since arriving at current node
+let gatePhase=0;        // 0..1 within the node dwell (for gate open/close animation)
+
+function nodeDwell(cf){ return 0.16 + cf*0.42; } // seconds paused at each node
+
+function updateReadouts(){
+  const cf=coldFactor(temp);
+  const m=metrics(temp);
+  const dwell=nodeDwell(cf);
+  jumpOut.textContent=`${dwell.toFixed(2)} sn`;
+  gateOut.textContent = cf<.2 ? "kısa" : cf<.6 ? "orta" : "uzun";
+  fiberOut.textContent = cf<.2 ? "dar + kısa" : cf<.6 ? "orta + orta" : "geniş + uzun";
+  cvOut.textContent=`${m.cv.toFixed(0)} m/s`;
+  dlOut.textContent=`${m.dl.toFixed(1)} ms`;
+  tempReadout.textContent=`${temp.toFixed(0)}°C`;
+  stateBadge.textContent = cf<.2 ? `${temp.toFixed(0)}°C · sıcak` : cf<.6 ? `${temp.toFixed(0)}°C · soğuyor` : `${temp.toFixed(0)}°C · soğuk`;
+  stateBadge.classList.toggle("cold", cf>=.2);
+  if(cf<.2) mechNote.innerHTML="<b>Sıcakta:</b> Kanal hızla inaktive olur. Az Na⁺ girer, tek lif depolarizasyonu dar ve kısadır.";
+  else if(cf<.6) mechNote.innerHTML="<b>Soğuma ilerlerken:</b> Kanal daha uzun açık kalır, daha fazla Na⁺ girer.";
+  else mechNote.innerHTML="<b>Soğukta:</b> Kanal uzun açık kalır → çok Na⁺ girer → tek lif depolarizasyonu büyür ve uzar.";
+}
+
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+let last=performance.now();
+function draw(now){
+  const dt=Math.min((now-last)/1000,.05); last=now;
+  const cf=coldFactor(temp);
+  const dwell=nodeDwell(cf);
+
+  nodeTimer+=dt;
+  gatePhase=Math.min(1,nodeTimer/dwell);
+  if(nodeTimer>=dwell){ nodeTimer=0; apNode=(apNode+1)%NODE_COUNT; }
+
+  const W=cssW,H=cssH;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fcfdfe"; ctx.fillRect(0,0,W,H);
+
+  // ---- upper: axon with nodes, saltatory AP ----
+  const axY=H*0.26, axL=W*0.06, axR=W*0.62, axH=Math.max(20,H*0.09);
+  const nodeXs=[]; for(let i=0;i<NODE_COUNT;i++) nodeXs.push(axL+(axR-axL)*i/(NODE_COUNT-1));
+
+  // myelin segments
+  ctx.save();
+  roundRect(axL,axY,axR-axL,axH,axH/2); ctx.clip();
+  ctx.fillStyle="#e9dcc0"; ctx.fillRect(axL,axY,axR-axL,axH);
+  ctx.fillStyle="#b99a63";
+  const segW=(axR-axL)/NODE_COUNT;
+  for(let i=0;i<=NODE_COUNT;i++){ const x=axL+i*segW-4; ctx.fillRect(x,axY,8,axH); }
+  ctx.restore();
+  ctx.strokeStyle="#a3854f"; ctx.lineWidth=1.6;
+  roundRect(axL,axY,axR-axL,axH,axH/2); ctx.stroke();
+
+  ctx.fillStyle="#6b7580"; ctx.font="700 "+Math.max(11,W*0.011)+"px Inter, sans-serif";
+  ctx.fillText("MİYELİNLİ AKSON",axL,axY-10);
+
+  nodeXs.forEach((x,i)=>{
+    ctx.fillStyle = i===apNode ? "#0f7a95" : "#8a97a3";
+    ctx.beginPath(); ctx.arc(x,axY+axH/2,5,0,Math.PI*2); ctx.fill();
+  });
+
+  // AP glow at current node, brighter as gatePhase progresses then fading
+  const apX=nodeXs[apNode], apY=axY+axH/2;
+  const glowA = gatePhase<0.5 ? gatePhase*2 : (1-gatePhase)*2;
+  const glow=ctx.createRadialGradient(apX,apY,0,apX,apY,26);
+  glow.addColorStop(0,`rgba(57,117,214,${0.55*glowA+0.15})`);
+  glow.addColorStop(1,"rgba(57,117,214,0)");
+  ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(apX,apY,26,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle="#2f6fbd"; ctx.beginPath(); ctx.arc(apX,apY,5.5,0,Math.PI*2); ctx.fill();
+
+  ctx.strokeStyle="#c3cbc3"; ctx.setLineDash([3,3]); ctx.lineWidth=1.4;
+  ctx.beginPath(); ctx.moveTo(apX,axY+axH+6); ctx.lineTo(W*0.66,H*0.62); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // ---- inset: one node close-up, membrane + gate + ions ----
+  const inX=W*0.66, inY=H*0.08, inW=W*0.32, inH=H*0.52;
+  ctx.fillStyle="#ffffff"; ctx.strokeStyle="#d7dee5"; ctx.lineWidth=2;
+  roundRect(inX,inY,inW,inH,10); ctx.fill(); ctx.stroke();
+  ctx.fillStyle="#16232c"; ctx.font="800 "+Math.max(12,inW*0.05)+"px Inter, sans-serif";
+  ctx.fillText("BİR NOD — YAKINDAN",inX+14,inY+26);
+  ctx.fillStyle="#8a97a3"; ctx.font="700 "+Math.max(10,inW*0.038)+"px Inter, sans-serif";
+  ctx.fillText("HÜCRE DIŞI",inX+14,inY+46);
+
+  const memTop=inY+inH*0.36, memBot=inY+inH*0.66, memGap=memBot-memTop;
+  ctx.fillStyle="#d7dee5";
+  ctx.fillRect(inX+14,memTop,inW-28,5);
+  ctx.fillRect(inX+14,memBot,inW-28,5);
+  ctx.fillStyle="#8a97a3"; ctx.font="700 "+Math.max(10,inW*0.038)+"px Inter, sans-serif";
+  ctx.fillText("HÜCRE İÇİ",inX+14,memBot+34);
+
+  const poreCx=inX+inW*0.5, poreW=inW*0.22;
+  ctx.fillStyle="#eef6f8"; ctx.strokeStyle="#0f7a95"; ctx.lineWidth=2;
+  ctx.beginPath();
+  ctx.moveTo(poreCx-poreW/2,memTop); ctx.lineTo(poreCx+poreW/2,memTop);
+  ctx.lineTo(poreCx+poreW*0.18,memTop+memGap*0.42); ctx.lineTo(poreCx+poreW*0.18,memTop+memGap*0.58);
+  ctx.lineTo(poreCx+poreW/2,memBot); ctx.lineTo(poreCx-poreW/2,memBot);
+  ctx.lineTo(poreCx-poreW*0.18,memTop+memGap*0.58); ctx.lineTo(poreCx-poreW*0.18,memTop+memGap*0.42);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+
+  // gate flap: open while gatePhase in the "open" window (grows with coldFactor)
+  const openWindow = 0.15 + cf*0.55;
+  const isOpen = gatePhase < openWindow;
+  const flapLift = isOpen ? Math.min(1,gatePhase/Math.max(.05,openWindow*.3)) : Math.max(0,1-((gatePhase-openWindow)/0.12));
+  ctx.fillStyle="#3f8fa8"; ctx.strokeStyle="#0f7a95"; ctx.lineWidth=1.3;
+  const flapW=poreW*0.55, flapH=memGap*0.16;
+  roundRect(poreCx-flapW/2, memBot-6-flapLift*(memGap*0.24), flapW, flapH, 3); ctx.fill(); ctx.stroke();
+
+  // ions flow when open
+  if(isOpen){
+    for(let i=0;i<3;i++){
+      const p=((gatePhase/openWindow)+i*.3)%1;
+      const iy=memTop-6+p*(memGap+16);
+      const ix=poreCx+Math.sin((gatePhase*12)+i)*3;
+      ctx.fillStyle="rgba(47,111,189,.9)";
+      ctx.beginPath(); ctx.arc(ix,iy,4.4,0,Math.PI*2); ctx.fill();
+    }
+  }
+  ctx.fillStyle="#0f7a95"; ctx.font="800 "+Math.max(11,inW*0.045)+"px Inter, sans-serif";
+  ctx.fillText("Na⁺",inX+inW-46,memBot+34);
+
+  ctx.fillStyle= isOpen ? "#2f7d52" : "#b43b47";
+  ctx.font="800 "+Math.max(11,inW*0.042)+"px Inter, sans-serif";
+  ctx.fillText(isOpen?"KAPI: AÇIK":"KAPI: KAPALI",inX+14,inY+inH-16);
+
+  requestAnimationFrame(draw);
+}
+
+slider.addEventListener("input",e=>{ temp=Number(e.target.value); updateReadouts(); });
+updateReadouts();
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

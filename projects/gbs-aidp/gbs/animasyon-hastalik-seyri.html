@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klinik Özellikler — Hastalık Seyri Zaman Çizelgesi</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;font-variant-numeric:tabular-nums;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.badge{display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border-radius:999px;background:#e6f7ec;color:var(--green);border:1px solid #c8e8d3;font-size:13px;font-weight:700;text-transform:none;letter-spacing:0;}
+.badge.warn{background:#fdf3e3;color:var(--amber);border-color:#f0dcb0;}
+.badge.on{background:#fbe9ea;color:var(--red);border-color:#f0c7c9;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:12px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:15px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:16px;font-variant-numeric:tabular-nums;}
+.stat-row.risk-active{border-color:#e5a6ac;background:#fff2f3;box-shadow:inset 4px 0 0 var(--red);}
+.stat-row.risk-active b{color:var(--red);}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;align-items:center;gap:14px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);flex-wrap:wrap;}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1;min-width:220px;}
+.slider-row span{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+input[type="range"]{flex:1;accent-color:var(--cyan);}
+.n-readout{font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:70px;text-align:right;}
+button{appearance:none;border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:6px;min-height:36px;padding:0 14px;font:inherit;font-size:13.5px;font-weight:800;cursor:pointer;white-space:nowrap;}
+button:hover{border-color:var(--cyan);}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> NCS/EMG Eğitim Serisi — Polinöropati</div>
+<div class="tb-right"><b>CADWELL</b>SIERRA SUMMIT · EMG/NCS</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Klinik Özellikler</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">3 / 3 — Hastalık Seyri Zaman Çizelgesi</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>Gün gün GBS: ilerleme, plato, iyileşme</span><span class="badge" id="stateBadge">İlerleme</span></div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas" role="img" aria-label="GBS'nin ilerleme, plato ve iyileşme dönemlerinde otomatik hareket eden hastalık günü ve klinik şiddet zaman çizelgesi"></canvas></div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Okuma</span></div>
+<div class="side-body">
+<div class="stat-row"><span>Faz</span><b id="stat1Out">--</b></div>
+<div class="stat-row" id="riskRow"><span>Entübasyon Riski</span><b id="stat2Out">--</b></div>
+<div class="note-box" id="mechNote">Zaman çizelgesi otomatik ilerler.</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="slider-row">
+<span>Gün 0</span>
+<input id="mainSlider" type="range" min="0" max="42" step="0.1" value="0" aria-label="Hastalık günü">
+<span>Gün 42</span>
+</div>
+<div class="n-readout" id="mainReadout">Gün 0</div>
+<button id="playPauseBtn" type="button">Başlat</button>
+<button id="resetBtn" type="button">Baştan Oynat</button>
+</footer>
+
+<div class="bottom-bar">
+<a class="fkey" href="hastalik-seyri.html">F1<b>Önceki: Hastalık Seyri</b></a>
+<a class="fkey" href="../index.html">F2<b>İçindekiler</b></a>
+<a class="fkey" href="sinir-ileti-calismalari.html">F3<b>Sıradaki: Sinir İleti Çalışmaları</b></a>
+</div>
+
+</div>
+
+<script type="text/plain" id="legacy-disease-course-engine">
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const stateBadge=document.getElementById("stateBadge");
+const stat1Out=document.getElementById("stat1Out");
+const stat2Out=document.getElementById("stat2Out");
+const mechNote=document.getElementById("mechNote");
+const mainSlider=document.getElementById("mainSlider");
+const mainReadout=document.getElementById("mainReadout");
+const resetBtn=document.getElementById("resetBtn");
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(240,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(()=>{resizeCanvas();draw();}).observe(stageWrap);
+resizeCanvas();
+
+// Piecewise course: progression (0-21d, worsening), plateau (21-28d), recovery (28-42d).
+// N.B. following Ch.29's own Fig.29.2 convention: worsening severity is drawn DOWNWARD.
+const PROG_END=21, PLATEAU_END=28, CHART_END=42;
+const INTUB_START=6, INTUB_END=18;
+
+function severityAt(day){
+  if(day<=PROG_END){
+    const t=day/PROG_END;
+    return 1-Math.pow(t,1.3)*0.85;
+  } else if(day<=PLATEAU_END){
+    return 1-0.85;
+  } else {
+    const t=(day-PLATEAU_END)/(CHART_END-PLATEAU_END);
+    return (1-0.85)+t*0.45;
+  }
+}
+function phaseAt(day){
+  if(day<=PROG_END) return "İlerleme";
+  if(day<=PLATEAU_END) return "Plato";
+  return "İyileşme";
+}
+
+let day=0;
+
+function updateStatics(){
+  day=Number(mainSlider.value);
+  mainReadout.textContent="Gün "+day;
+  const phase=phaseAt(day);
+  stateBadge.textContent=phase;
+  stateBadge.classList.toggle("warn",phase==="Plato");
+  stateBadge.classList.toggle("on",false);
+  stat1Out.textContent=phase;
+  const inIntub=day>=INTUB_START && day<=INTUB_END;
+  stat2Out.textContent=inIntub? "Yüksek (6-18. gün penceresi)" : (day<INTUB_START? "Henüz düşük" : "Düşük (pencere geçti)");
+  let note="";
+  if(day<=PROG_END){
+    note="<b>İlerleme:</b> Çoğu hasta günler-haftalar boyunca kötüleşmeye devam eder. "+(inIntub? "Şu an entübasyon riskinin en yüksek olduğu <b>6-18. gün</b> penceresindeyiz (hastaların 1/3'ü entübe edilir)." : "Entübasyon riski en çok 6-18. günler arasında yoğunlaşır.");
+  } else if(day<=PLATEAU_END){
+    note="<b>Plato:</b> İlerleme durdu, iyileşme henüz başlamadı. GBS'te 4 haftayı (gün 28) aşan ilerleme nadirdir — aşıyorsa tanı sorgulanmalı.";
+  } else {
+    note="<b>İyileşme:</b> Plato sonrası düzelme başlar; yavaştır ve aylar sürer.";
+  }
+  mechNote.innerHTML=note;
+}
+
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+function draw(){
+  const W=cssW,H=cssH;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fcfdfe"; ctx.fillRect(0,0,W,H);
+
+  const left=W*0.09, right=W*0.95, top=H*0.14, bottom=H*0.82;
+  const plotW=right-left, plotH=bottom-top;
+
+  function xOf(d){ return left+plotW*(d/CHART_END); }
+  function yOf(sev){ return top+plotH*(1-sev); }
+
+  // intubation window shading
+  ctx.fillStyle="rgba(180,59,71,0.08)";
+  ctx.fillRect(xOf(INTUB_START),top,xOf(INTUB_END)-xOf(INTUB_START),plotH);
+  ctx.fillStyle="#b43b47"; ctx.font="700 "+Math.max(10,W*0.011)+"px Inter, sans-serif";
+  ctx.textAlign="center";
+  ctx.fillText("entübasyon penceresi",(xOf(INTUB_START)+xOf(INTUB_END))/2, top-6);
+
+  // 4-week rule marker
+  ctx.strokeStyle="#8a97a3"; ctx.lineWidth=1.5; ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(xOf(PLATEAU_END),top); ctx.lineTo(xOf(PLATEAU_END),bottom); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle="#5c6b78"; ctx.font="700 "+Math.max(10,W*0.011)+"px Inter, sans-serif";
+  ctx.save(); ctx.translate(xOf(PLATEAU_END)+4,bottom-6); ctx.rotate(-Math.PI/2);
+  ctx.textAlign="left"; ctx.fillText("4 hafta sınırı",0,0); ctx.restore();
+
+  // axes
+  ctx.strokeStyle="#c3ceda"; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(left,top); ctx.lineTo(left,bottom); ctx.lineTo(right,bottom); ctx.stroke();
+  ctx.fillStyle="#8a97a3"; ctx.font="700 "+Math.max(10,W*0.011)+"px Inter, sans-serif";
+  ctx.textAlign="center";
+  ctx.fillText("gün 0",left,bottom+18);
+  ctx.fillText("gün 42",right,bottom+18);
+  ctx.save(); ctx.translate(left-14,(top+bottom)/2); ctx.rotate(-Math.PI/2);
+  ctx.fillText("şiddet (aşağı = daha kötü)",0,0); ctx.restore();
+
+  // severity curve
+  ctx.strokeStyle="#2f6fbd"; ctx.lineWidth=3; ctx.beginPath();
+  for(let d=0;d<=CHART_END;d+=0.5){
+    const px=xOf(d), py=yOf(severityAt(d));
+    if(d===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+  }
+  ctx.stroke();
+
+  // phase boundary markers
+  [0,PROG_END,PLATEAU_END,CHART_END].forEach(function(d){
+    ctx.beginPath(); ctx.arc(xOf(d),yOf(severityAt(d)),3.5,0,Math.PI*2);
+    ctx.fillStyle="#8a97a3"; ctx.fill();
+  });
+
+  // current day marker
+  const cx=xOf(day), cy=yOf(severityAt(day));
+  ctx.beginPath(); ctx.arc(cx,cy,7,0,Math.PI*2);
+  ctx.fillStyle="#16232c"; ctx.fill();
+  ctx.beginPath(); ctx.arc(cx,cy,7,0,Math.PI*2);
+  ctx.lineWidth=2; ctx.strokeStyle="#ffffff"; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx,top); ctx.lineTo(cx,bottom);
+  ctx.strokeStyle="rgba(22,35,44,0.25)"; ctx.lineWidth=1.5; ctx.setLineDash([3,3]); ctx.stroke(); ctx.setLineDash([]);
+}
+
+mainSlider.addEventListener("input",()=>{ updateStatics(); draw(); });
+resetBtn.addEventListener("click",()=>{ mainSlider.value=0; updateStatics(); draw(); });
+
+updateStatics();
+draw();
+</script>
+<script src="assets/disease-course-engine.js"></script>
+<script src="assets/deck-nav.js"></script>
+</body>
+</html>

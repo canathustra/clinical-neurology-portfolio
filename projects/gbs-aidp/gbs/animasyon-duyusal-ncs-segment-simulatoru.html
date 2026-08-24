@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDP duyusal NCS seri kayıt</title><link rel="stylesheet" href="assets/ncs-lab.css"></head>
+<body><main class="app">
+<div class="titlebar"><div class="tb-left"><span class="dot"></span>NCS/EMG Eğitim Serisi — GBS / AIDP</div><div class="tb-right"><b>CLINICAL NCS</b>SENSORY · SERIAL</div></div>
+<div class="toolbar"><strong>Duyusal NCS: aynı teknikle seri ve üç sinir karşılaştırması</strong><span class="badge" id="stateBadge">Kayıt bekleniyor</span></div>
+<div class="controls">
+ <div class="control"><span class="control-label">Temsili hastalık günü</span><div class="seg" id="timeSeg"><button class="active" data-day="0">0</button><button data-day="3">3</button><button data-day="7">7</button><button data-day="14">14</button><button data-day="21">21</button></div></div>
+ <div class="control"><span class="control-label">Duyusal sinir</span><div class="seg" id="nerveSeg"><button class="active" data-nerve="median">Median · 2. parmak</button><button data-nerve="ulnar">Ulnar · 5. parmak</button><button data-nerve="sural">Sural</button></div></div>
+ <button class="stim" id="stimBtn" type="button">⚡ UYAR VE KAYDET</button><button class="utility" id="clearBtn" type="button">İzleri temizle</button>
+</div>
+<section class="workspace"><div class="scope-panel"><div class="panel-head"><span id="scopeTitle">Median · 2. parmak — Gün 0</span><span id="phaseLabel">Distal uyarım</span></div><div class="scope-wrap" id="scopeWrap" data-scale="5 µV/div · 1 ms/div · distal uyarım · filtre ve ısı sabit"><canvas id="scope" aria-label="Median, ulnar ve sural distal duyusal sinir aksiyon potansiyellerinin aynı teknikle seri karşılaştırması"></canvas></div></div>
+<aside class="side"><div class="panel-head"><span>Seçili DSAP (SNAP) ölçümü</span></div><div class="side-body">
+ <div class="measure"><span>Başlangıç latansı</span><b id="latOut">—</b></div><div class="measure hot"><span>Tepeden tepeye amplitüd</span><b id="ampOut">—</b></div><div class="measure"><span>Negatif faz süresi</span><b id="durOut">—</b></div><div class="measure"><span>Normal alt sınır</span><b id="llnOut">—</b></div><div class="measure"><span>Patern</span><b id="statusOut">—</b></div>
+ <div class="note" id="note"><b>Başlat:</b> Günü ve siniri seç; distal uyarımla kaydet.</div>
+ <div class="micro"><b>Teknik:</b> Tüm kayıtlar distal uyarımla, aynı mesafe, filtre, kazanç ve ekstremite ısısında alınır. Günlere ait sayılar temsili örnektir. Median ve ulnar DSAP azalırken sural DSAP'ın görece korunması sural korunma paternidir.</div>
+</div></aside></section>
+<nav class="bottom-bar"><a class="fkey" href="sural-sparing.html">F1<b>Önceki: Duyusal NCS</b></a><a class="fkey" href="../index.html">F2<b>İçindekiler</b></a><a class="fkey" href="elektrodiagnostik-guncel-yaklasim.html">F3<b>Sıradaki: Güncel Yaklaşım</b></a></nav>
+</main><script src="assets/clinical-ncs-waveforms.js"></script><script src="assets/sensory-segment-engine.js"></script><script src="assets/deck-nav.js"></script></body></html>

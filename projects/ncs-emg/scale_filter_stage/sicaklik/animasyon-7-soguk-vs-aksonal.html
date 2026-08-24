@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sıcaklık — Soğuk mu, Demiyelinizan mı?</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:20px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:19px;color:var(--amber);font-weight:800;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:14px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#4a5964;flex-wrap:wrap;}
+.modetoggle{display:flex;border:1px solid var(--line2);border-radius:6px;overflow:hidden;}
+.mbtn{appearance:none;border:none;background:#fff;color:var(--muted);padding:6px 10px;font:inherit;font-size:11.5px;font-weight:800;cursor:pointer;text-transform:none;letter-spacing:0;white-space:nowrap;}
+.mbtn.active{background:var(--cyan);color:#fff;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#071a12;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+.scope-calibration{position:absolute;right:12px;top:10px;z-index:3;padding:5px 8px;border:1px solid #315347;border-radius:3px;background:rgba(6,23,16,.88);color:#cde6dc;font:800 10px/1.2 Consolas,"Courier New",monospace;letter-spacing:.04em;pointer-events:none;}
+.legend{flex:none;display:flex;gap:18px;padding:8px 16px;background:#0d2119;font-size:12px;font-weight:700;color:#9db3a6;border-top:1px solid #17301f;}
+.legend span{display:flex;align-items:center;gap:6px;}
+.legend i{width:14px;height:2px;display:inline-block;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:14px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:15px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:17px;font-variant-numeric:tabular-nums;}
+.stat-row b.warn{color:var(--red);}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14.5px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;flex-direction:column;gap:8px;padding:10px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.gauge-row{display:flex;align-items:center;gap:12px;}
+.gauge-row span{font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+.gauge{position:relative;flex:1;height:16px;border-radius:8px;background:linear-gradient(90deg,#f6d9d9 0%,#f6d9d9 42.5%,#e2e8ec 42.5%,#e2e8ec 100%);border:1px solid var(--line2);}
+.gauge-marker{position:absolute;top:-5px;width:3px;height:26px;background:var(--ink);border-radius:2px;transform:translateX(-1.5px);}
+.gauge-label{display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--dim);}
+.verdict{text-align:center;font-size:19px;font-weight:800;letter-spacing:.02em;}
+.verdict.normal{color:var(--green);}
+.verdict.axonal{color:var(--amber);}
+.verdict.trap{color:var(--red);}
+.verdict.demy{color:var(--blue);}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Sıcaklık</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">7 / 9 — Soğuk mu, Demiyelinizan mı?</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head">
+<span>Median Motor CMAP — Bilek ve Dirsek Stimülasyonu</span>
+<div class="modetoggle" id="condToggle">
+<button class="mbtn active" data-cond="normal" type="button">Normal</button>
+<button class="mbtn" data-cond="axonal" type="button">Aksonal Nöropati</button>
+<button class="mbtn" data-cond="trap" type="button">Aksonal + Soğuk</button>
+<button class="mbtn" data-cond="demy" type="button">Gerçek Demiyelinizan</button>
+</div>
+</div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas><div class="scope-calibration">Sensitivite 2 mV/div · Sweep 2 ms/div</div></div>
+<div class="legend"><span><i style="background:#5eea8d;"></i>Bilek stimülasyonu</span><span><i style="background:#5ea7ea;"></i>Dirsek stimülasyonu</span></div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Okuma</span></div>
+<div class="side-body">
+<div class="stat-row"><span>İletim Hızı (İH)</span><b id="cvOut">52 m/s</b></div>
+<div class="stat-row"><span>Distal Latans (DL)</span><b id="dlOut">3.4 ms</b></div>
+<div class="stat-row"><span>Amplitüd (CMAP)</span><b id="ampOut">6.0 mV</b></div>
+<div class="note-box" id="mechNote"><b>Normal:</b> İH ve DL normal sınırlarda, amplitüd korunmuş.</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="gauge-row">
+<span>20 m/s</span>
+<div class="gauge"><div class="gauge-marker" id="gaugeMarker" style="left:80%;"></div></div>
+<span>60 m/s</span>
+</div>
+<div class="gauge-label"><span>Demiyelinizan Aralık (&lt;37 m/s)</span><span>Normal / Hafif Aksonal Yavaşlama</span></div>
+<div class="verdict normal" id="verdictOut">NORMAL</div>
+</footer>
+
+<div class="bottom-bar">
+<a class="fkey" href="animasyon-6-kts-vs-soguk.html">F1<b>Önceki: KTS mi, Soğuk mu?</b></a>
+<a class="fkey" href="../index.html">F2<b>İçindekiler</b></a>
+<a class="fkey" href="isinma-yontemi.html">F3<b>Sıradaki: İzlem ve Isıtma</b></a>
+</div>
+
+</div>
+
+<script>
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const cvOut=document.getElementById("cvOut");
+const dlOut=document.getElementById("dlOut");
+const ampOut=document.getElementById("ampOut");
+const mechNote=document.getElementById("mechNote");
+const verdictOut=document.getElementById("verdictOut");
+const gaugeMarker=document.getElementById("gaugeMarker");
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(160,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(()=>{resizeCanvas();draw();}).observe(stageWrap);
+resizeCanvas();
+
+function shape(dt,riseTau,decayTau){ if(dt<0) return 0; return Math.exp(-dt/decayTau)-Math.exp(-dt/riseTau); }
+function shapePeak(riseTau,decayTau){ let m=0; for(let dt=0;dt<=decayTau*8;dt+=decayTau/60){const v=shape(dt,riseTau,decayTau); if(v>m)m=v;} return m||1; }
+const MAIN_R=.2,MAIN_D=.45,MAIN_PEAK=shapePeak(MAIN_R,MAIN_D);
+const AFTER_R=.28,AFTER_D=.6,AFTER_PEAK=shapePeak(AFTER_R,AFTER_D);
+function cmapWave(msRel,amp,width){
+  const x=msRel/Math.max(.5,width);
+  const main=-amp*shape(x,MAIN_R,MAIN_D)/MAIN_PEAK;
+  const after=.4*amp*shape(x-.7,AFTER_R,AFTER_D)/AFTER_PEAK;
+  return main+after;
+}
+
+const ELBOW_WRIST_CM=23; // typical forearm segment distance
+
+const CONDITIONS={
+  normal:{ cv:52, dl:3.4, amp:6.0 },
+  axonal:{ cv:44, dl:3.8, amp:2.0 },
+  trap:{ cv:34, dl:4.6, amp:2.0 },
+  demy:{ cv:30, dl:5.9, amp:5.0 }
+};
+const DEMY_CV=37; // <75% of LLN (49 m/s) marks the "demyelinating range" for median motor CV
+const DEMY_DL=5.7; // >130% of ULN (4.4 ms)
+
+let cond="normal";
+
+function updateStatics(){
+  const m=CONDITIONS[cond];
+  cvOut.textContent=`${m.cv} m/s`;
+  dlOut.textContent=`${m.dl.toFixed(1)} ms`;
+  ampOut.textContent=`${m.amp.toFixed(1)} mV`;
+  cvOut.classList.toggle("warn", m.cv<DEMY_CV);
+  dlOut.classList.toggle("warn", m.dl>DEMY_DL);
+  ampOut.classList.toggle("warn", m.amp<4.0);
+
+  const gaugePct=Math.max(2,Math.min(98, (m.cv-20)/(60-20)*100 ));
+  gaugeMarker.style.left=`${gaugePct}%`;
+
+  if(cond==="normal"){
+    verdictOut.textContent="NORMAL";
+    verdictOut.className="verdict normal";
+    mechNote.innerHTML="<b>Normal:</b> İH ve DL normal sınırlarda, amplitüd korunmuş.";
+  } else if(cond==="axonal"){
+    verdictOut.textContent="AKSONAL NÖROPATİ — DEMİYELİNİZAN ARALIKTA DEĞİL";
+    verdictOut.className="verdict axonal";
+    mechNote.innerHTML="<b>Aksonal nöropati:</b> Amplitüd düşük, İH hafif yavaş ama demiyelinizan aralığın (&lt;37 m/s) üzerinde.";
+  } else if(cond==="trap"){
+    verdictOut.textContent="TUZAK: SOĞUK, İH'yi DEMİYELİNİZAN ARALIĞA İTTİ";
+    verdictOut.className="verdict trap";
+    mechNote.innerHTML="<b>Aksonal + soğuk:</b> Aynı düşük amplitüd, ama İH artık &lt;37 m/s — tek başına İH'ye bakan biri yanlışlıkla demiyelinizasyon düşünebilir.";
+  } else {
+    verdictOut.textContent="GERÇEK DEMİYELİNİZAN NÖROPATİ";
+    verdictOut.className="verdict demy";
+    mechNote.innerHTML="<b>Gerçek demiyelinizasyon:</b> İH ve DL demiyelinizan aralıkta, ama amplitüd görece korunmuş — ayırt edici ipucu budur.";
+  }
+}
+
+function draw(){
+  const m=CONDITIONS[cond];
+  const W=cssW,H=cssH;
+  const left=W*0.06, right=W*0.965, top=H*0.1, bottom=H*0.8, mid=(top+bottom)/2;
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#071a12"; ctx.fillRect(0,0,W,H);
+
+  ctx.strokeStyle="rgba(126,168,154,.16)"; ctx.lineWidth=1;
+  for(let i=0;i<=12;i+=1){const x=left+(right-left)*i/12;ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke();}
+  const rowH=(bottom-top)/6;
+  for(let j=-2;j<=2;j+=1){const y=mid+j*rowH;ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(right,y);ctx.stroke();}
+  ctx.strokeStyle="rgba(126,168,154,.4)"; ctx.lineWidth=1.2;
+  ctx.beginPath();ctx.moveTo(left,mid);ctx.lineTo(right,mid);ctx.stroke();
+
+  const pxGain=rowH/3.2;
+  const AXIS_MS=16;
+  const elbowLat=m.dl+ELBOW_WRIST_CM*10/m.cv;
+  const width=1+ (52-m.cv)*0.02; // widens slightly as conduction slows (temporal dispersion)
+
+  function plotTrace(lat,color){
+    ctx.strokeStyle=color; ctx.lineWidth=2.4; ctx.shadowColor=color; ctx.shadowBlur=4;
+    ctx.beginPath(); let started=false;
+    for(let px=left; px<=right; px+=1.2){
+      const ms=(px-left)/(right-left)*AXIS_MS;
+      const y=mid+cmapWave(ms-lat,m.amp,width)*pxGain;
+      if(!started){ctx.moveTo(px,y);started=true;} else ctx.lineTo(px,y);
+    }
+    ctx.stroke(); ctx.shadowBlur=0;
+  }
+  plotTrace(m.dl,"#5eea8d");
+  plotTrace(elbowLat,"#5ea7ea");
+
+  ctx.fillStyle="#5c7d70"; ctx.font="700 "+Math.max(9,W*0.011)+"px 'Courier New', monospace";
+  ctx.fillText("0 ms",left-2,bottom+18);
+  ctx.fillText(`${AXIS_MS} ms`,right-30,bottom+18);
+  ctx.fillStyle="#5eea8d";
+  ctx.fillText(`Bilek: ${m.dl.toFixed(1)} ms`,left+8,top+16);
+  ctx.fillStyle="#5ea7ea";
+  ctx.fillText(`Dirsek: ${elbowLat.toFixed(1)} ms  (İH ${m.cv} m/s)`,left+8,top+34);
+}
+
+const condBtns=[...document.querySelectorAll(".mbtn")];
+condBtns.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    cond=btn.dataset.cond;
+    condBtns.forEach(b=>b.classList.toggle("active",b===btn));
+    updateStatics(); draw();
+  });
+});
+
+updateStatics();
+draw();
+</script>
+</body>
+</html>

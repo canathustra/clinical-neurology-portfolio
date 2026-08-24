@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yatay Zaman Ölçeği ve Başlangıç Latansı</title>
+<style>
+:root{--paper:#fff;--bg:#eef2f5;--ink:#14232d;--muted:#62717c;--line:#d3dce3;--teal:#087f8c;--green:#2e8a5b;--amber:#d68a25;--red:#b9404b;--screen:#071a17;--grid:#16392f;--trace:#63e7a4;--ref:#a9bbb5}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0}body{display:grid;place-items:center;padding:12px;background:#cfd7dd;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+.app{width:min(calc(100vw - 24px),1536px);max-height:calc(100vh - 24px);aspect-ratio:16/9;display:grid;grid-template-rows:44px 54px 1fr 82px 56px;overflow:hidden;background:#fff;border:1px solid #c8d1d8;border-radius:7px;box-shadow:0 22px 60px #22323c38}
+.titlebar,.topicbar,.controls,.bottom-bar{display:flex;align-items:center}.titlebar{justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);font-size:15px;font-weight:650}.left{display:flex;align-items:center;gap:10px}.dot{width:10px;height:10px;border-radius:50%;background:#2e9462;box-shadow:0 0 7px #2e946277}.brand{font-weight:900;letter-spacing:.16em;color:#77848e}.brand b{color:var(--teal)}
+.topicbar{justify-content:space-between;gap:18px;padding:0 18px;background:#edf2f6;border-bottom:1px solid var(--line)}.topic{display:flex;align-items:baseline;gap:12px;min-width:0}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.08em;color:#687681;text-transform:uppercase}.topic h1{margin:0;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chips{display:flex;gap:8px}.chip{padding:6px 10px;border:1px solid #cbd7df;border-radius:999px;background:#fff;color:#49616f;font-size:12px;font-weight:800}.chip.key{border-color:#b7dfe3;color:#08737e;background:#f2fbfc}
+.workspace{min-height:0;display:grid;grid-template-columns:.38fr .62fr;gap:10px;padding:10px;background:var(--bg)}.card{min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line)}.card-head{height:43px;flex:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 13px;background:#f4f7f9;border-bottom:1px solid var(--line);font-size:12px;font-weight:900;letter-spacing:.055em;text-transform:uppercase;color:#50616d}.step{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;color:#fff;background:var(--teal);font-size:12px}
+.figure-body{flex:1;min-height:0;display:grid;grid-template-columns:.54fr .46fr;padding:10px;gap:9px;background:#fafcfd}.figure-stage{position:relative;min-height:0;border:1px solid #d6dfe5;background:#fff;overflow:hidden}.figure-stage img{width:100%;height:100%;object-fit:contain;display:block}.focus{position:absolute;left:3%;right:3%;height:31%;border:3px solid var(--green);box-shadow:0 0 0 999px #ffffff91;pointer-events:none;transition:top .2s}.focus.top{top:2%}.focus.mid{top:34.4%}.focus.bottom{top:66.5%}
+.book-read{display:grid;align-content:start;gap:8px}.anchor{padding:10px;border:1px solid #d7e0e6;background:#fff}.anchor.active{border-color:var(--teal);background:#edf8f9}.anchor small{display:block;color:#667681;font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}.anchor b{display:block;margin-top:4px;font-size:18px}.anchor span{display:block;margin-top:3px;color:#566671;font-size:11px;font-weight:700}.source-note{padding:9px 10px;border-left:4px solid var(--green);background:#edf8f1;color:#40515c;font-size:11px;line-height:1.35}.source-note b{color:var(--ink)}
+.monitor{flex:1;min-height:0;display:grid;grid-template-rows:1fr auto}.screen{position:relative;margin:10px 10px 7px;min-height:0;background:var(--screen);border:1px solid #29433b;border-radius:4px;overflow:hidden;box-shadow:inset 0 0 24px #0009}.screen-top{position:absolute;z-index:3;left:11px;right:11px;top:8px;display:flex;justify-content:space-between;color:#a9c6bb;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}#traceSvg{position:absolute;inset:26px 8px 8px;width:calc(100% - 16px);height:calc(100% - 34px)}.gridline{stroke:var(--grid);stroke-width:1}.baseline{stroke:#34564a;stroke-width:1}.trace{fill:none;stroke:var(--trace);stroke-width:2.3;vector-effect:non-scaling-stroke}.cursor{stroke:#f3ca58;stroke-width:1.7;stroke-dasharray:5 4}.true-cursor{stroke:#99ada6;stroke-width:1.2;stroke-dasharray:3 4}.svg-label{fill:#b9d0c7;font-size:11px;font-weight:800}.cursor-label{fill:#f3ca58;font-size:12px;font-weight:900}.true-label{fill:#a9bbb5;font-size:10px;font-weight:800}.scale-bracket{stroke:#d9ebe4;stroke-width:2}.scale-label{fill:#d9ebe4;font-size:10px;font-weight:850}
+.readouts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 10px 10px}.metric{padding:8px 9px;border:1px solid #d7e0e6;background:#f4f7f9}.metric span{display:block;margin-bottom:2px;color:#6a7883;font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}.metric b{font-size:15px;font-variant-numeric:tabular-nums}.metric b.changed{color:var(--red)}
+.causal{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.cause{padding:9px 11px;background:#fff;display:flex;align-items:center;gap:8px;font-size:11px;font-weight:750;color:#50616b}.cause span{display:grid;place-items:center;width:22px;height:22px;flex:none;border-radius:50%;background:#e5f4f5;color:var(--teal);font-weight:900}.cause b{color:var(--ink)}
+.controls{gap:13px;padding:0 18px;border-top:1px solid var(--line);background:#f7f9fa}.control-label{min-width:190px}.control-label small{display:block;color:#687681;font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}.control-label b{font-size:16px}input[type=range]{flex:1;min-width:120px;accent-color:var(--teal)}.read{min-width:92px;text-align:right;font-size:20px;font-weight:900;color:var(--teal);font-variant-numeric:tabular-nums}.preset{height:36px;min-width:70px;padding:0 10px;border:1px solid #bfcbd3;background:#fff;color:#304550;font:800 12px "Segoe UI";cursor:pointer}.preset:hover,.preset.active{border-color:var(--teal);background:#e9f7f8;color:#066c76}.play{min-width:110px}
+.bottom-bar{align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line)}.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:#e7edf3;color:var(--ink);text-decoration:none;font-size:13px;font-weight:800}.fkey span{color:var(--teal);font-size:15px}.fkey:hover,.fkey:focus-visible{background:#dce8f0;outline:none}
+@media(max-width:1050px){body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:auto auto auto auto 56px}.workspace{grid-template-columns:1fr}.card{min-height:440px}.chips{display:none}.controls{min-height:100px;flex-wrap:wrap}.preset[data-sweep]{display:none}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="titlebar"><div class="left"><span class="dot"></span><span>EDX Öğrenim İstasyonu — Bölüm 8</span></div><div class="brand"><b>EDX</b>&nbsp; SİM</div></header>
+  <section class="topicbar"><div class="topic"><span class="eyebrow">Latans ölçümü</span><h1>Aynı yanıt, farklı yatay zaman ölçeği</h1></div><div class="chips"><span class="chip key">Tek değişken: ms/div</span><span class="chip">Kitap kaydı</span></div></section>
+  <section class="workspace">
+    <article class="card">
+      <div class="card-head"><span class="step">1</span><span>Kitaptaki gerçek kayıt</span><span>Median motor · APB</span></div>
+      <div class="figure-body">
+        <div class="figure-stage"><img src="../figures/source-v3/fig_8_34_sweep.png" alt="Aynı median motor yanıtın 2, 1 ve 0,8 milisaniye bölü zaman ölçeğindeki görünümü"><div id="focus" class="focus top"></div></div>
+        <div class="book-read">
+          <div class="anchor active" data-sweep="2"><small>2 ms/div</small><b>3,0 ms</b><span>Kitaptaki ölçüm</span></div>
+          <div class="anchor" data-sweep="1"><small>1 ms/div</small><b>3,4 ms</b><span>Kitaptaki ölçüm</span></div>
+          <div class="anchor" data-sweep=".8"><small>0,8 ms/div</small><b>3,5 ms</b><span>Kitaptaki ölçüm</span></div>
+          <div class="source-note"><b>Terminoloji yerine kalibrasyona bak:</b> bu örnekte 2 → 0,8 ms/div değişirken dalga yatayda genişler ve manuel başlangıç imleci 3,0 → 3,5 ms kayar.</div>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head"><span class="step">2</span><span>Aynı saklanan örnekler · farklı yatay görünüm</span><span id="state">2 ms/div</span></div>
+      <div class="monitor">
+        <div class="screen">
+          <div class="screen-top"><span>MEDIAN MOTOR · APB · BİLEK UYARIMI</span><span id="calibration">5 mV/div · 2 ms/div</span></div>
+          <svg id="traceSvg" viewBox="0 0 760 380" preserveAspectRatio="none" aria-label="Yatay zaman ölçeğine göre genişleyen yanıt ve değişen başlangıç imleci">
+            <g id="grid"></g><line class="baseline" x1="35" y1="190" x2="735" y2="190"/><path id="trace" class="trace"></path>
+            <line id="trueCursor" class="true-cursor" x1="0" y1="32" x2="0" y2="340"/><line id="measureCursor" class="cursor" x1="0" y1="32" x2="0" y2="340"/>
+            <text id="trueLabel" class="true-label" x="0" y="354">saklanan fizyolojik başlangıç · sabit</text><text id="measureLabel" class="cursor-label" x="0" y="48"></text>
+            <path id="bracket" class="scale-bracket"></path><text id="scaleLabel" class="scale-label" x="0" y="324"></text>
+          </svg>
+        </div>
+        <div class="readouts">
+          <div class="metric"><span>Yatay ölçek</span><b id="sweepOut">2 ms/div</b></div>
+          <div class="metric"><span>Kitaptaki ölçüm</span><b id="latencyOut">3,0 ms</b></div>
+          <div class="metric"><span>Kaydedilmiş yanıt</span><b>Sabit örnek dizisi</b></div>
+          <div class="metric"><span>Negatif peak latansı</span><b>4,7 ms · sabit</b></div>
+        </div>
+      </div>
+      <div class="causal"><div class="cause"><span>1</span><b>Yanıt sabit</b></div><div class="cause"><span>2</span>Yatay ölçek değişir</div><div class="cause"><span>3</span>Görsel çözünürlük → manuel imleç kayar</div></div>
+    </article>
+  </section>
+  <section class="controls" aria-label="Yatay zaman ölçeği kontrolü">
+    <div class="control-label"><small>Yatay zaman ölçeği</small><b id="controlText">Kitap üst izi</b></div>
+    <input id="slider" type="range" min="0" max="100" step="1" value="0" aria-label="Milisaniye bölü yatay ölçek">
+    <div id="read" class="read">2 ms/div</div>
+    <button class="preset active" data-sweep="2">2 ms</button><button class="preset" data-sweep="1">1 ms</button><button class="preset" data-sweep=".8">0,8 ms</button><button id="play" class="preset play">▶ Karşılaştır</button>
+  </section>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi"><a class="fkey" href="animasyon-1-sensitivite.html"><span>F1</span><b>Önceki</b></a><a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a><a class="fkey" href="../index.html"><span>F3</span><b>Sonraki</b></a></nav>
+</main>
+<script>
+const slider=document.getElementById("slider"),focus=document.getElementById("focus"),grid=document.getElementById("grid"),trace=document.getElementById("trace"),trueCursor=document.getElementById("trueCursor"),measureCursor=document.getElementById("measureCursor"),measureLabel=document.getElementById("measureLabel"),trueLabel=document.getElementById("trueLabel"),bracket=document.getElementById("bracket"),scaleLabel=document.getElementById("scaleLabel"),state=document.getElementById("state"),calibration=document.getElementById("calibration"),sweepOut=document.getElementById("sweepOut"),latencyOut=document.getElementById("latencyOut"),read=document.getElementById("read"),controlText=document.getElementById("controlText"),play=document.getElementById("play");
+let level=0,playing=false,raf=0;
+function sweepFromLevel(v){return 2-1.2*v/100}
+function levelFromSweep(s){return (2-s)/1.2*100}
+function latencyForSweep(s){if(s>=1)return 3.0+.4*(2-s);return 3.4+.1*(1-s)/.2}
+function signal(t){
+  const g=(m,s)=>Math.exp(-.5*Math.pow((t-m)/s,2));
+  const stimulus=.22*Math.exp(-.5*Math.pow((t-.16)/.018,2))-.13*Math.exp(-.5*Math.pow((t-.21)/.028,2));
+  if(t<=2.90)return stimulus;
+  const gate=1-Math.exp(-Math.pow((t-2.90)/.055,2));
+  const foot=.060*g(3.08,.12);
+  const main=7.8*g(4.70,.63);
+  const after=-5.2*g(6.28,.78);
+  const late=.62*g(8.35,.96);
+  const noise=.010*Math.sin(t*17.3)+.006*Math.sin(t*37.7);
+  return stimulus+gate*(foot+main+after+late)+noise;
+}
+function drawGrid(sweep){let html="";const x0=35,x1=735,divs=7;for(let i=0;i<=divs;i++){const x=x0+(x1-x0)*i/divs;html+=`<line class="gridline" x1="${x}" y1="30" x2="${x}" y2="340"/>`}for(let j=0;j<=6;j++){const y=36+(304*j/6);html+=`<line class="gridline" x1="35" y1="${y}" x2="735" y2="${y}"/>`}grid.innerHTML=html}
+function tracePath(sweep){const x0=35,x1=735,base=190,divs=7,windowMs=sweep*divs;let d="";for(let i=0;i<=520;i++){const t=windowMs*i/520,x=x0+(x1-x0)*i/520,y=Math.max(35,Math.min(335,base-signal(t)*9.2));d+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1)+" "}return d}
+function update(v){
+  level=Math.max(0,Math.min(100,Number(v)));slider.value=level;const sweep=sweepFromLevel(level),lat=latencyForSweep(sweep),x0=35,x1=735,divs=7,windowMs=sweep*divs,xTrue=x0+(x1-x0)*2.9/windowMs,xMeasure=x0+(x1-x0)*lat/windowMs,oneDiv=(x1-x0)/divs;
+  drawGrid(sweep);trace.setAttribute("d",tracePath(sweep));[trueCursor].forEach(el=>{el.setAttribute("x1",xTrue);el.setAttribute("x2",xTrue)});[measureCursor].forEach(el=>{el.setAttribute("x1",xMeasure);el.setAttribute("x2",xMeasure)});
+  trueLabel.setAttribute("x",Math.max(42,Math.min(500,xTrue-45)));measureLabel.setAttribute("x",Math.max(42,Math.min(620,xMeasure-25)));measureLabel.textContent=`ölçülen · ${lat.toFixed(2).replace(".",",")} ms`;
+  const by=313,bx=590;bracket.setAttribute("d",`M${bx} ${by} v12 M${bx} ${by+6} h${oneDiv} M${bx+oneDiv} ${by} v12`);scaleLabel.setAttribute("x",bx+oneDiv/2-24);scaleLabel.textContent=`${sweep.toFixed(2).replace(".",",")} ms/div`;
+  const sweepText=`${sweep.toFixed(2).replace(".",",").replace(/,00$/,"")} ms/div`;state.textContent=sweepText;calibration.textContent=`5 mV/div · ${sweepText}`;sweepOut.textContent=sweepText;read.textContent=sweepText;latencyOut.textContent=`${lat.toFixed(2).replace(".",",")} ms`;
+  controlText.textContent=sweep>1.55?"Kitap üst izi":sweep>.9?"Yatay genişleme artıyor":"Kitap alt izi · en geniş görünüm";
+  focus.className=sweep>1.55?"focus top":sweep>.9?"focus mid":"focus bottom";const nearest=sweep>1.55?2:sweep>.9?1:.8;document.querySelectorAll("[data-sweep]").forEach(el=>el.classList.toggle("active",Number(el.dataset.sweep)===nearest));
+  window.__sweepLatencyState={levelPercent:level,sweepMsPerDiv:sweep,measuredLatencyMs:lat,storedPhysiologicOnsetMs:2.9,peakLatencyMs:4.7,responseUnchanged:true,causalOnset:true,playing};
+}
+slider.addEventListener("input",e=>{playing=false;cancelAnimationFrame(raf);play.textContent="▶ Karşılaştır";update(e.target.value)});document.querySelectorAll("[data-sweep]").forEach(el=>el.addEventListener("click",()=>{playing=false;cancelAnimationFrame(raf);play.textContent="▶ Karşılaştır";update(levelFromSweep(Number(el.dataset.sweep)))}));
+play.addEventListener("click",()=>{if(playing){playing=false;cancelAnimationFrame(raf);play.textContent="▶ Karşılaştır";return}playing=true;play.textContent="■ Durdur";const start=performance.now(),from=level>97?0:level;function tick(now){if(!playing)return;const p=Math.min(1,(now-start)/2200),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;update(from+(100-from)*e);if(p<1)raf=requestAnimationFrame(tick);else{playing=false;play.textContent="↺ Tekrar";update(100)}}raf=requestAnimationFrame(tick)});
+update(Number(new URLSearchParams(location.search).get("level")||0));
+document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase(),a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});
+</script>
+</body>
+</html>

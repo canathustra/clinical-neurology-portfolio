@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>G2 konumu tek başına 8,3 → 5,6 mV BKAP farkı yaratır</title>
+<style>
+:root{
+  --shell:#eef2f5;--paper:#fff;--line:#cfd8df;--ink:#17242d;--muted:#5b6973;
+  --blue:#176f8a;--cyan:#55d9e8;--green:#68e0a3;--amber:#ffc45c;--red:#ff6876;
+  --scope:#03110c;--grid:#17382b;--nav:#e8edf1
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#cbd4da;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+body{display:grid;place-items:center;padding:14px}
+button,input{font:inherit}
+.app{
+  width:min(calc(100vw - 28px),1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);
+  display:grid;grid-template-rows:50px 38px minmax(0,1fr) 106px 56px;overflow:hidden;
+  background:var(--shell);border:1px solid #bdc8d0;border-radius:7px;box-shadow:0 24px 64px rgba(19,33,42,.23)
+}
+.titlebar,.topicbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 18px}
+.titlebar{background:linear-gradient(#fff,#eef2f5);border-bottom:1px solid var(--line)}
+.title-left{min-width:0;display:flex;align-items:center;gap:10px}
+.status{width:9px;height:9px;border-radius:50%;background:#2e8055;box-shadow:0 0 6px rgba(46,128,85,.55);flex:none}
+h1{margin:0;font-size:20px;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lab{border:1px solid #95b2bd;background:#e9f5f7;color:#15586a;padding:6px 10px;font-size:12px;font-weight:850;letter-spacing:.07em;white-space:nowrap}
+.topicbar{background:#e6ecf1;border-bottom:1px solid var(--line);font-size:13px;color:#3d4c56}
+.topicbar b{color:var(--blue)}.topicbar .model{color:var(--muted);white-space:nowrap}
+.workspace{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:12px;padding:12px}
+.scope,.side{min-width:0;min-height:0;border:1px solid var(--line);overflow:hidden}
+.scope{position:relative;background:var(--scope)}
+#labCanvas{display:block;width:100%;height:100%}
+.scope-head{
+  position:absolute;z-index:2;left:14px;right:14px;top:9px;display:flex;justify-content:space-between;
+  color:#aac4ba;font:11px/1.2 Consolas,monospace;letter-spacing:.04em;pointer-events:none
+}
+.scope-head b{color:#eafff3}
+.mode-badge{
+  position:absolute;z-index:2;right:13px;bottom:10px;padding:5px 8px;border:1px solid rgba(255,196,92,.55);
+  color:#ffe3a4;background:rgba(3,17,12,.84);font:10px/1.2 Consolas,monospace;letter-spacing:.05em
+}
+.side{display:grid;grid-template-rows:34px 244px minmax(0,1fr);background:#fff}
+.side-head{display:flex;align-items:center;padding:0 12px;background:#e6ecf1;border-bottom:1px solid var(--line);font-size:12px;font-weight:850;letter-spacing:.06em;text-transform:uppercase;color:#4a5963}
+.book-grid{display:grid;grid-template-columns:142px minmax(0,1fr);gap:6px;padding:7px;border-bottom:1px solid var(--line);background:#fff}
+.book-item{min-width:0;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto;border:1px solid #e1e6ea;background:#fff}
+.book-item img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
+.book-item span{display:block;padding:4px 5px;border-top:1px solid #e1e6ea;color:#56646e;font-size:9px;font-weight:750;line-height:1.15;text-align:center}
+.diagnosis{min-height:0;padding:8px 12px;display:grid;align-content:start;gap:6px}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.metric{padding:7px 8px;border:1px solid var(--line);background:#fafcfd}
+.metric span{display:block;font-size:9.5px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.metric strong{display:block;margin-top:2px;font-size:16px}
+.verdict{padding:8px 9px;border-left:4px solid #c97a2a;background:#fff7e9}
+.verdict.ok{border-left-color:#2e8055;background:#edf8f2}
+.verdict span{display:block;font-size:9.5px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.verdict strong{display:block;margin-top:2px;font-size:14px}
+.logic{font-size:11px;line-height:1.3;color:#34434d}
+.logic b{color:var(--blue)}
+.warning{font-size:9.5px;line-height:1.23;color:#596771;border-top:1px solid var(--line);padding-top:5px}
+.warning a{color:var(--blue);text-decoration:none}
+.controls{display:grid;grid-template-columns:minmax(0,1fr) 190px;gap:12px;align-items:stretch;padding:10px 18px;background:#fff;border-top:1px solid var(--line)}
+.position{min-width:0;padding:7px 10px;border:1px solid var(--line);background:#f8fafb}
+.position label{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11.5px;font-weight:800;color:#45545e}
+.position output{font-size:13px;color:var(--blue)}
+.scale-labels{display:flex;justify-content:space-between;color:#75828b;font-size:9.5px;margin-top:2px}
+input[type=range]{display:block;width:100%;margin:9px 0 0;accent-color:var(--blue)}
+.scan{border:1px solid #153d4a;background:#153d4a;color:#fff;cursor:pointer;font-size:12px;font-weight:820;line-height:1.2;padding:8px}
+.scan:hover,.scan:focus-visible{background:#0d657c;outline:none}
+.nav{display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line)}
+.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:var(--nav);color:var(--ink);text-decoration:none;font-size:13px;font-weight:800}
+.fkey span{font-size:15px;color:var(--blue)}
+.fkey:hover,.fkey:focus-visible{background:#dce8ee;outline:none}
+@media(max-width:1000px){
+  body{padding:0}.app{width:100vw;height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:48px 34px minmax(0,1fr) 130px 52px}
+  .workspace{grid-template-columns:1fr}.side{display:none}.controls{grid-template-columns:1fr 135px;gap:7px;padding:7px}
+  h1{font-size:16px}.topicbar .model{display:none}
+}
+</style>
+</head>
+<body>
+<main class="app" aria-labelledby="pageTitle">
+  <header class="titlebar">
+    <div class="title-left"><span class="status"></span><h1 id="pageTitle">G2 konumu tek başına 8,3 → 5,6 mV BKAP farkı yaratır</h1></div>
+    <div class="lab">SERBEST LABORATUVAR</div>
+  </header>
+  <div class="topicbar">
+    <div>Ulnar ADM modeli; G1, uyarım ve sinir-kas durumu sabittir. Değişen yalnız G2 konumudur.</div>
+    <div class="model">Kitap kalibrasyonu · 8,3 / 7,2 / 5,6 mV</div>
+  </div>
+  <section class="workspace">
+    <div class="scope">
+      <canvas id="labCanvas" aria-label="G2 konumu değişirken G1, tendon G2 potansiyeli ve diferansiyel G1 eksi G2 BKAP kaydı"></canvas>
+      <div class="scope-head"><span>NCS/EMG KAYIT EKRANI · ÖĞRETİM MODELİ</span><span><b>Negatif ↑ · pozitif ↓</b> · 2 mV/div · 1 ms/div</span></div>
+      <div class="mode-badge" id="modeBadge">G1 SABİT · G2 KONUMU DEĞİŞİYOR</div>
+    </div>
+    <aside class="side">
+      <div class="side-head">Kitap mekanizması ve gerçek kayıtlar</div>
+      <div class="book-grid">
+        <div class="book-item">
+          <img src="../figures/source-v3/fig_8_24_g1_minus_g2.png" alt=", standart G1 kaydı ile eksi G2 tendon katkısının birleşerek nihai ulnar BKAP'ı oluşturması">
+          <span>Kitap mekanizması · G1 + (−G2)</span>
+        </div>
+        <div class="book-item">
+          <img src="../figures/source-v3/fig_8_25_g2_positions.png" alt=", üç G2 konumunda 8,3, 7,2 ve 5,6 mV ulnar BKAP kayıtları">
+          <span>Kitap kayıtları · 8,3 / 7,2 / 5,6 mV</span>
+        </div>
+      </div>
+      <div class="diagnosis">
+        <div class="metrics">
+          <div class="metric"><span>G2 konumu</span><strong id="positionMetric"></strong></div>
+          <div class="metric"><span>BKAP çıkışı</span><strong id="ampText"></strong></div>
+          <div class="metric"><span>−G2 katkısı · model</span><strong id="g2Text"></strong></div>
+          <div class="metric"><span>Yalancı fark</span><strong id="lossText"></strong></div>
+        </div>
+        <div class="verdict" id="verdictBox"><span>Teknik karar</span><strong id="verdictText"></strong></div>
+        <div class="logic" id="logicText"></div>
+        <div class="warning"><b>Kitap kuralı:</b> Ulnar ve tibial kayıtlarda tendon G2 çoğu kez elektriksel aktivite kaydeder. Sağ–sol ve seri kayıtlarda G2 aynı anatomik yere konmalıdır.</div>
+      </div>
+    </aside>
+  </section>
+  <section class="controls">
+    <div class="position">
+      <label for="g2Position"><span>G2’nin  distal konumu</span><output id="positionText">Konum 1 · 8,3 mV</output></label>
+      <input id="g2Position" type="range" min="0" max="100" step="1" value="0">
+      <div class="scale-labels"><span>Konum 1 · 8,3 mV</span><span>Konum 2 · 7,2 mV</span><span>Konum 3 · 5,6 mV</span></div>
+    </div>
+    <button class="scan" id="scanButton" type="button">→ G2’yi üç kitap konumunda otomatik tara</button>
+  </section>
+  <nav class="nav bottom-bar" aria-label="Standart sunum gezinmesi">
+    <a class="fkey" href="g2-yerlesimi.html"><span>F1</span><b>Önceki</b></a>
+    <a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a>
+    <a class="fkey" href="../antidromik-ortodromik/konu-girisi.html"><span>F3</span><b>Sonraki</b></a>
+  </nav>
+</main>
+<script>
+const canvas=document.getElementById("labCanvas"),ctx=canvas.getContext("2d");
+const slider=document.getElementById("g2Position"),scanButton=document.getElementById("scanButton");
+const positionText=document.getElementById("positionText"),positionMetric=document.getElementById("positionMetric");
+const ampText=document.getElementById("ampText"),g2Text=document.getElementById("g2Text"),lossText=document.getElementById("lossText");
+const verdictText=document.getElementById("verdictText"),verdictBox=document.getElementById("verdictBox"),logicText=document.getElementById("logicText");
+let p=0,autoScan=false,scanStart=0;
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function gauss(x,m,s){const z=(x-m)/s;return Math.exp(-.5*z*z)}
+function lerp(a,b,t){return a+(b-a)*t}
+function tr1(v){return Number(v).toFixed(1).replace(".",",")}
+function model(){
+  const q=clamp(p/100,0,1);
+  let output,g2;
+  if(q<=.5){const t=q/.5;output=lerp(8.3,7.2,t);g2=lerp(2.7,1.6,t)}
+  else{const t=(q-.5)/.5;output=lerp(7.2,5.6,t);g2=lerp(1.6,0,t)}
+  const bookPosition=q<.25?1:q<.75?2:3;
+  return{
+    variable:"g2_distal_position",sliderPosition:Number(p.toFixed(1)),bookPosition,
+    g1Location:"fixed_motor_point",g1Fixed:true,g2Location:"variable_distal_site",
+    stimulation:"fixed_supramaximal",underlyingNerveMuscle:"normal_ulnar_adm",
+    isolatedG1ModelAmp:5.6,g2PositiveContribution:Number(g2.toFixed(2)),
+    outputAmplitude:Number(output.toFixed(2)),formula:"G1 - G2",
+    polarity:"g2_predominantly_positive",morphology:g2>2.1?"bifid_prominent":g2>.7?"bifid_partial":"g1_dominant",
+    apparentLossPercent:Number(((8.3-output)/8.3*100).toFixed(1)),
+    bookCalibration:{position1:8.3,position2:7.2,position3:5.6},
+    traceProvenance:"teaching_model_calibrated_to_figures_8_24_8_25"
+  };
+}
+function resize(){
+  const r=canvas.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);
+  canvas.width=Math.max(1,Math.round(r.width*d));canvas.height=Math.max(1,Math.round(r.height*d));ctx.setTransform(d,0,0,d,0,0);
+}
+addEventListener("resize",resize);resize();
+function text(s,x,y,color="#d8ebe3",size=12,align="left",weight=650){
+  ctx.fillStyle=color;ctx.font=`${weight} ${size}px Segoe UI`;ctx.textAlign=align;ctx.fillText(s,x,y);ctx.textAlign="left";
+}
+function line(points,color="#68e0a3",width=2,dash=[]){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.beginPath();
+  points.forEach((pt,i)=>i?ctx.lineTo(pt[0],pt[1]):ctx.moveTo(pt[0],pt[1]));ctx.stroke();ctx.restore();
+}
+function grid(x,y,w,h,dx=10,dy=3){
+  ctx.fillStyle="#04150f";ctx.fillRect(x,y,w,h);ctx.strokeStyle="#16382a";ctx.lineWidth=1;
+  for(let i=0;i<=dx;i++){const xx=x+w*i/dx;ctx.beginPath();ctx.moveTo(xx,y);ctx.lineTo(xx,y+h);ctx.stroke()}
+  for(let i=0;i<=dy;i++){const yy=y+h*i/dy;ctx.beginPath();ctx.moveTo(x,yy);ctx.lineTo(x+w,yy);ctx.stroke()}
+  ctx.strokeStyle="#2b624c";ctx.beginPath();ctx.moveTo(x,y+h/2);ctx.lineTo(x+w,y+h/2);ctx.stroke();
+}
+function stimulus(ms){return .35*(1.9*gauss(ms,.55,.025)-1.25*gauss(ms,.67,.07))}
+function g1Wave(ms){
+  return stimulus(ms)+5.6*(1.02*gauss(ms,3.12,.34)-.66*gauss(ms,5.02,.60)+.14*gauss(ms,6.22,.78));
+}
+function g2Wave(ms,s){
+  const a=s.g2PositiveContribution;
+  return stimulus(ms)*.75-a*(1.90*gauss(ms,4.18,.29)-.48*gauss(ms,5.15,.50));
+}
+function rawOutput(ms,s){return g1Wave(ms)-g2Wave(ms,s)+stimulus(ms)*.75}
+function peakToPeak(fn){
+  let lo=Infinity,hi=-Infinity;
+  for(let i=0;i<=900;i++){const v=fn(i/100);lo=Math.min(lo,v);hi=Math.max(hi,v)}
+  return hi-lo;
+}
+function outputWave(ms,s){
+  const fn=x=>rawOutput(x,s),pp=peakToPeak(fn),base=fn(0);
+  return (fn(ms)-base)*(s.outputAmplitude/pp);
+}
+function trace(x,y,w,h,fn,color,label,dash=[]){
+  grid(x,y,w,h);text(label,x+9,y+17,"#a9c4b9",10.5,"left",760);
+  const pts=[];for(let i=0;i<=720;i++){const t=i/720,ms=t*9,raw=fn(ms);pts.push([x+w*t,clamp(y+h/2-raw/10*h*.50,y+2,y+h-2)])}
+  line(pts,color,2,dash);
+}
+function drawMontage(W,s){
+  const left=70,right=W-62,y=72,g1x=left+(right-left)*.18,g2x=left+(right-left)*(.57+.30*p/100);
+  ctx.fillStyle="#7f5443";ctx.fillRect(left,y+27,right-left,12);
+  ctx.fillStyle="#c18a70";ctx.fillRect(left,y+12,(right-left)*.48,42);
+  ctx.fillStyle="#d8b38d";ctx.fillRect(left+(right-left)*.48,y+19,(right-left)*.52,28);
+  text("KAS KARNI",left+(right-left)*.23,y+5,"#d8c0b1",10,"center",800);
+  text("DİSTAL TENDON / 5. PARMAK",left+(right-left)*.74,y+5,"#d8c0b1",10,"center",800);
+  ctx.fillStyle="#68e0a3";ctx.beginPath();ctx.arc(g1x,y+5,13,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();
+  ctx.fillStyle="#75b8ff";ctx.beginPath();ctx.arc(g2x,y+5,13,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.stroke();
+  line([[g1x,y+18],[g1x,y+33]],"#ecfff6",2);line([[g2x,y+18],[g2x,y+33]],"#ecfff6",2);
+  text("G1 · sabit motor nokta",g1x,y-18,"#8bf0bb",10,"center",850);
+  text(`G2 · konum ${s.bookPosition}`,g2x,y-18,"#9bd0ff",10,"center",850);
+  line([[left+(right-left)*.30,y+66],[g2x,y+66]],"#ffc45c",2,[6,4]);
+  text("yakın/proksimal kaslardan hacim-iletilen uzak-alan potansiyeli",left+(right-left)*.55,y+82,"#ffe1a0",9.5,"center",760);
+}
+function updatePanel(s){
+  const anchor=p<25?"Konum 1":p<75?"Konum 2":"Konum 3";
+  positionText.textContent=`${anchor} · ${tr1(s.outputAmplitude)} mV`;
+  positionMetric.textContent=anchor; ampText.textContent=`${tr1(s.outputAmplitude)} mV`;
+  g2Text.textContent=s.g2PositiveContribution<.05?"≈ 0 mV":`${tr1(s.g2PositiveContribution)} mV`;
+  lossText.textContent=s.apparentLossPercent<1?"Yok":`%${s.apparentLossPercent.toFixed(0)}`;
+  if(s.apparentLossPercent<8){
+    verdictBox.className="verdict ok";verdictText.textContent="Büyük BKAP · güçlü −G2 katkısı";
+  }else{
+    verdictBox.className="verdict";verdictText.textContent="Bu düşüş akson kaybı değil · G2 geometrisi değişti";
+  }
+  logicText.innerHTML=s.g2PositiveContribution>.1
+    ?"<b>Diferansiyel çıkış: G1 − G2.</b> G2’deki ağırlıklı pozitif tendon potansiyeli çıkarılınca çıkışa negatif yönde katkı eklenir; ulnar BKAP büyüyüp bifidleşir."
+    :"<b>Diferansiyel çıkış yine G1 − G2’dir.</b> G2 uzak-alan katkısı küçüldüğünde çıkış G1’e yaklaşır; aynı normal sinir-kas sistemi daha düşük amplitüdlü görünür.";
+  window.__g2TendonState=s;
+}
+function draw(now){
+  if(autoScan){
+    const q=(now-scanStart)/4800;
+    if(q>=1){autoScan=false;p=0;slider.value=0;scanButton.textContent="→ G2’yi üç kitap konumunda otomatik tara"}
+    else{p=100*(.5-.5*Math.cos(q*Math.PI));slider.value=Math.round(p)}
+  }
+  const s=model(),r=canvas.getBoundingClientRect(),W=r.width,H=r.height;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle="#03110c";ctx.fillRect(0,0,W,H);
+  drawMontage(W,s);
+  const x=22,w=W-44,top=181,gap=7,h=(H-top-30-gap*2)/3;
+  trace(x,top,w,h,g1Wave,"#ffc45c","G1 TEK BAŞINA · SABİT MOTOR NOKTA · ÖĞRETİM MODELİ",[7,5]);
+  trace(x,top+h+gap,w,h,ms=>g2Wave(ms,s),"#75b8ff",`G2 TEK BAŞINA · AĞIRLIKLI POZİTİF ↓ · ${tr1(s.g2PositiveContribution)} mV EŞDEĞER`);
+  trace(x,top+(h+gap)*2,w,h,ms=>outputWave(ms,s),"#68e0a3",`EKRANDAKİ BKAP = G1 − G2 · ${tr1(s.outputAmplitude)} mV · ${s.morphology==="bifid_prominent"?"BELİRGİN BİFİD":s.morphology==="bifid_partial"?"KISMİ BİFİD":"G1 BASKIN"}`);
+  const oy=top+(h+gap)*2;
+  text("G1",x+w*.34,oy+22,"#ffc45c",10,"center",850);
+  if(s.g2PositiveContribution>.25)text("+ (−G2)",x+w*.45,oy+22,"#9bd0ff",10,"center",850);
+  updatePanel(s);requestAnimationFrame(draw);
+}
+slider.addEventListener("input",()=>{autoScan=false;p=Number(slider.value);scanButton.textContent="→ G2’yi üç kitap konumunda otomatik tara"});
+scanButton.addEventListener("click",()=>{autoScan=true;scanStart=performance.now();scanButton.textContent="G2 taranıyor…"});
+document.addEventListener("keydown",event=>{
+  if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;
+  const key=event.key.toUpperCase(),link=key==="F1"?document.querySelector(".fkey:nth-child(1)"):key==="F2"?document.querySelector(".fkey:nth-child(2)"):key==="F3"?document.querySelector(".fkey:nth-child(3)"):null;
+  if(link){event.preventDefault();location.href=link.href}
+});
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>

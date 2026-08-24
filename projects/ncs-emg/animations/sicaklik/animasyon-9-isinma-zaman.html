@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sıcaklık — Isınma Süresi: Tibial vs Sural</title>
+<style>
+:root{
+  --bg:#eef1f4;--panel:#ffffff;--panel-head:#e7edf3;
+  --line:#d7dee5;--line2:#c3ceda;
+  --ink:#16232c;--muted:#5c6b78;--dim:#8a97a3;
+  --cyan:#0f7a95;--blue:#2f6fbd;--amber:#c97a2a;--green:#2f7d52;--red:#b43b47;
+}
+*{box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;background:#ccd4da;color:var(--ink);font-family:"Segoe UI",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;}
+body{display:grid;place-items:center;padding:14px;}
+.app{width:min(100vw - 28px,1500px);aspect-ratio:16/9;max-height:calc(100vh - 28px);background:var(--bg);border:1px solid #c7d0d8;border-radius:6px;box-shadow:0 24px 60px rgba(20,33,43,.25);display:grid;grid-template-rows:auto auto 1fr auto;overflow:hidden;}
+
+.titlebar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:9px 18px;background:linear-gradient(180deg,#ffffff,#eef1f4);border-bottom:1px solid var(--line);font-size:16px;color:#45525c;}
+.tb-left{display:flex;align-items:center;gap:10px;font-weight:600;}
+.tb-left .dot{width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(47,125,82,.5);}
+.tb-right{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.12em;color:#7c8894;font-size:15px;}
+.tb-right b{color:var(--cyan);}
+
+.toolbar{flex:none;display:flex;align-items:center;gap:28px;padding:12px 18px;background:var(--panel-head);border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.tf{display:flex;align-items:baseline;gap:9px;}
+.tf label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+.tf strong{font-size:21px;color:var(--amber);font-weight:800;font-variant-numeric:tabular-nums;}
+
+.workspace{min-height:0;padding:12px;display:grid;grid-template-columns:1fr 300px;gap:12px;}
+.panel{min-width:0;min-height:0;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.panel-head{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 16px;background:var(--panel-head);border-bottom:1px solid var(--line);font-size:15px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:#4a5964;}
+.badge{display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border-radius:999px;background:#e6f7ec;color:var(--green);border:1px solid #c8e8d3;font-size:13px;font-weight:700;text-transform:none;letter-spacing:0;}
+.badge.cold{background:#e9f1fb;color:var(--blue);border-color:#cddef4;}
+
+.stage-wrap{flex:1;min-height:0;position:relative;background:#fcfdfe;}
+#sceneCanvas{display:block;width:100%;height:100%;}
+
+.side{display:flex;flex-direction:column;}
+.side-body{flex:1;min-height:0;overflow-y:auto;padding:16px;display:grid;gap:14px;align-content:start;}
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;background:#f3f6f8;border:1px solid var(--line);font-size:15px;}
+.stat-row span{color:var(--muted);font-weight:700;}
+.stat-row b{color:var(--ink);font-size:17px;font-variant-numeric:tabular-nums;}
+.note-box{padding:13px 14px;background:#f3f6f8;border:1px solid var(--line);font-size:14.5px;line-height:1.5;color:var(--ink);font-weight:600;}
+.note-box b{color:var(--cyan);}
+
+footer{flex:none;display:flex;align-items:center;gap:18px;padding:12px 18px;border-top:1px solid var(--line);background:var(--panel-head);}
+.slider-row{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+.slider-row span{color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+input[type="range"]{flex:1;max-width:420px;accent-color:var(--cyan);}
+.time-readout{font-size:19px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;min-width:90px;text-align:right;}
+button{appearance:none;border:1px solid var(--line2);background:#fff;color:var(--ink);border-radius:6px;min-height:34px;padding:0 14px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;}
+button:hover{border-color:var(--cyan);}
+
+.bottom-bar{flex:none;display:flex;align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line);}
+.fkey{flex:1;appearance:none;border:none;background:var(--panel-head);color:var(--ink);padding:13px 10px;font:inherit;font-size:16px;font-weight:800;cursor:pointer;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fkey b{color:var(--cyan);font-size:14px;}
+.fkey:hover{background:#dce8f0;}
+
+@media(max-width:980px){
+  body{padding:0;}
+  .app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;}
+  .workspace{grid-template-columns:1fr;}
+  .bottom-bar{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="titlebar">
+<div class="tb-left"><span class="dot"></span> EDX Öğrenim İstasyonu — Bölüm 8 Oturumu</div>
+<div class="tb-right"><b>EDX</b>SİM</div>
+</div>
+
+<div class="toolbar">
+<div class="tf"><label>Konu</label><strong style="font-size:15px;color:var(--ink);">Sıcaklık</strong></div>
+<div class="tf"><label>Animasyon</label><strong style="font-size:15px;color:var(--ink);">8 / 9 — Isınma Süresi: Tibial vs Sural</strong></div>
+</div>
+
+<div class="workspace">
+<div class="panel">
+<div class="panel-head"><span>Isınma Süresi ve İletim Hızı — Tibial ve Sural Sinir (bkz. Şekil 8.2)</span><span class="badge" id="stateBadge">28°C</span></div>
+<div class="stage-wrap" id="stageWrap"><canvas id="sceneCanvas"></canvas></div>
+</div>
+
+<div class="panel side">
+<div class="panel-head"><span>Okuma</span></div>
+<div class="side-body">
+<div class="stat-row"><span>Tibial — gereken süre</span><b id="tibOut">14 dk</b></div>
+<div class="stat-row"><span>Sural — gereken süre</span><b id="surOut">10 dk</b></div>
+<div class="stat-row"><span>Fark (Tibial − Sural)</span><b id="diffOut">+4 dk</b></div>
+<div class="note-box" id="mechNote">İH'nin %95'ine ulaşması için gereken süre, ısıtma öncesi deri sıcaklığı düştükçe uzar.</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="slider-row">
+<span>18°C soğuk</span>
+<input id="tempSlider" type="range" min="18" max="32" step="0.5" value="28" aria-label="Isıtma öncesi deri sıcaklığı">
+<span>32°C sıcak</span>
+</div>
+<div class="time-readout" id="tempReadout">28.0°C</div>
+<button id="autoBtn" type="button">Otomatik oynat</button>
+</footer>
+
+<div class="bottom-bar">
+<a class="fkey" href="isinma-yontemi.html">F1<b>Önceki: İzlem ve Isıtma</b></a>
+<a class="fkey" href="../index.html">F2<b>İçindekiler</b></a>
+<a class="fkey" href="animasyon-8-duzeltme-hesaplayici.html">F3<b>Sıradaki: Düzeltme Faktörü Hesaplayıcı</b></a>
+</div>
+
+</div>
+
+<script>
+const stageWrap=document.getElementById("stageWrap");
+const canvas=document.getElementById("sceneCanvas");
+const ctx=canvas.getContext("2d");
+const stateBadge=document.getElementById("stateBadge");
+const tibOut=document.getElementById("tibOut");
+const surOut=document.getElementById("surOut");
+const diffOut=document.getElementById("diffOut");
+const mechNote=document.getElementById("mechNote");
+const tempSlider=document.getElementById("tempSlider");
+const tempReadout=document.getElementById("tempReadout");
+const autoBtn=document.getElementById("autoBtn");
+
+let cssW=0, cssH=0, dpr=Math.max(1,window.devicePixelRatio||1);
+function resizeCanvas(){
+  const r=stageWrap.getBoundingClientRect();
+  cssW=Math.max(320,Math.round(r.width));
+  cssH=Math.max(220,Math.round(r.height));
+  canvas.width=Math.round(cssW*dpr);
+  canvas.height=Math.round(cssH*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+new ResizeObserver(()=>{resizeCanvas();draw();}).observe(stageWrap);
+resizeCanvas();
+
+// Approximate model of Preston & Shapiro Fig. 8.2 (Franssen & Wieneke 1994):
+// minutes needed for NCV to reach 95% of its steady-state value, as a function
+// of skin temperature before warming began. Tibial (deeper) always needs more
+// time than sural (superficial) at the same starting temperature.
+const T_MIN=18, T_MAX=31;
+function frac(T){ return Math.max(0,Math.min(1,(T-T_MIN)/(T_MAX-T_MIN))); }
+function tibialMinutes(T){ return Math.max(0, 40*(1-Math.pow(frac(T),1.7))); }
+function suralMinutes(T){ return Math.max(0, 29*(1-Math.pow(frac(T),1.4))); }
+
+// Approximate scatter of the original reported data points, for visual context only
+const TIB_DOTS=[[19,38],[19.5,44],[20,52],[20.2,46],[21,30],[22,19],[27,26],[28,13],[29,12],[30,2],[30.2,0]];
+const SUR_DOTS=[[19,18],[19.3,33],[19.6,30],[20,27],[20.3,38],[21,26],[22,19],[27,15],[27.6,17],[28,18],[29,9],[29.2,25],[30,2]];
+
+let curT=28, auto=false, autoDir=1, last=performance.now();
+
+function updateStatics(){
+  const tib=tibialMinutes(curT), sur=suralMinutes(curT), diff=tib-sur;
+  tibOut.textContent=`${tib.toFixed(0)} dk`;
+  surOut.textContent=`${sur.toFixed(0)} dk`;
+  diffOut.textContent=`+${diff.toFixed(0)} dk`;
+  tempReadout.textContent=`${curT.toFixed(1)}°C`;
+  stateBadge.textContent=`${curT.toFixed(0)}°C`;
+  stateBadge.classList.toggle("cold", curT<26);
+  if(curT<=20) mechNote.innerHTML=`<b>Çok soğuk başlangıç:</b> Her iki sinirin de dengelenmesi uzun sürer (tibial ~${tib.toFixed(0)} dk, sural ~${sur.toFixed(0)} dk).`;
+  else if(curT<29) mechNote.innerHTML=`<b>Hafif soğuk (~28°C bile):</b> Yine de 15–20 dk civarı gerekir. Tibial, sural'dan her zaman daha uzun sürer.`;
+  else mechNote.innerHTML=`<b>Isıya yakın başlangıç:</b> Gereken süre neredeyse sıfıra iner, iki sinir de hızla dengelenir.`;
+}
+
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+function drawPanel(x0,y0,w,h,title,curveFn,dots,curveColor){
+  const left=x0+w*0.13, right=x0+w*0.96, top=y0+h*0.12, bottom=y0+h*0.82;
+  const tToX=T=>left+(right-left)*((T-16)/(32-16));
+  const mToY=m=>bottom-(bottom-top)*(m/60);
+
+  ctx.strokeStyle="#e7edf1"; ctx.lineWidth=1;
+  for(let T=18;T<=32;T+=2){ const x=tToX(T); ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke(); }
+  for(let m=0;m<=60;m+=20){ const y=mToY(m); ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(right,y);ctx.stroke(); }
+
+  ctx.strokeStyle="#8a97a3"; ctx.lineWidth=1.4;
+  ctx.beginPath(); ctx.moveTo(left,bottom); ctx.lineTo(right,bottom); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(left,top); ctx.lineTo(left,bottom); ctx.stroke();
+
+  ctx.fillStyle="#45525c"; ctx.font="700 "+Math.max(9,w*0.016)+"px Inter, sans-serif";
+  ctx.textAlign="center";
+  for(let T=20;T<=32;T+=4) ctx.fillText(`${T}`,tToX(T),bottom+16);
+  ctx.textAlign="right";
+  for(let m=0;m<=60;m+=20) ctx.fillText(`${m}`,left-6,mToY(m)+4);
+  ctx.textAlign="left";
+  ctx.fillStyle="#16232c"; ctx.font="800 "+Math.max(11,w*0.02)+"px Inter, sans-serif";
+  ctx.fillText(title,left,y0+h*0.09);
+
+  ctx.fillStyle="#c65b64";
+  dots.forEach(([T,m])=>{ ctx.beginPath(); ctx.arc(tToX(T),mToY(m),3.4,0,Math.PI*2); ctx.fill(); });
+
+  ctx.strokeStyle=curveColor; ctx.lineWidth=3;
+  ctx.beginPath(); let started=false;
+  for(let T=18;T<=31.2;T+=0.3){
+    const x=tToX(T), y=mToY(curveFn(T));
+    if(!started){ctx.moveTo(x,y);started=true;} else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  const curX=tToX(curT), curY=mToY(curveFn(curT));
+  ctx.strokeStyle="rgba(224,161,94,.85)"; ctx.lineWidth=2; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(curX,top); ctx.lineTo(curX,bottom); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle="#e0a15e";
+  ctx.beginPath(); ctx.arc(curX,curY,5.5,0,Math.PI*2); ctx.fill();
+  ctx.strokeStyle="#16232c"; ctx.lineWidth=1.2; ctx.stroke();
+
+  return {left,right,bottom};
+}
+
+function draw(){
+  const W=cssW,H=cssH;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#fcfdfe"; ctx.fillRect(0,0,W,H);
+
+  const panelH=H*0.44;
+  drawPanel(0,H*0.02,W,panelH,"TİBİAL İH — Dakika",tibialMinutes,TIB_DOTS,"#2f6fbd");
+  const last=drawPanel(0,H*0.02+panelH+H*0.03,W,panelH,"SURAL İH — Dakika",suralMinutes,SUR_DOTS,"#2f7d52");
+
+  ctx.fillStyle="#5c6b78"; ctx.font="700 "+Math.max(10,W*0.0115)+"px Inter, sans-serif";
+  ctx.textAlign="center";
+  ctx.fillText("Isıtma Öncesi Deri Sıcaklığı (°C)",(last.left+last.right)/2,last.bottom+34);
+  ctx.textAlign="left";
+}
+
+function setTemp(v,syncSlider=true){
+  curT=Math.max(18,Math.min(32,Number(v)));
+  if(syncSlider) tempSlider.value=curT.toFixed(1);
+  updateStatics(); draw();
+}
+function frame(now){
+  const dt=Math.min((now-last)/1000,.05); last=now;
+  if(auto){
+    let next=curT+autoDir*dt*3;
+    if(next>=32){ next=32; autoDir=-1; }
+    else if(next<=18){ next=18; autoDir=1; }
+    setTemp(next);
+  }
+  requestAnimationFrame(frame);
+}
+tempSlider.addEventListener("input",e=>{ auto=false; autoBtn.textContent="Otomatik oynat"; setTemp(e.target.value); });
+autoBtn.addEventListener("click",()=>{
+  auto=!auto; autoBtn.textContent=auto?"Durdur":"Otomatik oynat";
+});
+
+updateStatics();
+draw();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

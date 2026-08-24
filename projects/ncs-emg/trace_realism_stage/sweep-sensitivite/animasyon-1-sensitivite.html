@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sensitivite ve Başlangıç Latansı</title>
+<style>
+:root{--paper:#fff;--bg:#eef2f5;--ink:#14232d;--muted:#62717c;--line:#d3dce3;--teal:#087f8c;--green:#2e8a5b;--amber:#d68a25;--red:#b9404b;--screen:#071a17;--grid:#16392f;--trace:#63e7a4;--ref:#a9bbb5}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0}
+body{display:grid;place-items:center;padding:12px;background:#cfd7dd;color:var(--ink);font-family:"Segoe UI",Arial,sans-serif}
+.app{width:min(calc(100vw - 24px),1536px);max-height:calc(100vh - 24px);aspect-ratio:16/9;display:grid;grid-template-rows:44px 54px 1fr 82px 56px;overflow:hidden;background:#fff;border:1px solid #c8d1d8;border-radius:7px;box-shadow:0 22px 60px #22323c38}
+.titlebar,.topicbar,.controls,.bottom-bar{display:flex;align-items:center}.titlebar{justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);font-size:15px;font-weight:650}.left{display:flex;align-items:center;gap:10px}.dot{width:10px;height:10px;border-radius:50%;background:#2e9462;box-shadow:0 0 7px #2e946277}.brand{font-weight:900;letter-spacing:.16em;color:#77848e}.brand b{color:var(--teal)}
+.topicbar{justify-content:space-between;gap:18px;padding:0 18px;background:#edf2f6;border-bottom:1px solid var(--line)}.topic{display:flex;align-items:baseline;gap:12px;min-width:0}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.08em;color:#687681;text-transform:uppercase}.topic h1{margin:0;font-size:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chips{display:flex;gap:8px}.chip{padding:6px 10px;border:1px solid #cbd7df;border-radius:999px;background:#fff;color:#49616f;font-size:12px;font-weight:800}.chip.key{border-color:#b7dfe3;color:#08737e;background:#f2fbfc}
+.workspace{min-height:0;display:grid;grid-template-columns:.30fr .70fr;gap:10px;padding:10px;background:var(--bg)}
+.card{min-width:0;min-height:0;overflow:hidden;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line)}.card-head{height:43px;flex:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 13px;background:#f4f7f9;border-bottom:1px solid var(--line);font-size:12px;font-weight:900;letter-spacing:.055em;text-transform:uppercase;color:#50616d}.step{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;color:#fff;background:var(--teal);font-size:12px}
+.figure-body{flex:1;min-height:0;display:grid;grid-template-columns:.52fr .48fr;padding:10px;gap:9px;background:#fafcfd}.figure-stage{position:relative;min-height:0;border:1px solid #d6dfe5;background:#fff;overflow:hidden}.figure-stage img{width:100%;height:100%;object-fit:contain;display:block}.focus{position:absolute;left:3%;right:3%;height:31%;border:3px solid var(--green);box-shadow:0 0 0 999px #ffffff91;pointer-events:none;transition:top .2s,border-color .2s}.focus.high{top:2%}.focus.mid{top:34.2%}.focus.low{top:66.4%}
+.book-read{display:grid;align-content:start;gap:8px}.anchor{padding:10px;border:1px solid #d7e0e6;background:#fff}.anchor.active{border-color:var(--teal);background:#edf8f9}.anchor small{display:block;color:#667681;font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}.anchor b{display:block;margin-top:4px;font-size:18px}.anchor span{display:block;margin-top:3px;color:#566671;font-size:11px;font-weight:700}.source-note{padding:9px 10px;border-left:4px solid var(--green);background:#edf8f1;color:#40515c;font-size:11px;line-height:1.35}.source-note b{color:var(--ink)}
+.monitor{flex:1;min-height:0;display:grid;grid-template-rows:1fr auto}.screen{position:relative;margin:10px 10px 7px;min-height:0;background:var(--screen);border:1px solid #29433b;border-radius:4px;overflow:hidden;box-shadow:inset 0 0 24px #0009}.screen:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:50px 46px;opacity:.65}.screen-top{position:absolute;z-index:2;left:11px;right:11px;top:8px;display:flex;justify-content:space-between;color:#a9c6bb;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}#traceSvg{position:absolute;inset:26px 8px 8px;width:calc(100% - 16px);height:calc(100% - 34px)}.trace{fill:none;stroke:var(--trace);stroke-width:2.2;vector-effect:non-scaling-stroke}.baseline{stroke:#34564a;stroke-width:1}.cursor{stroke:#f3ca58;stroke-width:1.6;stroke-dasharray:5 4}.true-cursor{stroke:#99ada6;stroke-width:1.2;stroke-dasharray:3 4}.svg-label{fill:#b9d0c7;font-size:11px;font-weight:800}.cursor-label{fill:#f3ca58;font-size:12px;font-weight:900}.true-label{fill:#a9bbb5;font-size:10px;font-weight:800}.magnifier{fill:#0b251f;stroke:#3e6558;stroke-width:1}.foot{fill:none;stroke:#7de9b3;stroke-width:2;vector-effect:non-scaling-stroke}
+.readouts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 10px 10px}.metric{padding:8px 9px;border:1px solid #d7e0e6;background:#f4f7f9}.metric span{display:block;margin-bottom:2px;color:#6a7883;font-size:9px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}.metric b{font-size:15px;font-variant-numeric:tabular-nums}.metric b.changed{color:var(--red)}
+.causal{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.cause{padding:9px 11px;background:#fff;display:flex;align-items:center;gap:8px;font-size:11px;font-weight:750;color:#50616b}.cause span{display:grid;place-items:center;width:22px;height:22px;flex:none;border-radius:50%;background:#e5f4f5;color:var(--teal);font-weight:900}.cause b{color:var(--ink)}
+.controls{gap:13px;padding:0 18px;border-top:1px solid var(--line);background:#f7f9fa}.control-label{min-width:185px}.control-label small{display:block;color:#687681;font-size:10px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}.control-label b{font-size:16px}input[type=range]{flex:1;min-width:120px;accent-color:var(--teal)}.read{min-width:105px;text-align:right;font-size:20px;font-weight:900;color:var(--teal);font-variant-numeric:tabular-nums}.preset{height:36px;min-width:70px;padding:0 10px;border:1px solid #bfcbd3;background:#fff;color:#304550;font:800 12px "Segoe UI";cursor:pointer}.preset:hover,.preset.active{border-color:var(--teal);background:#e9f7f8;color:#066c76}.play{min-width:110px}
+.bottom-bar{align-items:stretch;gap:1px;background:var(--line);border-top:1px solid var(--line)}.fkey{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:#e7edf3;color:var(--ink);text-decoration:none;font-size:13px;font-weight:800}.fkey span{color:var(--teal);font-size:15px}.fkey:hover,.fkey:focus-visible{background:#dce8f0;outline:none}
+@media(max-width:1050px){body{padding:0}.app{width:100vw;min-height:100vh;max-height:none;aspect-ratio:auto;border-radius:0;grid-template-rows:auto auto auto auto 56px}.workspace{grid-template-columns:1fr}.card{min-height:440px}.chips{display:none}.controls{min-height:100px;flex-wrap:wrap}.preset[data-scale]{display:none}}
+</style>
+</head>
+<body>
+<main class="app">
+  <header class="titlebar"><div class="left"><span class="dot"></span><span>EDX Öğrenim İstasyonu — Bölüm 8</span></div><div class="brand"><b>EDX</b>&nbsp; SİM</div></header>
+  <section class="topicbar"><div class="topic"><span class="eyebrow">Latans ölçümü</span><h1>Sensitivite, siniri değil görülebilen başlangıcı değiştirir</h1></div><div class="chips"><span class="chip key">Tek değişken: mV/div</span><span class="chip">Şekil 8.33</span></div></section>
+  <section class="workspace">
+    <article class="card">
+      <div class="card-head"><span class="step">1</span><span>Kitaptaki gerçek kayıt</span><span>Median motor · APB</span></div>
+      <div class="figure-body">
+        <div class="figure-stage"><img src="../figures/source-v3/fig_8_33_sensitivity.png" alt="Şekil 8.33: aynı median motor yanıtın 5 mV, 1 mV ve 100 mikrovolt bölü sensitivitedeki görünümü"><div id="focus" class="focus high"></div></div>
+        <div class="book-read">
+          <div class="anchor active" data-scale="5"><small>5 mV/div</small><b>3,4 ms</b><span>Düşük sensitivite</span></div>
+          <div class="anchor" data-scale="1"><small>1 mV/div</small><b>3,1 ms</b><span>Ara kazanç</span></div>
+          <div class="anchor" data-scale=".1"><small>0,1 mV/div</small><b>2,9 ms</b><span>Yüksek sensitivite</span></div>
+          <div class="source-note"><b>Aynı yanıt.</b> Küçük mV/div değeri dikey kazancı artırır; erken, düşük amplitüdlü “ayak” görünür olur.</div>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head"><span class="step">2</span><span>Aynı saklanan sinyal · farklı dikey kazanç</span><span id="state">5 mV/div</span></div>
+      <div class="monitor">
+        <div class="screen">
+          <div class="screen-top"><span>MEDIAN MOTOR · APB · BİLEK UYARIMI</span><span id="calibration">5 mV/div · 2 ms/div</span></div>
+          <svg id="traceSvg" viewBox="0 0 760 380" preserveAspectRatio="none" aria-label="Sensitiviteye göre değişen görüntü ve başlangıç latansı">
+            <defs><clipPath id="footClip"><rect x="420" y="237" width="310" height="104" rx="4"/></clipPath></defs>
+            <line class="baseline" x1="35" y1="184" x2="735" y2="184"/>
+            <path id="mainTrace" class="trace"></path>
+            <line id="trueCursor" class="true-cursor" x1="0" y1="30" x2="0" y2="345"/><line id="measureCursor" class="cursor" x1="0" y1="30" x2="0" y2="345"/>
+            <text id="trueLabel" class="true-label" x="0" y="354">fizyolojik başlangıç · 2,9 ms</text><text id="measureLabel" class="cursor-label" x="0" y="46"></text>
+            <rect class="magnifier" x="420" y="237" width="310" height="104" rx="4"/><text class="svg-label" x="434" y="257">BAŞLANGIÇ BÜYÜTECİ · aynı mikrovolt düzeyi</text><line class="baseline" x1="434" y1="303" x2="716" y2="303"/><path id="footTrace" class="foot" clip-path="url(#footClip)"></path><line id="footMeasure" class="cursor" x1="0" y1="268" x2="0" y2="331" clip-path="url(#footClip)"/>
+          </svg>
+        </div>
+        <div class="readouts">
+          <div class="metric"><span>Dikey ölçek</span><b id="scaleOut">5 mV/div</b></div>
+          <div class="metric"><span>Kitaptaki ölçüm</span><b id="latencyOut">3,4 ms</b></div>
+          <div class="metric"><span>Fizyolojik başlangıç</span><b>2,9 ms · sabit</b></div>
+          <div class="metric"><span>Negatif peak latansı</span><b>4,7 ms · sabit</b></div>
+        </div>
+      </div>
+      <div class="causal"><div class="cause"><span>1</span><b>Yanıt sabit</b></div><div class="cause"><span>2</span>Dikey kazanç artar</div><div class="cause"><span>3</span>Erken ayak görünür → imleç erkene gelir</div></div>
+    </article>
+  </section>
+  <section class="controls" aria-label="Sensitivite kontrolü">
+    <div class="control-label"><small>Sensitivite · dikey ölçek</small><b id="controlText">Düşük sensitivite</b></div>
+    <input id="slider" type="range" min="0" max="100" step="1" value="0" aria-label="Dikey sensitivite">
+    <div id="read" class="read">5 mV/div</div>
+    <button class="preset active" data-scale="5">5 mV</button><button class="preset" data-scale="1">1 mV</button><button class="preset" data-scale=".1">0,1 mV</button><button id="play" class="preset play">▶ Karşılaştır</button>
+  </section>
+  <nav class="bottom-bar" aria-label="Standart sunum gezinmesi"><a class="fkey" href="index.html"><span>F1</span><b>Önceki</b></a><a class="fkey" href="../index.html"><span>F2</span><b>İçindekiler</b></a><a class="fkey" href="animasyon-2-sweep-hizi.html"><span>F3</span><b>Sonraki</b></a></nav>
+</main>
+<script>
+const slider=document.getElementById("slider"),focus=document.getElementById("focus"),mainTrace=document.getElementById("mainTrace"),footTrace=document.getElementById("footTrace"),trueCursor=document.getElementById("trueCursor"),measureCursor=document.getElementById("measureCursor"),footMeasure=document.getElementById("footMeasure"),measureLabel=document.getElementById("measureLabel"),trueLabel=document.getElementById("trueLabel"),state=document.getElementById("state"),calibration=document.getElementById("calibration"),scaleOut=document.getElementById("scaleOut"),latencyOut=document.getElementById("latencyOut"),read=document.getElementById("read"),controlText=document.getElementById("controlText"),play=document.getElementById("play");
+let level=0,playing=false,raf=0;
+const fmt=n=>(n<1?n.toFixed(2):n.toFixed(1)).replace(".",",").replace(/,0$/,"");
+function scaleFromLevel(v){return 5*Math.pow(.02,v/100)}
+function levelFromScale(s){return Math.log(s/5)/Math.log(.02)*100}
+function latencyForScale(s){if(s>=1){const q=Math.log(5/s)/Math.log(5);return 3.4-.3*q}const q=Math.log(1/s)/Math.log(10);return 3.1-.2*q}
+function alpha(t,on,rise,decay){if(t<=on)return 0;const u=t-on,peakU=rise*Math.log(1+decay/rise),peak=(1-Math.exp(-peakU/rise))*Math.exp(-peakU/decay);return((1-Math.exp(-u/rise))*Math.exp(-u/decay))/peak}
+function signal(t){
+  const stimulus=.22*Math.exp(-.5*Math.pow((t-.16)/.018,2))-.13*Math.exp(-.5*Math.pow((t-.21)/.028,2));
+  const foot=.060*alpha(t,2.90,.035,.22);
+  const main=7.8*alpha(t,3.35,.10,.62);
+  const after=-5.2*alpha(t,4.82,.14,.78);
+  const late=.62*alpha(t,7.15,.20,.95);
+  const noise=.010*Math.sin(t*17.3)+.006*Math.sin(t*37.7);
+  return stimulus+foot+main+after+late+noise
+}
+function tracePath(scale){
+  const x0=35,x1=735,base=184,pxPerDiv=46,windowMs=12;let d="";
+  for(let i=0;i<=480;i++){const t=windowMs*i/480,x=x0+(x1-x0)*i/480;let y=base-signal(t)/scale*pxPerDiv;y=Math.max(32,Math.min(335,y));d+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1)+" "}
+  return d;
+}
+function footPath(){
+  const x0=434,x1=716,base=303;let d="";
+  for(let i=0;i<=220;i++){const t=2.55+1.25*i/220,x=x0+(x1-x0)*i/220,v=Math.max(-.13,Math.min(.13,signal(t))),y=base-v*250;d+=(i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1)+" "}
+  return d;
+}
+function update(v){
+  level=Math.max(0,Math.min(100,Number(v)));slider.value=level;const scale=scaleFromLevel(level),lat=latencyForScale(scale),x0=35,x1=735,windowMs=12,xTrue=x0+(x1-x0)*2.9/windowMs,xMeasure=x0+(x1-x0)*lat/windowMs,footX=434+(716-434)*(lat-2.55)/1.25;
+  mainTrace.setAttribute("d",tracePath(scale));footTrace.setAttribute("d",footPath());
+  [trueCursor].forEach(el=>{el.setAttribute("x1",xTrue);el.setAttribute("x2",xTrue)});[measureCursor].forEach(el=>{el.setAttribute("x1",xMeasure);el.setAttribute("x2",xMeasure)});footMeasure.setAttribute("x1",footX);footMeasure.setAttribute("x2",footX);
+  trueLabel.setAttribute("x",Math.max(40,xTrue-45));measureLabel.setAttribute("x",Math.max(42,xMeasure-25));measureLabel.textContent=`ölçülen · ${lat.toFixed(2).replace(".",",")} ms`;
+  const scaleText=`${fmt(scale)} mV/div`;state.textContent=scaleText;calibration.textContent=`${scaleText} · 2 ms/div`;scaleOut.textContent=scaleText;read.textContent=scaleText;latencyOut.textContent=`${lat.toFixed(2).replace(".",",")} ms`;
+  controlText.textContent=scale>2?"Düşük sensitivite":scale>.35?"Orta sensitivite":"Yüksek sensitivite · erken ayak görünür";
+  focus.className=scale>2.25?"focus high":scale>.32?"focus mid":"focus low";
+  const nearest=scale>2.25?5:scale>.32?1:.1;document.querySelectorAll("[data-scale]").forEach(el=>el.classList.toggle("active",Number(el.dataset.scale)===nearest));
+  window.__sensitivityLatencyState={levelPercent:level,scaleMvPerDiv:scale,measuredLatencyMs:lat,physiologicOnsetMs:2.9,peakLatencyMs:4.7,responseUnchanged:true,playing};
+}
+slider.addEventListener("input",e=>{playing=false;cancelAnimationFrame(raf);play.textContent="▶ Karşılaştır";update(e.target.value)});
+document.querySelectorAll("[data-scale]").forEach(el=>el.addEventListener("click",()=>{playing=false;cancelAnimationFrame(raf);play.textContent="▶ Karşılaştır";update(levelFromScale(Number(el.dataset.scale)))}));
+play.addEventListener("click",()=>{if(playing){playing=false;cancelAnimationFrame(raf);play.textContent="▶ Karşılaştır";return}playing=true;play.textContent="■ Durdur";const start=performance.now(),from=level>97?0:level;function tick(now){if(!playing)return;const p=Math.min(1,(now-start)/2200),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;update(from+(100-from)*e);if(p<1)raf=requestAnimationFrame(tick);else{playing=false;play.textContent="↺ Tekrar";update(100)}}raf=requestAnimationFrame(tick)});
+const q=Number(new URLSearchParams(location.search).get("level")||0);update(q);
+document.addEventListener("keydown",e=>{if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement?.tagName))return;const k=e.key.toUpperCase(),a=k==="F1"?document.querySelector(".bottom-bar .fkey:nth-child(1)"):k==="F2"?document.querySelector(".bottom-bar .fkey:nth-child(2)"):k==="F3"?document.querySelector(".bottom-bar .fkey:nth-child(3)"):null;if(a){e.preventDefault();location.href=a.href}});
+</script>
+</body>
+</html>

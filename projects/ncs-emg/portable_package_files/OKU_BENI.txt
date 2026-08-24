@@ -1,0 +1,14 @@
+EMG–NCS NON-FİZYOLOJİK FAKTÖRLER SUNUMU
+
+1. Klasörün içindeki SUNUMU_AC.html dosyasını açın.
+2. Chrome veya Microsoft Edge kullanın.
+3. Tam ekran için F11'e basın.
+4. Sunum içinde:
+   F1 = Önceki
+   F2 = İçindekiler
+   F3 = Sonraki
+
+Sunum tamamen çevrimdışı çalışır. Klasör içindeki alt klasörleri veya dosyaları
+ayırmayın; tüm görseller ve animasyonlar göreli yollarla bu klasörden yüklenir.
+
+Sorun olursa SUNUMU_BASLAT.bat dosyasını çift tıklayın.
