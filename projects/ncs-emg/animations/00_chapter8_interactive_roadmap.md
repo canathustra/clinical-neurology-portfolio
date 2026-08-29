@@ -1,6 +1,6 @@
 # Chapter 8 Interactive Animation Roadmap
 
-Source: `materials/7 Uğurcan.pdf`, Chapter 8, "Artifacts and Technical Factors" (Preston & Shapiro).
+Source reference: Preston DC, Shapiro BE. *Electromyography and Neuromuscular Disorders: Clinical-Electrophysiologic-Ultrasound Correlations*. 4th ed. Elsevier; 2020. Chapter 8, "Artifacts and Technical Factors." The source PDF is intentionally not distributed in this public repository.
 
 Status: **all 26 modules built.** See `index.html` for the live table of contents. This file is now a build log, not a plan — it records what each module covers and maps back to the chapter so nothing gets lost if a module is edited later.
 
