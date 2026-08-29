@@ -1,19 +1,36 @@
-# Ücretsiz portföy sitesi
+# Uğurcan Uğur — Clinical Neurology Portfolio
 
-Bu klasördeki `index.html` dosyasını çift tıklayarak siteyi bilgisayarında açabilirsin.
+Bu depo, Uğurcan Uğur'un halka açık nöroloji eğitim materyallerinin kalıcı ve sürümlü arşividir. Etkileşimli HTML sunumları, medikal animasyonları, gerekli görselleri ve videoları içerir.
 
-## Kendi içeriklerini eklemek
+## Canlı adresler
 
-- `index.html` içindeki `hello@example.com` adresini kendi e-posta adresinle değiştir.
-- `projects/` klasöründe, yayına uygun üç interaktif sunum/animasyonun dosyaları bulunur. Kartları bunlara bağlanmıştır.
-- Klinik veya hasta bilgisi barındıran sunumları bu siteye ekleme; bu site GitHub Pages üzerinde herkese açık olacaktır.
+- Kişisel site ve aranabilir kütüphane: <https://edx.ucugur.chatgpt.site/library>
+- GitHub Pages arşivi: <https://canathustra.github.io/clinical-neurology-portfolio/>
+- NeuroEDX Lab: <https://edx.ucugur.chatgpt.site/lab>
 
-## Ücretsiz yayımlama — GitHub Pages
+GitHub bu projenin kaynak ve yedek katmanıdır. `edx.ucugur.chatgpt.site` ise ziyaretçiler için düzenlenmiş ana giriş ve katalogdur.
 
-1. GitHub'da ücretsiz bir hesap aç ve **New repository** seç.
-2. Depo adına örneğin `portfolyo` yaz, görünürlüğü **Public** bırak ve oluştur.
-3. Bu klasördeki tüm site dosyalarını, özellikle `projects` klasörünü de içerecek şekilde depoya yükle.
-4. Depoda **Settings → Pages** bölümüne gir; **Deploy from a branch**, `main` ve `/ (root)` seçeneklerini kaydet.
-5. Birkaç dakika sonra siten `https://kullaniciadin.github.io/portfolyo/` adresinde açılır.
+## Yayındaki koleksiyonlar
 
-Kendi `.com` alan adın şart değildir; istersen daha sonra eklenebilir.
+| Koleksiyon | Kapsam | Giriş |
+|---|---|---|
+| NCS teknik faktörler | 19 konu girişi; artefaktlar, kayıt ve ölçüm | `projects/ncs-emg/animations/index.html` |
+| GBS / AIDP | Klinik, BOS, elektrodiagnostik ve prognoz | `projects/gbs-aidp/index.html` |
+| MUAP görsel atlası | 121 slaytlık interaktif sunum | `projects/muap-ready-slides/index.html` |
+| MUAP analizi | Şekil ve videolarla interaktif bölüm | `projects/muap-analysis/index.html` |
+| Kuantal deplesyon | Nöromüsküler bileşke animasyonu | `projects/ach-animation/nmj-deplesyon.html` |
+| Blink refleksi | Mekanizma videosu | `projects/yeni-video/ugurcan-animasyon.mp4` |
+
+## Yayın ilkeleri
+
+- Hasta bilgisi, klinik kayıt veya kimliği belirlenebilir veri yayımlanmaz.
+- Kaynak kitapların PDF kopyaları depoya eklenmez; yalnızca bibliyografik atıf tutulur.
+- Yalnızca paylaşım hakkı bulunan görseller ve videolar halka açık sürüme eklenir.
+- Taslak, QA ve üretim dosyaları ziyaretçi kataloğunda gösterilmez.
+- Yeni bir materyal eklenince hem bu arşivdeki giriş yolu hem de kişisel sitedeki `/library` kataloğu güncellenir.
+
+## Yerel kullanım
+
+Depoyu indirdikten sonra kökteki `index.html` dosyasını açabilir veya basit bir statik HTTP sunucusu kullanabilirsin. Materyaller GitHub Pages üzerinde doğrudan HTML, CSS ve JavaScript olarak çalışacak biçimde paketlenmiştir.
+
+Bu içerikler yalnızca eğitim amaçlıdır; klinik değerlendirme, tanı veya tedavi kararının yerine geçmez.

@@ -4,8 +4,7 @@
 
 Turkish-language interactive HTML teaching deck for neurology residents, covering Chapter 8, "Artifacts and Technical Factors," from Preston & Shapiro, *Electromyography and Neuromuscular Disorders*.
 
-Source PDF: `materials/07_source_chapter8.pdf`  
-Original source filename may contain Turkish/Unicode characters; prefer the ASCII-safe copy above when scripting.
+Source reference: Preston DC, Shapiro BE. *Electromyography and Neuromuscular Disorders: Clinical-Electrophysiologic-Ultrasound Correlations*. 4th ed. Elsevier; 2020. Chapter 8. The source PDF is kept outside the public repository.
 
 ## Presentation Workflow
 
