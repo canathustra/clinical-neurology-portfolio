@@ -1,0 +1,1175 @@
+{
+  "version": "2026-08-30",
+  "entries": [
+    {
+      "path": "projects/ncs-emg/animations/aktif-referans-mesafesi/animasyon-1-g1-g2-mesafesi.html",
+      "title": "G1 ve G2 aynı anda aktifse çıkarma SNAP'ı iptal eder",
+      "domain": "ncs",
+      "collection": "aktif-referans-mesafesi",
+      "index": 2,
+      "total": 3,
+      "canonicalHref": "/library/ncs/technical-factors/active-reference-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/aktif-referans-mesafesi/animasyon-1-g1-g2-mesafesi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/aktif-referans-mesafesi/index.html",
+      "title": "Aktif-Referans Elektrot Mesafesi — Bölüm 8",
+      "domain": "ncs",
+      "collection": "aktif-referans-mesafesi",
+      "index": 1,
+      "total": 3,
+      "canonicalHref": "/library/ncs/technical-factors/active-reference-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/aktif-referans-mesafesi/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/aktif-referans-mesafesi/konu-girisi.html",
+      "title": "Aktif–Referans Elektrot Mesafesi",
+      "domain": "ncs",
+      "collection": "aktif-referans-mesafesi",
+      "index": 3,
+      "total": 3,
+      "canonicalHref": "/library/ncs/technical-factors/active-reference-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/aktif-referans-mesafesi/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/antidromik-ortodromik/animasyon-1-antidromik-vs-ortodromik.html",
+      "title": "Yön değişir; 2,2 ms aynı kalır, kayıt derinliği amplitüdü değiştirir",
+      "domain": "ncs",
+      "collection": "antidromik-ortodromik",
+      "index": 2,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/antidromic-orthodromic",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/antidromik-ortodromik/animasyon-1-antidromik-vs-ortodromik.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/antidromik-ortodromik/animasyon-2-sahte-dsap.html",
+      "title": "Gerçek DSAP kaybolsa bile geç motor bileşen kalır",
+      "domain": "ncs",
+      "collection": "antidromik-ortodromik",
+      "index": 4,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/antidromic-orthodromic",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/antidromik-ortodromik/animasyon-2-sahte-dsap.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/antidromik-ortodromik/hacim-iletilen-motor.html",
+      "title": "Hacim İletilen Motor Potansiyeli ve Sahte DSAP",
+      "domain": "ncs",
+      "collection": "antidromik-ortodromik",
+      "index": 3,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/antidromic-orthodromic",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/antidromik-ortodromik/hacim-iletilen-motor.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/antidromik-ortodromik/index.html",
+      "title": "Antidromik ve Ortodromik Kayıt — Bölüm 8",
+      "domain": "ncs",
+      "collection": "antidromik-ortodromik",
+      "index": 1,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/antidromic-orthodromic",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/antidromik-ortodromik/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/antidromik-ortodromik/konu-girisi.html",
+      "title": "Antidromik ve Ortodromik Kayıt",
+      "domain": "ncs",
+      "collection": "antidromik-ortodromik",
+      "index": 5,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/antidromic-orthodromic",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/antidromik-ortodromik/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/boy/animasyon-1-boy-ih.html",
+      "title": "Boy — Boy ve İletim Hızı",
+      "domain": "ncs",
+      "collection": "boy",
+      "index": 5,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/height",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/boy/animasyon-1-boy-ih.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/boy/animasyon-2-kol-vs-bacak.html",
+      "title": "Boy — Kol vs Bacak: İncelme ve Soğuma",
+      "domain": "ncs",
+      "collection": "boy",
+      "index": 3,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/height",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/boy/animasyon-2-kol-vs-bacak.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/boy/animasyon-3-gec-yanit-boy.html",
+      "title": "Boy — F/H Yanıtı ve Boy",
+      "domain": "ncs",
+      "collection": "boy",
+      "index": 7,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/height",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/boy/animasyon-3-gec-yanit-boy.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/boy/asiri-boy-duzeltmesi.html",
+      "title": "Boy — Aşırı Boyda Düzeltme",
+      "domain": "ncs",
+      "collection": "boy",
+      "index": 4,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/height",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/boy/asiri-boy-duzeltmesi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/boy/gec-yanit-ve-boy.html",
+      "title": "Boy — Geç Yanıtlar ve Boy Etkisi",
+      "domain": "ncs",
+      "collection": "boy",
+      "index": 6,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/height",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/boy/gec-yanit-ve-boy.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/boy/index.html",
+      "title": "Boy — Bölüm 8: Artifacts and Technical Factors",
+      "domain": "ncs",
+      "collection": "boy",
+      "index": 1,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/height",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/boy/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/boy/mekanizma-tapering-sogutma.html",
+      "title": "Boy — Tapering ve Soğuma Mekanizması",
+      "domain": "ncs",
+      "collection": "boy",
+      "index": 2,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/height",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/boy/mekanizma-tapering-sogutma.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/ekstremite-mesafe/animasyon-1-dirsek-pozisyonu.html",
+      "title": "Ulnar Sinir — Dirsek Pozisyonu ve Mesafe",
+      "domain": "ncs",
+      "collection": "ekstremite-mesafe",
+      "index": 2,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/limb-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/ekstremite-mesafe/animasyon-1-dirsek-pozisyonu.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/ekstremite-mesafe/animasyon-2-kaliper.html",
+      "title": "Doğrusal Olmayan Segmentlerde Obstetrik Kaliper",
+      "domain": "ncs",
+      "collection": "ekstremite-mesafe",
+      "index": 4,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/limb-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/ekstremite-mesafe/animasyon-2-kaliper.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/ekstremite-mesafe/diger-sinirler-caliper.html",
+      "title": "Diğer Sinirler ve Obstetrik Kaliper",
+      "domain": "ncs",
+      "collection": "ekstremite-mesafe",
+      "index": 3,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/limb-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/ekstremite-mesafe/diger-sinirler-caliper.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/ekstremite-mesafe/index.html",
+      "title": "Ekstremite Pozisyonu ve Mesafe Ölçümü — Bölüm 8",
+      "domain": "ncs",
+      "collection": "ekstremite-mesafe",
+      "index": 1,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/limb-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/ekstremite-mesafe/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/ekstremite-mesafe/konu-girisi.html",
+      "title": "Ekstremite Pozisyonu ve Ölçüm Mesafesi",
+      "domain": "ncs",
+      "collection": "ekstremite-mesafe",
+      "index": 5,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/limb-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/ekstremite-mesafe/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/ekstremite-morfoloji/animasyon-1-pozisyon-tutarliligi.html",
+      "title": "Ekstremite Pozisyonu ve BKAP Morfolojisi",
+      "domain": "ncs",
+      "collection": "ekstremite-morfoloji",
+      "index": 2,
+      "total": 3,
+      "canonicalHref": "/library/ncs/technical-factors/limb-morphology",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/ekstremite-morfoloji/animasyon-1-pozisyon-tutarliligi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/ekstremite-morfoloji/index.html",
+      "title": "Ekstremite Pozisyonu ve Dalga Morfolojisi — Bölüm 8",
+      "domain": "ncs",
+      "collection": "ekstremite-morfoloji",
+      "index": 1,
+      "total": 3,
+      "canonicalHref": "/library/ncs/technical-factors/limb-morphology",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/ekstremite-morfoloji/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/ekstremite-morfoloji/konu-girisi.html",
+      "title": "Ekstremite Pozisyonu ve Dalga Morfolojisi",
+      "domain": "ncs",
+      "collection": "ekstremite-morfoloji",
+      "index": 3,
+      "total": 3,
+      "canonicalHref": "/library/ncs/technical-factors/limb-morphology",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/ekstremite-morfoloji/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektronik-ortalama/animasyon-1-ortalama.html",
+      "title": "Elektronik Ortalama — Aynı Sinyal Kalır, Rastgele Gürültü Söner",
+      "domain": "ncs",
+      "collection": "elektronik-ortalama",
+      "index": 2,
+      "total": 3,
+      "canonicalHref": "/library/ncs/technical-factors/electronic-averaging",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektronik-ortalama/animasyon-1-ortalama.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektronik-ortalama/index.html",
+      "title": "Elektronik Ortalama — Bölüm 8",
+      "domain": "ncs",
+      "collection": "elektronik-ortalama",
+      "index": 1,
+      "total": 3,
+      "canonicalHref": "/library/ncs/technical-factors/electronic-averaging",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektronik-ortalama/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektronik-ortalama/konu-girisi.html",
+      "title": "Elektronik Ortalama",
+      "domain": "ncs",
+      "collection": "elektronik-ortalama",
+      "index": 3,
+      "total": 3,
+      "canonicalHref": "/library/ncs/technical-factors/electronic-averaging",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektronik-ortalama/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektrot-sinir-mesafesi/animasyon-0-derinlik-filtresi.html",
+      "title": "Elektrot sinirden uzaklaştıkça SNAP amplitüdü düşer",
+      "domain": "ncs",
+      "collection": "elektrot-sinir-mesafesi",
+      "index": 2,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/electrode-nerve-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektrot-sinir-mesafesi/animasyon-0-derinlik-filtresi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektrot-sinir-mesafesi/animasyon-1-mesafe-amplitud-latans.html",
+      "title": "Ödem duysal yanıtı küçültür ve yayar",
+      "domain": "ncs",
+      "collection": "elektrot-sinir-mesafesi",
+      "index": 4,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/electrode-nerve-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektrot-sinir-mesafesi/animasyon-1-mesafe-amplitud-latans.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektrot-sinir-mesafesi/animasyon-2-elektrot-arama.html",
+      "title": "Elektrotu ara: en büyük SNAP sinirin yerini doğrular",
+      "domain": "ncs",
+      "collection": "elektrot-sinir-mesafesi",
+      "index": 6,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/electrode-nerve-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektrot-sinir-mesafesi/animasyon-2-elektrot-arama.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektrot-sinir-mesafesi/animasyon-3-yanlis-hiz.html",
+      "title": "Gerçek hız değişmez; erken onset hesabı yalancı hızlandırır",
+      "domain": "ncs",
+      "collection": "elektrot-sinir-mesafesi",
+      "index": 8,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/electrode-nerve-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektrot-sinir-mesafesi/animasyon-3-yanlis-hiz.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektrot-sinir-mesafesi/index.html",
+      "title": "Elektrot-Sinir Mesafesi — Bölüm 8",
+      "domain": "ncs",
+      "collection": "elektrot-sinir-mesafesi",
+      "index": 1,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/electrode-nerve-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektrot-sinir-mesafesi/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektrot-sinir-mesafesi/konu-girisi.html",
+      "title": "Elektrot–Sinir Mesafesi",
+      "domain": "ncs",
+      "collection": "elektrot-sinir-mesafesi",
+      "index": 9,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/electrode-nerve-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektrot-sinir-mesafesi/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektrot-sinir-mesafesi/latans-hatasi.html",
+      "title": "Latans Hatası ve Yapay Hızlı İletim Hızı",
+      "domain": "ncs",
+      "collection": "elektrot-sinir-mesafesi",
+      "index": 7,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/electrode-nerve-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektrot-sinir-mesafesi/latans-hatasi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektrot-sinir-mesafesi/lateral-yerlesim.html",
+      "title": "Lateral/Medial Yerleşim ve Arama Tekniği",
+      "domain": "ncs",
+      "collection": "elektrot-sinir-mesafesi",
+      "index": 5,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/electrode-nerve-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektrot-sinir-mesafesi/lateral-yerlesim.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/elektrot-sinir-mesafesi/odem-etkisi.html",
+      "title": "Ödem ve Amplitüd Atenüasyonu",
+      "domain": "ncs",
+      "collection": "elektrot-sinir-mesafesi",
+      "index": 3,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/electrode-nerve-distance",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/elektrot-sinir-mesafesi/odem-etkisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/filtreler/animasyon-0-filtre-spektrumu.html",
+      "title": "Ham kayıt tek bir frekanstan oluşmaz",
+      "domain": "ncs",
+      "collection": "filtreler",
+      "index": 2,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/filters",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/filtreler/animasyon-0-filtre-spektrumu.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/filtreler/animasyon-1-gecirgen-bant.html",
+      "title": "Geçirgen bant kayıt türüne göre seçilir",
+      "domain": "ncs",
+      "collection": "filtreler",
+      "index": 4,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/filters",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/filtreler/animasyon-1-gecirgen-bant.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/filtreler/animasyon-2-filtre-odunlesimi.html",
+      "title": "Filtre değişince amplitüd ve süre de değişir",
+      "domain": "ncs",
+      "collection": "filtreler",
+      "index": 6,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/filters",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/filtreler/animasyon-2-filtre-odunlesimi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/filtreler/filtre-odunlesimi.html",
+      "title": "Filtre Ödünleşimi — Süre ve Amplitüd",
+      "domain": "ncs",
+      "collection": "filtreler",
+      "index": 5,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/filters",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/filtreler/filtre-odunlesimi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/filtreler/gecirgen-bant.html",
+      "title": "Geçirgen Bant — Motor ve Duysal Filtre Ayarları",
+      "domain": "ncs",
+      "collection": "filtreler",
+      "index": 3,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/filters",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/filtreler/gecirgen-bant.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/filtreler/index.html",
+      "title": "Filtreler — Bölüm 8",
+      "domain": "ncs",
+      "collection": "filtreler",
+      "index": 1,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/filters",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/filtreler/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/filtreler/konu-girisi.html",
+      "title": "Filtre Ayarları",
+      "domain": "ncs",
+      "collection": "filtreler",
+      "index": 7,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/filters",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/filtreler/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/giris/index.html",
+      "title": "Giriş — Bölüm 8: Artifacts and Technical Factors",
+      "domain": "ncs",
+      "collection": "giris",
+      "index": 1,
+      "total": 1,
+      "canonicalHref": "/library/ncs/technical-factors",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/giris/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/impedans-gurultu/60hz-azaltma.html",
+      "title": "60 Hz İnterferansını Azaltma — Box 8.3",
+      "domain": "ncs",
+      "collection": "impedans-gurultu",
+      "index": 7,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/impedance-noise",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/impedans-gurultu/60hz-azaltma.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/impedans-gurultu/animasyon-0-gurultu-haritasi.html",
+      "title": "Doymuş kayıt ekranını 50/60 Hz olarak tanıma laboratuvarı",
+      "domain": "ncs",
+      "collection": "impedans-gurultu",
+      "index": 2,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/impedance-noise",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/impedans-gurultu/animasyon-0-gurultu-haritasi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/impedans-gurultu/animasyon-1-diferansiyel-amp.html",
+      "title": "G1 ve G2 eşitse ortak 50/60 Hz iptal olur",
+      "domain": "ncs",
+      "collection": "impedans-gurultu",
+      "index": 4,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/impedance-noise",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/impedans-gurultu/animasyon-1-diferansiyel-amp.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/impedans-gurultu/animasyon-2-gurultu-azaltma.html",
+      "title": "Box 8.3 — Gürültüyü örüntüsüne göre azaltma",
+      "domain": "ncs",
+      "collection": "impedans-gurultu",
+      "index": 8,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/impedance-noise",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/impedans-gurultu/animasyon-2-gurultu-azaltma.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/impedans-gurultu/animasyon-3-ohm-empedans.html",
+      "title": "G1 ve G2 empedans eşleşmesi laboratuvarı",
+      "domain": "ncs",
+      "collection": "impedans-gurultu",
+      "index": 6,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/impedance-noise",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/impedans-gurultu/animasyon-3-ohm-empedans.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/impedans-gurultu/diferansiyel-amplifikasyon.html",
+      "title": "Diferansiyel Amplifikasyon ve Ortak Mod Reddi",
+      "domain": "ncs",
+      "collection": "impedans-gurultu",
+      "index": 3,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/impedance-noise",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/impedans-gurultu/diferansiyel-amplifikasyon.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/impedans-gurultu/impedans-uyumsuzlugu.html",
+      "title": "Empedans Uyumsuzluğu ve Ohm Yasası",
+      "domain": "ncs",
+      "collection": "impedans-gurultu",
+      "index": 5,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/impedance-noise",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/impedans-gurultu/impedans-uyumsuzlugu.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/impedans-gurultu/index.html",
+      "title": "Elektrot İmpedansı ve Gürültü — Bölüm 8",
+      "domain": "ncs",
+      "collection": "impedans-gurultu",
+      "index": 1,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/impedance-noise",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/impedans-gurultu/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/impedans-gurultu/konu-girisi.html",
+      "title": "Elektrot Empedansı ve Gürültü",
+      "domain": "ncs",
+      "collection": "impedans-gurultu",
+      "index": 9,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/impedance-noise",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/impedans-gurultu/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/index.html",
+      "title": "EDX Öğrenim İstasyonu — Bölüm 8: Artifacts and Technical Factors",
+      "domain": "ncs",
+      "collection": "course-index",
+      "index": 1,
+      "total": 2,
+      "canonicalHref": "/library/ncs/technical-factors",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/katot-polarite/animasyon-0-depolarizasyon-anodal-blok.html",
+      "title": "Anodal Blok — Mekanizma Modeli",
+      "domain": "ncs",
+      "collection": "katot-polarite",
+      "index": 2,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/cathode-polarity",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/katot-polarite/animasyon-0-depolarizasyon-anodal-blok.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/katot-polarite/animasyon-1-polarite-tersligi.html",
+      "title": "Ters Polarite: Gerçek Yol Uzar — Serbest Laboratuvar",
+      "domain": "ncs",
+      "collection": "katot-polarite",
+      "index": 4,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/cathode-polarity",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/katot-polarite/animasyon-1-polarite-tersligi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/katot-polarite/index.html",
+      "title": "Katot Pozisyonu ve Polarite Tersliği — Bölüm 8",
+      "domain": "ncs",
+      "collection": "katot-polarite",
+      "index": 1,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/cathode-polarity",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/katot-polarite/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/katot-polarite/konu-girisi.html",
+      "title": "Katot–Anot Polaritesi",
+      "domain": "ncs",
+      "collection": "katot-polarite",
+      "index": 5,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/cathode-polarity",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/katot-polarite/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/katot-polarite/latans-hatasi.html",
+      "title": "Latans ve İletim Hızı Hatası — Ters Çevrilmiş Polarite",
+      "domain": "ncs",
+      "collection": "katot-polarite",
+      "index": 3,
+      "total": 5,
+      "canonicalHref": "/library/ncs/technical-factors/cathode-polarity",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/katot-polarite/latans-hatasi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/kostimulasyon/animasyon-0-akim-yayilimi.html",
+      "title": "Akım Komşu Sinire Taşınca BKAP Hedefe Özgü Olmaktan Çıkar",
+      "domain": "ncs",
+      "collection": "kostimulasyon",
+      "index": 2,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/costimulation",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/kostimulasyon/animasyon-0-akim-yayilimi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/kostimulasyon/animasyon-1-tanisal-hatalar.html",
+      "title": "Ko-stimülasyonun yeri: yalancı blok veya gizlenen blok",
+      "domain": "ncs",
+      "collection": "kostimulasyon",
+      "index": 4,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/costimulation",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/kostimulasyon/animasyon-1-tanisal-hatalar.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/kostimulasyon/animasyon-2-optimal-yerlesim.html",
+      "title": "Optimal stimülatör yerleşimi: önce konumu bul, sonra supramaksimale çık",
+      "domain": "ncs",
+      "collection": "kostimulasyon",
+      "index": 6,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/costimulation",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/kostimulasyon/animasyon-2-optimal-yerlesim.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/kostimulasyon/hata-oruntuleri.html",
+      "title": "Ko-stimülasyonun Yol Açtığı Hata Örüntüleri",
+      "domain": "ncs",
+      "collection": "kostimulasyon",
+      "index": 3,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/costimulation",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/kostimulasyon/hata-oruntuleri.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/kostimulasyon/index.html",
+      "title": "Komşu Sinirlerin Birlikte Uyarılması — Bölüm 8",
+      "domain": "ncs",
+      "collection": "kostimulasyon",
+      "index": 1,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/costimulation",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/kostimulasyon/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/kostimulasyon/konu-girisi.html",
+      "title": "Komşu Sinir Ko-stimülasyonu",
+      "domain": "ncs",
+      "collection": "kostimulasyon",
+      "index": 7,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/costimulation",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/kostimulasyon/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/kostimulasyon/onleme-yontemleri.html",
+      "title": "Ko-stimülasyonu Önleme Yöntemleri — Box 8.5",
+      "domain": "ncs",
+      "collection": "kostimulasyon",
+      "index": 5,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/costimulation",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/kostimulasyon/onleme-yontemleri.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/kurallar.html",
+      "title": "Oturum Kuralları — Bölüm 8: Artifacts and Technical Factors",
+      "domain": "ncs",
+      "collection": "course-index",
+      "index": 2,
+      "total": 2,
+      "canonicalHref": "/library/ncs/technical-factors",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/kurallar.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/motor-elektrot-yerlesimi/animasyon-0-belly-tendon-montaj.html",
+      "title": "G2 sessizse, belly-tendon BKAP G1 sinyalini korur",
+      "domain": "ncs",
+      "collection": "motor-elektrot-yerlesimi",
+      "index": 2,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/motor-electrode-placement",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/motor-elektrot-yerlesimi/animasyon-0-belly-tendon-montaj.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/motor-elektrot-yerlesimi/animasyon-1-g1-konumu.html",
+      "title": "G1 motor noktadan uzaklaşınca ilk pozitiflik amplitüdü ve onseti bozar",
+      "domain": "ncs",
+      "collection": "motor-elektrot-yerlesimi",
+      "index": 4,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/motor-electrode-placement",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/motor-elektrot-yerlesimi/animasyon-1-g1-konumu.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/motor-elektrot-yerlesimi/animasyon-2-g2-tendon-potansiyeli.html",
+      "title": "G2 konumu tek başına 8,3 → 5,6 mV BKAP farkı yaratır",
+      "domain": "ncs",
+      "collection": "motor-elektrot-yerlesimi",
+      "index": 6,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/motor-electrode-placement",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/motor-elektrot-yerlesimi/animasyon-2-g2-tendon-potansiyeli.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/motor-elektrot-yerlesimi/g1-yerlesimi.html",
+      "title": "G1 Yerleşimi ve İlk Pozitif Sapma",
+      "domain": "ncs",
+      "collection": "motor-elektrot-yerlesimi",
+      "index": 3,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/motor-electrode-placement",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/motor-elektrot-yerlesimi/g1-yerlesimi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/motor-elektrot-yerlesimi/g2-yerlesimi.html",
+      "title": "G2 Yerleşimi ve Tendon Potansiyeli",
+      "domain": "ncs",
+      "collection": "motor-elektrot-yerlesimi",
+      "index": 5,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/motor-electrode-placement",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/motor-elektrot-yerlesimi/g2-yerlesimi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/motor-elektrot-yerlesimi/index.html",
+      "title": "Motor Elektrot Yerleşimi — Bölüm 8",
+      "domain": "ncs",
+      "collection": "motor-elektrot-yerlesimi",
+      "index": 1,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/motor-electrode-placement",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/motor-elektrot-yerlesimi/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/motor-elektrot-yerlesimi/konu-girisi.html",
+      "title": "Motor Kayıt Elektrot Yerleşimi",
+      "domain": "ncs",
+      "collection": "motor-elektrot-yerlesimi",
+      "index": 7,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/motor-electrode-placement",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/motor-elektrot-yerlesimi/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/proksimal-distal/animasyon-1-segment-hizi.html",
+      "title": "Proksimal vs Distal — Median Segment Hızları",
+      "domain": "ncs",
+      "collection": "proksimal-distal",
+      "index": 2,
+      "total": 2,
+      "canonicalHref": "/library/ncs/technical-factors/proximal-distal",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/proksimal-distal/animasyon-1-segment-hizi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/proksimal-distal/index.html",
+      "title": "Proksimal ve Distal Segmentler — Bölüm 8",
+      "domain": "ncs",
+      "collection": "proksimal-distal",
+      "index": 1,
+      "total": 2,
+      "canonicalHref": "/library/ncs/technical-factors/proximal-distal",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/proksimal-distal/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/animasyon-1-nod.html",
+      "title": "Sıcaklık — Ranvier Nodu ve İleti Animasyonu",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 3,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/animasyon-1-nod.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/animasyon-2-ncs.html",
+      "title": "Sıcaklık — Canlı NCS Demonstrasyonu",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 4,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/animasyon-2-ncs.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/animasyon-3-faz-iptali.html",
+      "title": "Sıcaklık — Tek Lif Toplamı ve Faz İptali",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 5,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/animasyon-3-faz-iptali.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/animasyon-4-muap.html",
+      "title": "Sıcaklık — Canlı MUAP Demonstrasyonu",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 7,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/animasyon-4-muap.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/animasyon-5-ekstremite-sicakligi.html",
+      "title": "Sıcaklık — Ekstremite Sıcaklığı Animasyonu",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 9,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/animasyon-5-ekstremite-sicakligi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/animasyon-6-kts-vs-soguk.html",
+      "title": "Sıcaklık — KTS mi, Soğuk mu?",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 11,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/animasyon-6-kts-vs-soguk.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/animasyon-7-soguk-vs-aksonal.html",
+      "title": "Sıcaklık — Soğuk mu, Demiyelinizan mı?",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 12,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/animasyon-7-soguk-vs-aksonal.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/animasyon-8-duzeltme-hesaplayici.html",
+      "title": "Sıcaklık — Düzeltme Faktörü Hesaplayıcı",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 15,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/animasyon-8-duzeltme-hesaplayici.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/animasyon-9-isinma-zaman.html",
+      "title": "Sıcaklık — Isınma Süresi: Tibial vs Sural",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 14,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/animasyon-9-isinma-zaman.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/ekstremite-sicakligi.html",
+      "title": "Sıcaklık — Ekstremite Sıcaklığındaki Değişkenlik",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 8,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/ekstremite-sicakligi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/faz-iptali.html",
+      "title": "Sıcaklık — Faz İptali ve Soğuma Tuzağı",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 2,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/faz-iptali.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/index.html",
+      "title": "Sıcaklık — Bölüm 8: Artifacts and Technical Factors",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 1,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/isinma-yontemi.html",
+      "title": "Sıcaklık — İzlem, Isıtma ve Düzeltme Faktörü",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 13,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/isinma-yontemi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/muap-etkisi.html",
+      "title": "Sıcaklık — MUAP Üzerine Etkisi",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 6,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/muap-etkisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sicaklik/yanlis-tani.html",
+      "title": "Sıcaklık — Yanlış Tanı Tuzakları",
+      "domain": "ncs",
+      "collection": "sicaklik",
+      "index": 10,
+      "total": 15,
+      "canonicalHref": "/library/ncs/technical-factors/temperature",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sicaklik/yanlis-tani.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/stimulus-artefakti/animasyon-0-mekanizma.html",
+      "title": "Stimulus Artefaktı — Zaman İşareti ve Örtüşen Kuyruk",
+      "domain": "ncs",
+      "collection": "stimulus-artefakti",
+      "index": 2,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/stimulus-artifact",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/stimulus-artefakti/animasyon-0-mekanizma.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/stimulus-artefakti/animasyon-1-anot-rotasyon.html",
+      "title": "Walking the Anode — Serbest Laboratuvar",
+      "domain": "ncs",
+      "collection": "stimulus-artefakti",
+      "index": 6,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/stimulus-artifact",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/stimulus-artefakti/animasyon-1-anot-rotasyon.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/stimulus-artefakti/animasyon-2-artefakt-azaltma.html",
+      "title": "Box 8.4 — Stimulus Artefaktını Sistematik Azaltma",
+      "domain": "ncs",
+      "collection": "stimulus-artefakti",
+      "index": 4,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/stimulus-artifact",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/stimulus-artefakti/animasyon-2-artefakt-azaltma.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/stimulus-artefakti/animasyon-3-kablo-induksiyonu.html",
+      "title": "Kablo Kuplajı ve Stimulus Artefaktı — Serbest Laboratuvar",
+      "domain": "ncs",
+      "collection": "stimulus-artefakti",
+      "index": 8,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/stimulus-artifact",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/stimulus-artefakti/animasyon-3-kablo-induksiyonu.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/stimulus-artefakti/anot-dondurme.html",
+      "title": "Anot Döndürme (Walking the Anode)",
+      "domain": "ncs",
+      "collection": "stimulus-artefakti",
+      "index": 5,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/stimulus-artifact",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/stimulus-artefakti/anot-dondurme.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/stimulus-artefakti/azaltma-yontemleri.html",
+      "title": "Stimulus Artefaktını Azaltma Yöntemleri",
+      "domain": "ncs",
+      "collection": "stimulus-artefakti",
+      "index": 3,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/stimulus-artifact",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/stimulus-artefakti/azaltma-yontemleri.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/stimulus-artefakti/index.html",
+      "title": "Stimulus Artefaktı — Bölüm 8",
+      "domain": "ncs",
+      "collection": "stimulus-artefakti",
+      "index": 1,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/stimulus-artifact",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/stimulus-artefakti/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/stimulus-artefakti/kablo-ayrimi.html",
+      "title": "Kablo Ayrımı ve İndüksiyon",
+      "domain": "ncs",
+      "collection": "stimulus-artefakti",
+      "index": 7,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/stimulus-artifact",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/stimulus-artefakti/kablo-ayrimi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/stimulus-artefakti/konu-girisi.html",
+      "title": "Stimulus Artefaktı",
+      "domain": "ncs",
+      "collection": "stimulus-artefakti",
+      "index": 9,
+      "total": 9,
+      "canonicalHref": "/library/ncs/technical-factors/stimulus-artifact",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/stimulus-artefakti/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/supramaksimal/animasyon-0-akson-rekrutmani.html",
+      "title": "Akım Artışı, Akson Rekruitmanı ve BKAP Platosu",
+      "domain": "ncs",
+      "collection": "supramaksimal",
+      "index": 2,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/supramaximal",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/supramaksimal/animasyon-0-akson-rekrutmani.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/supramaksimal/animasyon-1-uyari-egrisi.html",
+      "title": "İlk Maksimal Yanıtta Durma — Platoyu Ek Akımla Kanıtla",
+      "domain": "ncs",
+      "collection": "supramaksimal",
+      "index": 4,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/supramaximal",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/supramaksimal/animasyon-1-uyari-egrisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/supramaksimal/animasyon-2-amplitud-farki.html",
+      "title": "Normal Sinirde Submaksimal Uyarım — Yalancı Amplitüd Asimetrisi",
+      "domain": "ncs",
+      "collection": "supramaksimal",
+      "index": 6,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/supramaximal",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/supramaksimal/animasyon-2-amplitud-farki.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/supramaksimal/index.html",
+      "title": "Supramaksimal Uyarım — Bölüm 8",
+      "domain": "ncs",
+      "collection": "supramaksimal",
+      "index": 1,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/supramaximal",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/supramaksimal/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/supramaksimal/konu-girisi.html",
+      "title": "Supramaksimal Uyarım",
+      "domain": "ncs",
+      "collection": "supramaksimal",
+      "index": 7,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/supramaximal",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/supramaksimal/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/supramaksimal/nasil-yapilir.html",
+      "title": "Supramaksimal Uyarım Nasıl Sağlanır?",
+      "domain": "ncs",
+      "collection": "supramaksimal",
+      "index": 3,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/supramaximal",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/supramaksimal/nasil-yapilir.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/supramaksimal/yanlis-yorumlar.html",
+      "title": "Submaksimal Uyarımın Yol Açtığı Yanlış Yorumlar",
+      "domain": "ncs",
+      "collection": "supramaksimal",
+      "index": 5,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/supramaximal",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/supramaksimal/yanlis-yorumlar.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sweep-sensitivite/animasyon-1-sensitivite.html",
+      "title": "Sensitivite ve Başlangıç Latansı",
+      "domain": "ncs",
+      "collection": "sweep-sensitivite",
+      "index": 2,
+      "total": 4,
+      "canonicalHref": "/library/ncs/technical-factors/sweep-sensitivity",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sweep-sensitivite/animasyon-1-sensitivite.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sweep-sensitivite/animasyon-2-sweep-hizi.html",
+      "title": "Yatay Zaman Ölçeği ve Başlangıç Latansı",
+      "domain": "ncs",
+      "collection": "sweep-sensitivite",
+      "index": 3,
+      "total": 4,
+      "canonicalHref": "/library/ncs/technical-factors/sweep-sensitivity",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sweep-sensitivite/animasyon-2-sweep-hizi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sweep-sensitivite/index.html",
+      "title": "Latans Ölçümü: Sweep Hızı ve Sensitivite — Bölüm 8",
+      "domain": "ncs",
+      "collection": "sweep-sensitivite",
+      "index": 1,
+      "total": 4,
+      "canonicalHref": "/library/ncs/technical-factors/sweep-sensitivity",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sweep-sensitivite/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/sweep-sensitivite/konu-girisi.html",
+      "title": "Sensitivite ve Sweep Hızı",
+      "domain": "ncs",
+      "collection": "sweep-sensitivite",
+      "index": 4,
+      "total": 4,
+      "canonicalHref": "/library/ncs/technical-factors/sweep-sensitivity",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/sweep-sensitivite/konu-girisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/yas/amplitud-yas-etkisi.html",
+      "title": "Yaş — CMAP/SNAP Amplitüdlerinde Yaş Etkisi",
+      "domain": "ncs",
+      "collection": "yas",
+      "index": 4,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/age",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/yas/amplitud-yas-etkisi.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/yas/animasyon-1-cv-yasam-boyu.html",
+      "title": "Yaş — İletim Hızı: Doğumdan Yaşlılığa",
+      "domain": "ncs",
+      "collection": "yas",
+      "index": 3,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/age",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/yas/animasyon-1-cv-yasam-boyu.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/yas/animasyon-2-sural-snap-yas.html",
+      "title": "Yaş — Sural SNAP Genliği",
+      "domain": "ncs",
+      "collection": "yas",
+      "index": 5,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/age",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/yas/animasyon-2-sural-snap-yas.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/yas/animasyon-3-muap-suresi-yas.html",
+      "title": "Yaş — MUAP Süresi",
+      "domain": "ncs",
+      "collection": "yas",
+      "index": 7,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/age",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/yas/animasyon-3-muap-suresi-yas.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/yas/cv-azalma-yaslilik.html",
+      "title": "Yaş — Yaşlanma, İletim Hızı ve Düzeltme",
+      "domain": "ncs",
+      "collection": "yas",
+      "index": 2,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/age",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/yas/cv-azalma-yaslilik.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/yas/index.html",
+      "title": "Yaş — Bölüm 8: Artifacts and Technical Factors",
+      "domain": "ncs",
+      "collection": "yas",
+      "index": 1,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/age",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/yas/index.html"
+    },
+    {
+      "path": "projects/ncs-emg/animations/yas/muap-suresi-ve-gec-yanit.html",
+      "title": "Yaş — MUAP Süresi ve Geç Yanıtlar",
+      "domain": "ncs",
+      "collection": "yas",
+      "index": 6,
+      "total": 7,
+      "canonicalHref": "/library/ncs/technical-factors/age",
+      "legacyHref": "https://canathustra.github.io/clinical-neurology-portfolio/projects/ncs-emg/animations/yas/muap-suresi-ve-gec-yanit.html"
+    }
+  ]
+}

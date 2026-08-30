@@ -1,0 +1,83 @@
+:root {
+  --neuroedx-signal: #071417;
+  --neuroedx-surface: #0b1d20;
+  --neuroedx-text: #f1f4e9;
+  --neuroedx-muted: #a5b8b4;
+  --neuroedx-teal: #58dfc5;
+  --neuroedx-border: #35544f;
+  --neuroedx-paper: #f4f1e8;
+  --neuroedx-panel: #fbfaf5;
+  --neuroedx-ink: #173840;
+  --neuroedx-paper-muted: #5b7478;
+  --neuroedx-paper-border: #c7d3cd;
+  --neuroedx-action: #1b7774;
+  --neuroedx-coral: #b94e38;
+  --neuroedx-radius: 14px;
+  --neuroedx-control-radius: 10px;
+  --neuroedx-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --neuroedx-mono: "IBM Plex Mono", Consolas, monospace;
+}
+.neuroedx-skip { position: fixed; z-index: 10001; top: 8px; left: 8px; transform: translateY(-160%); padding: 10px 14px; border-radius: var(--neuroedx-control-radius); background: var(--neuroedx-teal); color: var(--neuroedx-signal); font: 800 14px/1.2 var(--neuroedx-font); transition: transform 160ms ease; }
+.neuroedx-skip:focus { transform: translateY(0); }
+.neuroedx-dock {
+  position: fixed;
+  z-index: 10000;
+  top: 8px;
+  left: 50%;
+  display: grid;
+  width: min(calc(100% - 24px), 1040px);
+  min-height: 48px;
+  transform: translateX(-50%);
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 14px;
+  align-items: center;
+  padding: 6px 8px 6px 14px;
+  border: 1px solid var(--neuroedx-border);
+  border-radius: var(--neuroedx-control-radius);
+  background: rgb(7 20 23 / 94%);
+  color: var(--neuroedx-text);
+  box-shadow: 0 16px 40px rgb(0 0 0 / 32%);
+  backdrop-filter: blur(14px);
+  font-family: var(--neuroedx-font);
+}
+.neuroedx-dock-crumb { display: flex; min-width: 0; gap: 7px; align-items: center; color: var(--neuroedx-muted); font: 700 10px/1.3 var(--neuroedx-mono); }
+.neuroedx-dock-crumb a { color: var(--neuroedx-teal); text-decoration: none; }
+.neuroedx-dock-crumb strong { overflow: hidden; color: var(--neuroedx-text); text-overflow: ellipsis; white-space: nowrap; }
+.neuroedx-dock-progress { display: inline-flex; gap: 8px; align-items: center; color: var(--neuroedx-text); font: 800 10px/1 var(--neuroedx-mono); }
+.neuroedx-dock-segments { display: flex; width: 104px; gap: 3px; }
+.neuroedx-dock-segments span { flex: 1; height: 4px; border-radius: 2px; background: var(--neuroedx-border); }
+.neuroedx-dock-segments span.active { background: var(--neuroedx-teal); }
+.neuroedx-dock-nav { display: flex; gap: 4px; }
+.neuroedx-dock button,
+.neuroedx-dock-nav a { display: inline-grid; width: 36px; min-width: 36px; height: 36px; cursor: pointer; place-items: center; border: 1px solid var(--neuroedx-border); border-radius: 8px; background: var(--neuroedx-surface); color: var(--neuroedx-text); font: 800 16px/1 var(--neuroedx-font); text-decoration: none; }
+.neuroedx-dock button:hover,
+.neuroedx-dock-nav a:hover { border-color: var(--neuroedx-teal); }
+.neuroedx-dock button:disabled { cursor: default; opacity: .35; }
+.neuroedx-dock button:focus-visible,
+.neuroedx-dock a:focus-visible,
+body.neuroedx-public button:focus-visible,
+body.neuroedx-public a:focus-visible { outline: 3px solid var(--neuroedx-teal) !important; outline-offset: 3px !important; }
+
+body.neuroedx-public { font-family: var(--neuroedx-font) !important; }
+body.neuroedx-public .muap-stage,
+body.neuroedx-public .presentation-shell > .slide { border-radius: var(--neuroedx-radius); }
+body.neuroedx-public .muap-controls button,
+body.neuroedx-public .slide-nav,
+body.neuroedx-public button.ctl,
+body.neuroedx-public .chap { min-width: 44px; min-height: 44px; border-radius: var(--neuroedx-control-radius) !important; }
+body.neuroedx-public .muap-controls button,
+body.neuroedx-public .slide-nav { border-color: var(--neuroedx-border) !important; }
+body.neuroedx-public .muap-controls .muap-next { background: var(--neuroedx-surface) !important; color: var(--neuroedx-text) !important; }
+body.neuroedx-public .muap-step-progress span.active { background: var(--neuroedx-teal) !important; }
+body.neuroedx-public .chap[aria-current="true"] { border-color: var(--neuroedx-teal) !important; background: var(--neuroedx-teal) !important; color: var(--neuroedx-signal) !important; }
+body.neuroedx-public #fill { background: linear-gradient(90deg, var(--neuroedx-teal), #8be7d5) !important; }
+body.neuroedx-public #knob { background: var(--neuroedx-teal) !important; }
+
+@media (max-width: 720px) {
+  .neuroedx-dock { grid-template-columns: minmax(0, 1fr) auto; }
+  .neuroedx-dock-progress { display: none; }
+  .neuroedx-dock-crumb span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
