@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title description">
+  <title id="title">Source figure omitted</title>
+  <desc id="description">The copyrighted source figure is not distributed in this public educational package. Use the bibliographic citation shown beside the teaching model.</desc>
+  <rect width="960" height="540" rx="28" fill="#071417"/>
+  <path d="M72 274h126l26-38 34 78 44-140 56 176 42-78h110l30-22 28 36 40-70 34 56h160" fill="none" stroke="#68d8c6" stroke-width="5" opacity=".72"/>
+  <rect x="72" y="78" width="188" height="36" rx="18" fill="#0b1d20" stroke="#35544f"/>
+  <text x="94" y="102" fill="#58dfc5" font-family="ui-monospace, monospace" font-size="15" font-weight="700" letter-spacing="2">NEUROEDX · SOURCE NOTE</text>
+  <text x="72" y="410" fill="#f1f4e9" font-family="Inter, system-ui, sans-serif" font-size="42" font-weight="750">Source figure omitted</text>
+  <text x="72" y="454" fill="#a5b8b4" font-family="Inter, system-ui, sans-serif" font-size="20">Copyrighted page imagery is not distributed in this public package.</text>
+  <text x="72" y="487" fill="#a5b8b4" font-family="Inter, system-ui, sans-serif" font-size="20">See the adjacent bibliographic citation; the interactive teaching model remains available.</text>
+</svg>

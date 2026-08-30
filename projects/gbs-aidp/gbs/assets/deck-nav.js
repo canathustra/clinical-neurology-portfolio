@@ -1,4 +1,12 @@
 (function(){
+  document.documentElement.classList.add("neuroedx-signal-paper");
+  if(!document.querySelector('link[data-neuroedx-system]')){
+    const style=document.createElement("link");
+    style.rel="stylesheet";
+    style.href="assets/neuroedx-deck.css";
+    style.dataset.neuroedxSystem="signal-paper-03";
+    document.head.appendChild(style);
+  }
   const slides=[
     ["index.html","Açılış olgusu"],
     ["gbs-acil-sendrom.html","GBS: acil sendrom"],
@@ -49,14 +57,31 @@
   const index=slides.findIndex(s=>s[0]===file);
   if(index<0)return;
   document.documentElement.style.setProperty("--deck-index",index+1);
+  document.documentElement.style.setProperty("--deck-percent",`${((index+1)/slides.length)*100}%`);
+  const workspace=document.querySelector(".workspace");
+  if(workspace)workspace.id="main-content";
+  if(!document.querySelector(".neuroedx-skip")){
+    const skip=document.createElement("a");
+    skip.className="neuroedx-skip";
+    skip.href="#main-content";
+    skip.textContent="İçeriğe geç";
+    document.body.prepend(skip);
+  }
+  const crumb=document.querySelector(".tb-left");
+  if(crumb){
+    crumb.classList.add("neuroedx-breadcrumb");
+    crumb.setAttribute("aria-label","İçerik yolu");
+    crumb.innerHTML=`<a href="https://edx.ucugur.chatgpt.site/library">Library</a><span>/</span><a href="../index.html">Cross-domain</a><span>/</span><strong>${slides[index][1]}</strong>`;
+  }
   let progress=document.querySelector(".deck-progress");
   if(!progress){const host=document.querySelector(".tb-right");if(host){progress=document.createElement("span");progress.className="deck-progress";progress.style.cssText="font-variant-numeric:tabular-nums;letter-spacing:.04em;color:#53636e;margin-right:12px";host.prepend(progress)}}
   if(progress)progress.textContent=`${String(index+1).padStart(2,"0")} / ${slides.length}`;
   const bar=document.querySelector(".bottom-bar");
   if(!bar)return;
+  bar.setAttribute("aria-label","Konu gezinmesi");
   const prev=index?slides[index-1]:["../index.html","İçindekiler"];
   const next=index<slides.length-1?slides[index+1]:["../index.html","İçindekiler"];
-  bar.innerHTML=`<a class="fkey" href="${prev[0]}">F1<b>Önceki: ${prev[1]}</b></a><a class="fkey" href="../index.html">F2<b>İçindekiler</b></a><a class="fkey" href="${next[0]}">F3<b>Sıradaki: ${next[1]}</b></a>`;
+  bar.innerHTML=`<a class="fkey" href="${prev[0]}"><small>F1</small><span><strong>Previous</strong><b>${prev[1]}</b></span></a><a class="fkey" href="../index.html"><small>F2</small><span><strong>Topic home</strong><b>GBS / AIDP contents</b></span></a><a class="fkey" href="${next[0]}"><small>F3</small><span><strong>Next</strong><b>${next[1]}</b></span></a>`;
 
   function go(href){
     location.href=href;
