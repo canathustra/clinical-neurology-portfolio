@@ -1,14 +1,16 @@
 # Uğurcan Uğur — Clinical Neurology Portfolio
 
+> **Ekim 2026:** Bu portföy ana siteyle birleşti. Tek adres: <https://www.ucugur.workers.dev>. Bu depodaki sayfalar eski bağlantılar çalışmaya devam etsin diye korunuyor; eski katalog sayfası `arsiv.html`.
+
 Bu depo, Uğurcan Uğur'un halka açık nöroloji eğitim materyallerinin kalıcı ve sürümlü arşividir. Etkileşimli HTML sunumları, medikal animasyonları, gerekli görselleri ve videoları içerir.
 
 ## Canlı adresler
 
-- Kişisel site ve aranabilir kütüphane: <https://edx.ucugur.chatgpt.site/library>
+- Kişisel site ve aranabilir kütüphane: <https://www.ucugur.workers.dev/library>
 - GitHub Pages arşivi: <https://canathustra.github.io/clinical-neurology-portfolio/>
-- NeuroEDX Lab: <https://edx.ucugur.chatgpt.site/lab>
+- Neurophysiology Lab: <https://www.ucugur.workers.dev/lab>
 
-GitHub bu projenin kaynak ve yedek katmanıdır. `edx.ucugur.chatgpt.site` ise ziyaretçiler için düzenlenmiş ana giriş ve katalogdur.
+GitHub bu projenin kaynak ve yedek katmanıdır. `www.ucugur.workers.dev` ise ziyaretçiler için düzenlenmiş ana giriş ve katalogdur.
 
 ## Yayındaki koleksiyonlar
 
@@ -52,7 +54,7 @@ Bu içerikler yalnızca eğitim amaçlıdır; klinik değerlendirme, tanı veya 
 
 ## İlgili projeler
 
-- [NeuroEDX Lab](https://github.com/canathustra/neuroedx-lab): sentetik sinyallerle EMG/NCS eğitim simülatörü ve bağımsız MUAP sunumu.
+- [Neurophysiology Lab](https://github.com/canathustra/neuroedx-lab): sentetik sinyallerle EMG/NCS eğitim simülatörü ve bağımsız MUAP sunumu.
 - [AFV Benchmark](https://github.com/canathustra/afv-benchmark): keşif amaçlı EEG alfa frekansı araştırma yazılımı.
 - [Clinical Neurology Animations](https://github.com/canathustra/clinical-neurology-animations): henüz uygulama içermeyen başlangıç deposu; yayımlanmış animasyonlar bu portföyde bulunur.
 
