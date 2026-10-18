@@ -4,7 +4,7 @@
   const kind=script.dataset.kind||"material";
   const domain=script.dataset.domain||"Cross-domain";
   const title=script.dataset.title||document.title;
-  const canonical=script.dataset.canonical||"https://edx.ucugur.chatgpt.site/library";
+  const canonical=script.dataset.canonical||"https://www.ucugur.workers.dev/library";
   const total=Math.max(1,Number(script.dataset.total)||1);
 
   document.documentElement.classList.add("neuroedx-signal-paper");
@@ -22,7 +22,7 @@
   dock.className="neuroedx-dock";
   dock.id="neuroedx-dock";
   dock.setAttribute("aria-label","NeuroEDX learning navigation");
-  dock.innerHTML=`<div class="neuroedx-dock-crumb"><a href="https://edx.ucugur.chatgpt.site/library">Library</a><span>/</span><a href="${canonical}">${domain}</a><span>/</span><strong>${title}</strong></div><div class="neuroedx-dock-progress"><div class="neuroedx-dock-segments" aria-hidden="true"></div><b>01/${String(total).padStart(2,"0")}</b></div><div class="neuroedx-dock-nav"><button type="button" data-action="previous" aria-label="Previous">←</button><a href="${canonical}" aria-label="Topic home">⌂</a><button type="button" data-action="next" aria-label="Next">→</button></div>`;
+  dock.innerHTML=`<div class="neuroedx-dock-crumb"><a href="https://www.ucugur.workers.dev/library">Library</a><span>/</span><a href="${canonical}">${domain}</a><span>/</span><strong>${title}</strong></div><div class="neuroedx-dock-progress"><div class="neuroedx-dock-segments" aria-hidden="true"></div><b>01/${String(total).padStart(2,"0")}</b></div><div class="neuroedx-dock-nav"><button type="button" data-action="previous" aria-label="Previous">←</button><a href="${canonical}" aria-label="Topic home">⌂</a><button type="button" data-action="next" aria-label="Next">→</button></div>`;
   document.body.appendChild(dock);
 
   const segments=dock.querySelector(".neuroedx-dock-segments");

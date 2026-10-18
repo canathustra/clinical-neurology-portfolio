@@ -18,7 +18,7 @@ for(const target of targets){
   const absolute=path.join(root,target.file);
   const html=await readFile(absolute,"utf8");
   const relative=path.relative(path.dirname(absolute),path.join(root,"assets")).replaceAll("\\","/")||".";
-  const block=`${start}\n<link rel="stylesheet" href="${relative}/neuroedx-public.css" data-neuroedx-system="signal-paper-03">\n<script defer src="${relative}/neuroedx-public.js" data-neuroedx-adapter="signal-paper-03" data-kind="${target.kind}" data-domain="${escape(target.domain)}" data-title="${escape(target.title)}" data-canonical="https://edx.ucugur.chatgpt.site${target.canonical}" data-total="${target.total}"></script>\n${end}`;
+  const block=`${start}\n<link rel="stylesheet" href="${relative}/neuroedx-public.css" data-neuroedx-system="signal-paper-03">\n<script defer src="${relative}/neuroedx-public.js" data-neuroedx-adapter="signal-paper-03" data-kind="${target.kind}" data-domain="${escape(target.domain)}" data-title="${escape(target.title)}" data-canonical="https://www.ucugur.workers.dev${target.canonical}" data-total="${target.total}"></script>\n${end}`;
   const pattern=new RegExp(`${start}[\\s\\S]*?${end}`,"i");
   let updated=pattern.test(html)?html.replace(pattern,block):html.replace(/<\/head>/i,`${block}\n</head>`);
   if(updated===html && !pattern.test(html))updated=`${block}\n${html}`;

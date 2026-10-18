@@ -71,7 +71,7 @@
   if(crumb){
     crumb.classList.add("neuroedx-breadcrumb");
     crumb.setAttribute("aria-label","İçerik yolu");
-    crumb.innerHTML=`<a href="https://edx.ucugur.chatgpt.site/library">Library</a><span>/</span><a href="../index.html">Cross-domain</a><span>/</span><strong>${slides[index][1]}</strong>`;
+    crumb.innerHTML=`<a href="https://www.ucugur.workers.dev/library">Library</a><span>/</span><a href="../index.html">Cross-domain</a><span>/</span><strong>${slides[index][1]}</strong>`;
   }
   let progress=document.querySelector(".deck-progress");
   if(!progress){const host=document.querySelector(".tb-right");if(host){progress=document.createElement("span");progress.className="deck-progress";progress.style.cssText="font-variant-numeric:tabular-nums;letter-spacing:.04em;color:#53636e;margin-right:12px";host.prepend(progress)}}

@@ -96,7 +96,7 @@ for (const [folder, group] of groups) {
 
   for (const [offset, record] of ordered.entries()) {
     const relativeAsset = path.relative(path.dirname(record.file), animationsRoot).replaceAll("\\", "/") || ".";
-    const block = `${startMarker}\n<link rel="stylesheet" href="${relativeAsset}/neuroedx-system.css" data-neuroedx-system="signal-paper-03">\n<script defer src="${relativeAsset}/neuroedx-nav.js" data-neuroedx-adapter="signal-paper-03" data-index="${offset + 1}" data-total="${ordered.length}" data-label="${escapeAttribute(record.title)}" data-canonical="https://edx.ucugur.chatgpt.site${canonicalHref}"></script>\n${endMarker}`;
+    const block = `${startMarker}\n<link rel="stylesheet" href="${relativeAsset}/neuroedx-system.css" data-neuroedx-system="signal-paper-03">\n<script defer src="${relativeAsset}/neuroedx-nav.js" data-neuroedx-adapter="signal-paper-03" data-index="${offset + 1}" data-total="${ordered.length}" data-label="${escapeAttribute(record.title)}" data-canonical="https://www.ucugur.workers.dev${canonicalHref}"></script>\n${endMarker}`;
     const markerPattern = new RegExp(`${startMarker}[\\s\\S]*?${endMarker}`, "i");
     let updated = markerPattern.test(record.html) ? record.html.replace(markerPattern, block) : record.html.replace(/<\/head>/i, `${block}\n</head>`);
     if (updated === record.html && !markerPattern.test(record.html)) {

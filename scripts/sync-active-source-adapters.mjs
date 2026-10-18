@@ -27,7 +27,7 @@ const styleEnd="<!-- neuroedx:offline-style:end -->";
 const scriptStart="<!-- neuroedx:offline-script:start -->";
 const scriptEnd="<!-- neuroedx:offline-script:end -->";
 const styleBlock=`${styleStart}\n<style data-neuroedx-system="signal-paper-03">\n${publicCss}\n</style>\n${styleEnd}`;
-const scriptBlock=`${scriptStart}\n<script data-neuroedx-adapter="signal-paper-03" data-kind="muap-atlas" data-domain="EMG" data-title="MUAP Visual Atlas" data-canonical="https://edx.ucugur.chatgpt.site/library/emg/muap-atlas" data-total="121">\n${publicJs}\n</script>\n${scriptEnd}`;
+const scriptBlock=`${scriptStart}\n<script data-neuroedx-adapter="signal-paper-03" data-kind="muap-atlas" data-domain="EMG" data-title="MUAP Visual Atlas" data-canonical="https://www.ucugur.workers.dev/library/emg/muap-atlas" data-total="121">\n${publicJs}\n</script>\n${scriptEnd}`;
 const stylePattern=new RegExp(`${styleStart}[\\s\\S]*?${styleEnd}`,"i");
 const scriptPattern=new RegExp(`${scriptStart}[\\s\\S]*?${scriptEnd}`,"i");
 let muapUpdated=stylePattern.test(muapSource)?muapSource.replace(stylePattern,styleBlock):muapSource.replace(/<\/head>/i,`${styleBlock}\n</head>`);

@@ -4,7 +4,7 @@
   const index=Math.max(1,Number(script.dataset.index)||1);
   const total=Math.max(index,Number(script.dataset.total)||1);
   const label=script.dataset.label||document.title.split("—")[0].trim();
-  const canonical=script.dataset.canonical||"https://edx.ucugur.chatgpt.site/library/ncs/technical-factors";
+  const canonical=script.dataset.canonical||"https://www.ucugur.workers.dev/library/ncs/technical-factors";
 
   document.documentElement.classList.add("neuroedx-signal-paper");
   document.documentElement.style.setProperty("--neuroedx-progress",`${index/total*100}%`);
@@ -24,7 +24,7 @@
   if(crumb){
     crumb.classList.add("neuroedx-breadcrumb");
     crumb.setAttribute("aria-label","İçerik yolu");
-    crumb.innerHTML=`<a href="https://edx.ucugur.chatgpt.site/library">Library</a><span>/</span><a href="${canonical}">NCS</a><span>/</span><strong>${label}</strong>`;
+    crumb.innerHTML=`<a href="https://www.ucugur.workers.dev/library">Library</a><span>/</span><a href="${canonical}">NCS</a><span>/</span><strong>${label}</strong>`;
   }
 
   const progress=document.createElement("span");
